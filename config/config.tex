@@ -1,0 +1,102 @@
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gitinfo2}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{bibentry}
+\usepackage{xcolor}
+\usepackage{colortbl} % Add colour to LaTeX tables
+\usepackage{caption}
+\usepackage[export]{adjustbox}
+\usepackage{pgfplots} \pgfplotsset{compat = 1.17}
+\usepackage{makecell}
+\usepackage{fancybox}
+\usepackage{ragged2e}
+\usepackage{fontawesome}
+\usepackage{seqsplit}
+
+% Color Options
+\definecolor{highlight}{rgb}{0.65,0.84,0.82}
+\definecolor{focus}{rgb}{0.72, 0, 0}
+\definecolor{lightred}{rgb}{0.8,0.5,0.5}
+
+% Beamer Template Options
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{footline}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{item}{fg=black}
+\setbeamercolor{}{fg=black}
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor*{bibliography entry title}{fg=black}
+\setbeamercolor{alerted text}{fg=focus}
+\setbeamertemplate{items}[square]
+\setbeamertemplate{enumerate items}[default]
+\captionsetup[figure]{labelfont={color=black},font={color=black}}
+\captionsetup[table]{labelfont={color=black},font={color=black}}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+% Link Icon Command
+\newcommand{\link}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{%
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1)
+                --++ (-0, 1.2)
+                --++ (0.6, 0)
+                --++ (0, -0.6)
+                --++ (0.6, 0)
+                --++ (0, -1);
+            \path[draw,
+                line width = 0.5,
+                rounded corners=0.5]
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5)
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1)
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+
+% Read Git Data from Github Actions Workflow
+% Defaults to gitinfo2 for local builds
+\IfFileExists{gitInfo.txt}
+	{\input{gitInfo.txt}}
+	{
+		\newcommand{\gitRelease}{(Local Release)}
+		\newcommand{\gitSHA}{\gitHash}
+		\newcommand{\gitDate}{\gitAuthorIsoDate}
+	}
+
+% Custom Titlepage
+\defbeamertemplate*{title page}{customized}[1][]
+{
+  \vspace{-0cm}\hfill\includegraphics[width=2.5cm]{../config/logo_cif}
+  \includegraphics[width=1.9cm]{../config/seal_wwz}
+  \\ \vspace{2em}
+  \usebeamerfont{title}\textbf{\inserttitle}\par
+  \usebeamerfont{title}\usebeamercolor[fg]{title}\insertsubtitle\par  \vspace{1.5em}
+  \small\usebeamerfont{author}\insertauthor\par
+  \usebeamerfont{author}\insertinstitute\par \vspace{2em}
+  \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+    \tiny \noindent \texttt{Release Ver.: \gitRelease}\\ 
+    \texttt{Version Hash: \gitSHA}\\
+    \texttt{Version Date: \gitDate}\\ \vspace{1em}
+  
+  \vspace{1em}
+  License: \texttt{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International}\\\vspace{2em}
+  \includegraphics[width = 1.2cm]{../config/license}
+}
+
+
+% tikzlibraries
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\captionsetup{font=footnotesize}
