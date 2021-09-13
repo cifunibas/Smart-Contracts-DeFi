@@ -16,11 +16,28 @@
 \usepackage{ragged2e}
 \usepackage{fontawesome}
 \usepackage{seqsplit}
+\usepackage{tabularx}
 
 % Color Options
 \definecolor{highlight}{rgb}{0.65,0.84,0.82}
 \definecolor{focus}{rgb}{0.72, 0, 0}
 \definecolor{lightred}{rgb}{0.8,0.5,0.5}
+\definecolor{midgray}{RGB}{190,195,200}
+
+ %UniBas Main Colors
+\definecolor{mint}{RGB}{165,215,210}
+\definecolor{anthracite}{RGB}{45,55,60}
+\definecolor{red}{RGB}{210,5,55}
+
+ %UniBas Color Palette (for graphics)
+\definecolor{strongmint}{RGB}{30,165,165}
+\definecolor{darkmint}{RGB}{0,110,110}
+\definecolor{softanthracite}{RGB}{140,145,150}
+\definecolor{brightanthracite}{RGB}{190,195,200}
+\definecolor{softred}{RGB}{235,130,155}
+
+
+
 
 % Beamer Template Options
 \beamertemplatenavigationsymbolsempty
@@ -38,6 +55,22 @@
 \setbeamertemplate{enumerate items}[default]
 \captionsetup[figure]{labelfont={color=black},font={color=black}}
 \captionsetup[table]{labelfont={color=black},font={color=black}}
+
+
+\setbeamercolor{block body}{bg=brightanthracite}
+\setbeamercolor{block title}{bg=anthracite, fg=white}
+\setbeamerfont{block title}{size = \footnotesize}
+\setbeamerfont{block body}{size = \scriptsize}
+
+\setbeamercolor{block body example}{bg=mint}
+\setbeamercolor{block title example}{bg=darkmint, fg=white}
+\setbeamerfont{block title example}{size = \footnotesize}
+\setbeamerfont{block body example}{size = \scriptsize}
+
+\setbeamercolor{block body alerted}{bg=softred}
+\setbeamercolor{block title alerted}{bg=red, fg = white}
+\setbeamerfont{block title alerted}{size = \footnotesize}
+\setbeamerfont{block body alerted}{size = \scriptsize}
 
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
@@ -87,6 +120,15 @@
     \tiny \noindent \texttt{Release Ver.: \gitRelease}\\ 
     \texttt{Version Hash: \gitSHA}\\
     \texttt{Version Date: \gitDate}\\ \vspace{1em}
+    
+    
+    \iffalse
+  \link \href{https://github.com/cifunibas/Bitcoin-Blockchain-Cryptoassets/blob/main/slides/intro.pdf}
+  {Get most recent version}\\
+  \link \href{https://github.com/cifunibas/Bitcoin-Blockchain-Cryptoassets/blob/main/slides/intro.pdf}
+  {Watch video lecture}\\ 
+  
+  \fi
   
   \vspace{1em}
   License: \texttt{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International}\\\vspace{2em}
