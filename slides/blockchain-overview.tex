@@ -1,0 +1,172 @@
+% Choose one to switch betweeen slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts \& Blockchain Applications}
+\subtitle{Blockchain Overview}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Blockchain Origin}
+
+\centering
+\includegraphics[width = 5cm, frame]{../assets/images/nakamoto_cover}
+		
+\textbf{Bitcoin: A Peer-to-Peer Electronic Cash System} \\ 
+Satoshi Nakamoto \\
+\link \href{https://bitcoin.org/bitcoin.pdf}{Online version}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Payment Systems: Today's Challenge}
+
+Physical Cash: Presence in the same place at the same time
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/cash_payment.tex}
+\end{figure}
+
+\vspace{1.5 em}
+
+\uncover<2->{Digital Cash: Proof of ownership
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/ecash_payment.tex}
+\end{figure}}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Today's Solution: Intermediaries Keeping Money Registries}
+
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/registry_payment.tex}
+\end{figure}
+
+\uncover<2->{\vspace{1 em}
+
+\textbf{Registry Types}\\
+\vspace{1 em}
+\textbf{Implicit:} Verbal agreements, limited to small groups.\\
+\textbf{Explicit:} Records in written or digital databases.}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Implicit Registry Example: The Stone Money of Yap}
+
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/yap_system.tex}
+\end{figure}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Scaling the Yap Network}
+	\begin{figure}
+			\input{../assets/figures/yap_network.tex}
+	\end{figure}
+	\vspace{1.5em}
+	\uncover<4->{
+		\textbf{Large network size results in three problems:}
+		\begin{itemize}
+			\item<5-> Transaction capacity
+			\item<6-> Transaction legitimacy
+			\item<7-> Transaction consensus
+		\end{itemize}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Transaction Capacity}
+\textbf{Goal:} Ensure that each participant can reliably \color{focus}initiate a transaction \color{black} without having to fear censorship. \\
+\uncover<2->{
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-capacity.tex}
+	\end{figure}\vspace{1em}
+}
+\uncover<2->{
+	Peer-to-Peer Network:
+        \begin{itemize}
+		\item<1-> Permissionless
+		\item<1-> Censorship-resistant
+		\item<1-> No special privileges
+		\end{itemize}
+		}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Transaction Legitimacy}
+\textbf{Goal:} Ensure transaction \color{focus}authenticity \color{black}and \color{focus} integrity\color{black}, i.e., ensure that the transaction was initiated by its owner of the funds and has not been changed.
+\uncover<2->{
+		\center
+		\input{../assets/figures/transaction-legit.tex}
+		}
+\uncover<3->{
+		\vspace{2em}
+		\input{../assets/figures/transaction-manipulation.tex}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Transaction Consensus}
+\textbf{Goal: }Deciding which (legitimate) transactions are valid. \\
+\vspace{1em}
+\uncover<2->{
+Potential Problem: Assume both transactions have valid signatures, but spend the same Bitcoin units. What now? \\
+\begin{figure}[h!]
+	\center
+	\input{../assets/figures/double-spend.tex}
+\end{figure}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Recommended Reading}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=\textwidth , frame]{../assets/images/short-introduction-cryptocurrencies.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{A Short Introduction to the World of Cryptocurrencies} \\
+	Aleksander Berentsen and Fabian Schär \\
+	\link \href{https://files.stlouisfed.org/files/htdocs/publications/review/2018/01/10/a-short-introduction-to-the-world-of-cryptocurrencies.pdf}{Online PDF}
+	\end{column}
+\end{columns}
+\end{frame}
+%%%
+
+
+\end{document}
