@@ -1,0 +1,349 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance Applications}
+\subtitle{Intro: Welcome to the Course}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Content Overview}
+
+\begin{enumerate}
+	\item<1-> \textbf{Blockchain Fundamentals}\\
+		Recap of fundamental aspects of blockchain networks and their mechanics.
+		\vspace{0.2em}
+	\item<2-> \textbf{Ethereum Basics}\\
+		The specifics of Ethereum as Smart Contract platform.
+		\vspace{0.2em}
+	\item<3-> \textbf{Smart Contract Programming}\\
+		Hands-on introduction to the basics of Smart Contract programming with emphasis on exercises.
+		\vspace{0.2em}
+	\item<4-> \textbf{Tokenization}\\
+		Motivation behind Tokenization and overview of main standards on Ethereum.
+		\vspace{0.2em}
+	\item<5-> \textbf{Decentralized Finance Applications}\\
+			Overview of the DeFi ecosystem, key components and major protocol types.
+\end{enumerate}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Why Smart Contracts?}
+
+Vending Machines can be seen as predecessors of Smart Contracts \cite{NS:94,NS:97}. Agreements are automated and breach of contract is costly
+
+\vspace{0.5em}
+
+\begin{minipage}{0.4\textwidth}
+	\vspace{0.5em}
+	\centering
+	\includegraphics[width=2.5cm]{../assets/images/vendingmachine.png}
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+	\begin{exampleblock}{Simple Vending Machine (Pseudo Code)}
+	 	\texttt{
+			if(coin $>=$ price) \{ \\
+				\tab dispenseBeverage(); \\
+				\tab returnChange(coin - price);\\
+			\} else \{ \\
+				\tab print("insufficient funds"); \\
+			\}
+		}
+	\end{exampleblock}	
+\end{minipage}
+
+\vspace{1.0em}
+\textbf{But:}\\
+\begin{itemize}
+	\item Trust based! Closed source $\rightarrow$ Contract is not observable.
+	\item Execution environment, i.e., hardware under control of seller.
+\end{itemize}
+
+\vspace{1.0em}
+\textbf{$\Rightarrow$ Smart Contracts on public Blockchains address this.}
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Why Decentralized Finance (DeFi) Applications?}
+
+\begin{figure}[t]
+	\centering	
+	\resizebox{0.8\textwidth}{!}{
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/defi_stack.tex}
+	\end{tikzpicture}}
+	\caption{The DeFi Stack \cite{FS:21}}
+\end{figure}
+
+\vspace{-1.0em}
+
+\begin{itemize}
+	\item Most mature and diverse smart contract based ecosystem.
+	\item Relevancy of applications from an economics perspective.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Interdisciplinaray Approach}
+
+	\uncover<1->{
+		\begin{figure}[h]
+  			\center
+			\input{../assets/figures/interdiciplinarity.tex}
+		\end{figure}
+	}
+	\vspace{1em}
+Public Blockchains can only be fully understood, when they are studied from various perspectives. This is the reason why this course uses an \color{focus} \textbf{interdisciplinary} \color{black} approach.	
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Programming and Computer Science Exposure}
+
+\textbf{Programming Languages}
+\vspace{1em}
+
+\begin{minipage}{0.32\textwidth}
+	\begin{figure}[t]
+		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+				\input{../assets/figures/programs.tex}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}
+\vspace{2em}
+
+\textbf{Tools}
+\vspace{1em}
+
+\begin{minipage}{0.95\textwidth}
+	\begin{figure}[t]	
+		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+				\input{../assets/figures/tools.tex}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}
+
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Lecture Conventions}
+
+	\begin{columns}[T]
+		\begin{column}{0.15\textwidth}
+			
+		\end{column} %\hfill
+		\begin{column}{0.5\textwidth}
+			\textbf{Sample Code Box}\
+			Contains code snippets in R, Solidity \& pseudo code.
+		\end{column}
+	\end{columns}
+
+\vspace{2.0em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1.0em}
+			\begin{alertblock}{Transaction Definitions}
+				A transaction is a message send by an externally owned account.
+			\end{alertblock}		
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\textbf{Key Take-Away}\\
+			Highlights important concepts and definitions.
+		\end{column}
+	\end{columns}
+
+\vspace{2.0em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1.0em}
+			\begin{block}{Exercise 1}
+				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
+			\end{block}		
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\textbf{Exercises}\\
+			Things for you to try out.
+		\end{column}
+	\end{columns}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Part of Multi-Course Series}
+
+Blockchain courses have been part of the University of Basel's curriculum since 2017.
+
+\vspace{1.5em}
+
+\begin{columns}
+	\begin{column}{0.35 \textwidth}
+		\uncover<1->{
+			\includegraphics[width = 4cm]{../config/logo_cif}
+		}
+	\end{column}
+	\begin{column}{0.6 \textwidth}	
+			\begin{itemize}
+			\item<2-> This is a University graduate-/ master-level course
+			\item<3-> It is part of a series of courses
+			\item<4-> Second course to switch to open lecture format
+		\end{itemize}
+	\end{column}	
+\end{columns}
+
+%\vspace{2em}
+%
+%\uncover<5->{
+%	$\rightarrow$ There will be more open lecture courses.
+%}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Three Options to Take This Course}
+
+The goal of our open lectures is to make teaching resources freely available. There are \color{focus} \textbf{three options} \color{black} for taking this course:\vspace{1em}
+
+\begin{table}\footnotesize
+	\begin{tabular}{lcccc}
+	\hline \hline
+									& Videos 		& Platform 		& Assignments 	& ECTS 	\\ \cline{2-5}
+		YouTube 	 				& $\checkmark$	& 				& 				& 		\\
+		Cryptolectures.io 			& $\checkmark$	& $\checkmark$	& $\checkmark$	&		\\
+		University of Basel			& $\checkmark$	& $\checkmark$	& $\checkmark$	& $\checkmark$	\\
+		\hline \hline
+	\end{tabular}
+\end{table} \vspace{2em}
+
+\uncover<2->{
+\link \href{https://www.youtube.com/channel/UCOA52m4BOqtI8cHIx4zJAWg}
+  {YouTube Channel}  \\
+\link \href{https://www.cryptolectures.io}{Cryptolectures.io} \\
+\link \href{https://www.unibas.ch/en/Studies/Application-Admission.html}{University of Basel - General Information}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Meet the Open Crypto Lectures Team}
+	\begin{columns}[T]
+		\begin{column}{0.31\textwidth}
+			\center \textbf{Professor}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Fabian Schär\\
+					\href{https://linkedin.com/in/fabian-schaer/}{\faLinkedinSquare}\ \href{https://twitter.com/chainomics}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.31\textwidth}
+			\center \textbf{PhD Candidates}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Tobias Bitterli\\
+					\href{https://linkedin.com/in/WIP/}{\faLinkedinSquare}\ \href{https://twitter.com/WIP}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Mitchell Goldberg\\
+					\href{https://linkedin.com/in/mitchell-goldberg/}{\faLinkedinSquare}\ \href{https://twitter.com/golmit_crypto}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Matthias Nadler\\
+					\href{https://linkedin.com/in/mat-nadler/}{\faLinkedinSquare}\ \href{https://twitter.com/mat_nadler}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Katrin Schuler\\
+					\href{https://linkedin.com/in/kmschuler/}{\faLinkedinSquare}\ \href{https://twitter.com/Katatcrypt}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.31\textwidth}
+			\center \textbf{Student Assistants}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Lorenz Geering\\
+					\href{https://linkedin.com/in/lorenz-geering-770359a8/}{\faLinkedinSquare}\ \href{https://twitter.com/lorenz_geering}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Pirmin Özdemir\\
+					\href{https://linkedin.com/in/WIP/}{\faLinkedinSquare}\ \href{https://twitter.com/WIP}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Jonas Ruchti\\
+					\href{https://linkedin.com/in/WIP}{\faLinkedinSquare}\ \href{https://twitter.com/WIP}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Dario Thürkauf\\
+					\href{https://linkedin.com/in/dario-thuerkauf/}{\faLinkedinSquare} \href{https://twitter.com/dario_thuerkauf}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Information for University of Basel Students}
+
+	
+
+	
+\uncover<1->{
+	\textbf{Group Project} (40\% of final grade)
+	\begin{itemize}
+		\item Smart Contract programming project.
+		\item Groups of XX-XX students.
+		\item Presentation and discussion on December 3, 2021.
+	\end{itemize}
+}
+
+\vspace{1em}
+
+\uncover<2->{
+\textbf{Exam} (60\% of final grade)
+	\begin{itemize}
+		\item XX Minutes
+		\item Closed book
+		\item T/F, MC, Numbers and Text/Figure Boxes ??
+		\item You may use a non-programmable calculator (\link \href{https://wwz.unibas.ch/en/studies/examinations/use-of-materials-and-aids/}{Rules})
+	\end{itemize}
+	}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
