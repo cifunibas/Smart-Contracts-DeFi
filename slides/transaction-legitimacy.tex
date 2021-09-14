@@ -34,10 +34,197 @@
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Public/Private Key Pair}
+	\input{../assets/figures/key_creation}
+
+\vspace{1em}
+
+\textbf{Two key principles:}
+\begin{enumerate}
+\item<1-> Private key is created (chosen) without the help of an intermediary, and can be used to derive public key.
+\item<2-> If information is encrypted with one key, it can only be decrypted with the other key.
+\end{enumerate}
+
+\vspace{1em}
+
+\uncover<3->{
+\textbf{Key assumption:}\\
+Asymmetric cryptography and its applications assume that you are willing and able to keep your private key secret. }
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Two Distinct Applications}
+	\input{../assets/figures/publickeycrypto_applications}
+\end{frame}
+%%%
 
 
+%%%
+\begin{frame}{Transaction Legitimacy}
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-encryption.tex}
+		\caption*{Encryption and decryption of the transaction message}
+		\label{fig:asymmeinfach}
+	\end{figure}
+\end{frame}
+%%%
 
+%%%
+\begin{frame}{What Is a Hash Function?}
 
+Deterministic algorithm (\color{focus}function, $H()$\color{black}) that maps data of quasi-arbitrary size (\color{focus}pre-image, $m$\color{black}) to fixed-length bit string (\color{focus}hash value, $h$\color{black}).
+
+	\begin{align}
+		h = H(m)
+		\label{eq:hash_function}
+	\end{align}
+
+\vspace{1.5em}
+	
+\uncover<2->{
+\textbf{Application fields:} (non-exhaustive)
+	\begin{itemize}
+		\item Data protection
+		\item Verification and authentication
+		\item Proof-of-work
+		\item Data lookup optimization
+		\item Error detection
+	\end{itemize}
+}	
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Cryptographic Hash Functions}
+
+Additional criteria:
+	\begin{enumerate}
+		\item Approximately uniform hash value distribution.
+		\item Quick to compute for any given pre-image.
+		\item Trap-door: Infeasible to generate pre-image from hash value.
+		\item Avalanche effect: Small change in input results in totally different output.
+		\item Very low collision probability: Unlikely that two pre-images generate the same hash value.
+	\end{enumerate}
+	\vspace{1em}
+
+\uncover<2->{In Bitcoin context, the functions \color{focus}\texttt{SHA2.256} \color{black} (in short \texttt{SHA256}) and \color{focus}\texttt{RIPEMD160} \color{black}are used. Both satisfy the above criteria.}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Avalanche Effect with \texttt{SHA2}}
+
+\begin{center}
+$\texttt{SHA256}(<$\textit{pre-image}$>)$
+\end{center}
+
+This is the pre-image
+
+$\Rightarrow$ \footnotesize 5e13fffedd642aaddea7872463fd44d8b8a336cb822ebd4c12d9e6282c88cea8 \normalsize
+\vspace{1em}
+
+\color{focus}t\color{black}his is the pre-image
+
+$\Rightarrow$ \footnotesize \color{focus}aba56d7c281f8d\color{black}a\color{focus}cb1076baed182538d2ce21494075f7377982bf9d5d0\color{black}8\color{focus}e6ccf\color{black} \normalsize
+\vspace{1em}
+
+\begin{columns}[T]
+	\begin{column}{0.35\textwidth}
+		\includegraphics[width = 4 cm, frame]{../assets/images/manual_hashing_video.png}
+	\end{column} %\hfill
+	\begin{column}{0.65\textwidth}
+		\begin{itemize}
+			\item Nonlinarity due to choice, majority, mod, rotation and shifting operations.
+			\item Efficient for computers vs. 0.67 hashes / day by hand.
+			\item \link \href{https://www.youtube.com/watch?v=y3dqhixzGVo}{Video: Hash value by hand}.
+		\end{itemize}
+	\end{column}
+\end{columns}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Low Collision Probability}
+
+Due to the fixed size of $h$, the corresponding hash function $H()$ can only produce a finite set of distinct hashes.
+\vspace{1em}
+
+\texttt{SHA256}:
+	\begin{itemize}
+		\item All possible combinations of 256 Bits, i.e., $2^{256}$ $h$.
+		\item In base 10, the number of combinations corresponds to 115,792,089,237,316,195,423,570,985,008,687,907,853,269,\\984,665,640,564,039,457,584,007,913,129,639,936
+	\end{itemize}
+\vspace{1em}
+
+\uncover<2->{Probability of a hexadecimal hash with certain characteristics:\\
+\vspace{0.75em}
+\tiny 
+$P(h \leq \color{focus}0\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF) = \dfrac{1}{16}$\\
+\vspace{0.75em}
+$P(h \leq \color{focus}00\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF) = \left( \dfrac{1}{16} \right)^{2} $
+\normalsize}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Example of an Elliptic Curve}
+
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+			\input{../assets/figures/elliptic.tex}
+				\caption*{Elliptic curve with $a = -2$, $b = 2$}
+			\end{figure}	
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Weierstrass equation:\\
+			\vspace{1em}
+			$y^2 = x^3 + ax + b$\\
+			\vspace{2em}
+			Non-singularity condition:\\
+			\vspace{1em}
+			$4a^3 + 27b^2 \neq 0$
+		\end{column}
+	\end{columns}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Elliptic Curves over Finite Fields}
+	Bitcoin uses \texttt{secp256k1}:\ $y^2 = x^3 + 7\ (mod\ p)$ over ${\rm I\!F}_p$ where $p = 2^{256} - 2^{32} - 2^9 - 2^6 - 2^4 - 1$.\\
+	\vspace{1em}
+	\uncover<2->{\textbf{Simplified example:} $y^2 = x^3 + 7\ (mod\ 37)$ in ${\rm I\!F}_{37}$ \uncover<3->{with \textcolor{highlight}{$x = 5$}}}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\uncover<2->{\begin{figure}
+				\input{../assets/figures/elliptic_finite.tex}
+				\end{figure}
+			}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+					\uncover<4->{\textcolor{focus}{y}^2\ (mod\ 37) &\equiv \textcolor{highlight}{x}^3 + 7\ (mod\ 37)\\
+					&\dots }\\
+					\uncover<5->{\textcolor{highlight}{5}^3 + 7\ (mod\ 37) &= 132\ (mod\ 37)\\
+					&= 21\\
+					&\dots }\\
+					\uncover<6->{\textcolor{focus}{y}^2\ (mod\ 37) &\equiv 21}\\
+					\uncover<7->{\textcolor{focus}{13}^2\ (mod\ 37) &\equiv 21\\			
+					\textcolor{focus}{24}^2\ (mod\ 37) &\equiv 21}
+				\end{align*}
+		\end{column}
+	\end{columns}
+
+\end{frame}
+%%%
 
 
 
