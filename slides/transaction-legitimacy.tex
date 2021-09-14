@@ -36,6 +36,7 @@
 
 %%%
 \begin{frame}{Public/Private Key Pair}
+
 	\input{../assets/figures/key_creation}
 
 \vspace{1em}
@@ -50,7 +51,7 @@
 
 \uncover<3->{
 \textbf{Key assumption:}\\
-Asymmetric cryptography and its applications assume that you are willing and able to keep your private key secret. }
+Private key must remain secret at all time. Public key can be shared freely. }
 \end{frame}
 %%%
 
@@ -111,26 +112,26 @@ Additional criteria:
 	\end{enumerate}
 	\vspace{1em}
 
-\uncover<2->{In Bitcoin context, the functions \color{focus}\texttt{SHA2.256} \color{black} (in short \texttt{SHA256}) and \color{focus}\texttt{RIPEMD160} \color{black}are used. Both satisfy the above criteria.}
+\uncover<2->{In Ethereum context, the function \color{focus}\texttt{SHA3.256} \color{black} (also called \texttt{Keccak-256}) \color{black}is used. This function satisfies the above criteria.}
 	
 \end{frame}
 %%%	
 
 %%%
-\begin{frame}{Avalanche Effect with \texttt{SHA2}}
+\begin{frame}{Avalanche Effect with \texttt{SHA3}}
 
 \begin{center}
-$\texttt{SHA256}(<$\textit{pre-image}$>)$
+$\texttt{SHA3.256}(<$\textit{pre-image}$>)$
 \end{center}
 
 This is the pre-image
 
-$\Rightarrow$ \footnotesize 5e13fffedd642aaddea7872463fd44d8b8a336cb822ebd4c12d9e6282c88cea8 \normalsize
+$\Rightarrow$ \footnotesize 3c33313550af06da6a935a6a1f143b3cd78be4782425b08d8b213dd9b3bae8a4 \normalsize
 \vspace{1em}
 
 \color{focus}t\color{black}his is the pre-image
 
-$\Rightarrow$ \footnotesize \color{focus}aba56d7c281f8d\color{black}a\color{focus}cb1076baed182538d2ce21494075f7377982bf9d5d0\color{black}8\color{focus}e6ccf\color{black} \normalsize
+$\Rightarrow$ \footnotesize \color{focus}b77a25896686bbd26d763216b695600681176b8d35d7815a262ad3d8479cf287 \color{black} \normalsize
 \vspace{1em}
 
 \begin{columns}[T]
@@ -174,210 +175,58 @@ $P(h \leq \color{focus}00\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 %%%	
 
 %%%
-\begin{frame}{Example of an Elliptic Curve}
+\begin{frame}{Encoding: The Many Ways to Represent Information}
 
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{figure}
-			\input{../assets/figures/elliptic.tex}
-				\caption*{Elliptic curve with $a = -2$, $b = 2$}
-			\end{figure}	
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			Weierstrass equation:\\
-			\vspace{1em}
-			$y^2 = x^3 + ax + b$\\
-			\vspace{2em}
-			Non-singularity condition:\\
-			\vspace{1em}
-			$4a^3 + 27b^2 \neq 0$
-		\end{column}
-	\end{columns}
-	
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Elliptic Curves over Finite Fields}
-	Bitcoin uses \texttt{secp256k1}:\ $y^2 = x^3 + 7\ (mod\ p)$ over ${\rm I\!F}_p$ where $p = 2^{256} - 2^{32} - 2^9 - 2^6 - 2^4 - 1$.\\
-	\vspace{1em}
-	\uncover<2->{\textbf{Simplified example:} $y^2 = x^3 + 7\ (mod\ 37)$ in ${\rm I\!F}_{37}$ \uncover<3->{with \textcolor{highlight}{$x = 5$}}}
-	\begin{columns}[T]
-		\begin{column}{0.5\textwidth}
-			\uncover<2->{\begin{figure}
-				\input{../assets/figures/elliptic_finite.tex}
-				\end{figure}
-			}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\begin{align*}
-					\uncover<4->{\textcolor{focus}{y}^2\ (mod\ 37) &\equiv \textcolor{highlight}{x}^3 + 7\ (mod\ 37)\\
-					&\dots }\\
-					\uncover<5->{\textcolor{highlight}{5}^3 + 7\ (mod\ 37) &= 132\ (mod\ 37)\\
-					&= 21\\
-					&\dots }\\
-					\uncover<6->{\textcolor{focus}{y}^2\ (mod\ 37) &\equiv 21}\\
-					\uncover<7->{\textcolor{focus}{13}^2\ (mod\ 37) &\equiv 21\\			
-					\textcolor{focus}{24}^2\ (mod\ 37) &\equiv 21}
-				\end{align*}
-		\end{column}
-	\end{columns}
+Example of a private key:
+\\
+\textbf{Binary (Base2):} 
+11011110100001011001101110111101000010111101110000001111000 \\
+11110100100101001001000111000111110011010100100110101101111 \\
+11010100011001101011110010001110111101010110100110111110011 \\
+01111110011000000001011111011001101111111101001001001111001 \\
+10110110010111111010
+\\ 
+\textbf{Decimal (Base10):} 
+10064951791246329821855494196373555141999091939477580894366 \\
+7076258561523410426
+\\
+\textbf{Hexadecimal (Base16):} 
+de859bbd0bdc0f1e929238f9a935bf519af23bd5a6f9bf300becdfe9279b6 \\
+5fa
+\\
+\textbf{Base58Check:} 
+5KWHc3RENTEdyZg1s8WphuWcsPMhivBvCCngWavocfdeDDD7DVS
 
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Securitiy Consideration}
 
-
-
-\begin{frame}{Bullets and Uncover Animations}
-
-This is how lists can be used in the template. \\ \vspace{1em}
-
-Some of the main features of this template:
-	
-	\begin{itemize}
-		\item<1-> stay focused
-		\item<2-> save ink
-		\item<3-> do not get distracted
+\begin{itemize}
+		\item<1-> Almost $2\wedge256$ possible Private Keys.
+		\item<2-> Almost all known, combinations of 256 "Bits".
+		\item<3-> In base 10 $\Rightarrow$ Any number between 1 and 115,792,089,\\
+		237,316,195,423,570,985,008,687,907,852,837,564,279, \\
+		074,904,382,605,163,141,518,161,494,336.
+		\item<4-> Probability: Private Key $\Rightarrow$ Public Key $\Rightarrow$ Public Address \\ $\Rightarrow$ Funds. 
 	\end{itemize}
 
-	\vspace{1em}	
-	\uncover<4->{The same works for Enumerate environments:}
-
-	\begin{enumerate}
-		\item<5-> This is the first point
-		\item<6-> and the second one
-		\item<7-> Last but not least, the third one
-	\end{enumerate}
-	
-\end{frame}
-%%%	
-
-%%%
-\begin{frame}{Tables}
-	\begin{table}
-		\begin{tabular}{ll}
-			A & B\\
-			C & D
-		\end{tabular}
-		\caption{This is a table}
-		\label{tbl:simpletable}
-	\end{table}
-\end{frame}
-
-%%%
-
-%%%
-\begin{frame}{Block Conventions I}
-	
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{exampleblock}{Basic Contract Structure (Solidity)}
-	 			\texttt{
-					Pragma solidity  \textasciicircum 0.4.19; \
-					contract HelloWorld \{ \\
-					\color{softanthracite} /* This is where you write your code */
-	 			}
-			\end{exampleblock}			
-		\end{column} %\hfill
-		\begin{column}{0.5\textwidth}
-			\textbf{Sample Code Box}\
-			Contains code snippets in R, Solidity \& pseudo code.
-		\end{column}
-	\end{columns}
-
-\vspace{2.0em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{alertblock}{Transaction Definitions}
-				A transaction is a message send by an externally owned account.
-			\end{alertblock}		
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\textbf{Key Take-Away}\\
-			Highlights important concepts and definitions.
-		\end{column}
-	\end{columns}
-
-\vspace{2.0em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{block}{Exercise 1}
-				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
-			\end{block}		
-		\end{column}
-		\begin{column}{0.5\textwidth}
-		\textbf{Exercises}\\
-			Things for you to try out.
-		\end{column}
-	\end{columns}
-
-\end{frame}
-
-%%%
-
-
-%%%
-\begin{frame}{Equations}
-
-Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
-
-However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
-	\begin{align}
-		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
-		y &= x^2-5 \label{eq:secondstep}
-	\end{align}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Figures}
-	\begin{figure}
-		\center
-		\includegraphics[width=0.8\textwidth]{../config/logo_cif}	
-		\caption{Center for Innovative Finance Logo}
-		\label{fig:logo}
-	\end{figure}
+\begin{frame}{Honey Pot}
+
+\begin{center}
+\includegraphics[width = 10 cm, frame]{../assets/images/honeypot}
+3D2oetdNuZUqQHPJmcMDDHYoqkyNVsFk9r \\
+\end{center}
+\vspace{1em}
+What if someone would be able to guess a private  key for this address?
+
 \end{frame}
 %%%
-
-%%%
-\begin{frame}{Links}
-		Links are signaled with the respective icon, which is set up in the config file and can be called with the respective command.\\
-		
-		\link \href{https://github.com/cifunibas}{Repository: CIF on GitHub}.
-		
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Labels and (Non-Bib) References}
-	In some cases in can make sense to reference to a figure, table or equation on a different slide. Use \texttt{$\backslash$pageref\{$<$label$>$\}} if you want to highlight, that there is a related resource on slide \pageref{fig:logo}.\\ \vspace{1em}
-	
-	Do - under no circumstances - hardcode references.	
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Bib-References}
-		Read the Bitcoin Whitepaper, \cite{nakamotoBitcoin2008}.
-\end{frame}
-%%%
-
-%%%
-\begin{frame}%[allowframebreaks]
-\frametitle{References and Recommended Reading}
-	\bibliographystyle{amsplain}
-	\bibliography{../assets/bib/refs}
-\end{frame}
-%%%
-
 
 
 \end{document}
