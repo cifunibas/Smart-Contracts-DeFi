@@ -70,8 +70,11 @@ Private key must remain secret at all time. Public key can be shared freely. }
 		\caption*{Encryption and decryption of the transaction message}
 		\label{fig:asymmeinfach}
 	\end{figure}
+	
 \end{frame}
 %%%
+
+
 
 %%%
 \begin{frame}{What Is a Hash Function?}
@@ -201,16 +204,65 @@ de859bbd0bdc0f1e929238f9a935bf519af23bd5a6f9bf300becdfe9279b6 \\
 %%%
 
 %%%
-\begin{frame}{Securitiy Consideration}
+\begin{frame}{Securitiy Considerations}
 
 \begin{itemize}
-		\item<1-> Almost $2\wedge256$ possible Private Keys.
+		\item<1-> Almost $2^{256}$ possible Private Keys.
 		\item<2-> Almost all known, combinations of 256 "Bits".
 		\item<3-> In base 10 $\Rightarrow$ Any number between 1 and 115,792,089,\\
 		237,316,195,423,570,985,008,687,907,852,837,564,279, \\
 		074,904,382,605,163,141,518,161,494,336.
 		\item<4-> Probability: Private Key $\Rightarrow$ Public Key $\Rightarrow$ Public Address \\ $\Rightarrow$ Funds. 
 	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Securitiy Considerations}
+
+The Attacker has a high end computer and is looking for private key to access a specific Ether address.
+
+\vspace{1em}
+
+\textbf{Assumptions:}
+\begin{itemize}
+\item<1-> Computer runs 24/7.
+\item<2-> Computes 60 billion key/adress pairs per second
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Outcome:}
+\begin{itemize}
+\item<1-> On average an attacker would need $7*10^{27}$ years, for a 1\% probability to find a private key to access this Ether adress. 
+\item<2-> That's around 560 trillion times the estimated time since the Big Bang.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Securitiy Considerations}
+
+The Attacker has a high end computer and is looking for private key to access any Ether adress with a positive balance.
+
+\vspace{1em}
+
+\textbf{Assumptions:}
+\begin{itemize}
+\item<1-> Computer runs 24/7. 
+\item<2-> Computes 60 billion key/address pairs per second.
+\item<3-> Ether distributed on xxx addresses.
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Outcome:}
+\begin{itemize}
+\item<1-> 
+\item<2-> 
+\end{itemize}
 
 \end{frame}
 %%%
