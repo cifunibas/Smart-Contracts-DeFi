@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{gitinfo2}
 \usepackage{tikz}
+ \usetikzlibrary{calc}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{bibentry}
@@ -95,6 +96,10 @@
             -- (1, 1) -- (1, 0.6);
         }
     }
+
+% Other commands
+\newcommand\tab[1][0.5cm]{\hspace*{#1}} % for code boxes
+
 
 % Read Git Data from Github Actions Workflow
 % Defaults to gitinfo2 for local builds
