@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{1.3 Capacity}
+\subtitle{Capacity}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -55,18 +55,18 @@
 
 %%%
 \begin{frame}{Personal Database and Transaction Queue}
-	\begin{minipage}{0.2\textwidth}
+	\begin{minipage}{0.15\textwidth}
 		\center
-		\includegraphics[width=3cm]{../assets/images/miner_single.png}
+		\includegraphics[width=2.4cm]{../assets/images/miner_single.png}
 	\end{minipage}
 	\begin{minipage}{0.1\textwidth}
 		\begin{tikzpicture}[scale=1]
-			\draw [decorate,decoration={brace,amplitude=10pt}, line width=2pt]
+			\draw [decorate,decoration={brace,amplitude=10pt}, color = mint, line width=2pt]
 			(0.5,0.0) -- (0.5,5.5) node [black,midway,xshift=-0.8cm] 
 			{\footnotesize};
 		\end{tikzpicture}
 	\end{minipage}
-	\begin{minipage}{0.6\textwidth}
+	\begin{minipage}{0.7\textwidth}
 		\uncover<1->{\textbf{Personal Version of the Blockchain}}
 		\begin{itemize}
 			\item<2-> Personal ledger of valid transactions in block structure.
@@ -76,7 +76,7 @@
 		\uncover<4->{\textbf{Personal Transaction Queue}}
 		\begin{itemize}
 			\item<5-> Transactions that are not yet valid.
-			\item<6-> Waiting for inclusion in database $\rightarrow$ queue
+			\item<6-> Waiting for inclusion in database $\rightarrow$ queue.
 		\end{itemize}
 	\end{minipage}
 
@@ -85,7 +85,7 @@
 %%%	
 
 %%%
-\begin{frame}{The Exchange of Blocks and Transactions}
+\begin{frame}{Handshake and Address List}
 	\vspace{1em}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
@@ -112,7 +112,7 @@
 %%%
 
 %%%
-\begin{frame}{The Exchange of Blocks and Transactions}
+\begin{frame}{Exchange of Blocks and Transactions}
 
 	\begin{center}
 		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
@@ -133,7 +133,7 @@
 %%%
 \begin{frame}{SPV, Proxy Connections and Managed Accounts}
 
-Not everyone is running a full node! \\ \vspace{1em}
+\color{focus} \textbf{Not everyone is running a full node!} \color{black} \\ \vspace{1em}
 
 \uncover<1->{\textbf{Managed Accounts}}
 	
