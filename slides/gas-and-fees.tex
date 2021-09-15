@@ -1,0 +1,49 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance Applications}
+\subtitle{Gas and Fees}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%	
+\begin{frame}{THE HALTING PROBLEM AND ITS IMPLICATIONS}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+		\center
+		\includegraphics[width=\textwidth , frame]{../assets/images/alan-turing.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+		In 1936, Alan Turing proved that it's impossible for a (turing) machine to inspect any code that you give it, and correctly tell you whether the code will halt or run forever.\\
+		\vspace{1em}
+		\link \href{https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf}{Online PDF}\\
+		\vspace{1em}	
+		\uncover<2->{Implication: Infinite loops or resource intensive scripts are a potential attack vector and must be dealt with.}\\
+	\end{column}
+\end{columns}
+\uncover<3->{
+	\begin{alertblock}{Bitcoin and Ethereum Deal With This Problem in Different Ways}
+		\begin{itemize}
+			\item Bitcoin Script is a restricted scripting language.
+			\item Ethereum has a Turing complete instruction set. It charges a small fee (gas) for each computation step.
+		\end{itemize}
+	\end{alertblock}
+}
+\end{frame}
+%%%
+
+\end{document}
