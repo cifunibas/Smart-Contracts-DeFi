@@ -22,7 +22,7 @@
 
 %%%
 \begin{frame}{Transaction Legitimacy}
-\textbf{Goal:} Ensure transaction \color{focus}authenticity \color{black}and \color{focus} integrity\color{black}, i.e., ensure that the transaction was initiated by its owner of the funds and has not been changed.
+\textbf{Goal:} Ensure transaction \color{focus}authenticity \color{black}and \color{focus} integrity\color{black}, i.e., ensure that the transaction was initiated by the owner of the funds and has not been changed.
 \uncover<2->{
 		\center
 		\input{../assets/figures/transaction-legit.tex}
@@ -47,11 +47,21 @@
 \item<2-> If information is encrypted with one key, it can only be decrypted with the other key.
 \end{enumerate}
 
-\vspace{1em}
+\vspace{1.5em}
 
 \uncover<3->{
-\textbf{Key assumption:}\\
-Private key must remain secret at all time. Public key can be shared freely. }
+	
+	\begin{columns}[T]
+		\begin{column}{0.6\textwidth}
+			\vspace{-1.0em}
+			\begin{alertblock}{IMPORTANT!}
+				\textbf{Private key must remain secret at all time. \\
+				Public key can be shared freely.}
+			\end{alertblock}		
+		\end{column}
+		
+	\end{columns}
+}
 \end{frame}
 %%%
 
@@ -120,6 +130,44 @@ Additional criteria:
 \end{frame}
 %%%	
 
+
+%%%
+\begin{frame}{Encoding: The Many Ways to Represent Information}
+	
+	\textbf{Binary (Base2):} 
+	\begin{footnotesize}
+		11011110100001011001101110111101000010111101110000001111000
+		11110100100101001001000111000111110011010100100110101101111
+		11010100011001101011110010001110111101010110100110111110011
+		01111110011000000001011111011001101111111101001001001111001
+		10110110010111111010
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Decimal (Base10):} 
+	\begin{footnotesize}
+		10064951791246329821855494196373555141999091939477580894366707
+		6258561523410426
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Hexadecimal (Base16):} 
+	\begin{footnotesize}
+		de859bbd0bdc0f1e929238f9a935bf519af23bd5a6f9bf300becdfe9279b65fa
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Base58Check:} 
+	\begin{footnotesize}
+		5KWHc3RENTEdyZg1s8WphuWcsPMhivBvCCngWavocfdeDDD7DVS
+	\end{footnotesize}
+\end{frame}
+%%%
+
+
 %%%
 \begin{frame}{Avalanche Effect with \texttt{SHA3}}
 
@@ -177,38 +225,12 @@ $P(h \leq \color{focus}00\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 \end{frame}
 %%%	
 
-%%%
-\begin{frame}{Encoding: The Many Ways to Represent Information}
-
-Example of a private key:
-\\
-\textbf{Binary (Base2):} 
-11011110100001011001101110111101000010111101110000001111000 \\
-11110100100101001001000111000111110011010100100110101101111 \\
-11010100011001101011110010001110111101010110100110111110011 \\
-01111110011000000001011111011001101111111101001001001111001 \\
-10110110010111111010
-\\ 
-\textbf{Decimal (Base10):} 
-10064951791246329821855494196373555141999091939477580894366 \\
-7076258561523410426
-\\
-\textbf{Hexadecimal (Base16):} 
-de859bbd0bdc0f1e929238f9a935bf519af23bd5a6f9bf300becdfe9279b6 \\
-5fa
-\\
-\textbf{Base58Check:} 
-5KWHc3RENTEdyZg1s8WphuWcsPMhivBvCCngWavocfdeDDD7DVS
-
-\end{frame}
-%%%
 
 %%%
 \begin{frame}{Securitiy Considerations}
 
 \begin{itemize}
 		\item<1-> Almost $2^{256}$ possible Private Keys.
-		\item<2-> Almost all known, combinations of 256 "Bits".
 		\item<3-> In base 10 $\Rightarrow$ Any number between 1 and 115,792,089,\\
 		237,316,195,423,570,985,008,687,907,852,837,564,279, \\
 		074,904,382,605,163,141,518,161,494,336.
