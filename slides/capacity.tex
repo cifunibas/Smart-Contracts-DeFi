@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -73,14 +73,14 @@
 	\begin{minipage}{0.7\textwidth}
 		\uncover<1->{\textbf{Personal Version of the Blockchain}}
 		\begin{itemize}
-			\item<2-> Personal ledger of valid transactions in block structure.
-			\item<3-> Has an incentive to keep in sync with consensus.
+			\item<1-> Personal ledger of valid transactions in block structure.
+			\item<1-> Has an incentive to keep in sync with consensus.
 		\end{itemize}
 		\vspace{1em}
-		\uncover<4->{\textbf{Personal Transaction Queue}}
+		\uncover<2->{\textbf{Personal Transaction Queue}}
 		\begin{itemize}
-			\item<5-> Transactions that are not yet valid.
-			\item<6-> Waiting for inclusion in database $\rightarrow$ queue.
+			\item<2-> Transactions that are not yet valid.
+			\item<2-> Waiting for inclusion in database $\rightarrow$ queue.
 		\end{itemize}
 	\end{minipage}
 
@@ -92,7 +92,7 @@
 \begin{frame}{Handshake and Address List}
 	\vspace{1em}
 	\begin{center}
-		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
 			\input{../assets/figures/ver_verack}
 		\end{tikzpicture}
 	\end{center}
@@ -100,7 +100,7 @@
 	\vspace{0.5em}
 
 	\begin{center}
-		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
 			\input{../assets/figures/getaddr}
 		\end{tikzpicture}	
 	\end{center}
@@ -137,29 +137,29 @@
 %%%
 \begin{frame}{SPV, Proxy Connections and Managed Accounts}
 
-\color{focus} \textbf{Not everyone is running a full node!} \color{black} \\ \vspace{1em}
+\uncover<1->{\color{focus} \textbf{Not everyone is running a full node!} \color{black}} \\ \vspace{1em}
 
-\uncover<1->{\textbf{Managed Accounts}}
+\uncover<2->{\textbf{Managed Accounts}}
 	
 	\begin{itemize}
 		\item<2-> User has no direct control over funds!
-		\item<3-> User relies on centralized party for transaction verification.
+		\item<2-> User relies on centralized party for transaction verification.
 	\end{itemize}
 
 	\vspace{1em}	
 		
-	\uncover<4->{\textbf{Proxy Connections}}
+	\uncover<3->{\textbf{Proxy Connections}}
 		
 		\begin{itemize}
-		\item<5-> User relies on centralized party for transaction verification.
+		\item<3-> User relies on centralized party for transaction verification.
 	\end{itemize}		
 	
 	\vspace{1em}
 	
-	\uncover<6->{\textbf{Simple Payment Verification Clients}}
+	\uncover<4->{\textbf{Simple Payment Verification Clients}}
 	
 	\begin{itemize}
-		\item<7-> User relies on a set of nodes for transaction propagation and verification.
+		\item<4-> User relies on a set of nodes for transaction propagation and verification.
 
 	\end{itemize}
 	
@@ -167,15 +167,5 @@
 	
 \end{frame}
 %%%	
-
-
-
-%%%
-\begin{frame}%[allowframebreaks]
-\frametitle{References and Recommended Reading}
-	\bibliographystyle{amsplain}
-	\bibliography{../assets/bib/refs}
-\end{frame}
-
 
 \end{document}
