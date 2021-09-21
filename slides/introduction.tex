@@ -3,7 +3,7 @@
 %\documentclass[handout]{beamer}
 
 % Video Meta Data
-\title{Smart Contracts and Decentralized Finance Applications}
+\title{Smart Contracts and Decentralized Finance}
 \subtitle{Intro: Welcome to the Course}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
@@ -56,34 +56,35 @@ Vending Machines can be seen as predecessors of Smart Contracts \cite{NS:94,NS:9
 	\includegraphics[width=2.5cm]{../assets/images/vendingmachine.png}
 \end{minipage}
 \begin{minipage}{0.55\textwidth}
-	\begin{exampleblock}{Simple Vending Machine (Pseudo Code)}
-	 	\texttt{
-			if(coin $>=$ price) \{ \\
-				\tab dispenseBeverage(); \\
-				\tab returnChange(coin - price);\\
-			\} else \{ \\
-				\tab print("insufficient funds"); \\
-			\}
-		}
-	\end{exampleblock}	
+	\begin{samplecode}{Simple Vending Machine (Pseudo Code)}
+		if(coin $>=$ price) \{ \\
+			\tab dispenseBeverage(); \\
+			\tab returnChange(coin - price);\\
+		\} else \{ \\
+			\tab print("insufficient funds"); \\
+		\}
+	\end{samplecode}	
 \end{minipage}
 
+\uncover<2->{
 \vspace{1.0em}
 \textbf{But:}\\
 \begin{itemize}
 	\item Trust based! Closed source $\rightarrow$ Contract is not observable.
 	\item Execution environment, i.e., hardware under control of seller.
 \end{itemize}
+}
 
+\uncover<3->{
 \vspace{1.0em}
 \textbf{$\Rightarrow$ Smart Contracts on public Blockchains address this.}
-
+}
 
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Why Decentralized Finance (DeFi) Applications?}
+\begin{frame}{Why Decentralized Finance (DeFi)?}
 
 \begin{figure}[t]
 	\centering	
@@ -123,10 +124,10 @@ Public Blockchains can only be fully understood, when they are studied from vari
 %%%
 \begin{frame}{Programming and Computer Science Exposure}
 
-\textbf{Programming Languages}
+\textbf{Programming Language}
 \vspace{1em}
 
-\begin{minipage}{0.32\textwidth}
+\begin{minipage}{0.16\textwidth}
 	\begin{figure}[t]
 		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
 				\input{../assets/figures/programs.tex}
@@ -155,38 +156,45 @@ Public Blockchains can only be fully understood, when they are studied from vari
 \begin{frame}{Some Lecture Conventions}
 
 	\begin{columns}[T]
-		\begin{column}{0.15\textwidth}
-			
+		\begin{column}{0.45\textwidth}
+			\vspace{-1em}
+			\begin{samplecode}{Basic Contract Structure (Solidity)}
+				Pragma solidity  \textasciicircum 0.4.19; \
+				contract HelloWorld \{ \\
+				\color{softanthracite} /* This is where you write your code */
+			\end{samplecode}			
 		\end{column} %\hfill
+
 		\begin{column}{0.5\textwidth}
-			\textbf{Sample Code Box}\
-			Contains code snippets in R, Solidity \& pseudo code.
+			\textbf{Sample Code Box}\\
+			Contains code snippets in Solidity or pseudo code.
 		\end{column}
 	\end{columns}
 
-\vspace{2.0em}
+\vspace{2.5em}
 
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{alertblock}{Transaction Definitions}
+			\vspace{-0.8em}
+			\begin{keytakeaway}{Transaction Definitions}
 				A transaction is a message send by an externally owned account.
-			\end{alertblock}		
+			\end{keytakeaway}			
 		\end{column}
+		
 		\begin{column}{0.5\textwidth}
 			\textbf{Key Take-Away}\\
 			Highlights important concepts and definitions.
 		\end{column}
 	\end{columns}
 
-\vspace{2.0em}
+\vspace{2.5em}
 
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{block}{Exercise 1}
+			\vspace{-0.9em}
+			\begin{exercise}{Exercise 1}
 				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
-			\end{block}		
+			\end{exercise}					
 		\end{column}
 		\begin{column}{0.5\textwidth}
 		\textbf{Exercises}\\
@@ -234,12 +242,12 @@ Blockchain courses have been part of the University of Basel's curriculum since 
 The goal of our open lectures is to make teaching resources freely available. There are \color{focus} \textbf{three options} \color{black} for taking this course:\vspace{1em}
 
 \begin{table}\footnotesize
-	\begin{tabular}{lcccc}
+	\begin{tabular}{lccccc}
 	\hline \hline
-									& Videos 		& Platform 		& Assignments 	& ECTS 	\\ \cline{2-5}
-		YouTube 	 				& $\checkmark$	& 				& 				& 		\\
-		Cryptolectures.io 			& $\checkmark$	& $\checkmark$	& $\checkmark$	&		\\
-		University of Basel			& $\checkmark$	& $\checkmark$	& $\checkmark$	& $\checkmark$	\\
+									& Videos 		& Platform 		& Quizzes  		& Group Project	& ECTS 			\\ \cline{2-6}
+		YouTube 	 				& $\checkmark$	& 				& 				& 				&				\\
+		Cryptolectures.io 			& $\checkmark$	& $\checkmark$	& $\checkmark$	&				&				\\
+		University of Basel			& $\checkmark$	& $\checkmark$	& $\checkmark$	& $\checkmark$	&$\checkmark$	\\
 		\hline \hline
 	\end{tabular}
 \end{table} \vspace{2em}
@@ -328,7 +336,7 @@ The goal of our open lectures is to make teaching resources freely available. Th
 	\begin{itemize}
 		\item 90 Minutes
 		\item Closed book
-		\item T/F, MC, Numbers and Text/Figure Boxes ??
+		\item T/F, MC, Numbers and Text/Figure Boxes
 		\item You may use a non-programmable calculator (\link \href{https://wwz.unibas.ch/en/studies/examinations/use-of-materials-and-aids/}{Rules})
 	\end{itemize}
 	}
