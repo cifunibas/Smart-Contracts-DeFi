@@ -1,0 +1,62 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Capacity}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+\definecolor{mypink}{RGB}{245, 204, 213}
+\definecolor{myred}{RGB}{209, 7, 54}
+
+%%%
+\begin{frame}{The Ethereum Virtual Machine (EVM)}
+	\vspace{1em}
+\begin{minipage}{0.49\textwidth}
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+		\input{../assets/figures/network}
+	\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.46\textwidth}
+	\begin{small}
+		\begin{itemize}
+		
+			\item<1-> Runs on every (full) node
+			\item<2-> Processes transactions and performs state changes (Deterministically)
+			\item<3-> Is Turing complete
+			\item<4-> State changes as part of consensus; everyone performing all computations.
+		\end{itemize}
+		\end{small}
+	\end{minipage}	
+			\vspace{1em}
+			
+			
+\fcolorbox{white}{mypink}{
+	\begin{minipage}{1\linewidth}
+	\uncover<5->{{\footnotesize \textbf{\textcolor{myred}{ \\ A Slow State Machine}}}}
+	\uncover<6->{
+{\scriptsize 	\\ The Ethereum Virtual Machine is often referred to as a World computer. It is a relatively slow computer network. However, the strength of the network is that any code executed on the EVM, will be executed exactly as specified and state changes can be tracked and verified by any network participant.}}	
+	\end{minipage}
+	}	
+	
+
+	
+\end{frame}
+%%%	
+
+\end{document}
