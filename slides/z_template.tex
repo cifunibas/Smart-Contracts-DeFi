@@ -3,7 +3,7 @@
 %\documentclass[handout]{beamer}
 
 % Video Meta Data
-\title{Smart Contracts and Decentralized Finance Applications}
+\title{Smart Contracts and Decentralized Finance}
 \subtitle{Title of Video Lecture}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
@@ -59,49 +59,50 @@ Some of the main features of this template:
 
 %%%
 
+
 %%%
-\begin{frame}{Block Conventions I}
+\begin{frame}{Box Conventions}
 	
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{exampleblock}{Basic Contract Structure (Solidity)}
-	 			\texttt{
-					Pragma solidity  \textasciicircum 0.4.19; \
-					contract HelloWorld \{ \\
-					\color{softanthracite} /* This is where you write your code */
-	 			}
-			\end{exampleblock}			
+			\vspace{-1em}
+			\begin{samplecode}{Basic Contract Structure (Solidity)}
+				Pragma solidity  \textasciicircum 0.4.19; \
+				contract HelloWorld \{ \\
+				\color{softanthracite} /* This is where you write your code */
+			\end{samplecode}			
 		\end{column} %\hfill
+
 		\begin{column}{0.5\textwidth}
-			\textbf{Sample Code Box}\
-			Contains code snippets in R, Solidity \& pseudo code.
+			\textbf{Sample Code Box}\\
+			Contains code snippets in Solidity or pseudo code.
 		\end{column}
 	\end{columns}
 
-\vspace{2.0em}
+\vspace{2.5em}
 
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{alertblock}{Transaction Definitions}
+			\vspace{-0.8em}
+			\begin{keytakeaway}{Transaction Definitions}
 				A transaction is a message send by an externally owned account.
-			\end{alertblock}		
+			\end{keytakeaway}			
 		\end{column}
+		
 		\begin{column}{0.5\textwidth}
 			\textbf{Key Take-Away}\\
 			Highlights important concepts and definitions.
 		\end{column}
 	\end{columns}
 
-\vspace{2.0em}
+\vspace{2.5em}
 
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
-			\vspace{-1.0em}
-			\begin{block}{Exercise 1}
+			\vspace{-0.9em}
+			\begin{exercise}{Exercise 1}
 				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
-			\end{block}		
+			\end{exercise}					
 		\end{column}
 		\begin{column}{0.5\textwidth}
 		\textbf{Exercises}\\
