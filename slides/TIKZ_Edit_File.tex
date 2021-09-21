@@ -1,0 +1,184 @@
+
+%% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Capacity}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%Begin your TIKZ Edit here:
+
+\definecolor{mypink}{RGB}{245, 204, 213}
+\definecolor{myred}{RGB}{209, 7, 54}
+
+%%%
+\begin{frame}{The EVM and State Changes}
+	\vspace{1em}
+
+		\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]
+	
+%Define Coordinates
+
+%Files and mintgreen Arrows	
+\coordinate (1) at (-8,0);
+\coordinate (2) at (-6,0);
+\coordinate (3) at (-4,0);
+\coordinate (4) at (-2,0);
+\coordinate (5) at (0,0);
+\coordinate (6) at (2,0);
+\coordinate (7) at (4,0);
+\coordinate (8) at (6,0);
+\coordinate (9) at (8,0);
+\coordinate (10) at (10,0);
+
+
+\coordinate (11) at (-6,-3);
+\coordinate (12) at (-2,-3);
+\coordinate (13) at (2,-3);
+\coordinate (14) at (6,-3);
+
+\coordinate (15) at (10,0);
+\coordinate (16) at (10,0);
+\coordinate (17) at (10,0);
+\coordinate (18) at (10,0);
+
+
+
+%\node [draw=black, anchor=south west] (label) at (0,0) {\includegraphics{my.pdf}};
+
+%Empty Files
+
+\node (state)at(1)  [scale=0.26]{\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (3) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (5) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (7) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (9) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+
+
+%1s and 0 within Empty Files
+
+
+\node [align=left, yshift= -8pt] at(1){\textbf{10100}\\\textbf{11010}\\\textbf{11101}};
+\node [align=left, yshift= -8pt] at(3){\textbf{11101}\\\textbf{11011}\\\textbf{10001}};
+\node [align=left, yshift= -8pt] at(5){\textbf{01101}\\\textbf{10010}\\\textbf{10110}};
+\node [align=left, yshift= -8pt] at(7){\textbf{11101}\\\textbf{00011}\\\textbf{01001}};
+\node [align=left, yshift= -8pt] at(9){\textbf{01111}\\\textbf{10110}\\\textbf{10010}};
+
+
+
+%...
+
+\node [align=left] at(10){\textbf{{\Huge ...}}};
+
+%\draw [stealth-stealth](1) -- (3) ;
+	
+
+%Arrow Tips
+
+\node at(2)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(4)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(6)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(8)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+	
+
+%draw upper arrow
+
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(1.east) + (up:2.3cm) 
+	coordinate (1_east_shifted) -- 
+	(3.west |- 1_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(3.east) + (up:2.3cm) 
+	coordinate (3_east_shifted) -- 
+	(5.west |- 3_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(5.east) + (up:2.3cm) 
+	coordinate (5_east_shifted) -- 
+	(7.west |- 5_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(7.east) + (up:2.3cm) 
+	coordinate (7_east_shifted) -- 
+	(9.west |- 7_east_shifted);
+	
+%upper arrow label	
+		
+\node [yshift=2.7cm] at (2) {$\approx$ 15 sec};
+\node [yshift=2.7cm] at (4) {$\approx$ 15 sec};
+\node [yshift=2.7cm] at (6) {$\approx$ 15 sec};
+\node [yshift=2.7cm] at (8) {$\approx$ 15 sec};
+	%\draw[<->, thick] (1.east)  {} (2.west);		
+
+%States
+
+\node [yshift=1.8cm] at (1) {{\large State $t$}};	
+\node [yshift=1.8cm] at (3) {{\large State $t _{\textit{ + 1}}$}};	
+\node [yshift=1.8cm] at (5) {{\large State $t _{\textit{ + 2}}$}};
+\node [yshift=1.8cm] at (7) {{\large State $t _{\textit{ + 3}}$}};
+\node [yshift=1.8cm] at (9) {{\large State $t _{\textit{ + 4}}$}};	
+
+
+%Network
+\node at (11) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+\node  at (12) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+\node  at (13) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+
+\node at (14) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+
+
+%\draw[<->, shorten >=15pt, shorten <=15pt, draw=mint, fill=mint, stealth-stealth, thick, yshift=15pt]{}  (1.east)--(3.west); % length of arrow	
+
+
+%\draw[<>, shorten >=15pt, shorten <=15pt, draw=mint, fill=mint, thick,]{}  (1)--(3); % length of arrow	
+
+
+%\draw[->,draw opacity=10,scale=2cm] (1)--(2) ;
+  %\draw (0,0) ellipse (1 and 2);% commented out to see only the tip
+
+	
+	
+	\end{tikzpicture}
+			\vspace{1em}
+	
+	
+\end{frame}
+%%%
+
+
+\end{document}
