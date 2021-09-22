@@ -1,10 +1,10 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance Applications}
-\subtitle{Transaction Legitimacy}
+\subtitle{Title of Video Lecture}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -19,6 +19,286 @@
 \begin{frame}[noframenumbering]
 	\titlepage
 \end{frame}
+
+%%%
+
+\begin{frame}{Blockchain Origin}
+
+\centering
+\includegraphics[width = 5cm, frame]{../assets/images/nakamoto_cover}
+		
+\textbf{Bitcoin: A Peer-to-Peer Electronic Cash System} \\ 
+Satoshi Nakamoto \\
+\link \href{https://bitcoin.org/bitcoin.pdf}{Online version}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Payment Systems: Today's Challenge}
+
+Physical Cash: Presence in the same place at the same time
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/cash_payment.tex}
+\end{figure}
+
+\vspace{1.5 em}
+
+\uncover<2->{Digital Cash: Proof of ownership
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/ecash_payment.tex}
+\end{figure}}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Today's Solution: Intermediaries Keeping Money Registries}
+
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/registry_payment.tex}
+\end{figure}
+
+\uncover<2->{\vspace{1 em}
+
+\textbf{Registry Types}\\
+\vspace{1 em}
+\textbf{Implicit:} Verbal agreements, limited to small groups.\\
+\textbf{Explicit:} Records in written or digital databases.}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Implicit Registry Example: The Stone Money of Yap}
+	\center
+	\includegraphics[width=8cm]{../assets/images/yap_stones}\\
+	\footnotesize{Picture source: Eric Guinther}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Implicit Registry Example: The Stone Money of Yap}
+
+\begin{figure}[h]
+	\center
+		\input{../assets/figures/yap_system.tex}
+\end{figure}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Scaling the Yap Network}
+	\begin{figure}
+			\input{../assets/figures/yap_network.tex}
+	\end{figure}
+	\vspace{1em}
+	\uncover<4->{
+		\textbf{Large network size results in three problems:}
+		\begin{itemize}
+			\item<5-> Transaction capacity
+			\item<6-> Transaction legitimacy
+			\item<7-> Transaction consensus
+		\end{itemize}
+	}
+	\vspace{1em}
+	
+\uncover<8->{
+	\begin{alertblock}{Key idea}
+		Blockchains as decentralized data structures that are maintained by its participants in the absence of a centralized third party. 	
+	\end{alertblock}
+}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Transaction Capacity}
+\textbf{Goal:} Ensure that each participant can reliably \color{focus}initiate a transaction \color{black} without having to fear censorship. \\
+\uncover<2->{
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-capacity.tex}
+	\end{figure}\vspace{1em}
+}
+\uncover<2->{
+	Peer-to-Peer Network:
+        \begin{itemize}
+		\item<1-> Permissionless
+		\item<1-> Censorship-resistant
+		\item<1-> No special privileges
+		\end{itemize}
+		}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Centralized vs. Decentralized Networks}
+
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+		\center
+			\begin{tikzpicture}[scale=0.56, every node/.style={scale=0.63}]
+				\input{../assets/figures/centralized_network}
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\center
+			\begin{tikzpicture}[scale=0.63, every node/.style={scale=0.63}]
+				\input{../assets/figures/p2p}
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+	
+	\vspace{1em}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+		\center
+		\textbf{Centralized}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\center
+		\textbf{Decentralized}
+		\end{column}
+		
+	\end{columns}
+		
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Personal Database and Transaction Queue}
+	\begin{minipage}{0.15\textwidth}
+		\center
+		\includegraphics[width=2.4cm]{../assets/images/miner_single.png}
+	\end{minipage}
+	\begin{minipage}{0.1\textwidth}
+		\begin{tikzpicture}[scale=1]
+			\draw [decorate,decoration={brace,amplitude=10pt}, color = mint, line width=2pt]
+			(0.5,0.0) -- (0.5,5.5) node [black,midway,xshift=-0.8cm] 
+			{\footnotesize};
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.7\textwidth}
+		\uncover<1->{\textbf{Personal Version of the Blockchain}}
+		\begin{itemize}
+			\item<1-> Personal ledger of valid transactions in block structure.
+			\item<1-> Has an incentive to keep in sync with consensus.
+		\end{itemize}
+		\vspace{1em}
+		\uncover<2->{\textbf{Personal Transaction Queue}}
+		\begin{itemize}
+			\item<2-> Transactions that are not yet valid.
+			\item<2-> Waiting for inclusion in database $\rightarrow$ queue.
+		\end{itemize}
+	\end{minipage}
+
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Handshake and Address List}
+	\vspace{1em}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/ver_verack}
+		\end{tikzpicture}
+	\end{center}
+	
+	\vspace{0.5em}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/getaddr}
+		\end{tikzpicture}	
+	\end{center}
+	
+	\vspace{0.25em}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.72, every node/.style ={scale=0.8}]
+			\input{../assets/figures/network_with_computing_power}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Exchange of Blocks and Transactions}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/block_exchange}
+		\end{tikzpicture}
+	\end{center}
+	\vspace{1em}
+	\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/tx_exchange}
+		\end{tikzpicture}	
+	\end{center}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{SPV, Proxy Connections and Managed Accounts}
+
+\uncover<1->{\color{focus} \textbf{Not everyone is running a full node!} \color{black}} \\ \vspace{1em}
+
+\uncover<2->{\textbf{Managed Accounts}}
+	
+	\begin{itemize}
+		\item<2-> User has no direct control over funds!
+		\item<2-> User relies on centralized party for transaction verification.
+	\end{itemize}
+
+	\vspace{1em}	
+		
+	\uncover<3->{\textbf{Proxy Connections}}
+		
+		\begin{itemize}
+		\item<3-> User relies on centralized party for transaction verification.
+	\end{itemize}		
+	
+	\vspace{1em}
+	
+	\uncover<4->{\textbf{Simple Payment Verification Clients}}
+	
+	\begin{itemize}
+		\item<4-> User relies on a set of nodes for transaction propagation and verification.
+
+	\end{itemize}
+	
+
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Transaction Legitimacy}
+\textbf{Goal:} Ensure transaction \color{focus}authenticity \color{black}and \color{focus} integrity\color{black}, i.e., ensure that the transaction was initiated by its owner of the funds and has not been changed.
+\uncover<2->{
+		\center
+		\input{../assets/figures/transaction-legit.tex}
+		}
+\uncover<3->{
+		\vspace{1em}
+		\input{../assets/figures/transaction-manipulation.tex}
+	}
+\end{frame}
+%%%
 
 %%%
 \begin{frame}{Transaction Legitimacy}
@@ -301,6 +581,47 @@ What if someone would be able to guess a private  key for this address?
 
 \end{frame}
 %%%
+
+
+
+%%%
+\begin{frame}{Transaction Consensus}
+\textbf{Goal: }Deciding which (legitimate) transactions are valid. \\
+\vspace{1em}
+\uncover<2->{
+Potential Problem: Assume both transactions have valid signatures, but spend the same Bitcoin units. What now? \\
+\begin{figure}[h!]
+	\center
+	\input{../assets/figures/double-spend.tex}
+\end{figure}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Recommended Reading}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=\textwidth , frame]{../assets/images/short-introduction-cryptocurrencies.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{A Short Introduction to the World of Cryptocurrencies} \\
+	Aleksander Berentsen and Fabian Schär \\
+	\link \href{https://files.stlouisfed.org/files/htdocs/publications/review/2018/01/10/a-short-introduction-to-the-world-of-cryptocurrencies.pdf}{Online PDF}
+	\end{column}
+\end{columns}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
 
 
 \end{document}
