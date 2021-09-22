@@ -1,0 +1,306 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance Applications}
+\subtitle{Transaction Legitimacy}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Transaction Legitimacy}
+\textbf{Goal:} Ensure transaction \color{focus}authenticity \color{black}and \color{focus} integrity\color{black}, i.e., ensure that the transaction was initiated by the owner of the funds and has not been changed.
+\uncover<2->{
+		\center
+		\input{../assets/figures/transaction-legit.tex}
+		}
+\uncover<3->{
+		\vspace{2em}
+		\input{../assets/figures/transaction-manipulation.tex}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Public/Private Key Pair}
+
+	\input{../assets/figures/key_creation}
+
+\vspace{1em}
+
+\textbf{Two key principles:}
+\begin{enumerate}
+\item<1-> Private key is created (chosen) without the help of an intermediary, and can be used to derive public key.
+\item<2-> If information is encrypted with one key, it can only be decrypted with the other key.
+\end{enumerate}
+
+\vspace{1.5em}
+
+\uncover<3->{
+	
+	\begin{columns}[T]
+		\begin{column}{0.6\textwidth}
+			\vspace{-1.0em}
+			\begin{alertblock}{IMPORTANT!}
+				\textbf{Private key must remain secret at all time. \\
+				Public key can be shared freely.}
+			\end{alertblock}		
+		\end{column}
+		
+	\end{columns}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Two Distinct Applications}
+	\input{../assets/figures/publickeycrypto_applications}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Transaction Legitimacy}
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-encryption.tex}
+		\caption*{Encryption and decryption of the transaction message}
+		\label{fig:asymmeinfach}
+	\end{figure}
+	
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}{What Is a Hash Function?}
+
+Deterministic algorithm (\color{focus}function, $H()$\color{black}) that maps data of quasi-arbitrary size (\color{focus}pre-image, $m$\color{black}) to fixed-length bit string (\color{focus}hash value, $h$\color{black}).
+
+	\begin{align}
+		h = H(m)
+		\label{eq:hash_function}
+	\end{align}
+
+\vspace{1.5em}
+	
+\uncover<2->{
+\textbf{Application fields:} (non-exhaustive)
+	\begin{itemize}
+		\item Data protection
+		\item Verification and authentication
+		\item Proof-of-work
+		\item Data lookup optimization
+		\item Error detection
+	\end{itemize}
+}	
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Cryptographic Hash Functions}
+
+Additional criteria:
+	\begin{enumerate}
+		\item Approximately uniform hash value distribution.
+		\item Quick to compute for any given pre-image.
+		\item Trap-door: Infeasible to generate pre-image from hash value.
+		\item Avalanche effect: Small change in input results in totally different output.
+		\item Very low collision probability: Unlikely that two pre-images generate the same hash value.
+	\end{enumerate}
+	\vspace{1em}
+
+\uncover<2->{In Ethereum context, the function \color{focus}\texttt{SHA3.256} \color{black} (also called \texttt{Keccak-256}) \color{black}is used. This function satisfies the above criteria.}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Encoding: The Many Ways to Represent Information}
+	
+	\textbf{Binary (Base2):} 
+	\begin{footnotesize}
+		11011110100001011001101110111101000010111101110000001111000
+		11110100100101001001000111000111110011010100100110101101111
+		11010100011001101011110010001110111101010110100110111110011
+		01111110011000000001011111011001101111111101001001001111001
+		10110110010111111010
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Decimal (Base10):} 
+	\begin{footnotesize}
+		10064951791246329821855494196373555141999091939477580894366707
+		6258561523410426
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Hexadecimal (Base16):} 
+	\begin{footnotesize}
+		de859bbd0bdc0f1e929238f9a935bf519af23bd5a6f9bf300becdfe9279b65fa
+	\end{footnotesize}
+	
+	\vspace{0.2em}
+	
+	\textbf{Base58Check:} 
+	\begin{footnotesize}
+		5KWHc3RENTEdyZg1s8WphuWcsPMhivBvCCngWavocfdeDDD7DVS
+	\end{footnotesize}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Avalanche Effect with \texttt{SHA3}}
+
+\begin{center}
+$\texttt{SHA3.256}(<$\textit{pre-image}$>)$
+\end{center}
+
+This is the pre-image
+
+$\Rightarrow$ \footnotesize 3c33313550af06da6a935a6a1f143b3cd78be4782425b08d8b213dd9b3bae8a4 \normalsize
+\vspace{1em}
+
+\color{focus}t\color{black}his is the pre-image
+
+$\Rightarrow$ \footnotesize \color{focus}b77a25896686bbd26d763216b695600681176b8d35d7815a262ad3d8479cf287 \color{black} \normalsize
+\vspace{1em}
+
+\begin{columns}[T]
+	\begin{column}{0.35\textwidth}
+		\includegraphics[width = 4 cm, frame]{../assets/images/manual_hashing_video.png}
+	\end{column} %\hfill
+	\begin{column}{0.65\textwidth}
+		\begin{itemize}
+			\item Nonlinarity due to choice, majority, mod, rotation and shifting operations.
+			\item Efficient for computers vs. 0.67 hashes / day by hand.
+			\item \link \href{https://www.youtube.com/watch?v=y3dqhixzGVo}{Video: Hash value by hand}.
+		\end{itemize}
+	\end{column}
+\end{columns}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Low Collision Probability}
+
+Due to the fixed size of $h$, the corresponding hash function $H()$ can only produce a finite set of distinct hashes.
+\vspace{1em}
+
+\texttt{SHA256}:
+	\begin{itemize}
+		\item All possible combinations of 256 Bits, i.e., $2^{256}$ $h$.
+		\item In base 10, the number of combinations corresponds to 115,792,089,237,316,195,423,570,985,008,687,907,853,269,\\984,665,640,564,039,457,584,007,913,129,639,936
+	\end{itemize}
+\vspace{1em}
+
+\uncover<2->{Probability of a hexadecimal hash with certain characteristics:\\
+\vspace{0.75em}
+\tiny 
+$P(h \leq \color{focus}0\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF) = \dfrac{1}{16}$\\
+\vspace{0.75em}
+$P(h \leq \color{focus}00\color{black}FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF) = \left( \dfrac{1}{16} \right)^{2} $
+\normalsize}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Securitiy Considerations}
+
+\begin{itemize}
+		\item<1-> Almost $2^{256}$ possible Private Keys.
+		\item<3-> In base 10 $\Rightarrow$ Any number between 1 and 115,792,089,\\
+		237,316,195,423,570,985,008,687,907,852,837,564,279, \\
+		074,904,382,605,163,141,518,161,494,336.
+		\item<4-> Probability: Private Key $\Rightarrow$ Public Key $\Rightarrow$ Public Address \\ $\Rightarrow$ Funds. 
+	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Securitiy Considerations}
+
+The Attacker has a high end computer and is looking for private key to access a specific Ether address.
+
+\vspace{1em}
+
+\textbf{Assumptions:}
+\begin{itemize}
+\item<1-> Computer runs 24/7.
+\item<2-> Computes 60 billion key/adress pairs per second
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Outcome:}
+\begin{itemize}
+\item<1-> On average an attacker would need $7*10^{27}$ years, for a 1\% probability to find a private key to access this Ether adress. 
+\item<2-> That's around 560 trillion times the estimated time since the Big Bang.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Securitiy Considerations}
+
+The Attacker has a high end computer and is looking for private key to access any Ether adress with a positive balance.
+
+\vspace{1em}
+
+\textbf{Assumptions:}
+\begin{itemize}
+\item<1-> Computer runs 24/7. 
+\item<2-> Computes 60 billion key/address pairs per second.
+\item<3-> Ether distributed on xxx addresses.
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Outcome:}
+\begin{itemize}
+\item<1-> 
+\item<2-> 
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Honey Pot}
+
+\begin{center}
+\includegraphics[width = 10 cm, frame]{../assets/images/honeypot}
+3D2oetdNuZUqQHPJmcMDDHYoqkyNVsFk9r \\
+\end{center}
+\vspace{1em}
+What if someone would be able to guess a private  key for this address?
+
+\end{frame}
+%%%
+
+
+\end{document}
