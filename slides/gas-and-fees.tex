@@ -21,7 +21,7 @@
 \end{frame}
 
 %%%	
-\begin{frame}{THE HALTING PROBLEM AND ITS IMPLICATIONS}
+\begin{frame}{The Halting Problem and its Implications}
 \begin{columns}
 	\begin{column}{0.3\textwidth}
 		\center
@@ -43,6 +43,165 @@
 		\end{itemize}
 	\end{alertblock}
 }
+\end{frame}
+%%%
+
+%%%
+%% TODO: Flexible block size limit erklären --> evtl. separates slide für EIP-1559 related changes
+\begin{frame}{Ethereum Gas Fees: The Basics}
+	\begin{itemize}
+		\item Every EVM operation consumes a pre-defined amount of gas. These values cannot be changed by user. Some examples\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}:
+			\begin{columns}
+				\uncover<2->{
+				\begin{column}{0.08\textwidth} %% TODO: is there a better way?
+				\end{column}
+				\begin{column}{0.25\textwidth}
+					\begin{exampleblock}{Addition}
+						\begin{center}
+							\includegraphics[width=2em]{../assets/images/plus.png}
+						\end{center}
+						$\rightarrow$ 3 gas units 
+					\end{exampleblock}				
+				\end{column}
+				}
+				\uncover<3->{
+				\begin{column}{0.25\textwidth}
+					\begin{exampleblock}{Multiplication}
+						\begin{center}
+							\includegraphics[width=2em]{../assets/images/multiply.png}
+						\end{center}
+						$\rightarrow$ 5 gas units 
+					\end{exampleblock}
+				\end{column}
+				}
+				\uncover<4->{
+				\begin{column}{0.25\textwidth}
+					\begin{exampleblock}{Store 256 bits}
+						\begin{center}
+							\includegraphics[width=2em]{../assets/images/database.png}
+						\end{center}
+						$\rightarrow$ 20k gas units 
+					\end{exampleblock}	
+				\end{column}
+				}
+				\begin{column}{0.02\textwidth} %% TODO: is there a better way?
+				\end{column}
+			\end{columns}
+		\uncover<5->{
+		\hspace{1em}
+		\item Every transaction has a user-specified \textbf{gas price}, i.e. the price in $\mu ETH$ or GWEI the user is willing to pay per unit of gas.
+		}
+		\uncover<6->{
+		\item Every transaction has a user-specified \textbf{gas limit}, i.e. the maximum number of gas units that can be in this transaction.
+		\hspace{-1em}
+		\begin{itemize}
+			\item 21000 required to send ETH
+			\item Contract execution varies
+		\end{itemize}
+		}
+	\end{itemize} 
+\end{frame}
+%%%
+
+%%%
+%TODO: Add Gas price pre and post EIP-1559
+%%%
+
+%%%
+% TODO: remainingGas ist etwas verwirrend (mal in ETH, mal nicht)
+\begin{frame}{Understanding the Ethereum Fee Process}
+\begin{table}
+	\tiny
+	{\renewcommand{\arraystretch}{2}%
+  \center
+  \begin{tabular}[]{m{0.19\textwidth} | m{0.39\textwidth}| m{0.35\textwidth}}
+  		\hline \hline
+		\textbf{Trigger} & \textbf{Consequence} & \textbf{remainingGas in ETH}\\
+		\hline
+			Transaction initiation
+			& User sets \textbf{gasLimit} and \textbf{gasPrice} and places an amount in GWEI equal to the product of the two in \textbf{transactionEscrow}. \newline \newline \textbf{transactionEscrow = gasLimit $\cdot$ gasPrice}
+			& \textbf{remainingGas = gasLimit $\cdot$ gasPrice}\\
+		\hline
+			For each operation
+			& The \textbf{remainingGas} is decreased by operation’s gas consumption (\textbf{opCost}).
+			& \textbf{remainingGas = remainingGas - opCost}\\
+		\hline
+			If \textbf{remainingGas} $\leq$ 0
+			& If \textbf{remainingGas} is 0 or insufficient and there are operations remaining, the transaction is reverted (but still included in the Blockchain and \textbf{gasLimit $\cdot$ gasPrice} paid as fee).
+			& \textbf{remainingGas} $\leq$ 0\\
+		\hline
+			If all operations are successful
+			& State changes get applied and any unused ETH returned to the sender of the transaction. \newline \newline
+			\textbf{Refund = remainingGas $\cdot$ gasPrice} \newline \newline % TODO: remove gasPrice?
+			\textbf{Fee = (gasLimit - remainingGas) $\cdot$ gasPrice} % TODO: remove gasPrice?
+			& Is multiplied with \textbf{gasPrice} and then refunded to the transaction originator’s address\\% TODO: remove "multiplied with gasPrice and then"?		\hline
+		\multicolumn{3}{r}{All values in GWEI = ETH $\cdot$ 10$^{-9}$}\\
+  \end{tabular}}
+\end{table}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Gas Consumption Example}
+	\begin{center}
+	 	\begin{tabular}{m{0.2\textwidth} m{0.3\textwidth}}
+	 		\includegraphics[width=2cm]{../assets/images/gas-pump.png} &
+			\parbox{\textwidth}{gasLimit: 100 \\
+    		remainingGas: \only<1>{100}\textcolor{red}{\only<2>{97}\only<3>{92}\only<4->{62}} \\
+    		gasPrice: x}
+ 		\end{tabular}
+	\begin{tikzpicture}
+		\input{../assets/figures/gasConsumptionExample.tex}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Essential Tools: Ethereum Gas Tracker}
+	\begin{figure}
+	\centering
+	\begin{minipage}{.45\textwidth}
+  		\centering
+  		\includegraphics[width=0.9\textwidth]{../assets/images/etherscan.png}
+  		\caption*{\footnotesize \href{https://etherscan.io/}{\link Etherscan}}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+  		\centering
+  		\includegraphics[width=0.9\textwidth]{../assets/images/eth-gas-station.png}
+  		\caption*{\footnotesize \href{https://www.Ethgasstation.info}{\link Eth Gas Station}}
+	\end{minipage}
+	\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Advantages of the Gas System}
+	\textbf{Fees help to secure the network:}
+	\begin{itemize}
+		\item Stops execution of…
+		\begin{itemize}
+			\item Badly written code
+			\item Infinite loops
+		\end{itemize}
+		\item Reduce spam transactions
+		\item Establish a market for priority access to network
+	\end{itemize}
+	
+\begin{block}{Exercise 3} % TODO: An EIP-1559 anpassen
+\begin{itemize}
+	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
+	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 0 GWEI and a gasLimit 0f 21000. What do you expect to happen?
+	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI and a gasLimit of 1000000. What do you expect to happen?
+	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI and a gasLimit of 1000. What do you expect to happen?
+\end{itemize}
+\end{block}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Gasprice Market - Some Interesting Observations}
+	% TODO: Add gas price chart
 \end{frame}
 %%%
 
