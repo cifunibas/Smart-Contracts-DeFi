@@ -97,7 +97,7 @@ Public blockchains are decentralized data structures. The systems are maintained
 
 \uncover<3->{
 \begin{alertblock}{Learning goal of this video}
-You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general check out our course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
+You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general, start with the course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
 \end{alertblock}
 }
 \end{frame}
@@ -211,13 +211,13 @@ You understand the fundamentals of smart contract capable public blockchains. If
 
 	\begin{column}{0.45\textwidth}
 		\begin{figure}
-		\includegraphics[width = \textwidth]{../assets/images/hash_functions_video.png}
+		\includegraphics[width = \textwidth,frame]{../assets/images/hash_functions_video.png}
 		\caption*{\href{https://www.youtube.com/watch?v=WXszGuXHFNk}{\link Hash Functions}}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.45\textwidth}
 		\begin{figure}
-		\includegraphics[width = \textwidth]{../assets/images/asymm_crypto_video.png}
+		\includegraphics[width = \textwidth,frame]{../assets/images/asymm_crypto_video.png}
 		\caption*{\href{https://www.youtube.com/watch?v=rScMINd5S7I}{\link Asymmetric Cryptography}}
 		\end{figure}
 	\end{column}
@@ -226,7 +226,7 @@ You understand the fundamentals of smart contract capable public blockchains. If
 
 \uncover<2->{
 \begin{alertblock}{Recommended}
-	Check out the entire chapter.
+	Watch/Revisit the entire cryptography section of the Bitcoin course.
 \end{alertblock}
 }
 
@@ -235,22 +235,15 @@ You understand the fundamentals of smart contract capable public blockchains. If
 
 %%%
 \begin{frame}{Transaction Consensus}
-\textbf{Goal:} Deciding which (legitimate) transactions are \textcolor{focus}{valid}. \\
+\textbf{Goal:} Deciding which (legitimate) transactions are \textcolor{focus}{valid}.\\
 \vspace{1em}
 \uncover<2->{
-\textbf{Potential problem:} Assume both transactions have valid signatures, but they compete with each other. What now? \\
+\textbf{Potential problem:} Assume both transactions have valid signatures, but they compete with each other (same origin and nonce). What now? \\
 \begin{figure}[h!]
 	\center
 	\input{../assets/figures/double-spend.tex}
 \end{figure}
 }
-
-\uncover<3->{
-\begin{alertblock}{Key takeaways}
-Transactions modify the data structure. There needs to be a process that ensures that all network participants agree on which transactions are valid.
-\end{alertblock}
-}
-
 \end{frame}
 %%%
 
@@ -258,7 +251,7 @@ Transactions modify the data structure. There needs to be a process that ensures
 \begin{frame}{State Transitions}
 	\textbf{Goal:} Deciding which (legitimate) transactions are \textcolor{focus}{valid}. \\
 \vspace{1em}
-\textbf{Potential problem:} Assume both transactions have valid signatures, but they compete with each other. What now? \\
+\textbf{Potential problem:} AAssume both transactions have valid signatures, but they compete with each other (same origin and nonce). What now? \\
 \begin{figure}[h!]
 	\center
 	\input{../assets/figures/competing-transactions.tex}
@@ -266,7 +259,7 @@ Transactions modify the data structure. There needs to be a process that ensures
 
 \uncover<2->{
 \begin{alertblock}{Key takeaways}
-Every transaction type modifies the data structure. Depending on the order in which transactions are executed the current state of the ledger can be different. Users can explicitly set the order of their own transactions. Conflicting transactions are handled by the network's consensus protocol. 
+All transaction types modify the data structure. There must be a consensus regarding the validity and order of transactions.
 \end{alertblock}
 }
 
