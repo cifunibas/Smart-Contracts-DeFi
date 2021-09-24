@@ -20,7 +20,6 @@
 	\titlepage
 \end{frame}
 
-%%% TODO: bib ref of Bitcoin whitepaper
 \begin{frame}{Blockchain Origin}
 
 \centering
@@ -33,7 +32,6 @@ Satoshi Nakamoto \\
 \end{frame}
 %%%
 
-%%% TODO: maybe link to Bitcoin primer video where "malicious" centralized third parties are addressed
 \begin{frame}{Recap: Bitcoin as a New Asset Class}
 Bitcoin enables the exchange of virtual monetary units \textcolor{focus}{without the need for a centralized third party}. The underlying technology solves three problems of distributed ledgers which operate on a global scale:
 
@@ -99,7 +97,7 @@ Public blockchains are decentralized data structures. The systems are maintained
 
 \uncover<3->{
 \begin{alertblock}{Learning goal of this video}
-You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general, check out our course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
+You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general check out our course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
 \end{alertblock}
 }
 \end{frame}
@@ -140,38 +138,6 @@ You understand the fundamentals of smart contract capable public blockchains. If
 
 \end{frame}
 %%%
-
-%%% TODO: check if this should be added in the slide deck?
-%\begin{frame}{SPV, Proxy Connections and Managed Accounts}
-%
-%\uncover<1->{\color{focus} \textbf{Not everyone is running a full node!} \color{black}} \\ \vspace{1em}
-%
-%\uncover<2->{\textbf{Managed Accounts}}
-%	
-%	\begin{itemize}
-%		\item<2-> User has no direct control over funds!
-%		\item<2-> User relies on centralized party for transaction verification.
-%	\end{itemize}
-%
-%	\vspace{1em}	
-%		
-%	\uncover<3->{\textbf{Proxy Connections}}
-%		
-%		\begin{itemize}
-%		\item<3-> User relies on centralized party for transaction verification.
-%	\end{itemize}		
-%	
-%	\vspace{1em}
-%	
-%	\uncover<4->{\textbf{Simple Payment Verification Clients}}
-%	
-%	\begin{itemize}
-%		\item<4-> User relies on a set of nodes for transaction propagation and verification.
-%
-%	\end{itemize}
-%	
-%\end{frame}
-%%%	
 
 %%%
 \begin{frame}{Transaction Legitimacy}
@@ -258,6 +224,12 @@ You understand the fundamentals of smart contract capable public blockchains. If
 	
 \end{columns}
 
+\uncover<2->{
+\begin{alertblock}{Recommended}
+	Check out the entire chapter.
+\end{alertblock}
+}
+
 \end{frame}
 %%%
 
@@ -293,8 +265,8 @@ Transactions modify the data structure. There needs to be a process that ensures
 \end{figure}
 
 \uncover<2->{
-\begin{alertblock}{Key insights}
-Every transaction type modifies the data structure. Depending on the order in which the transactions are executed the current state of the ledger can be different.
+\begin{alertblock}{Key takeaways}
+Every transaction type modifies the data structure. Depending on the order in which transactions are executed the current state of the ledger can be different. Users can explicitly set the order of their own transactions. Conflicting transactions are handled by the network's consensus protocol. 
 \end{alertblock}
 }
 
@@ -309,7 +281,7 @@ Every transaction type modifies the data structure. Depending on the order in wh
 	\end{minipage}
 	\begin{minipage}{0.1\textwidth}
 		\begin{tikzpicture}[scale=1]
-			\draw [decorate,decoration={brace,amplitude=10pt}, color = mint, line width=2pt]
+			\draw [decorate,decoration={brace,amplitude=10pt}, color = black, line width=2pt]
 			(0.5,0.0) -- (0.5,5.5) node [black,midway,xshift=-0.8cm] 
 			{\footnotesize};
 		\end{tikzpicture}
@@ -387,7 +359,7 @@ Every transaction type modifies the data structure. Depending on the order in wh
 \end{frame}
 %%%
 
-\begin{frame}{Recommended Reading 2}
+\begin{frame}{Recommended Reading}
 \begin{columns}
 	\begin{column}{0.3\textwidth}
 	\center
