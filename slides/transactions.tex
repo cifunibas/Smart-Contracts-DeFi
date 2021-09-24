@@ -1,0 +1,269 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Transactions}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Transactions in Ethereum}
+A transaction is a message, sent from an externally owned account.
+\vspace{1em}
+
+Transactions can modify states:
+	\begin{itemize}
+		\item<1-> Ether balances of account
+		\item<2-> Contract account's storage
+	\end{itemize}
+\vspace{1em}
+
+Transactions optionally contain:
+	\begin{itemize}
+		\item<1-> Ether
+		\item<2-> Data
+	\end{itemize}
+\vspace{1em}
+
+% insert Transactions by Recipient figure here.
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to EOA}
+\center
+\includegraphics[width=8cm]{../assets/images/EOA_to_EOA}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to CA}
+\center
+\includegraphics[width=8cm]{../assets/images/EOA_to_CA}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to 0}
+\center
+\includegraphics[width=10cm]{../assets/images/EOA_to_0}
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Contract Account Messages}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transactions, Messages and Calls}
+\textbf{Message:} This is contract-to-contract. These are not delayed by mining because they are part of the transaction execution.
+\vspace{1em}
+
+\textbf{Transaction:} Like a message, but originates with an externally owned account. It's always a transaction that gets things started, but multiple messages may be fired off to complete the action.
+\vspace{1em}
+
+\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. 
+
+
+%Source: \cite{ethereum.stackexchange...}.
+\vspace{1em}
+
+\begin{alertblock}{Contract Call}
+				However: The term "contract call" is generally used for EOA to CA transactions.
+			\end{alertblock}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Detailed Look at Ethereum Transactions}
+Ethereum Transactions contain:
+	\begin{itemize}
+		\item<1-> \textbf{Recipient Address:} The recipient's hexadecimal 		address.
+		\item<2-> \textbf{Nonce:} Transaction count from sender.
+		\item<3-> \textbf{Signature:} Consisting of the variables V, R and S.
+		\item<4-> \textbf{Gas Limit:} Maximum number of transaction execution steps.
+		\item<5-> \textbf{Gas Price:} Fee the sender is willing to pay per execution step. 
+		\item<6-> \textbf{Value (optional):} Ether value in Wei, where $10^{18}$ Wei = 1 ETH. 
+		\item<7-> \textbf{Data (optional):} Contract execution or deployment instructions.
+	\end{itemize}
+
+\end{frame}
+%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%
+\begin{frame}{Bullets and Uncover Animations}
+
+This is how lists can be used in the template. \\ \vspace{1em}
+
+Some of the main features of this template:
+	
+	\begin{itemize}
+		\item<1-> stay focused
+		\item<2-> save ink
+		\item<3-> do not get distracted
+	\end{itemize}
+
+	\vspace{1em}	
+	\uncover<4->{The same works for Enumerate environments:}
+
+	\begin{enumerate}
+		\item<5-> This is the first point
+		\item<6-> and the second one
+		\item<7-> Last but not least, the third one
+	\end{enumerate}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Tables}
+	\begin{table}
+		\begin{tabular}{ll}
+			A & B\\
+			C & D
+		\end{tabular}
+		\caption{This is a table}
+		\label{tbl:simpletable}
+	\end{table}
+\end{frame}
+
+%%%
+
+%%%
+\begin{frame}{Block Conventions I}
+	
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1.0em}
+			\begin{exampleblock}{Basic Contract Structure (Solidity)}
+	 			\texttt{
+					Pragma solidity  \textasciicircum 0.4.19; \
+					contract HelloWorld \{ \\
+					\color{softanthracite} /* This is where you write your code */
+	 			}
+			\end{exampleblock}			
+		\end{column} %\hfill
+		\begin{column}{0.5\textwidth}
+			\textbf{Sample Code Box}\
+			Contains code snippets in R, Solidity \& pseudo code.
+		\end{column}
+	\end{columns}
+
+\vspace{2.0em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1.0em}
+			\begin{alertblock}{Transaction Definitions}
+				A transaction is a message send by an externally owned account.
+			\end{alertblock}		
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\textbf{Key Take-Away}\\
+			Highlights important concepts and definitions.
+		\end{column}
+	\end{columns}
+
+\vspace{2.0em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1.0em}
+			\begin{block}{Exercise 1}
+				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
+			\end{block}		
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\textbf{Exercises}\\
+			Things for you to try out.
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+%%%
+
+
+%%%
+\begin{frame}{Equations}
+
+Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
+
+However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
+	\begin{align}
+		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
+		y &= x^2-5 \label{eq:secondstep}
+	\end{align}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Figures}
+	\begin{figure}
+		\center
+		\includegraphics[width=0.8\textwidth]{../config/logo_cif}	
+		\caption{Center for Innovative Finance Logo}
+		\label{fig:logo}
+	\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Links}
+		Links are signaled with the respective icon, which is set up in the config file and can be called with the respective command.\\
+		
+		\link \href{https://github.com/cifunibas}{Repository: CIF on GitHub}.
+		
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Labels and (Non-Bib) References}
+	In some cases in can make sense to reference to a figure, table or equation on a different slide. Use \texttt{$\backslash$pageref\{$<$label$>$\}} if you want to highlight, that there is a related resource on slide \pageref{fig:logo}.\\ \vspace{1em}
+	
+	Do - under no circumstances - hardcode references.	
+\end{frame}
+%%%
+
+
+\end{document}
