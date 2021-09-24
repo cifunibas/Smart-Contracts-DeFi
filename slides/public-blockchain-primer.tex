@@ -1,0 +1,375 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Public Blockchain Primer}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+\begin{frame}{Blockchain Origin}
+
+\centering
+\includegraphics[width = 5cm, frame]{../assets/images/nakamoto_cover}
+		
+\textbf{Bitcoin: A Peer-to-Peer Electronic Cash System} \\ 
+Satoshi Nakamoto \\
+\href{https://bitcoin.org/bitcoin.pdf}{\link Online version}
+
+\end{frame}
+%%%
+
+\begin{frame}{Recap: Bitcoin as a New Asset Class}
+Bitcoin enables the exchange of virtual monetary units \textcolor{focus}{without the need for a centralized third party}. The underlying technology solves three problems of distributed ledgers which operate on a global scale:
+
+\begin{itemize}
+\item<2-> \textbf{Transaction capacity:} Anyone can initiate transactions.
+\item<3-> \textbf{Transaction legitimacy:} The authenticity and integrity of transactions is cryptographically secured.
+\item<4-> \textbf{Transaction consensus:} The network agrees on the current state of the ledger.
+
+\end{itemize}
+
+\uncover<5->{
+\begin{alertblock}{Key takeaway}
+Public blockchains are decentralized data structures. The systems are maintained by their participants and work in the absence of centralized third parties.
+\end{alertblock}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Smart Contracts on Public Blockchains}
+
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+		\begin{figure}
+		\includegraphics[height = 0.25\textheight]{../assets/images/bitcoin_network_symbol}	
+		\end{figure}
+	\end{column}
+	
+	\begin{column}{0.7\textwidth}
+		\begin{itemize}
+			\item Limited applications
+			\begin{itemize}
+				\item offers only a small attack surface
+			\end{itemize}
+		\end{itemize}
+	\end{column}
+	
+\end{columns}
+
+\begin{columns}
+
+\uncover<2->{
+\begin{column}{0.3\textwidth}
+	\begin{figure}
+		\includegraphics[height = 0.25\textheight]{../assets/images/ethereum_symbol}	
+	\end{figure}
+\end{column}
+
+\begin{column}{0.7\textwidth}
+	\begin{itemize}
+		\item Code that resides on the blockchain
+		\begin{itemize}
+			\item transparent
+			\item deterministic execution
+		\end{itemize}
+	\end{itemize}
+\end{column}
+}
+
+\end{columns}
+
+\vspace{1.5em}
+
+\uncover<3->{
+\begin{alertblock}{Learning goal of this video}
+You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general, start with the course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
+\end{alertblock}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transaction Capacity}
+\textbf{Goal:} Ensure that each participant can reliably \textcolor{focus}{initiate a transaction} without having to fear censorship.\\
+\uncover<2->{
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-capacity.tex}
+	\end{figure}\vspace{1em}
+}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+	\uncover<3->{
+		Transaction types:
+        \begin{itemize}
+		\item<3-> \alert<3>{Value transactions}
+		\item<4-> \alert<4>{Smart contract interactions}
+		\item<5-> \alert<5>{Smart contract deployment}
+		\end{itemize}
+		}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+	\uncover<2->{
+	Peer-to-Peer Network:
+        \begin{itemize}
+		\item<1-> Permissionless
+		\item<1-> Censorship-resistant
+		\item<1-> No special privileges
+		\end{itemize}
+		}
+	\end{column}
+\end{columns}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transaction Legitimacy}
+\textbf{Goal:} Ensure transaction \textcolor{focus}{authenticity} and \textcolor{focus}{integrity}, i.e., ensure that the transaction was initiated by the owner of a specific address.
+\uncover<2->{
+		\center
+		\input{../assets/figures/transaction-legit.tex}
+		}
+\uncover<3->{
+		\vspace{1em}
+		\input{../assets/figures/transaction-manipulation.tex}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Public/Private Key Pair}
+
+	\input{../assets/figures/key_creation}
+
+\vspace{1em}
+
+\textbf{Two key principles:}
+\begin{enumerate}
+\item<1-> Private key is created (chosen) without the help of an intermediary, and can be used to derive public key.
+\item<2-> If information is encrypted with one key, it can only be decrypted with the other key.
+\end{enumerate}
+
+\vspace{1.5em}
+
+\uncover<3->{
+	
+	\begin{columns}[T]
+		\begin{column}{0.6\textwidth}
+			\vspace{-1.0em}
+			\begin{alertblock}{IMPORTANT!}
+				\textbf{Private key must remain secret at all time. \\
+				Public key can be shared freely.}
+			\end{alertblock}		
+		\end{column}
+		
+	\end{columns}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Two Distinct Applications}
+	\input{../assets/figures/publickeycrypto_applications}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Verification of Transactions}
+	\begin{figure}[h!]
+		\center
+		\input{../assets/figures/transaction-encryption.tex}
+		\caption*{Encryption and decryption of the transaction message}
+		\label{fig:asymmeinfach}
+	\end{figure}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Fundamentals: Cryptography}
+
+\textbf{Prerequisites:}
+\begin{columns}
+
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+		\includegraphics[width = \textwidth,frame]{../assets/images/hash_functions_video.png}
+		\caption*{\href{https://www.youtube.com/watch?v=WXszGuXHFNk}{\link Hash Functions}}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.45\textwidth}
+		\begin{figure}
+		\includegraphics[width = \textwidth,frame]{../assets/images/asymm_crypto_video.png}
+		\caption*{\href{https://www.youtube.com/watch?v=rScMINd5S7I}{\link Asymmetric Cryptography}}
+		\end{figure}
+	\end{column}
+	
+\end{columns}
+
+\uncover<2->{
+\begin{alertblock}{Recommended}
+	Watch/Revisit the entire cryptography section of the Bitcoin course.
+\end{alertblock}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transaction Consensus}
+\textbf{Goal:} Deciding which (legitimate) transactions are \textcolor{focus}{valid}.\\
+\vspace{1em}
+\uncover<2->{
+\textbf{Potential problem:} Assume both transactions have valid signatures, but they compete with each other (same origin and nonce). What now? \\
+\begin{figure}[h!]
+	\center
+	\input{../assets/figures/double-spend.tex}
+\end{figure}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{State Transitions}
+	\textbf{Goal:} Deciding which (legitimate) transactions are \textcolor{focus}{valid}. \\
+\vspace{1em}
+\textbf{Potential problem:} AAssume both transactions have valid signatures, but they compete with each other (same origin and nonce). What now? \\
+\begin{figure}[h!]
+	\center
+	\input{../assets/figures/competing-transactions.tex}
+\end{figure}
+
+\uncover<2->{
+\begin{alertblock}{Key takeaways}
+All transaction types modify the data structure. There must be a consensus regarding the validity and order of transactions.
+\end{alertblock}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Personal Database and Transaction Queue}
+	\begin{minipage}{0.15\textwidth}
+		\center
+		\includegraphics[width=2.4cm]{../assets/images/miner_single.png}
+	\end{minipage}
+	\begin{minipage}{0.1\textwidth}
+		\begin{tikzpicture}[scale=1]
+			\draw [decorate,decoration={brace,amplitude=10pt}, color = black, line width=2pt]
+			(0.5,0.0) -- (0.5,5.5) node [black,midway,xshift=-0.8cm] 
+			{\footnotesize};
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.7\textwidth}
+		\uncover<1->{\textbf{Personal version of the blockchain:}}
+		\begin{itemize}
+			\item<1-> Personal ledger of valid transactions in block structure.
+			\item<1-> Has an incentive to keep in sync with consensus.
+		\end{itemize}
+		\vspace{1em}
+		\uncover<2->{\textbf{Personal transaction queue:}}
+		\begin{itemize}
+			\item<2-> Transactions that are not yet valid.
+			\item<2-> Waiting for inclusion in database $\rightarrow$ queue.
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+%%%
+
+%%%
+%\begin{frame}{Block Creation}
+%	\textbf{Network participants bundle and order transactions:}
+%	\begin{columns}
+%		\begin{column}{0.45\textwidth}	
+%			\begin{figure}
+%				\includegraphics[width = \textwidth]{../assets/images/globe.png}
+%			\end{figure}
+%		\end{column}
+%		\begin{column}{0.45\textwidth}	
+%			\begin{figure}
+%				\includegraphics[width = \textwidth]{../assets/images/globe.png}
+%			\end{figure}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
+%%%
+
+%%%
+\begin{frame}{Consensus Protocols}
+
+\begin{figure}
+	\input{../assets/figures/consensus_problem.tex}
+\end{figure}
+
+\begin{itemize}
+	\item<2-> \textbf{Proof-of-Authority (PoA):} one centralized party decides
+	\item<3-> \textbf{Proof-of-Work (PoW):} decentralized lottery
+	\item<4-> \textbf{Proof of Stake (PoS):} validation in proportion to collateral  
+\end{itemize}
+
+\uncover <5->{
+	\begin{alertblock}{More in depth}
+	Check out \href{https://www.youtube.com/watch?v=9iP_pE0cVU4}{\link Alternative Consensus Protocols - Bitcoin, Blockchain and Cryptoassets}
+	\end{alertblock}
+}
+\end{frame}
+%%%
+
+\begin{frame}{Recommended Reading}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=\textwidth , frame]{../assets/images/whitepaper_cover.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{A Next-Generation Smart Contract and Decentralized Application Platform} \\
+	Vitalik Buterin  \\
+	\link \href{https://ethereum.org/en/whitepaper/}{Online version}
+	\end{column}
+\end{columns}
+\end{frame}
+%%%
+
+\begin{frame}{Recommended Reading}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=\textwidth , frame]{../assets/images/yellowpaper_cover.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{Ethereum: A Secure Decentralised Generalised Transaction Ledger} \\
+	Gavin Wood \\
+	\link \href{https://ethereum.github.io/yellowpaper/paper.pdf}{Online PDF}
+	\end{column}
+\end{columns}
+\end{frame}
+%%%
+
+%%%
+%\begin{frame}%[allowframebreaks]
+%\frametitle{References}
+%	\bibliographystyle{amsplain}
+%	\bibliography{../assets/bib/refs}
+%\end{frame}
+%%%
+
+\end{document}
