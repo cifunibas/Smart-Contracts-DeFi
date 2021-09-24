@@ -35,18 +35,20 @@ Satoshi Nakamoto \\
 
 %%% TODO: maybe link to Bitcoin primer video where "malicious" centralized third parties are addressed
 \begin{frame}{Recap: Bitcoin as a New Asset Class}
-Bitcoin enables the exchange of monetary units \textcolor{focus}{without the need for a centralized third party}. The underlying technology solves three problems of distributed ledgers which operate on a global scale:
+Bitcoin enables the exchange of virtual monetary units \textcolor{focus}{without the need for a centralized third party}. The underlying technology solves three problems of distributed ledgers which operate on a global scale:
 
 \begin{itemize}
-\item \textbf{Transaction capacity:} anyone can initiate transactions.
-\item \textbf{Transaction legitimacy:} the authenticity and integrity of transactions is cryptographically secured.
-\item \textbf{Transaction consensus:} the network agrees on the current state of the ledger.
+\item<2-> \textbf{Transaction capacity:} anyone can initiate transactions.
+\item<3-> \textbf{Transaction legitimacy:} the authenticity and integrity of transactions is cryptographically secured.
+\item<4-> \textbf{Transaction consensus:} the network agrees on the current state of the ledger.
 
 \end{itemize}
 
-\begin{alertblock}{Key insight}
+\uncover<5->{
+\begin{alertblock}{Key takeaway}
 Public blockchains are decentralized data structures. The systems are maintained by their participants and work in the absence of centralized third parties.
 \end{alertblock}
+}
 \end{frame}
 %%%
 
@@ -58,7 +60,6 @@ Public blockchains are decentralized data structures. The systems are maintained
 		\begin{figure}
 		\includegraphics[height = 0.25\textheight]{../assets/images/bitcoin_network_symbol}	
 		\end{figure}
-
 	\end{column}
 	
 	\begin{column}{0.7\textwidth}
@@ -74,29 +75,33 @@ Public blockchains are decentralized data structures. The systems are maintained
 
 \begin{columns}
 
+\uncover<2->{
 \begin{column}{0.3\textwidth}
-% TODO: insert Ethereum/smart contracts logo
 	\begin{figure}
 		\includegraphics[height = 0.25\textheight]{../assets/images/ethereum_symbol}	
 	\end{figure}
 \end{column}
 
 \begin{column}{0.7\textwidth}
-\begin{itemize}
-\item Code that resides on the blockchain
-\begin{itemize}
-\item transparent
-\item deterministic execution
-\end{itemize}
-\end{itemize}
+	\begin{itemize}
+		\item Code that resides on the blockchain
+		\begin{itemize}
+			\item transparent
+			\item deterministic execution
+		\end{itemize}
+	\end{itemize}
 \end{column}
+}
+
 \end{columns}
 
 \vspace{1.5em}
 
+\uncover<3->{
 \begin{alertblock}{Learning goal of this video}
 You understand the fundamentals of smart contract capable public blockchains. If you want to learn more about Bitcoin or public blockchains in general, check out our course \href{https://www.youtube.com/watch?v=7eAybINMdiM&list=PLoVRRjQbqYFw4wJ-oh-_iGPBiSvwDtUw0}{\link \textbf{Bitcoin, Blockchain and Cryptoassets}}.
 \end{alertblock}
+}
 \end{frame}
 %%%
 
@@ -269,7 +274,7 @@ You understand the fundamentals of smart contract capable public blockchains. If
 }
 
 \uncover<3->{
-\begin{alertblock}{Key insights}
+\begin{alertblock}{Key takeaways}
 Transactions modify the data structure. There needs to be a process that ensures that all network participants agree on which transactions are valid.
 \end{alertblock}
 }
@@ -310,13 +315,13 @@ Every transaction type modifies the data structure. Depending on the order in wh
 		\end{tikzpicture}
 	\end{minipage}
 	\begin{minipage}{0.7\textwidth}
-		\uncover<1->{\textbf{Personal Version of the Blockchain}}
+		\uncover<1->{\textbf{Personal version of the blockchain:}}
 		\begin{itemize}
 			\item<1-> Personal ledger of valid transactions in block structure.
 			\item<1-> Has an incentive to keep in sync with consensus.
 		\end{itemize}
 		\vspace{1em}
-		\uncover<2->{\textbf{Personal Transaction Queue}}
+		\uncover<2->{\textbf{Personal transaction queue:}}
 		\begin{itemize}
 			\item<2-> Transactions that are not yet valid.
 			\item<2-> Waiting for inclusion in database $\rightarrow$ queue.
@@ -326,43 +331,44 @@ Every transaction type modifies the data structure. Depending on the order in wh
 %%%
 
 %%%
-\begin{frame}{Block Creation}
-	\textbf{Network participants bundle and order transactions:}
-	\begin{columns}
-		\begin{column}{0.45\textwidth}	
-			\begin{figure}
-				\includegraphics[width = \textwidth]{../assets/images/globe.png}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.45\textwidth}	
-			\begin{figure}
-				\includegraphics[width = \textwidth]{../assets/images/globe.png}
-			\end{figure}
-		\end{column}
-	\end{columns}
-\end{frame}
+%\begin{frame}{Block Creation}
+%	\textbf{Network participants bundle and order transactions:}
+%	\begin{columns}
+%		\begin{column}{0.45\textwidth}	
+%			\begin{figure}
+%				\includegraphics[width = \textwidth]{../assets/images/globe.png}
+%			\end{figure}
+%		\end{column}
+%		\begin{column}{0.45\textwidth}	
+%			\begin{figure}
+%				\includegraphics[width = \textwidth]{../assets/images/globe.png}
+%			\end{figure}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
 %%%
 
 %%%
 \begin{frame}{Consensus Protocols}
 
 \begin{figure}
-	\includegraphics[width = 0.5\textwidth]{../assets/images/globe.png}	
+	\includegraphics[height = 0.3\textheight]{../assets/images/globe.png}	
 \end{figure}
 
 \vspace{1.5em}
 
 \begin{itemize}
-	\item<2-> \textbf{Proof of Authority (PoA):} one party decides
-	\item<3-> \textbf{Proof of Work (PoA):} decentralized lottery
-	\item<4-> \textbf{Proof of Stake (PoS):} 
+	\item<2-> \textbf{Proof-of-Authority (PoA):} one centralized party decides
+	\item<3-> \textbf{Proof-of-Work (PoW):} decentralized lottery
+	\item<4-> \textbf{Proof of Stake (PoS):} decentralized ...
 
 \end{itemize}
 
-	% PoA -- trusted party decides
-	% PoW -- decentralized lottery
-	% PoS -- collateral that secures the network
-	% Reference video "alternative consensus protocols"
+\uncover <5->{
+	\begin{alertblock}{More in depth}
+	Check out this video: \href{https://www.youtube.com/watch?v=9iP_pE0cVU4}{\link Alternative Consensus Protocols - Bitcoin, Blockchain and Cryptoassets}
+	\end{alertblock}
+}
 \end{frame}
 %%%
 
