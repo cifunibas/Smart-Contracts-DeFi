@@ -36,12 +36,12 @@
 	\end{column}
 \end{columns}
 \uncover<3->{
-	\begin{alertblock}{Bitcoin and Ethereum Deal With This Problem in Different Ways}
+	\begin{keytakeaway}{Bitcoin and Ethereum Deal With This Problem in Different Ways}
 		\begin{itemize}
 			\item Bitcoin Script is a restricted scripting language.
 			\item Ethereum has a Turing complete instruction set. It charges a small fee (gas) for each computation step.
 		\end{itemize}
-	\end{alertblock}
+	\end{keytakeaway}
 }
 \end{frame}
 %%%
@@ -56,42 +56,38 @@
 				\begin{column}{0.08\textwidth} %% TODO: is there a better way?
 				\end{column}
 				\begin{column}{0.25\textwidth}
-					\begin{exampleblock}{Addition}
+					\begin{samplecode}{Addition}
 						\begin{center}
 							\includegraphics[width=2em]{../assets/images/plus.png}
 						\end{center}
 						$\rightarrow$ 3 gas units 
-					\end{exampleblock}				
+					\end{samplecode}				
 				\end{column}
 				}
 				\uncover<3->{
 				\begin{column}{0.25\textwidth}
-					\begin{exampleblock}{Multiplication}
+					\begin{samplecode}{Multiplication}
 						\begin{center}
 							\includegraphics[width=2em]{../assets/images/multiply.png}
 						\end{center}
 						$\rightarrow$ 5 gas units 
-					\end{exampleblock}
+					\end{samplecode}
 				\end{column}
 				}
 				\uncover<4->{
 				\begin{column}{0.25\textwidth}
-					\begin{exampleblock}{Store 256 bits}
+					\begin{samplecode}{Store 256 bits}
 						\begin{center}
 							\includegraphics[width=2em]{../assets/images/database.png}
 						\end{center}
 						$\rightarrow$ 20k gas units 
-					\end{exampleblock}	
+					\end{samplecode}	
 				\end{column}
 				}
 				\begin{column}{0.02\textwidth} %% TODO: is there a better way?
 				\end{column}
 			\end{columns}
 		\uncover<5->{
-		\hspace{1em}
-		\item Every transaction has a user-specified \textbf{gas price}, i.e. the price in $\mu ETH$ or GWEI the user is willing to pay per unit of gas.
-		}
-		\uncover<6->{
 		\item Every transaction has a user-specified \textbf{gas limit}, i.e. the maximum number of gas units that can be in this transaction.
 		\hspace{-1em}
 		\begin{itemize}
@@ -99,12 +95,66 @@
 			\item Contract execution varies
 		\end{itemize}
 		}
+		\uncover<6->{
+		\hspace{1em}
+		\item Every transaction has a certain \textbf{gas price}, i.e. the price in $\mu ETH$ or GWEI the user pays per unit of gas.
+		}
 	\end{itemize} 
 \end{frame}
 %%%
 
 %%%
-%TODO: Add Gas price pre and post EIP-1559
+\begin{frame}{Ethereum Gas Fees: EIP-1559}
+	On August 5, 2021 (at block 12.965.000), an upgrade of the gas mechanism to Ethereum was introduced through the London hard fork\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}. The update is called EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}.\\
+	According to the authors of the proposal, the update addresses the following issues: % Note: Copy paste from eip
+	\begin{itemize}
+		\item Mismatch between volatility of transaction fee levels and social cost of transactions
+		\item Needless delays for users
+		\item Inefficiencies of first price auctions
+		\item Instability of blockchains with no block reward
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum Gas Fees: Gas Price Before EIP-1559}
+	\begin{center}
+		\begin{tikzpicture}
+			\input{../assets/figures/gasPricePre1559.tex}
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{itemize}
+		\uncover<1->{
+			\item User specifies gas price, he is willing to pay for the transaction	
+		}
+		\uncover<2->{
+			\item Miners are incentivized to include transactions with higher gas prices first
+			\item All fees go to miner of the block
+		}
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum Gas Fees: Gas Price After EIP-1559}
+	\begin{center}
+		\begin{tikzpicture}
+			\input{../assets/figures/gasPricePost1559.tex}
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum Gas Fees: Gas Price After EIP-1559}
+	\begin{itemize}
+		\item \textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
+		\item \textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
+		\item \textbf{Max fee (optional)} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
+		\item \textbf{Refund:} $maxFee - (baseFee + priorityFee)$ is refunded to the user after transaction execution. 
+	\end{itemize}	
+\end{frame}
 %%%
 
 %%%
@@ -163,14 +213,21 @@
 	\centering
 	\begin{minipage}{.45\textwidth}
   		\centering
-  		\includegraphics[width=0.9\textwidth]{../assets/images/etherscan.png}
+  		\includegraphics[width=0.9\textwidth]{../assets/images/Etherscan.png}
   		\caption*{\footnotesize \href{https://etherscan.io/}{\link Etherscan}}
 	\end{minipage}
 	\begin{minipage}{.45\textwidth}
   		\centering
-  		\includegraphics[width=0.9\textwidth]{../assets/images/eth-gas-station.png}
+  		\includegraphics[width=0.9\textwidth]{../assets/images/ethGasStation.png}
   		\caption*{\footnotesize \href{https://www.Ethgasstation.info}{\link Eth Gas Station}}
 	\end{minipage}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\begin{minipage}{0.45\textwidth}
+			\includegraphics[width=0.9\textwidth]{../assets/images/gasnow.png}
+  			\caption*{\footnotesize \href{https://www.gasnow.org}{\link Gas Now}}			
+		\end{minipage}
 	\end{figure}
 \end{frame}
 %%%
@@ -188,14 +245,14 @@
 		\item Establish a market for priority access to network
 	\end{itemize}
 	
-\begin{block}{Exercise 3} % TODO: An EIP-1559 anpassen
+\begin{exercise}{Exercise 3} % TODO: An EIP-1559 anpassen
 \begin{itemize}
 	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
 	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 0 GWEI and a gasLimit 0f 21000. What do you expect to happen?
 	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI and a gasLimit of 1000000. What do you expect to happen?
 	\item Use your Metamask account to issue an ETH transaction with a gasPrice of 100 GWEI and a gasLimit of 1000. What do you expect to happen?
 \end{itemize}
-\end{block}
+\end{exercise}
 \end{frame}
 %%%
 
