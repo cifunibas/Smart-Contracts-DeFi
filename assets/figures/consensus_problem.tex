@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale = 0.8]
+	\coordinate (c0) at (0, 0);
+	\coordinate (c1) at (3, 0);
+	\coordinate (c2) at (6, 0);
+	\coordinate (c3a) at (9, 2);
+	\coordinate (c3b) at (9, 0);
+	\coordinate (c3c) at (9, -2);
+	
+	\node at (c0) {\input{../assets/figures/block_order0.tex}};
+	\node at (c1) {\input{../assets/figures/block_order1.tex}};
+	\node at (c2) {\input{../assets/figures/block_order2.tex}};
+	
+	\node at (c3a) {\input{../assets/figures/block_order3a.tex}};
+	\node at (c3b) {\input{../assets/figures/block_order3b.tex}};
+	\node at (c3c) {\input{../assets/figures/block_order3c.tex}};
+
+	\draw[dotted, thick] ([xshift = 25pt]c0) -- ([xshift = -25pt]c1);
+	\draw[dotted, thick] ([xshift = 25pt]c1) -- ([xshift = -25pt]c2);
+	\draw[dotted, thick] ([xshift = 25pt]c2) -- ([xshift = -25pt]c3a);
+	\draw[dotted, thick] ([xshift = 25pt]c2) -- ([xshift = -25pt]c3b);
+	\draw[dotted, thick] ([xshift = 25pt]c2) -- ([xshift = -25pt]c3c);
+
+\end{tikzpicture}

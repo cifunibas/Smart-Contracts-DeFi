@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{gitinfo2}
 \usepackage{tikz}
+ \usetikzlibrary{calc}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{bibentry}
@@ -17,6 +18,7 @@
 \usepackage{fontawesome}
 \usepackage{seqsplit}
 \usepackage{tabularx}
+\usepackage{tcolorbox}
 
 % Color Options
 \definecolor{highlight}{rgb}{0.65,0.84,0.82}
@@ -56,25 +58,33 @@
 \captionsetup[figure]{labelfont={color=black},font={color=black}}
 \captionsetup[table]{labelfont={color=black},font={color=black}}
 
-
-\setbeamercolor{block body}{bg=brightanthracite}
-\setbeamercolor{block title}{bg=anthracite, fg=white}
-\setbeamerfont{block title}{size = \footnotesize}
-\setbeamerfont{block body}{size = \scriptsize}
-
-\setbeamercolor{block body example}{bg=mint}
-\setbeamercolor{block title example}{bg=darkmint, fg=white}
-\setbeamerfont{block title example}{size = \footnotesize}
-\setbeamerfont{block body example}{size = \scriptsize}
-
-\setbeamercolor{block body alerted}{bg=softred}
-\setbeamercolor{block title alerted}{bg=red, fg = white}
-\setbeamerfont{block title alerted}{size = \footnotesize}
-\setbeamerfont{block body alerted}{size = \scriptsize}
-
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
-% Link Icon Command
+%tcolor boxes
+\newtcolorbox{samplecode}[2][]{
+  colback=mint, colframe=darkmint, coltitle=white,
+  fontupper = \ttfamily\scriptsize, fonttitle= \bfseries\scriptsize,
+  boxrule = 0mm, arc = 0mm,
+  boxsep = 1.3mm, left = 0mm, right = 0mm, top = 0.5mm, bottom = 0mm, middle=0mm,
+  #1,title=#2}
+  
+\newtcolorbox{keytakeaway}[2][]{
+  colback=softred, colframe=red, coltitle=white,
+  fontupper = \scriptsize, fonttitle= \bfseries\scriptsize,
+  boxrule = 0mm, arc = 0mm,
+  boxsep = 1.3mm, left = 0mm, right = 0mm, top = 0.5mm, bottom = 0mm, middle=0mm,
+  #1,title=#2}
+
+\newtcolorbox{exercise}[2][]{
+  colback=brightanthracite, colframe=anthracite, coltitle=white,
+  fontupper = \scriptsize, fonttitle= \bfseries\scriptsize,
+  boxrule = 0mm, arc = 0mm,
+  boxsep = 1.3mm, left = 0mm, right = 0mm, top = 0.5mm, bottom = 0mm, middle=0mm,
+  #1,title=#2}
+
+
+
+% Link Icon Command 
 \newcommand{\link}{%
     \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{%
         \begin{scope}[x=1ex, y=1ex]
@@ -95,6 +105,10 @@
             -- (1, 1) -- (1, 0.6);
         }
     }
+
+% Other commands
+\newcommand\tab[1][0.5cm]{\hspace*{#1}} % for code boxes
+
 
 % Read Git Data from Github Actions Workflow
 % Defaults to gitinfo2 for local builds
