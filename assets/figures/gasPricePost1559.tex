@@ -1,0 +1,33 @@
+\begin{footnotesize}
+	\uncover<1->{
+		\node (network) at (-4.5, -1) {\includegraphics[width=.15\textwidth]{../assets/images/ethereum_symbol.png}};
+		\node (baseFee) at (0,-1) [fill=mint, draw=black, minimum size=2cm, minimum height=1.5cm] {Base Fee};
+		\draw[->, dotted, very thick] (network) -- (baseFee);
+	}
+	\only<2>{
+		\node (baseFeeChange) at (0,-0.25) [draw=red, dotted, very thick, minimum size=2cm, minimum height=1cm, label={[red]above:+/- max. 12.5\% per block}] {};
+		\draw[->, red, dotted, very thick] (baseFee) -- (baseFeeChange);
+		\draw[->, red, dotted, very thick] (baseFee) -- (baseFeeChange.north);
+	}
+	\uncover<3->{
+		\node (user) at (-4.5, 1) {\includegraphics[width=.15\textwidth]{../assets/images/avatar.png}};
+		\node (priorityFee) at (0, 0.25) [fill=mint, draw=black, minimum size=2cm, minimum height = 1cm] {Priority Fee};
+		\draw[->, dotted, very thick] (user) -- (priorityFee.west);
+	}
+	\uncover<4->{
+		\node (maxFee) at (0, 1.25) [fill=mint, draw=black, dotted, minimum size=2cm, minimum height = 1cm, label=above:Max Fee] {};
+		\draw[->, dotted, very thick] (user) -- (maxFee.north west);
+	}
+	\uncover<5->{
+		\node (burn) at (4.5, -1) {\includegraphics[width=.15\textwidth]{../assets/images/fire.png}};
+		\draw[->, very thick, red] (baseFee) -- (burn);
+	}
+	\uncover<6->{
+		\node (miner) at (4.5, 1) {\includegraphics[width=.15\textwidth]{../assets/images/miner_single.png}};
+		\draw[->, very thick, red] (priorityFee) -- (miner);
+	}
+	\uncover<7->{
+		\node (refund) at (0, 1.25) [fill=mint, draw=black, dotted, minimum size=2cm, minimum height = 1cm] {Refund};
+		\draw[->, very thick, red] (refund) -- (user);
+	}
+	\end{footnotesize}
