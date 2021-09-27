@@ -1,0 +1,68 @@
+
+%Define Coordinates
+
+\coordinate (3) at (-4,0);
+\coordinate (4) at (-2,0);
+\coordinate (5) at (0,0);
+\coordinate (12) at (-2,-3);
+
+%Empty Files
+
+\node (state)at (3) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (5) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+
+
+%Magnifier
+\node (state)at (4) [scale=0.15, yshift=14cm, xshift=6cm] {\includegraphics{../assets/images/magnifier.png}};
+
+\node (state)at (4) [scale=0.15, yshift=14cm, xshift=-6cm]{\reflectbox{\includegraphics{../assets/images/magnifier.png}}};
+
+
+%Text
+
+\node (state)at (4) [align=left, fill=mint, scale=1, yshift=2.5cm, xshift=4cm] {0x281ad20ff212… \\
+Persistent Storage = 133};
+
+\node (state)at (4) [align=left,fill=mint, scale=1, yshift=2.5cm, xshift=-4cm] {0x281ad20ff212… \\
+Persistent Storage = 22};
+
+
+%1s and 0 within Empty Files
+
+\node [align=left, yshift= -8pt] at(3){\textbf{01101}\\\textbf{10010}\\\textbf{10110}};
+\node [align=left, yshift= -8pt] at(5){\textbf{01010}\\\textbf{10111}\\\textbf{01100}};
+
+
+%Arrow Empty File --> Empty File (mintgreen)
+
+\node at(4)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+	
+
+%Network
+
+\node  at (-2,-4.5) {
+	\scalebox{1}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+%Transaction Picture
+
+\node  at (-7.5,-4.3) {
+	\scalebox{0.7}
+{\includegraphics{../assets/images/transactions.png}}};
+
+
+%Arrow Empty File --> Network, Network --> Empty File
+
+\draw [-stealth, shorten >=18pt, thick, yshift=-18pt, xshift = 8pt](-4,-1) -- (12);
+
+\draw [stealth-, shorten >=18pt, thick, yshift=-18pt, xshift = -8pt](0,-1) -- (12);
+
+
+%Arrow Transaction --> Network
+
+\draw [-stealth, shorten >=40pt, shorten <=23pt, thick, ](-7.5,-4.3) -- (-2,-4.3);
