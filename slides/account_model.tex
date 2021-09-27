@@ -55,7 +55,7 @@
 	\end{columns}
 \vspace{1em}
 \uncover<2->{
-	\begin{keytakeaway}{The Account-based Introduces Conditions on the Account Level}
+	\begin{keytakeaway}{Key Takeaway}
 		The ability to implement logic on an account level allows for all sorts of use-cases. It is more flexible, more intuitive and easier to handle than conditions on the UTXO-level.
 	\end{keytakeaway}
 	}
@@ -72,9 +72,7 @@ Instead of Bitcoin's UTXO model, Ethereum uses actual accounts.
 			\item<1-> Hexadecimal encoding
 		\end{itemize}
 	\vspace{1em}
-	\begin{samplecode}{Address Example}
-		{\normalsize \texttt{OxD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4}}
-	\end{samplecode}
+	Example: \texttt{OxD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4}
 \end{frame}
 %%%	
 
@@ -120,22 +118,22 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 			\begin{itemize}
 				\item Address
 				\item Balance
-				\item Nonce (\# of Transactions)
+				\item Nonce (\# of transactions)
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.45\textwidth}
 			\begin{itemize}
 				\item Address
 				\item Balance
-				\item Nonce (\# of Accounts created)
-				\item Contract Code
-				\item Contract Storage
+				\item Nonce (\# of accounts created)
+				\item Contract code
+				\item Contract storage
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \vspace{1em}
 \uncover<2->{
-	\begin{keytakeaway}{Externally Owned Accounts and Contract Accounts}
+	\begin{keytakeaway}{Control Over Accounts}
 		 Externally  Owned  Accounts  are  controlled  by  a  private  key.  Contract accounts are controlled by the contract code.
 	\end{keytakeaway}	
 	}			
@@ -200,9 +198,9 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 \begin{enumerate}
 				\item<1-> EOA or CA issues transaction with \textbf{zero address} as recipient address.
 				\vspace{1em}
-				\item<2-> The transaction carries out the contract code.
-				\item<2-> Transaction confirmation = Contract deployment
-				\item<2-> New Contract Account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
+				\item<2-> The transaction carries the contract code.
+				\item<3-> Transaction confirmation = Contract deployment
+				\item<4-> New Contract Account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
 \end{enumerate}
 			
 \end{frame}
@@ -303,13 +301,11 @@ If two wallet applications are not in sync, two transactions A and B may be conf
 	\begin{columns}[T]
 		\begin{column}{0.2\textwidth}
 			\center
-			\includegraphics[scale=0.13]{../assets/images/alert.png}
+			\includegraphics[scale=0.1]{../assets/images/alert.png}
 		\end{column}
 		\begin{column}{0.8\textwidth}
 		\vspace{1em}
-		If you are currently managing Mainnet funds with Metamask, make sure \textcolor{focus}{NOT} to use the same mnemonic seed for your testnet transactions. In doing so you will put your ETH and tokens at risk. \\
-		\vspace{1em}
-		$\rightarrow$ We recommend installing a second browser e.g. Brave, Chrome, Firefox or Opera.
+		If you are currently managing Mainnet funds with Metamask, make sure \textcolor{focus}{NOT} to use the same mnemonic seed for your testnet transactions. In doing so you will put your ETH and tokens at risk.
 		\end{column}
 	\end{columns}
 }
