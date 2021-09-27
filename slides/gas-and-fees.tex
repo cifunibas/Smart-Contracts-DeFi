@@ -105,13 +105,19 @@
 
 %%%
 \begin{frame}{Ethereum Gas Fees: EIP-1559}
-	On August 5, 2021 (at block 12.965.000), an upgrade of the gas mechanism to Ethereum was introduced through the London hard fork\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}. The update is called EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}.\\
-	According to the authors of the proposal, the update addresses the following issues: % Note: Copy paste from eip
+	On August 5, 2021 (at block 12.965.000), the Ethereum gas mechanism was updated through the London hard fork\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}. The proposal is called EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}.\\
+	\vspace{0.2cm}
+	\textbf{Issues addressed by the proposal}:
 	\begin{itemize}
 		\item Mismatch between volatility of transaction fee levels and social cost of transactions
 		\item Needless delays for users
 		\item Inefficiencies of first price auctions
 		\item Instability of blockchains with no block reward
+	\end{itemize}
+	\textbf{Key changes}:
+	\begin{itemize}
+		\item Dynamic base fee calculated and burned by the network
+		\item Variable block size
 	\end{itemize}
 \end{frame}
 %%%
@@ -124,13 +130,14 @@
 		\end{tikzpicture}
 	\end{center}
 	
+	\textbf{First-price auction}
 	\begin{itemize}
 		\uncover<1->{
-			\item User specifies gas price, he is willing to pay for the transaction	
+			\item User specifies gas price, he is willing to pay for the transaction
 		}
 		\uncover<2->{
 			\item Miners are incentivized to include transactions with higher gas prices first
-			\item All fees go to miner of the block
+			\item All transaction fees ($gasPrice * gasUsed$) go to miner of the block
 		}
 	\end{itemize}
 \end{frame}
@@ -154,6 +161,24 @@
 		\item \textbf{Max fee (optional)} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
 		\item \textbf{Refund:} $maxFee - (baseFee + priorityFee)$ is refunded to the user after transaction execution. 
 	\end{itemize}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum Gas Fees: Variable Block Size}
+	\textbf{Before EIP-1559}
+	\begin{itemize}
+		\item Fixed block size
+	\end{itemize}
+	\vspace{0.2cm}
+	\textbf{After EIP-1559}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
+	\begin{itemize}
+		\item Target block size: currently 15 million gas ($s_{target}$)
+		\item Block limit: currently 30 million gas (2x target block size)
+		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$):\\
+		\vspace{0.1cm}
+		$r_{cur} := r_{pred}*\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
+	\end{itemize}
 \end{frame}
 %%%
 
@@ -259,6 +284,33 @@
 %%%
 \begin{frame}{Gasprice Market - Some Interesting Observations}
 	% TODO: Add gas price chart
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Recommended Reading}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=0.5\textwidth , frame]{../assets/images/Roughgarden_cover.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{Transaction Fee Mechanism Design for the Ethereum Blockchain: An Economic Analysis of EIP-1559} \\
+	Tim Roughgarden, 2020 \\
+	\link \href{https://timroughgarden.org/papers/eip1559.pdf}{Online PDF}
+	\end{column}
+\end{columns}
+\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\center
+	\includegraphics[width=0.5\textwidth , frame]{../assets/images/eip_1559_cover.png}
+	\end{column}
+	\begin{column}{0.7\textwidth}
+	\textbf{EIP-1559 FAQ} \\
+	Vitalik Buterin, 2021 \\
+	\link \href{https://notes.ethereum.org/@vbuterin/eip-1559-faq}{Online PDF}
+	\end{column}
+\end{columns}
 \end{frame}
 %%%
 
