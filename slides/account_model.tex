@@ -199,8 +199,8 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 				\item<1-> EOA or CA issues transaction with \textbf{zero address} as recipient address.
 				\vspace{1em}
 				\item<2-> The transaction carries the contract code.
-				\item<3-> Transaction confirmation = Contract deployment
-				\item<4-> New Contract Account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
+				\item<3-> Transaction confirmation = contract deployment
+				\item<4-> New contract account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
 \end{enumerate}
 			
 \end{frame}
@@ -231,7 +231,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 		\end{column}
 	\end{columns}
 \vspace{1em}
-	\begin{keytakeaway}{The ABI is needed for User Interaction}
+	\begin{keytakeaway}{Need for ABI}
 		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract specification.
 	\end{keytakeaway}		
 \end{frame}
