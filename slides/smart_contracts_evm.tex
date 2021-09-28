@@ -4,12 +4,15 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Capacity}
+\subtitle{Smart Contracts and the EVM}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
 % Config File
 \input{../config/config.tex}
+
+\captionsetup[figure]{font=tiny,labelformat=simple}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,18 +40,18 @@
 		\begin{itemize}
 		
 			\item<1-> Runs on every (full) node
-			\item<2-> Processes transactions and performs state changes (Deterministically)
+			\item<2-> Processes transactions and performs state changes (deterministically)
 			\item<3-> Is Turing complete
-			\item<4-> State changes as part of consensus; everyone performing all computations.
+			\item<4-> State changes as part of consensus; everyone performing all computations
 		\end{itemize}
 		\end{small}
 	\end{minipage}	
 			\vspace{1em}
 			
 			
-\begin{keytakeaway}{A Slow State Machine}
-				The Ethereum Virtual Machine is often referred to as a World computer. It is a relatively slow computer network. However, the strength of the network is that any code executed on the EVM, will be executed exactly as specified and state changes can be tracked and verified by any network participant.
-\end{keytakeaway}				
+\uncover<5->{\begin{keytakeaway}{A Slow State Machine}
+				The Ethereum Virtual Machine is often referred to as a World computer. It is a relatively slow computer network. However, the strength of the network is that any code executed on the EVM will be executed exactly as specified and state changes can be tracked and verified by any network participant.
+\end{keytakeaway}}			
 			
 	
 \end{frame}
@@ -267,77 +270,74 @@
 
 \begin{minipage}{0.15\textwidth}
 		\center
-		\vspace{2em}
+		\vspace{3.5em}
 		\includegraphics[width=1.8cm]{../assets/images/minus.png}
 		
-		\vspace{3em}
-		
-		\includegraphics[width=1.8cm]{../assets/images/plus.png}
+		\vspace{3.5em}
+		\uncover<2->{
+		\includegraphics[width=1.8cm]{../assets/images/plus.png}}
+		\vspace{0.5em}
 	\end{minipage}
     \hfill
 	\begin{minipage}{0.7\textwidth}
-	\vspace{2em}
-	\fontsize{8}{10}
-		\uncover<1->{\textbf{On the negative side}}
+	\vspace{1em}
+
 		\begin{itemize}
 			\item<1-> EVM is slow
 			\item<1-> Every full node processes all transactions
 			\item<1-> Tradeoff: inclusion vs performance
-			\begin{itemize}
-				\fontsize{8}{10}
-				
+			\begin{itemize}				
     				\item<1-> Verification (computation resources)
     				\item<1-> Data exchange (network resources)
   			\end{itemize}
 			\item<1-> Currently 10-20 transactions per second	
 		\end{itemize}
 		\vspace{1em}
-		\uncover<2->{\textbf{On the positive side:}}
+
 		\begin{itemize}
 			\item<2-> Permissionless
-			\item<2-> Distributed / Very robust
-			\item<2-> Trustless / Verifiable
+			\item<2-> Distributed / very robust
+			\item<2-> Trustless / verifiable
 			\item<2-> Irreversible
 
 
 		\end{itemize}
 	\end{minipage}
 	
-\vspace{2em}	
 	
-	\begin{keytakeaway}{EVM Properties and Smart Contracts}
-				As such, the EVM is an ideal execution environment for smart contracts.
-\end{keytakeaway}				
+	\uncover<3->{\begin{keytakeaway}{EVM Properties and Smart Contracts}
+				The EVM is an ideal execution environment for smart contracts.
+\end{keytakeaway}}				
 
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{A SIMPLE CONTRACT IN PSEUDO CODE}
+\begin{frame}{A Simple Contract in Pseudo Code}
 		\vspace{1em}
 
 \begin{minipage}{0.15\textwidth}
 		\center
 		\vspace{0.5em}
 
-		\includegraphics[width=1.6cm]{../assets/images/smart_contract.png}
-		{\scriptsize 0x281ad20ff212…}
+		\uncover<1->{\includegraphics[width=1.6cm]{../assets/images/smart_contract.png}
+		{\scriptsize 0x281ad20ff212…}}
 
 		
 	\end{minipage}
     \hfill
 	\begin{minipage}{0.7\textwidth}
-	\begin{samplecode}{Shared Storage Contract (Pseudo Code):}
+	\uncover<1->{\begin{samplecode}{Shared Storage Contract (Pseudo Code):}
 	
-				store <- function(parameter)\{ \\
+				store <- function(parameter)\{ \\ \text{ } \text{}
 persistentStorage <- parameter \\
 \} 
-			\end{samplecode}	
+			\end{samplecode}	}
 	
 	\end{minipage}
 	\vspace{1em}
 
-	\begin{minipage}{0.35\textwidth}
+	\uncover<2->{\begin{minipage}{0.35\textwidth}
 		
 \textbf{{Transaction}: \\
 }\begin{tiny}
@@ -347,15 +347,15 @@ persistentStorage <- parameter \\
 \textbf{Gas Limit:} 200000 \\
 \textbf{Gas Price:} 20 \\
 \textbf{Value (optional):} 0 (WEI)\\
-\textbf{Data (optional):} store() function w/ \\  parameter 133
+\textbf{Data (optional):} store() function w/ \\ \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{ }  \text{} parameter 133
 \end{tiny}
-	\end{minipage}
+	\end{minipage}}\uncover<3->{
 	\begin{minipage}{0.6\textwidth}
 	\scalebox{1}{
 	\begin{tikzpicture} [scale=0.5, every node/.style={scale=0.5}]
 			\input{../assets/figures/simple_contract}
 		\end{tikzpicture}}
-	\end{minipage}
+	\end{minipage}}
 
 					
 
@@ -364,10 +364,10 @@ persistentStorage <- parameter \\
 
 
 %%%
-\begin{frame}{LIMITED COMPUTATION CONTEXT}
+\begin{frame}{Limited Computation Context}
 		\vspace{1em}
 
-		\begin{minipage}{0.3\textwidth}
+		\uncover<1->{\begin{minipage}{0.3\textwidth}
 		\center
 		\includegraphics[scale=0.016]{../assets/images/eth.png}
 		
@@ -375,14 +375,14 @@ persistentStorage <- parameter \\
 		{\tiny e.g. ETH transactions}
 	\end{center}
 		
-		\end{minipage}
+		\end{minipage}}
 		\begin{minipage}{0.65\textwidth}
 \begin{scriptsize}
 \uncover<1->{\textbf{Native On-Chain Data}}
 		\begin{itemize}
-			\item<1-> Data stored on-chain and fully secured by  consensus protocol
-			\item<1-> Native protocol token transactions and some endogeneous (token) contracts
-			\item<1->On-chain validation
+			\item<2-> Data stored on-chain and fully secured by  consensus protocol
+			\item<3-> Native protocol token transactions and some endogeneous (token) contracts
+			\item<4->On-chain validation
 		\end{itemize}
 \end{scriptsize}					
 		\end{minipage}
@@ -394,7 +394,7 @@ persistentStorage <- parameter \\
 				
 				
 				\vspace{1em}
-		\begin{minipage}{0.3\textwidth}
+		\uncover<5->{\begin{minipage}{0.3\textwidth}
 		 \center
 			\begin{tikzpicture}[scale=0.02]
 			
@@ -414,20 +414,20 @@ persistentStorage <- parameter \\
 				  and weather data	
 
 		\end{center}		\end{tiny}
-		\end{minipage}
+		\end{minipage}}
 		\begin{minipage}{0.65\textwidth}
 \begin{scriptsize}
-\uncover<1->{\textbf{Static Off-Chain Data}}
+\uncover<5->{\textbf{Static Off-Chain Data}}
 		\begin{itemize}
-			\item<1-> No native on-chain representation
-			\item<1-> Data can be hashed
-			\item<1-> Requires trustworthy data interfaces (oracles)
+			\item<6-> No native on-chain representation
+			\item<7-> Data can be hashed
+			\item<8-> Requires trustworthy data interfaces (oracles)
 		\end{itemize}
 \end{scriptsize}					
 		\end{minipage}
 				
 				\vspace{1em}
-		\begin{minipage}{0.3\textwidth}
+		\uncover<9->{\begin{minipage}{0.3\textwidth}
 		\center
 		\includegraphics[scale=0.13]{../assets/images/supply_chain.png}
 \begin{tiny}
@@ -435,22 +435,154 @@ persistentStorage <- parameter \\
 				e.g. shipment containers
 				\end{center}
 
-		\end{tiny}		\end{minipage}
+		\end{tiny}		\end{minipage}}
 		\begin{minipage}{0.65\textwidth}
 \begin{scriptsize}
-\uncover<1->{\textbf{Dynamic Off-Chain Data}}
+\uncover<9->{\textbf{Dynamic Off-Chain Data}}
 		\begin{itemize}
-			\item<1-> No native on-chain representation
-			\item<1-> Data cannot be hashed
-			\item<1-> Requires trustworthy data interfaces (oracles) as well as reliable cryptoanchors.
+			\item<10-> No native on-chain representation
+			\item<11-> Data cannot be hashed
+			\item<12-> Requires trustworthy data interfaces (oracles) as well as reliable cryptoanchors.
 		\end{itemize}
 \end{scriptsize}					
-		\end{minipage}
-				
-				\vspace{1em}
+		\end{minipage}			
+\vspace{1em}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Differences to Bitcoin Mining}
+
+\begin{itemize}
+	\item<1-> Block creation rate much faster, $\sim$ every 12-15 sec
+	\item<2-> ETHASH less common and requiring more memory compared to dSHA256() $\rightarrow$  ASIC production much more expensive
+			\item<3-> Ethereum is in process of switching to Proof of Stake
+			\item<4-> Node Verification Process is more complex due to state verifications
+		\end{itemize}
+
+%		\vspace{3em}		
+%\uncover<4->{\textbf{Full Nodes Verification Process}}
+%		\begin{itemize}
+%			\item<4-> Check PoW Block Header
+%			\item<5-> Check if state transitions are valid %(0.1 – 0.2 seconds)
+%		\end{itemize}
+
 		
 \end{frame}
 %%%
+
+%%%
+\begin{frame}{Ethereum’s Tree Structure}
+\vspace{1em}
+\uncover<1->{
+	\begin{figure}[htp]
+    		\centering
+    		\includegraphics[scale= 0.4]{
+    			../assets/images/buterin15_tree_structure.jpg
+    		}
+      	\caption{
+      		{\tiny Ethereum Tree Structuce, 
+      		}
+      		\cite{
+      			merkleTree
+      			}
+      	}
+      	\label{fig:1}
+    \end{figure}}
+\vspace{1em}
+\begin{itemize}
+	\item<2-> \textbf{Transaction Root:} Very similar to Merkle tree in Bitcoin
+	\item<3-> \textbf{State Root:} Merkle Patricia Tree containing the states
+	\item<4-> \textbf{Receipts Root:} Essentially showing effect of transactions
+\end{itemize}
+
+\end{frame}
+%%% 
+
+%%%
+\begin{frame}{The Modified Merkle Patricia State Tree}
+\vspace{1em}
+\captionsetup[figure]{font=tiny,labelformat=empty}
+\begin{figure}[htp]
+\centering
+\includegraphics[scale= 0.5]{../assets/images/modified_merkle_patricia_state_tree.jpg}
+      \caption{{\tiny Source: \url{https://ethereum.stackexchange.com/questions/268/ethereum-block-architecture}}}\label{fig:2}
+\end{figure}
+
+		
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Ethereum Block Uncles}
+\vspace{1em}
+\begin{itemize}
+	\item<1-> Equivalent of Bitcoin’s orphan blocks
+	\item<2-> Short block time $\rightarrow $ higher orphan rate
+\end{itemize}
+\uncover<3->{Uncle = Valid orphan Block \& parent max. 6 blocks from present}
+\begin{itemize}
+	\item<4-> Allowing Uncle inclusion...
+		\begin{itemize}
+			\item<4->mitigates disadvantages from network delays
+			\item<4->encourages solo mining
+		\end{itemize}
+\end{itemize}
+
+
+%Options for upcoming Table
+\setlength{\extrarowheight}{5pt}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\newcommand\bigstrut{\rule[-7pt]{7pt}{0pt}}
+
+
+\center
+\uncover<4->{
+	\scalebox{0.8}{
+		\begin{tabularx}{300pt}{X X} 
+			\toprule
+			\rowcolor{mint} \multicolumn{2}{c} 
+			{\textbf{Current Reward Schedule}
+			\bigstrut
+			}\\
+			\bottomrule
+			\rowcolor{lightergray} {\footnotesize Block Reward} & {\footnotesize \hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}  2 ETH}
+			\bigstrut \\
+			{\footnotesize Uncle Block Reward} & {\footnotesize $\frac{7}{8}$ \hspace{1pt}  \hspace{1pt}  $*$  2 ETH = 1.75 ETH}
+			\bigstrut \\
+
+
+			\rowcolor{lightergray}{\footnotesize Uncle Block Inclusion} &{\footnotesize $\frac{1} {32}$ \hspace{1pt} $*$ 2 ETH = 0.0625 ETH}  
+			\bigstrut \\
+			\bottomrule
+		\end{tabularx}
+	}
+\center 
+\begin{tiny}
+If a miner includes an uncle block, both the miner of this block and the miner of
+the uncle block get rewarded.
+\end{tiny}
+\vspace{0.5em} }
+\uncover<5->{\begin{minipage}[c]{0.05\textwidth}
+\includegraphics[scale=0.5]{../assets/images/book.jpg}
+\end{minipage}
+\begin{minipage}[c]{0.8\textwidth}
+$\rightarrow$ {\scriptsize An example: \url{https://etherscan.io/block/8652103}}
+\end{minipage}}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
 
 
 \end{document}
