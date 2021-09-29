@@ -5,7 +5,7 @@
 		\draw[->, dotted, very thick] (network) -- (baseFee);
 	}
 	\only<2>{
-		\node (baseFeeChange) at (0,-0.25) [draw=red, dotted, very thick, minimum size=2cm, minimum height=1cm, label={[red]above:+/- max. 12.5\% per block}] {};
+		\node (baseFeeChange) at (0,-0.25) [draw=red, dotted, very thick, minimum size=2cm, minimum height=0.5cm, label={[red]above:+/- max. 12.5\% per block}] {};
 		\draw[->, red, dotted, very thick] (baseFee) -- (baseFeeChange);
 		\draw[->, red, dotted, very thick] (baseFee) -- (baseFeeChange.north);
 	}

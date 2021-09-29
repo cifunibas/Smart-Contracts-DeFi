@@ -1,0 +1,32 @@
+\begin{footnotesize}
+	\tiny
+	\uncover<1->{
+		\node (avatar1) at (-4.5, 5) {\includegraphics[width=.15\textwidth]{../assets/images/avatar.png}};
+		\node (initiation) at (-0.5, 5) [circle,inner sep=-1pt,fill=mint, label={east,red:remainingGas = gasLimit}] {\begin{tabular}{l}Transaction\\Initiation \end{tabular}};
+		\draw[->, dotted, very thick] (avatar1) -- (initiation) node[midway, below] (text1) {\begin{tabular}{l} User places amount\\ in GWEI equal to\\ gasLimit $\cdot$ gasPrice\\ in transactionEscrow\end{tabular}};
+	}
+	\uncover<2->{
+		\node (remainingGas) at (-0.5,2.5) [diamond,fill=mint,aspect=2] {\begin{tabular}{l} Remaining\\ gas = 0 or\\ insufficient? \end{tabular}};
+		\draw[->, dotted, very thick] (initiation) -- (remainingGas) node[midway, right] (text2) {};
+	}
+	\uncover<3->{
+		\node (executeOperation) at (-0.5,0.5) [rectangle,fill=mint,minimum height=0.6cm, label={east,red:remainingGas = remainingGas - opCost}] {Execute Operation};
+		\draw[->, dotted, very thick] (remainingGas) -- (executeOperation) node[midway, right] (text3) {no};
+	}
+	\uncover<4->{
+		\node (remainingOperations) at (-0.5,-1.2) [diamond,fill=mint,aspect=2,minimum width=0.6cm] {\begin{tabular}{l} Remaining\\ Operations? \end{tabular}};
+		\draw[->, dotted, very thick] (executeOperation) -- (remainingOperations) node[midway, right, mint] (text4) {};
+	}
+	\uncover<5->{
+		\draw[->, dotted, very thick] (remainingOperations.west) -- ++(-1.5,0) node[midway, above] (text5) {yes} -- ++(0,3.7) -- (remainingGas.west) ;
+	}
+	\uncover<6->{
+		\node (reverted) at (4,2.5) [rectangle,fill=mint,minimum width=3cm] {\begin{tabular}{l} \textbf{Transaction reverted}\\ But still included in \\ the Blockchain and \\ gasLimit $\cdot$ gasPrice \\ paid as fee.\end{tabular}};
+		\draw[->, dotted, very thick] (remainingGas) -- (reverted) node[near start, above] (text6) {yes};
+		
+	}
+	\uncover<7->{
+		\node (success) at (4,-1.2) [rectangle,fill=mint,minimum width=3cm] {\begin{tabular}{l} \textbf{Transaction successful}\\ State changes get applied,\\ remainingGas $\cdot$ gasPrice\\ is refunded to user \end{tabular}};
+		\draw[->, dotted, very thick] (remainingOperations) -- (success) node[near start, above] (text7) {no};
+	}
+\end{footnotesize}

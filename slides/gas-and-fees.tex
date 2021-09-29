@@ -158,14 +158,14 @@
 	\begin{itemize}
 		\item \textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
 		\item \textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
-		\item \textbf{Max fee (optional)} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
+		\item \textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
 		\item \textbf{Refund:} $maxFee - (baseFee + priorityFee)$ is refunded to the user after transaction execution. 
 	\end{itemize}	
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Ethereum Gas Fees: Variable Block Size}
+\begin{frame}{Ethereum Gas Fees: Block Size}
 	\textbf{Before EIP-1559}
 	\begin{itemize}
 		\item Fixed block size
@@ -183,36 +183,12 @@
 %%%
 
 %%%
-% TODO: remainingGas ist etwas verwirrend (mal in ETH, mal nicht)
 \begin{frame}{Understanding the Ethereum Fee Process}
-\begin{table}
-	\tiny
-	{\renewcommand{\arraystretch}{2}%
-  \center
-  \begin{tabular}[]{m{0.19\textwidth} | m{0.39\textwidth}| m{0.35\textwidth}}
-  		\hline \hline
-		\textbf{Trigger} & \textbf{Consequence} & \textbf{remainingGas in ETH}\\
-		\hline
-			Transaction initiation
-			& User sets \textbf{gasLimit} and \textbf{gasPrice} and places an amount in GWEI equal to the product of the two in \textbf{transactionEscrow}. \newline \newline \textbf{transactionEscrow = gasLimit $\cdot$ gasPrice}
-			& \textbf{remainingGas = gasLimit $\cdot$ gasPrice}\\
-		\hline
-			For each operation
-			& The \textbf{remainingGas} is decreased by operation’s gas consumption (\textbf{opCost}).
-			& \textbf{remainingGas = remainingGas - opCost}\\
-		\hline
-			If \textbf{remainingGas} $\leq$ 0
-			& If \textbf{remainingGas} is 0 or insufficient and there are operations remaining, the transaction is reverted (but still included in the Blockchain and \textbf{gasLimit $\cdot$ gasPrice} paid as fee).
-			& \textbf{remainingGas} $\leq$ 0\\
-		\hline
-			If all operations are successful
-			& State changes get applied and any unused ETH returned to the sender of the transaction. \newline \newline
-			\textbf{Refund = remainingGas $\cdot$ gasPrice} \newline \newline % TODO: remove gasPrice?
-			\textbf{Fee = (gasLimit - remainingGas) $\cdot$ gasPrice} % TODO: remove gasPrice?
-			& Is multiplied with \textbf{gasPrice} and then refunded to the transaction originator’s address\\% TODO: remove "multiplied with gasPrice and then"?		\hline
-		\multicolumn{3}{r}{All values in GWEI = ETH $\cdot$ 10$^{-9}$}\\
-  \end{tabular}}
-\end{table}
+	\begin{center}
+	\begin{tikzpicture}
+		\input{../assets/figures/ethereumFeeProcess.tex}
+	\end{tikzpicture}
+	\end{center}
 \end{frame}
 %%%
 
