@@ -1,0 +1,42 @@
+\coordinate (clown1) at (-2.4,-2.42);
+\coordinate (ico) at (-1.6,-2.42);
+\coordinate (kitty) at (-0.82,-2.42);
+\coordinate (cex) at (-0.02,-2.42);
+\coordinate (clown2) at (0.92,-2.42);
+\coordinate (defi) at (2.5,-2.42);
+\coordinate (nft) at (3.7,-2.42);
+
+\uncover<1->{
+	\node (chart) at (0,0) {\includegraphics[width=\textwidth]{../assets/images/average_gas_prices.png}};
+}
+\uncover<2->{
+	\node (1) at (clown1) [above right, rectangle, minimum height = 4.8cm, draw=red] {};
+	\node [above=0mm of 1, xshift = -0.6cm, yshift=-1cm] {\includegraphics[width=0.06\textwidth]{../assets/images/clown.png}};
+}
+\uncover<3->{
+	\node (2) at (ico) [above right, rectangle, minimum height = 3cm, minimum width = 0.58cm, draw=red] {};
+	\node [above=0mm of 2] {\includegraphics[width=0.07\textwidth]{../assets/images/ico.png}};
+}
+\uncover<4->{
+	\node (3) at (kitty) [above right, rectangle, minimum height = 3cm, minimum width = 0.3cm, draw=red] {};
+	\node [above=0mm of 3] {\includegraphics[width=0.06\textwidth]{../assets/images/kitty.png}};	
+}
+\uncover<5->{
+	\node (4) at (cex) [above right, rectangle, minimum height = 3cm, minimum width = 0.3cm, draw=red] {};
+	\node [above=0mm of 4] {\includegraphics[width=0.07\textwidth]{../assets/images/vote.png}};
+	\node [above=0mm of 4] {\tiny CEX};
+}
+\uncover<6->{
+	\node (5) at (clown2) [above right, rectangle, minimum height = 4.5cm, minimum width = 0.3cm, draw=red] {};
+	\node [above=0mm of 5, xshift = 0.6cm, yshift=-1cm] {\includegraphics[width=0.06\textwidth]{../assets/images/clown.png}};
+}
+\uncover<7->{
+	\node (6) at (defi) [above right, rectangle, minimum height = 4.5cm, minimum width = 0.92cm, draw=red] {};
+	\node [above=-1mm of 6, xshift = -4mm] {\includegraphics[width=0.03\textwidth]{../assets/images/uniswap.png}};
+	\node [above=-1mm of 6] {\includegraphics[width=0.03\textwidth]{../assets/images/food.png}};
+	\node [above=-1mm of 6, xshift = 4mm] {\includegraphics[width=0.03\textwidth]{../assets/images/trees.png}};
+}
+\uncover<8->{
+	\node (7) at (nft) [above right, rectangle, minimum height = 4.5cm, minimum width = 1.1cm, draw=red] {};
+	\node [above=-8mm of 7] {\includegraphics[width=0.06\textwidth]{../assets/images/nft.png}};
+}
