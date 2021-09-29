@@ -496,7 +496,7 @@ persistentStorage <- parameter \\
 %%% 
 
 %%%
-\begin{frame}{The Modified Merkle Patricia State Tree}
+\begin{frame}{The Modified Merkle Patricia Trie}
 \vspace{1em}
 \captionsetup[figure]{font=tiny,labelformat=empty}
 \begin{figure}[htp]
@@ -513,17 +513,15 @@ persistentStorage <- parameter \\
 %%%
 \begin{frame}{Ethereum Block Uncles}
 \vspace{1em}
+\uncover<1->{Uncle = Valid orphan Block \& parent max. 6 blocks from present}
 \begin{itemize}
-	\item<1-> Equivalent of Bitcoin’s orphan blocks
-	\item<2-> Short block time $\rightarrow $ higher orphan rate
+	\item<2-> Equivalent of Bitcoin’s orphan blocks
+	\item<3-> Short block time $\rightarrow $ higher orphan rate
 \end{itemize}
-\uncover<3->{Uncle = Valid orphan Block \& parent max. 6 blocks from present}
+\uncover<3->{ Allowing Uncle inclusion...}
 \begin{itemize}
-	\item<4-> Allowing Uncle inclusion...
-		\begin{itemize}
-			\item<4->mitigates disadvantages from network delays
-			\item<4->encourages solo mining
-		\end{itemize}
+			\item<4->Mitigates disadvantages from network delays
+			\item<4->Encourages solo mining
 \end{itemize}
 
 
