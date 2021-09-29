@@ -22,93 +22,121 @@
 
 %%%
 \begin{frame}{Transactions in Ethereum}
+
 A transaction is a message, sent from an externally owned account.
+\vspace{0.5em}
+
+\uncover<2->{
+	Transactions can modify states:
+		\begin{itemize}
+			\item<1-> Ether balances of account
+			\item<2-> Contract account's storage
+		\end{itemize}
+	}
 \vspace{1em}
 
-Transactions can modify states:
-	\begin{itemize}
-		\item<1-> Ether balances of account
-		\item<2-> Contract account's storage
-	\end{itemize}
+\uncover<3->{
+	Transactions optionally contain:
+		\begin{itemize}
+			\item<1-> Ether
+			\item<2-> Data
+		\end{itemize}
+	}
 \vspace{1em}
 
-Transactions optionally contain:
-	\begin{itemize}
-		\item<1-> Ether
-		\item<2-> Data
-	\end{itemize}
-\vspace{1em}
-
-\input{../assets/figures/transactions_by_recipient.tex}
-% insert Transactions by Recipient figure here.
-
+\uncover<4->{
+	Transactions by Recipient:
+		\input{../assets/figures/transactions_by_recipient.tex}
+	}
+	
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{EOA to EOA}
+
 \center
-\includegraphics[width=8cm]{../assets/images/EOA_to_EOA}
+	\includegraphics[width=8cm]{../assets/images/EOA_to_EOA}
 
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{EOA to CA}
+
 \center
-\includegraphics[width=8cm]{../assets/images/EOA_to_CA}
+	\includegraphics[width=8cm]{../assets/images/EOA_to_CA}
 
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{EOA to 0}
-\center
-\includegraphics[width=10cm]{../assets/images/EOA_to_0}
 
+\center
+	\includegraphics[width=10cm]{../assets/images/EOA_to_0}
 
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Internal Transactions}
+
 \begin{columns}[T]
 	\begin{column}{0.35\textwidth}
 		\includegraphics[width=3cm]{../assets/images/CA}
-		\end{column} %\hfill
+	\end{column} %\hfill
+		
 	\begin{column}{0.65\textwidth}
 		\begin{alertblock}{Contract Accounts Send Internal Transactions}
-				CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA. $\rightarrow$ Initially, CA must be triggered by an EOA transaction.
+			CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA. $\rightarrow$ Initially, CA must be triggered by an EOA transaction.
 		\end{alertblock}
 	\end{column}
+	
 \end{columns}
+\vspace{1em}
+
+\uncover<2->{
+	\input{../assets/figures/transaction_arrows.tex}
+}
+
+\uncover<3->{
+	\input{../assets/figures/CA_to_CA.tex}
+}
 
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Transactions, Internal Transactions and Calls}
+
 \textbf{Internal Transaction:} This is contract-to-contract. These are not delayed by mining because they are part of the transaction execution.
 \vspace{1em}
 
-\textbf{Transaction:} Originates with an externally owned account. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
+\uncover<2->{
+	\textbf{Transaction:} Originates with an externally owned account. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
+	}
 \vspace{1em}
 
-\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. 
-
+\uncover<3->{
+	\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. 
+}
 
 %Source: \cite{ethereum.stackexchange...}.
 \vspace{1em}
 
-\begin{alertblock}{Contract Call}
-				However: The term "contract call" is generally used for EOA to CA transactions.
-			\end{alertblock}
+\uncover<4->{
+	\begin{alertblock}{Contract Call}
+		However: The term "contract call" is generally used for EOA to CA transactions.
+	\end{alertblock}
+}
 
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{A Detailed Look at Ethereum Transactions}
+
 Ethereum Transactions contain:
 	\begin{itemize}
 		\item<1-> \textbf{Recipient Address:} The recipient's hexadecimal 		address.
@@ -122,6 +150,5 @@ Ethereum Transactions contain:
 
 \end{frame}
 %%%
-
 
 \end{document}
