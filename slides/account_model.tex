@@ -42,7 +42,7 @@
 		\vspace{1em}
 			\begin{itemize}
 				\item Conditions are on each UTXO.
-				\item Determine how this UTXO can be spend.
+				\item Determine how the UTXO can be spend.
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.45\textwidth}
@@ -56,7 +56,7 @@
 \vspace{1em}
 \uncover<2->{
 	\begin{keytakeaway}{Key Takeaway}
-		The ability to implement logic on an account level allows for all sorts of use-cases. It is more flexible, more intuitive and easier to handle than conditions on the UTXO-level.
+		The ability to implement logic on an account-level is more flexible, more intuitive and easier to handle than conditions on the UTXO-level.
 	\end{keytakeaway}
 	}
 \end{frame}
@@ -81,7 +81,7 @@ Instead of Bitcoin's UTXO model, Ethereum uses actual accounts.
 \begin{frame}{EIP-55: Capital letter checksum}
 No checksum encoding $\rightarrow$ Typos were a severe problem. \\ 
 \vspace{2em}
-	\textbf{\link \href{https://eips.ethereum.org/EIPS/eip-55}{EIP-55}} fixes this: Use keccak hash function $H(x)=h$, where input $x$ corresponds to the address and $h$ to the hash value. For each character (a-f) at position $x[i]$, capitalize $x[i]$, if $h[i] > 7$.\\
+	\textbf{\link \href{https://eips.ethereum.org/EIPS/eip-55}{EIP-55}} fixes this: Use keccak hash function $H(x)=h$, where input $x$ corresponds to the address and $h$ to the hash value. For each character (\texttt{a}-\texttt{f}) at position $x[i]$, capitalize $x[i]$, if $h[i] > 7$.\\
 \vspace{2em}
 \uncover<2->{
 	\texttt{Keccak(0xD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4)} = \\
@@ -232,7 +232,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 	\end{columns}
 \vspace{1em}
 	\begin{keytakeaway}{Need for ABI}
-		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract specification.
+		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract interface specification.
 	\end{keytakeaway}		
 \end{frame}
 %%%
@@ -240,7 +240,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 
 %%%
 \begin{frame}{Account-based Model vs. UTXO-based Model}
-	The account based model may be more intuitive at first, however, it does have some drawbacks compared to the UTXO model. \\ 
+	The account-based model may be more intuitive at first, however, it does have some drawbacks compared to the UTXO model. \\ 
 	\vspace{2em}
 		\begin{columns}[T]
 			\begin{column}{0.25\textwidth}
@@ -249,7 +249,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 			\end{column}
 			\begin{column}{0.8\textwidth}
 				\textbf{Privacy Concerns}\\
-People usually use the same address for many transactions - in contrast to UTXO based systems where you use a new address for each transaction. \\
+People usually use the same address for many transactions - in contrast to UTXO-based systems where you use a new address for each transaction. \\
 \href{https://etherscan.io/address/0x8cbcb10a365a5e26dfcd41b1257fda54bc604c70}{\link {\small Etherscan}}
 			\end{column}
 		\end{columns}	
@@ -266,7 +266,7 @@ People usually use the same address for many transactions - in contrast to UTXO 
 		\end{column}
 		\begin{column}{0.8\textwidth}
 			\textbf{Transactions getting stuck}\\
-			If a transaction from an account has not been confirmed yet, subsequent ones from the same account won't get through.
+			If a transaction from an account has not been confirmed yet, subsequent ones (higher nonce) from the same account will not be confirmed.
 		\end{column}
 	\end{columns}
 	\vspace{2em}
@@ -278,7 +278,7 @@ People usually use the same address for many transactions - in contrast to UTXO 
 		\end{column}
 		\begin{column}{0.8\textwidth}
 			\textbf{Unintended Conflicts}\\
-If two wallet applications are not in sync, two transactions A and B may be conflicting, even if the total balance of the account is larger than the aggregated amount sent with transactions A and B (same Problem with SC).
+If a user uses two or more wallets for the same address and the two are not in sync, two transactions A and B may be conflicting, even if the total balance of the account is larger than the aggregated amount sent with transactions A and B (same Problem with SC).
 		\end{column}
 	\end{columns}
 		}
@@ -291,7 +291,7 @@ If two wallet applications are not in sync, two transactions A and B may be conf
 
 	\begin{exercise}{Exercise 1:}
 		\begin{enumerate}
-			\item Get the Metamask Browser extension (available for Chrome, Firefox and Brave)
+			\item Get the Metamask Browser extension.
 			\item Set up a new account and make sure you are connected to Ropsten testnet.
 			\item Backup the mnemonic phrase of your wallet.
 			\item Go to \link \href{https://faucet.metamask.io/}{Test Ether Faucet} and get some Ropsten Ether.
@@ -319,7 +319,7 @@ If two wallet applications are not in sync, two transactions A and B may be conf
 	\begin{exercise}{Exercise 2:}
 		\begin{enumerate}
 			\item Enter your address on the \link ???
-			\item Transfer 0.1 Ropsten ETH to the address in the row below your own address.
+			\item Transfer 0.1 Ropsten ETH to the address in the row above your own address.
 			\item Check the transaction details on \link \href{https://ropsten.etherscan.io/}{Ropsten Etherscan}
 		\end{enumerate}
 	\end{exercise}	
