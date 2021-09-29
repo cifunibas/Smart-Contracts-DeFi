@@ -21,7 +21,7 @@
 \end{frame}
 
 %%%
-\begin{frame}{Transactions in Ethereum}
+\begin{frame}{Ethereum Transactions}
 
 A transaction is a message, sent from an externally owned account.
 \vspace{0.5em}
@@ -29,7 +29,7 @@ A transaction is a message, sent from an externally owned account.
 \uncover<2->{
 	Transactions can modify states:
 		\begin{itemize}
-			\item<1-> Ether balances of account
+			\item<1-> Ether balances of accounts
 			\item<2-> Contract account's storage
 		\end{itemize}
 	}
@@ -45,7 +45,7 @@ A transaction is a message, sent from an externally owned account.
 \vspace{1em}
 
 \uncover<4->{
-	Transactions by Recipient:
+	Transactions by recipient:
 		\input{../assets/figures/transactions_by_recipient.tex}
 	}
 	
@@ -88,9 +88,9 @@ A transaction is a message, sent from an externally owned account.
 	\end{column} %\hfill
 		
 	\begin{column}{0.65\textwidth}
-		\begin{alertblock}{Contract Accounts Send Internal Transactions}
+		\begin{keytakeaway}{Contract Accounts Send Internal Transactions}
 			CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA. $\rightarrow$ Initially, CA must be triggered by an EOA transaction.
-		\end{alertblock}
+		\end{keytakeaway}
 	\end{column}
 	
 \end{columns}
@@ -114,7 +114,7 @@ A transaction is a message, sent from an externally owned account.
 \vspace{1em}
 
 \uncover<2->{
-	\textbf{Transaction:} Originates with an externally owned account. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
+	\textbf{Transaction:} Originates with an EOA. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
 	}
 \vspace{1em}
 
@@ -122,13 +122,13 @@ A transaction is a message, sent from an externally owned account.
 	\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. 
 }
 
-%Source: \cite{ethereum.stackexchange...}.
+\link \href{https://ethereum.stackexchange.com/questions/12065/what-is-the-difference-between-a-call-message-call-and-a-message}{Difference between a call message and a message}
 \vspace{1em}
 
 \uncover<4->{
-	\begin{alertblock}{Contract Call}
+	\begin{keytakeaway}{Contract Call}
 		However: The term "contract call" is generally used for EOA to CA transactions.
-	\end{alertblock}
+	\end{keytakeaway}
 }
 
 \end{frame}
