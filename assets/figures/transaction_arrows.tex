@@ -1,0 +1,21 @@
+\begin{tikzpicture}[align = center, scale = 1.2]
+	
+	% define coordinates
+	\coordinate (1) at (-4, 0);
+	\coordinate (2) at (0, 0);
+	\coordinate (3) at (4, 0);
+	
+	\node at (1) {\includegraphics[height = 0.12\textheight]{../assets/images/EOA}};
+	
+	\node at (2) {\includegraphics[height = 0.12\textheight]{../assets/images/CA}};
+
+	\node at (3) {\includegraphics[height = 0.12\textheight]{../assets/images/CA}};
+
+
+
+	
+	\draw[->,thick] (-3.5, 0) -- (-0.5, 0) node[above, midway] {\footnotesize{Transaction}};
+	
+	\draw[->,thick] (0.5, 0) -- (3.5, 0) node[above, midway] {\footnotesize{Internal Transaction}};
+
+\end{tikzpicture}

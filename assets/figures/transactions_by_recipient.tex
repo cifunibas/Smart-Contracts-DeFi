@@ -5,23 +5,30 @@
 	\coordinate (2) at (0, 0);
 	\coordinate (3) at (3, 0);
 	
-	% EOA to Eoa
+	% EOA to EOA
+	\uncover<5->{
 	\node[left] at (1) {\includegraphics[height = 0.12\textheight]{../assets/images/EOA}};
 	\node[right] at (1) {\includegraphics[height = 0.12\textheight]{../assets/images/EOA}};
-	\node[below = 18pt] at (1) {EOA to EOA};
+	\node[below = 18pt] at (1) {\textbf{EOA to EOA}\\
+	ETH transfere};
+}
+
 
 	% EOA to CA
-	\uncover<2->{
+	\uncover<6->{
 		\node[left] at (2) {\includegraphics[height = 0.12\textheight]{../assets/images/EOA}};
 		\node[right] at (2) {\includegraphics[height = 0.12\textheight]{../assets/images/CA}};
-		\node[below = 18pt] at (2) {EOA to CA};
+		\node[below = 18pt] at (2) {\textbf{EOA to CA}\\
+	ETH transfere \\
+	Contract execution	};
 	}
 	
 	% EOA to 0
-	\uncover<3->{
+	\uncover<7->{
 		\node[left] at (3) {\includegraphics[height = 0.12\textheight]{../assets/images/EOA}};
 		\node[right] at (3) {\includegraphics[height = 0.12\textheight]{../assets/images/zero}};
-		\node[below = 18pt] at (3) {EOA to 0};
+		\node[below = 18pt] at (3) {\textbf{EOA to 0} \\
+		Contract deployment};
 	}
 	
 \end{tikzpicture}
