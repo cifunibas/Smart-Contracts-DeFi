@@ -47,13 +47,12 @@
 %%%
 
 %%%
-%% TODO: Flexible block size limit erklären --> evtl. separates slide für EIP-1559 related changes
 \begin{frame}{Ethereum Gas Fees: The Basics}
 	\begin{itemize}
 		\item Every EVM operation consumes a pre-defined amount of gas. These values cannot be changed by user. Some examples\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}:
 			\begin{columns}
 				\uncover<2->{
-				\begin{column}{0.08\textwidth} %% TODO: is there a better way?
+				\begin{column}{0.08\textwidth}
 				\end{column}
 				\begin{column}{0.25\textwidth}
 					\begin{samplecode}{Addition}
@@ -84,7 +83,7 @@
 					\end{samplecode}	
 				\end{column}
 				}
-				\begin{column}{0.02\textwidth} %% TODO: is there a better way?
+				\begin{column}{0.02\textwidth}
 				\end{column}
 			\end{columns}
 		\uncover<5->{
@@ -245,18 +244,21 @@
 		\item Reduce spam transactions
 		\item Establish a market for priority access to network
 	\end{itemize}
-	
-\begin{exercise}{Exercise 3} % TODO: An EIP-1559 anpassen
-For the following questions assume a baseFee of 20 GWEI:
-\begin{itemize}
-	\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI and a maxFee of 100 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
-	\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 0 GWEI, a maxFee of 0 GWEI and a gasLimit of 21000. What do you expect to happen?
-	\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000000. What do you expect to happen?
-	\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000. What do you expect to happen?
-\end{itemize}
-\end{exercise}
-\end{frame}
+\end{frame}	
+
 %%%
+%%%
+\begin{frame}{Exercise}
+	\begin{exercise}{Exercise 3}
+	For the following questions assume a baseFee of 20 GWEI:
+	\begin{itemize}
+		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI and a maxFee of 100 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
+		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 0 GWEI, a maxFee of 0 GWEI and a gasLimit of 21000. What do you expect to happen?
+		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000000. What do you expect to happen?
+		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000. What do you expect to happen?
+	\end{itemize}
+	\end{exercise}
+\end{frame}
 
 %%%
 \begin{frame}{Gasprice Market - Some Interesting Observations}
