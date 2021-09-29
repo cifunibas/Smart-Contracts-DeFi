@@ -144,64 +144,14 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 %%%
 \begin{frame}{How Contract Accounts are created}
 
-\begin{tikzpicture}[domain=-8:8, scale=0.8]
-
-% transaction
-	\coordinate (c1) at (0,0);
-	\coordinate (c2) at (7,0);
-	\filldraw[draw=black,fill=highlight!50] (c1) circle (5pt) node[below=0.15cm,color=black]{\footnotesize{Edith}};
-	\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c1) to[] (c2);
-
-% network
-
-\coordinate (c3) at (8.8,0.8);
-\coordinate (c4) at (8.5,-0.5);
-\coordinate (c5) at (10,0.5);
-\coordinate (c6) at (11,1);
-\coordinate (c7) at (11.5,0);
-\filldraw[draw=black,fill=highlight!50] (c2) circle (5pt) node[below=0.15cm,color=black]{\footnotesize{Tony}};
-\filldraw[draw=black,fill=highlight!50] (c3) circle (5pt) node[above=0.15cm,color=black]{\footnotesize{Marcia}};
-\filldraw[draw=black,fill=highlight!50] (c4) circle (5pt) node[below=0.15cm,color=black]{\footnotesize{Michèle}};
-\filldraw[draw=black,fill=highlight!50] (c5) circle (5pt) node[above=0.15cm,color=black]{\footnotesize{Brian}};
-\filldraw[draw=black,fill=highlight!50] (c6) circle (5pt) node[above=0.15cm,color=black]{\footnotesize{Jake}};
-\filldraw[draw=black,fill=highlight!50] (c7) circle (5pt) node[below=0.15cm,color=black]{\footnotesize{Claudia}};
-
-
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c2) to[] (c3);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c2) to[] (c4);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c2) to[] (c4);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c3) to[] (c5);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c4) to[] (c5);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c4) to[] (c7);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c5) to[] (c6);
-\draw[shorten >=0.28cm,shorten <=0.28cm,->] (c7) to[] (c6);
-
-
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c2) to[] (c3);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c2) to[] (c4);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c2) to[] (c4);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c3) to[] (c5);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c4) to[] (c5);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c4) to[] (c7);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c5) to[] (c6);
-\draw[shorten >=0.28cm,shorten <=0.28cm, dotted] (c7) to[] (c6);
-
-
-% smart contract deployment
-
-\filldraw[fill=highlight!50,dotted,thick] (0.78,-0.7) -- (6.3,-0.7) -- (6.3,0.7) -- (0.78,0.7) -- (0.78,-0.7) node[midway, right=-0.02cm,text width=4.25cm]{\scriptsize{Edith: ``I send a transaction with Data $d$ to  address 0x0\dots ''}};
-
-
-
-\end{tikzpicture}
-
-\begin{enumerate}
-				\item<1-> EOA or CA issues transaction with \textbf{zero address} as recipient address.
-				\vspace{1em}
+	\input{../assets/figures/contract_creation.tex}
+\vspace{1em}
+	\begin{enumerate}
+				\item<1-> EOA or CA issues transaction with \textcolor{focus}{zero address} as recipient address.
 				\item<2-> The transaction carries the contract code.
 				\item<3-> Transaction confirmation = contract deployment
 				\item<4-> New contract account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
-\end{enumerate}
+	\end{enumerate}
 			
 \end{frame}
 %%%	
