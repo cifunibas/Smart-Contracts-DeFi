@@ -156,38 +156,6 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 \end{frame}
 %%%	
 
-
-%%%
-\begin{frame}{Contract Account Code and ABI}
-	\begin{columns}[T]
-		\begin{column}{0.6\textwidth}
-			\begin{figure}[h!]
-				\center
-					\input{../assets/figures/CA_and_ABI.tex}
-			\end{figure}\vspace{1em}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\textbf{Bytecode}
-				\begin{itemize}
-					\item Deployed on Blockchain
-					\item Actual Code that gets executed
-				\end{itemize}
-		\vspace{2em}
-			\textbf{Application Binary Interface}
-				\begin{itemize}
-					\item List of contract functions and their arguments (JSON)
-					\item En- \& Decoding of Data (Translation) 
-				\end{itemize}
-		\end{column}
-	\end{columns}
-\vspace{1em}
-	\begin{keytakeaway}{Need for ABI}
-		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract interface specification.
-	\end{keytakeaway}		
-\end{frame}
-%%%
-
-
 %%%
 \begin{frame}{Account-based Model vs. UTXO-based Model}
 	The account-based model may be more intuitive at first, however, it does have some drawbacks compared to the UTXO model. \\ 
