@@ -1,0 +1,30 @@
+\begin{tikzpicture}[%
+    node distance=1.9cm,
+    on grid, every node/.append style={transform shape}
+  ]
+  
+  \begin{scriptsize}
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (A)[text width = 1.7cm] at (0,0) {Blockchain\\ Connection};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (B)[right of = A, text width = 1.7cm] {Account\\ Creation\\ \& Funding};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (C)[right of = B, text width = 1.7cm] {IDE \& Tool\\ Setup};
+  
+  \node[draw, rectangle, minimum height = 0.6cm, minimum width = 5.7cm, fill = highlight] (B1)[text width = 4.8cm] at ($(A)!0.5!(C)+(0,0.9)$) {Preparation};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (D)[right of = C, text width = 1.7cm] {Contract \\ Development};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (E)[right of = D, text width = 1.7cm] {Contract \\ Compilation};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (F)[right of = E, text width = 1.7cm] {Contract \\ Deployment};
+  
+  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (G)[right of = F, text width = 1.7cm] {Contract \\ Testing};
+  
+  \node[draw, rectangle, minimum height = 0.6cm, minimum width = 7.6cm, fill = highlight] (G1)[text width = 4.8cm] at ($(D)!0.5!(G)+(0,0.9)$) {Contract Development};
+  
+  % \draw[->, transform canvas={yshift=-0.3cm}, color = highlight, ultra thick] (A.south west) -- (G.south east);
+  
+	\end{scriptsize}
+	
+\end{tikzpicture}
