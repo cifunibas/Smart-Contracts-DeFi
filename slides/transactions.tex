@@ -21,19 +21,21 @@
 \end{frame}
 
 %%%
-\begin{frame}{Ethereum Transactions}
+\begin{frame}{Transactions on Ethereum}
 
-A transaction is a message, sent from an externally owned account.
+\vspace{1em}
+\textbf{A transaction is a message sent from an externally owned account (EOA).}
+
 \vspace{0.5em}
 
 \uncover<2->{
 	Transactions can modify states:
 		\begin{itemize}
 			\item<1-> Ether balances of accounts
-			\item<2-> Contract account's storage
+			\item<2-> Contract account's (CA) storage
 		\end{itemize}
 	}
-\vspace{1em}
+\vspace{0.5em}
 
 \uncover<3->{
 	Transactions optionally contain:
@@ -42,13 +44,96 @@ A transaction is a message, sent from an externally owned account.
 			\item<2-> Data
 		\end{itemize}
 	}
-\vspace{1em}
+\vspace{1.0 em}
 
 \uncover<4->{
-	Transactions by recipient:
 		\input{../assets/figures/transactions_by_recipient.tex}
 	}
 	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Internal Transactions}
+
+\begin{columns}[T]
+	\begin{column}{0.25\textwidth}
+		\includegraphics[width=3cm]{../assets/images/CA}
+	\end{column} %\hfill
+		
+	\begin{column}{0.7\textwidth}
+		\begin{keytakeaway}{Contract Accounts Send Internal Transactions}
+			CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA.\\
+			$\Rightarrow$ Initially, CA \textbf{must} be triggered by an EOA transaction.
+		\end{keytakeaway}
+	\end{column}
+	
+\end{columns}
+\vspace{1em}
+
+\uncover<2->{
+	\input{../assets/figures/transaction_arrows.tex}
+}
+
+\uncover<3->{
+	\input{../assets/figures/CA_to_CA.tex}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transactions, Internal Transactions and Calls}
+
+\textbf{Transaction:} Originates with an EOA. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
+
+\vspace{1em}
+
+\uncover<2->{
+	\textbf{Internal Transaction:} This is contract-to-contract. These are not delayed by mining because they are part of the transaction execution.
+	}
+\vspace{1em}
+
+\uncover<3->{
+	\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. \\
+	\link \href{https://ethereum.stackexchange.com/questions/12065/what-is-the-difference-between-a-call-message-call-and-a-message}{Difference between a call message and a message}
+}
+
+\vspace{1em}
+
+\uncover<4->{
+\color{focus}
+\textbf{$\Rightarrow$ However, the term "contract call" is generally used for EOA to CA transactions.}
+\color{black}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Detailed Look at Ethereum Transactions}
+
+Ethereum Transactions \textbf{always} contain the following data points:
+\vspace{0.5 em}
+	\begin{itemize}
+		\item \textbf{Recipient Address:} The recipient's hexadecimal 		address.
+		\item \textbf{Nonce:} Transaction count from sender.
+		\item \textbf{Signature:} Consisting of the variables V, R and S.
+		\item \textbf{Gas Limit:} Maximum number of transaction execution steps.
+		\item \textbf{Gas Price:} Fee the sender is willing to pay per execution step. 
+	\end{itemize}
+	
+\vspace{2 em}
+
+\uncover<2->{	
+Depending on the transaction purpose, they \textbf{further} include:
+\vspace{0.5 em}
+	\begin{itemize}
+		\item \textbf{Value:} Ether value in Wei, where $10^{18}$ Wei = 1 ETH. 
+		\item \textbf{Data:} Contract execution or deployment instructions.
+	\end{itemize}
+}
+
 \end{frame}
 %%%
 
@@ -75,78 +160,6 @@ A transaction is a message, sent from an externally owned account.
 
 \center
 	\includegraphics[width=10cm]{../assets/images/EOA_to_0}
-
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Internal Transactions}
-
-\begin{columns}[T]
-	\begin{column}{0.35\textwidth}
-		\includegraphics[width=3cm]{../assets/images/CA}
-	\end{column} %\hfill
-		
-	\begin{column}{0.65\textwidth}
-		\begin{keytakeaway}{Contract Accounts Send Internal Transactions}
-			CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA. $\rightarrow$ Initially, CA must be triggered by an EOA transaction.
-		\end{keytakeaway}
-	\end{column}
-	
-\end{columns}
-\vspace{1em}
-
-\uncover<2->{
-	\input{../assets/figures/transaction_arrows.tex}
-}
-
-\uncover<3->{
-	\input{../assets/figures/CA_to_CA.tex}
-}
-
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Transactions, Internal Transactions and Calls}
-
-\textbf{Internal Transaction:} This is contract-to-contract. These are not delayed by mining because they are part of the transaction execution.
-\vspace{1em}
-
-\uncover<2->{
-	\textbf{Transaction:} Originates with an EOA. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
-	}
-\vspace{1em}
-
-\uncover<3->{
-	\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. 
-}
-
-\link \href{https://ethereum.stackexchange.com/questions/12065/what-is-the-difference-between-a-call-message-call-and-a-message}{Difference between a call message and a message}
-\vspace{1em}
-
-\uncover<4->{
-	\begin{keytakeaway}{Contract Call}
-		However: The term "contract call" is generally used for EOA to CA transactions.
-	\end{keytakeaway}
-}
-
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{A Detailed Look at Ethereum Transactions}
-
-Ethereum Transactions contain:
-	\begin{itemize}
-		\item<1-> \textbf{Recipient Address:} The recipient's hexadecimal 		address.
-		\item<2-> \textbf{Nonce:} Transaction count from sender.
-		\item<3-> \textbf{Signature:} Consisting of the variables V, R and S.
-		\item<4-> \textbf{Gas Limit:} Maximum number of transaction execution steps.
-		\item<5-> \textbf{Gas Price:} Fee the sender is willing to pay per execution step. 
-		\item<6-> \textbf{Value (optional):} Ether value in Wei, where $10^{18}$ Wei = 1 ETH. 
-		\item<7-> \textbf{Data (optional):} Contract execution or deployment instructions.
-	\end{itemize}
 
 \end{frame}
 %%%
