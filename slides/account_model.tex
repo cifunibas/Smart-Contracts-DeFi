@@ -147,7 +147,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 	\input{../assets/figures/contract_creation.tex}
 \vspace{1em}
 	\begin{enumerate}
-				\item<1-> EOA or CA issues transaction with \textcolor{focus}{zero address} as recipient address.
+				\item<1-> EOA or CA issues transaction with \textcolor{focus}{\textbf{zero address}} as recipient address.
 				\item<2-> The transaction carries the contract code.
 				\item<3-> Transaction confirmation = contract deployment
 				\item<4-> New contract account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
@@ -255,7 +255,7 @@ If a user uses two or more wallets for the same address and the two are not in s
 		\end{column}
 		\begin{column}{0.8\textwidth}
 		\vspace{1em}
-		If you are currently managing Mainnet funds with Metamask, make sure \textcolor{focus}{NOT} to use the same mnemonic seed for your testnet transactions. In doing so you will put your ETH and tokens at risk.
+		If you are currently managing Mainnet funds with Metamask, make sure \textcolor{focus}{\textbf{NOT}} to use the same mnemonic seed for your testnet transactions. In doing so you will put your ETH and tokens at risk.
 		\end{column}
 	\end{columns}
 }
