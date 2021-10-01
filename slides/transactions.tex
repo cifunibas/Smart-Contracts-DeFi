@@ -63,8 +63,7 @@
 		
 	\begin{column}{0.7\textwidth}
 		\begin{keytakeaway}{Contract Accounts Send Internal Transactions}
-			CA can only send internal transactions. They may react to incoming transactions/messages by sending internal transactions and pass on information to other CA.\\
-			$\Rightarrow$ Initially, CA \textbf{must} be triggered by an EOA transaction.
+			CAs can only issue internal transactions / internal calls. A (non-internal) transaction can never originate with a smart contract. In other words: Initially, CAs \textbf{must} be triggered by an EOA transaction.
 		\end{keytakeaway}
 	\end{column}
 	
@@ -83,29 +82,30 @@
 %%%
 
 %%%
-\begin{frame}{Transactions, Internal Transactions and Calls}
+\begin{frame}{Transactions and Calls}
 
-\textbf{Transaction:} Originates with an EOA. It's always a transaction that gets things started, but multiple internal transactions may be fired off to complete the action.
+\textbf{Transaction:} Must originate with an EOA. States can only be changed through transactions and each transaction leads to a state change. May contain multiple internal transactions and/or internal calls.
 
 \vspace{1em}
 
 \uncover<2->{
-	\textbf{Internal Transaction:} This is contract-to-contract. These are not delayed by mining because they are part of the transaction execution.
-	}
+	\textbf{Call:} A call is executed locally (on the node). It is read-only, i.e., does not lead to state changes. \\
+
 \vspace{1em}
 
 \uncover<3->{
-	\textbf{Call:} Transaction is executed locally on the user's local machine which only evaluates the result. These are read-only and fast. They can't change the blockchain in any way because they are never sent to the network. \\
-	\link \href{https://ethereum.stackexchange.com/questions/12065/what-is-the-difference-between-a-call-message-call-and-a-message}{Difference between a call message and a message}
-}
+	\textbf{Internal Transaction:} An internal transaction is a transaction that is part of another transaction. The internal transaction must be executed alongside the containing transaction.
+	}
 
 \vspace{1em}
 
 \uncover<4->{
-\color{focus}
-\textbf{$\Rightarrow$ However, the term "contract call" is generally used for EOA to CA transactions.}
-\color{black}
+	\textbf{Internal Call:} An internal call is a call that is part of a transaction. The internal call must be executed alongside the containing transaction. Note that, in contrast to a regular call, internal calls are s.t. network fees. 
+	}
+
 }
+
+
 
 \end{frame}
 %%%
