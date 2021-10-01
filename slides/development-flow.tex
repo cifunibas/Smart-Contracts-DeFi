@@ -317,22 +317,22 @@
 
 %%%
 \begin{frame}{Contract Compilation}
+
 	\begin{figure}
 		\begingroup
 			\tikzset{every picture/.style={scale=0.6}}
 			\input{../assets/figures/dev_workflow}
 		\endgroup
 	\end{figure}
-		
-	\textbf{The contract needs to be compiled to bytecode (and ABI).}\\
-	
-	\begin{columns}[T]
+
+	\begin{columns}
 		\begin{column}{0.6\textwidth}
 			\begin{figure}[h!]
 				\center
 					\input{../assets/figures/CA_and_ABI.tex}
 			\end{figure}\vspace{1em}
 		\end{column}
+		
 		\begin{column}{0.5\textwidth}
 			\textbf{Bytecode}
 				\begin{itemize}
@@ -347,12 +347,10 @@
 				\end{itemize}
 		\end{column}
 	\end{columns}
-\vspace{1em}
+
 	\begin{keytakeaway}{Need for ABI}
 		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract interface specification.
 	\end{keytakeaway}		
-
-\end{frame}
 
 \end{frame}
 %%%
@@ -398,7 +396,7 @@
 		\item<2-> Manual testing
 		\begin{itemize}
 			\item<2-> Remix
-			\item<2-> \href{}{\link Metamask}
+			\item<2-> \href{https://metamask.io}{\link Metamask}
 			\item<2-> MyEtherWallet
 		\end{itemize}
 		\item<3-> Automated testing (e.g., Truffle and JavaScript test cases)
