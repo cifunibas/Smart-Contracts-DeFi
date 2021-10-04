@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\node (server) at (-4,4) [label={south:Server}] {\includegraphics[width=.15\textwidth]{../assets/images/server.png}};
+	\node (client) at (0,4) [label={south:Client}]  {\includegraphics[width=.15\textwidth]{../assets/images/screen.png}};
+	\node [above=-1.5mm of client.center] {\tiny \begin{tabular}{l}HTML, CSS\\JS Interface \end{tabular}};
+	\draw[<->,very thick] (server) to (client);
+	\draw[-, mint, very thick] (1,4.2) to (2.2,4.5);
+	\draw[-, mint, very thick] (1,4) to (2.2,3.5);
+	\node (browser) at (3.3,4) [label={south:Webbrowser}]  {\includegraphics[width=.15\textwidth]{../assets/images/browser.png}};
+	\node (metaMask) at (-1,1.8) {\includegraphics[width=.1\textwidth]{../assets/images/logo_metamask.png}};
+	\node (ethereum) at (0,0) [label={south:Ethereum Node}]  {\includegraphics[width=.15\textwidth]{../assets/images/ethereum_symbol.png}};
+	\node at (2.7, 0) {\small {\begin{varwidth}{\linewidth}\begin{itemize}
+        	\item Your own node
+        	\item External node (e.g. Infura)
+    	\end{itemize}\end{varwidth}}};
+	\draw[<->, very thick] (0,2.5) -- (ethereum) node[midway, right] (text1) {\small Critical Data \& Computations};
+	\node (untrusted) at (-5.5,-2) [above right, rectangle, minimum height = 7cm, minimum width = 3cm, draw=black, dotted, very thick, label={south:Untrusted Environment}] {};
+	\node (trusted) at (-2,-2) [above right, rectangle, minimum height = 7cm, minimum width = 7.2cm, draw=black, dotted, very thick, label={south:Trusted Environment}] {};
+\end{tikzpicture}
