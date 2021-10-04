@@ -25,7 +25,7 @@
 \begin{columns}
 	\begin{column}{0.3\textwidth}
 		\center
-		\includegraphics[width=\textwidth , frame]{../assets/images/alan-turing.png}
+		\includegraphics[width=\textwidth ]{../assets/images/alan-turing.png}
 	\end{column}
 	\begin{column}{0.7\textwidth}
 		In 1936, Alan Turing proved that it's impossible for a (turing) machine to inspect any code that you give it, and correctly tell you whether the code will halt or run forever.\\
@@ -49,7 +49,7 @@
 %%%
 \begin{frame}{Ethereum Gas Fees: The Basics}
 	\begin{itemize}
-		\item Every EVM operation consumes a pre-defined amount of gas. These values cannot be changed by user. Some examples\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}:
+		\item Every EVM operation consumes a pre-defined amount of gas. These values cannot be changed by the user. Some examples:\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}
 			\begin{columns}
 				\uncover<2->{
 				\begin{column}{0.08\textwidth}
@@ -194,7 +194,7 @@
 		\item Block limit: currently 30 million gas (2x target block size)
 		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$):\\
 		\vspace{0.1cm}
-		$r_{cur} := r_{pred}*\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
+		$r_{cur} := r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
 	\end{itemize}
 \end{frame}
 %%%
