@@ -10,19 +10,20 @@
 
 % Config File
 \input{../config/config.tex}
+\input{../config/progress.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 \thispagestyle{empty}
-\begin{frame}[noframenumbering]
+\begin{frame}[noframenumbering, plain]
 	\titlepage
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{The Workflow}
+\begin{frame}[plain]{The Workflow}
 	\begin{figure}
 		\begingroup
 			\tikzset{every picture/.style={scale=0.8}}
@@ -33,23 +34,22 @@
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%
+%%% Connection %%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Connection}
+
 %%%
 \begin{frame}{Blockchain Connection}
 
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
-		
+	\vspace{0.5em}
 	\textbf{What are you connecting to?}
 	\begin{scriptsize}
 	\uncover<2->{
 	\begin{table}
 		\centering
 		\begin{tabular}{lllllll}
-			
 			
 				\hline
 				\rowcolor{highlight}
@@ -61,16 +61,16 @@
 				\hline
 			
 			\uncover<3->{\href{https://ethereum.org/en/developers/docs/networks/\#testnets}{\begin{tabular}{@{}l@{}}\link Public \\ testnet \end{tabular}} & Low & Slow & Public & No & \begin{tabular}{@{}l@{}}Free \\ (Faucet) \end{tabular} & \begin{tabular}{@{}l@{}}Open \\ Alpha \end{tabular} \\ \hline}
-			\uncover<4->{\begin{tabular}{@{}l@{}}Private \\ testnet \end{tabular} & Very low & Instant & Private & No & Free & \begin{tabular}{@{}l@{}}Early \\ Development \end{tabular} \\ \hline}
-			\uncover<5->{\begin{tabular}{@{}l@{}}JavaScript \\ VM \end{tabular} & Very low & Instant & Private & No & Free & \\ \hline}
+			\uncover<4->{\begin{tabular}{@{}l@{}}Private \\ testnet / \\ JavaScript \\ VM\end{tabular} & Very low & Instant & Private & No & Free & \begin{tabular}{@{}l@{}}Early \\ development\end{tabular} \\ \hline}
+			\uncover<5->{\begin{tabular}{@{}l@{}}Mainnet\\ fork\end{tabular} & Very low & Instant & Private & No & Free & \begin{tabular}{@{}l@{}}Integrated \\ development\end{tabular} \\ \hline}
 		\end{tabular}
 		\label{tbl:mainnet_vs_testnet}
 		\end{table}
 	}
+	
 	\end{scriptsize}
 	
 	\uncover<6->{
-	\small
 	\textbf{How are you connecting?}	
 	\vspace{-0.5em}
 	\begin{columns}[T]
@@ -79,23 +79,25 @@
 		\item \href{https://ethereum.org/en/developers/docs/nodes-and-clients/\#clients}{\link Local node}
 		\begin{itemize}
 			\item Best security
-			\item Everything can be validated locally
+			\item Local validation
+			\item Archive node: high hardware requirements
 		\end{itemize}
 	\end{itemize}
 	\end{column}
 	\begin{column}{0.55\textwidth}
 		\begin{itemize}
-			\item<7-> Third party service (e.g., \href{https://infura.io/}{\link Infura} or \href{https://www.alchemy.com/}{\link Alchemy})
+			\item<7-> Third party service (e.g.,\\ \href{https://infura.io/}{\link Infura}) % archive node alternative: archivenode.io from defidude?
 		\begin{itemize}
 			\item<7-> Most convenient option
 			\item<7-> But: heavily centralized
+			\item<7-> Archive node: costly
 		\end{itemize}
 	\end{itemize}
 	\end{column}
 
 	\end{columns}
 	}
-	
+		
 \end{frame}
 %%%
 
@@ -109,32 +111,31 @@
 			\end{figure}
 		\end{column}
 		\begin{column}{0.85\textwidth}
-			\href{https://www.trufflesuite.com/ganache}{\link Ganache} quickly creates a private (Ethereum) Blockchain on your computer and prefunds 10 accounts with 100 custom Ether each. It is a great solution to quickly set up a private development chain.
+			Ganache quickly creates a private (Ethereum) Blockchain on your computer and prefunds 10 accounts with 100 custom Ether each. It is a great solution to quickly set up a private development chain, or to fork the Ethereum mainnet for integrated smart contract development.
 		\end{column}
 	\end{columns}
-	\vspace{1.5em}
-	\begin{exercise}{Exercise 4}
+	\vspace{1em}
+	\begin{exercise}{Exercise}
 		\begin{enumerate}
-			\item Install \href{https://www.trufflesuite.com/ganache}{\link Truffle Ganache} on your personal computer.
-			\item Open Ganache and change hostname to local (0.0.0.0 -- all interfaces).
-			\item Download \href{https://github.com/MyEtherWallet/etherwallet\#download-the-latest-release}{\link MyEtherWallet} and run it locally.
-			\item Connect MyEtherWallet to your private chain. (https://localhost:8545)
-			\item Import the Ganache mnemonic seed to MyEtherWallet.
+			\item Install \href{https://www.trufflesuite.com/ganache}{\link Ganache} on your personal computer.
+			\item Open Ganache and change hostname to local (0.0.0.0 -- All Interfaces).
+			\item Download \href{https://metamask.io/}{\link Metamask}.
+			\item Connect Metamask to your private chain (RPC URL: https://localhost:8545 and Chain ID: 1337)
+			\item Import the Ganache private key of account 1 to Metamask.
 			\item Make a transaction from account 1 to account 2.
 		\end{enumerate}
 	\end{exercise}
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Account Creation and Funding %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Funding}
+
 %%%
 \begin{frame}{Account Creation and Funding}
-
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 	
 	Depending on the blockchain you are working on, you get ETH in different ways:\\
 	
@@ -152,15 +153,14 @@
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% IDE and Tool Setup %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Tool Setup}
+
 %%%
 \begin{frame}{IDE and Tool Setup}
-
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 		
 	We recommend one of the following two IDEs:\\
 	
@@ -170,7 +170,7 @@
 			\end{figure}
 		\end{column}
 		\begin{column}{0.85\textwidth}
-			\textbf{\href{https://remix.ethereum.org/}{\link Remix}} is a browser-based IDE for solidity.\\
+			\textbf{\href{https://remix.ethereum.org/}{\link Remix}} is a browser-based IDE for Solidity.\\
 		\end{column}
 	\end{columns}
 	
@@ -181,7 +181,7 @@
 			\end{figure}
 		\end{column}
 		\begin{column}{0.85\textwidth}
-			\textbf{\href{https://atom.io/}{\link Atom}} is a general-purpose IDE. Make sure to download syntax highlighting packages for solidity.
+			\textbf{\href{https://atom.io/}{\link Atom}} is a general-purpose IDE. Make sure to download syntax highlighting packages for Solidity.
 		\end{column}
 	\end{columns}
 	
@@ -206,14 +206,15 @@
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Development %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Development}
+
+
 %%%
 \begin{frame}{Contract Development}
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 		
 	\begin{itemize}
 		\item \textbf{Define your goal}
@@ -236,94 +237,93 @@
 %%%
 
 %%%
-\begin{frame}{Storage Contract: Your First Smart Contract}
-	
-	\begin{columns}
-		\begin{column}{0.15\textwidth}
-			\begin{figure}
-				\includegraphics[width = \textwidth]{../assets/images/box.png}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.85\textwidth}
-			Remember the pseudo code example from earlier in this course?\\
-			Let's create a \texttt{SharedStorage} contract where everyone can store an integer on the blockchain.
-		\end{column}
-	\end{columns}
-	\vspace{1.5em}
-	\begin{exercise}{Exercise 5}
-		\begin{enumerate}
-			\item Develop a contract with the two functions \texttt{\textcolor{focus}{store}(uint x)} and \texttt{\textcolor{focus}{read}()}.
-			\item The function \texttt{\textcolor{focus}{store}(uint x)} is used to store an integer value in the contract. The function \texttt{\textcolor{focus}{read}()} allows anyone to lookup the value without the need for a transaction.
-			\item Deploy the contract on your local Ganache testnet using the Remix Solidity IDE.
-			\item Change the inital value to 133.
-		\end{enumerate}
-	\end{exercise}
-\end{frame}
+%\begin{frame}{Storage Contract: Your First Smart Contract}
+%	
+%	\begin{columns}
+%		\begin{column}{0.15\textwidth}
+%			\begin{figure}
+%				\includegraphics[width = \textwidth]{../assets/images/box.png}
+%			\end{figure}
+%		\end{column}
+%		\begin{column}{0.85\textwidth}
+%			Remember the pseudo code example from earlier in this course?\\
+%			Let's create a \texttt{SharedStorage} contract where everyone can store an integer on the blockchain.
+%		\end{column}
+%	\end{columns}
+%	\vspace{1.5em}
+%	\begin{exercise}{Exercise 5}
+%		\begin{enumerate}
+%			\item Develop a contract with the two functions \texttt{\textcolor{focus}{store}(uint x)} and \texttt{\textcolor{focus}{read}()}.
+%			\item The function \texttt{\textcolor{focus}{store}(uint x)} is used to store an integer value in the contract. The function \texttt{\textcolor{focus}{read}()} allows anyone to lookup the value without the need for a transaction.
+%			\item Deploy the contract on your local Ganache testnet using the Remix Solidity IDE.
+%			\item Change the inital value to 133.
+%		\end{enumerate}
+%	\end{exercise}
+%	
+%\end{frame}
 %%%
 
 %%%
-\begin{frame}{Storage Contract: Your First Smart Contract}
-	\begin{samplecode}{Public Storage Contract:}
-		pragma solidity \^{}0.7.0;\\
-		\hfill
-		
-		contract SharedStorage \{ \\
-		\hphantom{~~~~}uint dataStorage;\\
-		\hfill
-		
-		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
-		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
-			\hphantom{~~~~~~~~}dataStorage = \_x;\\
-		\hphantom{~~~~}\} \\
-		\hfill
-		
-		\hphantom{~~~~}\textcolor{softanthracite}{// Read dataStorage value}\\
-		\hphantom{~~~~}function \textcolor{focus}{read}() public view returns (uint) \{ \\
-			\hphantom{~~~~~~~~}return dataStorage;\\
-			\hphantom{~~~~}\} \\
-			\hfill
-			
-		\}
-	\end{samplecode}
-\end{frame}
+%\begin{frame}{Storage Contract: Your First Smart Contract}
+%	\begin{samplecode}{Public Storage Contract:}
+%		pragma solidity \^{}0.7.0;\\
+%		\hfill
+%		
+%		contract SharedStorage \{ \\
+%		\hphantom{~~~~}uint dataStorage;\\
+%		\hfill
+%		
+%		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
+%		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
+%			\hphantom{~~~~~~~~}dataStorage = \_x;\\
+%		\hphantom{~~~~}\} \\
+%		\hfill
+%		
+%		\hphantom{~~~~}\textcolor{softanthracite}{// Read dataStorage value}\\
+%		\hphantom{~~~~}function \textcolor{focus}{read}() public view returns (uint) \{ \\
+%			\hphantom{~~~~~~~~}return dataStorage;\\
+%			\hphantom{~~~~}\} \\
+%			\hfill
+%			
+%		\}
+%	\end{samplecode}
+%\end{frame}
 %%%
 
 %%%
-\begin{frame}{Storage Contract: A More Compact Version}
-	\begin{samplecode}{Public Storage Contract:}
-		pragma solidity \^{}0.7.0;\\
-		\hfill
-		
-		contract SharedStorage \{ \\
-		\hphantom{~~~~}uint public dataStorage;\\
-		\hfill
-		
-		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
-		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
-			\hphantom{~~~~~~~~}dataStorage = \_x;\\
-		\hphantom{~~~~}\} \\
-		\hfill
-		
-		\}
-	\end{samplecode}
-	
-	\begin{itemize}
-		\item No explicit \texttt{\textcolor{focus}{read}()} function. Instead \texttt{public} function modifier.
-		\item Getter function is automatically added.	
-	\end{itemize}
-\end{frame}
+%\begin{frame}{Storage Contract: A More Compact Version}
+%	\begin{samplecode}{Public Storage Contract:}
+%		pragma solidity \^{}0.7.0;\\
+%		\hfill
+%		
+%		contract SharedStorage \{ \\
+%		\hphantom{~~~~}uint public dataStorage;\\
+%		\hfill
+%		
+%		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
+%		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
+%			\hphantom{~~~~~~~~}dataStorage = \_x;\\
+%		\hphantom{~~~~}\} \\
+%		\hfill
+%		
+%		\}
+%	\end{samplecode}
+%	
+%	\begin{itemize}
+%		\item No explicit \texttt{\textcolor{focus}{read}()} function. Instead \texttt{public} function modifier.
+%		\item Getter function is automatically added.	
+%	\end{itemize}
+%\end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Compilation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Compilation}
 
 %%%
 \begin{frame}{Contract Compilation}
-
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 
 	\begin{columns}
 		\begin{column}{0.6\textwidth}
@@ -336,34 +336,33 @@
 		\begin{column}{0.5\textwidth}
 			\textbf{Bytecode}
 				\begin{itemize}
-					\item Deployed on Blockchain
-					\item Actual Code that gets executed
+					\item Deployed on blockchain
+					\item Actual code that gets executed
 				\end{itemize}
 		\vspace{1em}
 			\textbf{Application Binary Interface}
 				\begin{itemize}
 					\item List of contract functions and their arguments (JSON)
-					\item En- \& Decoding of Data (Translation) 
+					\item En- \& decoding of data (translation) 
 				\end{itemize}
 		\end{column}
 	\end{columns}
 
-	\begin{keytakeaway}{Need for ABI}
+	\begin{keytakeaway}{The Need for an ABI}
 		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract interface specification.
 	\end{keytakeaway}		
 
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Deployment %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Deployment}
+
 %%%
 \begin{frame}{Contract Deployment}
-
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 		
 	\begin{keytakeaway}{Contract Deployment}
 		Creating your contract on the blockchain, i.e., sending a deployment transaction.
@@ -373,35 +372,35 @@
 	\uncover<2->{
 	\textbf{You can either \dots}
 	\begin{itemize}
-		\item<2-> \dots (compile and) deploy a contract directly from Remix.
-		\item<3-> \dots use any wallet to migrate bytecode.
+		\item<2-> \dots (compile and) deploy a contract directly from most development frameworks (incl.\ \href{https://remix.ethereum.org/}{\link Remix}).
+		\item<3-> \dots use any wallet to deploy bytecode.
 	\end{itemize}
 	}
 \end{frame}
 %%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Testing %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Testing}
+
 %%%
 \begin{frame}{Contract Testing}
-
-	\begin{figure}
-		\begingroup
-			\tikzset{every picture/.style={scale=0.6}}
-			\input{../assets/figures/dev_workflow}
-		\endgroup
-	\end{figure}
 		
 	\textbf{Testing your contract is very important.}\\
 	
 	\begin{itemize}
 		\item<2-> Manual testing
 		\begin{itemize}
-			\item<2-> Remix
+			\item<2-> \href{https://remix.ethereum.org/}{\link Remix}
 			\item<2-> \href{https://metamask.io}{\link Metamask}
-			\item<2-> MyEtherWallet
 		\end{itemize}
-		\item<3-> Automated testing (e.g., Truffle and JavaScript test cases)
+		\item<3-> Automated testing
 		\begin{itemize}
-			\item<3-> Truffle (Automated JavaScript test cases)
+			\item<3-> \href{https://hardhat.org/}{\link Hardhat} (automated JavaScript test cases)
+			\item<3-> \href{https://github.com/eth-brownie/brownie}{\link Brownie} (automated Python test cases)
+			\item<3-> \href{https://www.trufflesuite.com/truffle}{\link Truffle} (automated JavaScript test cases)
 		\end{itemize}
 	\end{itemize}
 \end{frame}

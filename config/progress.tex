@@ -1,0 +1,52 @@
+\usepackage{totcount}
+\newtotcounter{mysec}
+\AtBeginSection{\addtocounter{mysec}{1}\label{mysec:\themysec}}
+\usetikzlibrary{patterns.meta}
+
+\setbeamertemplate{headline}{%
+	\vskip4pt
+	\begin{tikzpicture}
+	
+		% progress bar
+		\path[%
+		preaction={fill, highlight!50},
+		pattern={Lines[angle=45,line width=3pt,distance=6pt]},
+		pattern color=highlight!25
+		] (0,0) rectangle (\paperwidth,0.3);
+		
+		% show progress based on chapter
+		\ifnum\thesection>0
+			\path[
+			preaction={fill,highlight},
+			pattern={Lines[angle=45,line width=3pt,distance=6pt]},
+			pattern color=highlight!80
+			] (0,0) rectangle ({(\themysec)/(\totvalue{mysec}+1)*\paperwidth},0.3);
+		\fi
+
+		% chapters
+		\foreach \x in {1,...,\totvalue{mysec}}{%
+			\colorlet{seccol}{focus!50}
+			\ifnum\thesection=\x
+				\colorlet{seccol}{focus!50}
+			\else
+				\ifnum\thesection<\x
+					\colorlet{seccol}{highlight}
+				\else
+					\colorlet{seccol}{highlight}
+				\fi
+			\fi
+			
+			\node[
+			circle,
+			fill=seccol,
+			draw=white,
+			line width=1.5pt,
+			minimum size=15pt
+			] at ({(\x)/(\totvalue{mysec}+1)*\paperwidth},0.15) {\x};
+			
+			\node[seccol] at ({(\x)/(\totvalue{mysec}+1)*\paperwidth},-0.35) {\nameref{mysec:\x}};
+			
+		}
+		
+	\end{tikzpicture}%
+}

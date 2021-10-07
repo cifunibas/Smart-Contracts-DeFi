@@ -1,30 +1,41 @@
-\begin{tikzpicture}[%
-    node distance=1.9cm,
-    on grid, every node/.append style={transform shape}
-  ]
+\usetikzlibrary{fit, backgrounds}
+
+\begin{tikzpicture}[
+  node distance=7mm,
+  title/.style={font=\fontsize{6}{6}\color{black!50}},
+  typetag/.style={rectangle, draw=black!50, font=\scriptsize, anchor=west, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!80, text width = 1.7cm}
+]
+
+  % Preparation
+
+  \node (prep) at (0, 0) [title] {Preparation};
+
+  \node (conn) [below=of prep.west, yshift=-3mm, typetag] {Blockchain\\ Connection};
+  \node (fund) [right=of conn.east, typetag] {Account\\ Creation\\ \& Funding};
+  \node (setup) [right=of fund.east, typetag] {IDE \& Tool\\ Setup};
   
-  \begin{scriptsize}
+  \draw[->, thick] (conn.east) -- (fund.west);
+  \draw[->, thick] (fund.east) -- (setup.west);
+
+  \begin{scope}[on background layer]
+  	\node [draw=black!50, fit={(prep) (conn) (fund) (setup)}, fill = highlight!30] {};
+  \end{scope}
   
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (A)[text width = 1.7cm] at (0,0) {Blockchain\\ Connection};
+  % Development
+  \node (dev) at (0, -5) [title] {Development};
   
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (B)[right of = A, text width = 1.7cm] {Account\\ Creation\\ \& Funding};
+  \node (develop) [above=of dev.west, typetag, yshift=2mm] {Contract \\ Development};
+  \node (comp) [right=of develop.east, typetag] {Contract \\ Compilation};
+  \node (depl) [right=of comp.east, typetag] {Contract \\ Deployment};
+  \node (test) [right=of depl.east, typetag] {Contract \\ Testing};
   
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (C)[right of = B, text width = 1.7cm] {IDE \& Tool\\ Setup};
-  
-  \node[draw, rectangle, minimum height = 0.6cm, minimum width = 5.7cm, fill = highlight] (B1)[text width = 4.8cm] at ($(A)!0.5!(C)+(0,0.9)$) {Preparation};
-  
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (D)[right of = C, text width = 1.7cm] {Contract \\ Development};
-  
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (E)[right of = D, text width = 1.7cm] {Contract \\ Compilation};
-  
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (F)[right of = E, text width = 1.7cm] {Contract \\ Deployment};
-  
-  \node[draw, rectangle, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!40] (G)[right of = F, text width = 1.7cm] {Contract \\ Testing};
-  
-  \node[draw, rectangle, minimum height = 0.6cm, minimum width = 7.6cm, fill = highlight] (G1)[text width = 4.8cm] at ($(D)!0.5!(G)+(0,0.9)$) {Contract Development};
-  
-  % \draw[->, transform canvas={yshift=-0.3cm}, color = highlight, ultra thick] (A.south west) -- (G.south east);
-  
-	\end{scriptsize}
-	
+  \draw[->, thick] (setup.south) -- ++(0, -0.6) -| (develop.north);
+  \draw[->, thick] (develop.east) -- (comp.west);
+  \draw[->, thick] (comp.east) -- (depl.west);
+  \draw[->, thick] (depl.east) -- (test.west);
+
+  \begin{scope}[on background layer]
+  	  \node [draw=black!50, fit={(dev) (develop) (comp) (depl) (test)}, fill = highlight!30] {};
+  \end{scope}
+
 \end{tikzpicture}
