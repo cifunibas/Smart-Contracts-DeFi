@@ -7,17 +7,13 @@
 	
 		% progress bar
 		\path[%
-		preaction={fill, highlight!50},
-		pattern={Lines[angle=45,line width=3pt,distance=6pt]},
-		pattern color=highlight!25
+		preaction={fill, highlight!50}
 		] (0,0) rectangle (\paperwidth,0.3);
 		
 		% show progress based on chapter
 		\ifnum\thesection>0
 			\path[
-			preaction={fill,highlight},
-			pattern={Lines[angle=45,line width=3pt,distance=6pt]},
-			pattern color=highlight!80
+			preaction={fill,highlight}
 			] (0,0) rectangle ({(\themysec)/(\totvalue{mysec}+1)*\paperwidth},0.3);
 		\fi
 
