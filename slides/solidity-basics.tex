@@ -1,0 +1,164 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Title of Video Lecture}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{What is Solidity?}
+
+\begin{columns}[T]
+	\begin{column}{0.7\textwidth}
+		Solidity is \dots
+			\begin{itemize}
+				\item<1-> a curly-bracket \{\} language.
+				\item<2-> influenced by C++, Python and JavaScript.
+				\item<3-> statistically typed, supports inheritance, libraries and complex user-defined types.
+				\item<4-> still under rapid development with regular breaking changes.
+			\end{itemize}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+	\center
+			\includegraphics[scale=0.04]{../assets/images/solidity_logo_new}
+	\end{column}
+\end{columns}	
+
+\vspace{1em}
+	
+\uncover<5->{
+	\begin{keytakeaway}{Cutting edge tech}
+		Use documentation frequently: \link \href{https://docs.soliditylang.org}{https://docs.soliditylang.org}
+	\end{keytakeaway}
+	}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Solidity Version and the Pragma}
+	\texttt{\textcolor{blue}{pragma solidity} \^{}0.8.9;}
+\vspace{1em}
+	\begin{itemize}
+		\item The pragma declares the version of the compiler to be used.
+ 		\item Versioning follows \link \href{https://semver.org/}{semver}: \textbf{Major.Minor.Patch}
+ 		\item Breaking changes only with new minor versions. \\ {\small $\rightarrow$ Next time with 0.9.0}
+		\item  \^{} is commonly used and means "including any future version until the next minor release" or "patch updates are allowed". \\
+ {$\rightarrow$ \small Example: Everything from 0.8.9 until 0.9.0}
+ 		\item Use the same pragma for all files in a project!
+	\end{itemize}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Basic Contract Structure}
+	\begin{samplecode}{Basic Contract Structure}
+		\input{../assets/solidity_code/basic-contract-structure.tex}
+	\end{samplecode}
+\begin{itemize}
+\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
+\item \textbf{Contract:} \texttt{\textcolor{blue}{contract} <ContractName> \{\}}
+\end{itemize}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{State Variables}
+\begin{center}
+\includegraphics[scale=0.2]{../assets/images/sc_storage}
+\end{center}
+
+
+	\begin{itemize}
+		\item State variables for a contract are permanently stored on the blockchain.
+		\item Arbitrarily large area to store variables, but it is the most expensive operation. For a more detailed overview, see: \\ \link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}
+		\item Complex types can be larger and usually store their length in the initial 32 bytes slot
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Integers}
+\begin{itemize}
+\item<1->{\texttt{uint}, which is short for \texttt{uint256} is the native integer.}
+\item<1->{Most common type. Can store a single number up to 32 bytes.}
+\item<1->{Stores non-negative values from \texttt{[0,]}}
+\item<1->{There exist smaller \texttt{uints}, like \texttt{uint8}, \texttt{uint16}, ..., \texttt{uint248} but under normal circumstances they are all converted to uint256 before use.}
+\end{itemize}
+	\begin{samplecode}{Integers}
+		\input{../assets/solidity_code/integers.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{More Elementary Types}
+	\begin{itemize}
+		\item \texttt{address}: Stores a 20 byte Ethereum address.
+		\item \texttt{bool}: Can be \texttt{true} or \texttt{false}. For logical operations.
+		\item \texttt{bytes1,...,bytes32}: Stores arbitrarily data of a fixed size.
+		\item \texttt{fixed} / \texttt{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Let's Build an Auction Platform}
+\begin{itemize}
+	\item One contract per auction
+	\item Anyone can participate
+	\item Start with a simple timed auction and explore other auction types later.
+\end{itemize}
+	\begin{samplecode}{Auction Contract}
+		\input{../assets/solidity_code/auction-contract.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Variable Default Values}
+\begin{itemize}
+	\item Each variable has a default value when initialized.
+\end{itemize}
+
+\begin{center}
+\begin{table}
+		\begin{tabular}{|ll|}
+			\hline
+			Data Types & Zero Values\\
+			\hline
+			Integer types & \texttt{0} \\
+			bool &  \texttt{false} \\
+			address & \texttt{0x0} \\
+			byte & \texttt{0} \\
+			Array & [ ] (length = 0) \\
+			mapping & no keys \\
+			\hline
+		\end{tabular}
+%		\caption{Variable default values}
+		\label{tbl:simpletable}
+	\end{table}	
+\end{center}
+\end{frame}
+%%%
+
+\end{document}
