@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -10,7 +10,8 @@
 
 % Config File
 \input{../config/config.tex}
-
+%\usepackage{array}
+%\usepackage[table]{xcolor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,111 +55,140 @@
 
 %%%
 \begin{frame}{Solidity Version and the Pragma}
+
 	\texttt{\textcolor{blue}{pragma solidity} \^{}0.8.9;}
 \vspace{1em}
 	\begin{itemize}
-		\item The pragma declares the version of the compiler to be used.
- 		\item Versioning follows \link \href{https://semver.org/}{semver}: \textbf{Major.Minor.Patch}
- 		\item Breaking changes only with new minor versions. \\ {\small $\rightarrow$ Next time with 0.9.0}
-		\item  \^{} is commonly used and means "including any future version until the next minor release" or "patch updates are allowed". \\
+		\item<1-> The pragma declares the version of the compiler to be used.
+ 		\item<2-> Versioning follows \link \href{https://semver.org/}{semver}: \textbf{Major.Minor.Patch}
+ 		\item<3-> Breaking changes only with new minor versions. \\ {\small $\rightarrow$ Next time with 0.9.0}
+		\item<4->  \^{} is commonly used and means "including any future version until the next minor release" or "patch updates are allowed". \\
  {$\rightarrow$ \small Example: Everything from 0.8.9 until 0.9.0}
- 		\item Use the same pragma for all files in a project!
+ 		\item<5-> Use the same pragma for all files in a project!
 	\end{itemize}
+	
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{Basic Contract Structure}
+
 	\begin{samplecode}{Basic Contract Structure}
 		\input{../assets/solidity_code/basic-contract-structure.tex}
 	\end{samplecode}
-\begin{itemize}
-\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
-\item \textbf{Contract:} \texttt{\textcolor{blue}{contract} <ContractName> \{\}}
-\end{itemize}
+	\begin{itemize}
+		\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
+		\item \textbf{Contract:} \texttt{\textcolor{blue}{contract} <ContractName> \{\}}
+	\end{itemize}
+
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{State Variables}
-\begin{center}
-\includegraphics[scale=0.2]{../assets/images/sc_storage}
-\end{center}
 
+	\begin{figure}
+		\includegraphics[scale=0.2]{../assets/images/sc_storage}
+\caption{\link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}}
+		\label{fig:sc_storage}
+	\end{figure}
 
 	\begin{itemize}
 		\item State variables for a contract are permanently stored on the blockchain.
-		\item Arbitrarily large area to store variables, but it is the most expensive operation. For a more detailed overview, see: \\ \link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}
+		\item Arbitrarily large area to store variables, but it is the most expensive operation. For a more detailed overview, follow link in image resource.
 		\item Complex types can be larger and usually store their length in the initial 32 bytes slot
 	\end{itemize}
+
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Integers}
-\begin{itemize}
-\item<1->{\texttt{uint}, which is short for \texttt{uint256} is the native integer.}
-\item<1->{Most common type. Can store a single number up to 32 bytes.}
-\item<1->{Stores non-negative values from \texttt{[0,]}}
-\item<1->{There exist smaller \texttt{uints}, like \texttt{uint8}, \texttt{uint16}, ..., \texttt{uint248} but under normal circumstances they are all converted to uint256 before use.}
-\end{itemize}
+
 	\begin{samplecode}{Integers}
 		\input{../assets/solidity_code/integers.tex}
 	\end{samplecode}
+	\begin{itemize}
+		\item<2->{\texttt{uint}, which is short for \texttt{uint256} is the native integer.}
+		\item<3->{Most common type. Can store a single number up to 32 bytes.}
+		\item<4->{Stores non-negative values from \texttt{[0,$2^{256-1}$]}}
+		\item<5->{There exist smaller \texttt{uints}, like \texttt{uint8}, \texttt{uint16}, ..., \texttt{uint248}, but under normal circumstances they are all converted to uint256 before use.}
+		\item<6->{\texttt{int} resp. \texttt{int256} can store negative numbers in half the range of \texttt{uint256}. Only use \texttt{int} when you explicitly need negative numbers. }
+	\end{itemize}
+
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{More Elementary Types}
+
 	\begin{itemize}
-		\item \texttt{address}: Stores a 20 byte Ethereum address.
-		\item \texttt{bool}: Can be \texttt{true} or \texttt{false}. For logical operations.
-		\item \texttt{bytes1,...,bytes32}: Stores arbitrarily data of a fixed size.
-		\item \texttt{fixed} / \texttt{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
+		\item<1-> \texttt{address}: Stores a 20 byte Ethereum address.
+		\item<1-> \texttt{bool}: Can be \texttt{true} or \texttt{false}. For logical operations.
+		\item<1-> \texttt{bytes1,...,bytes32}: Stores arbitrarily data of a fixed size.
+		\item<1-> \texttt{fixed} / \texttt{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
 	\end{itemize}
+	
+	\vspace{1em}
+	
+	\uncover<2->{ We will look at more variable types as we use them.}
+	
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Let's Build an Auction Platform}
-\begin{itemize}
-	\item One contract per auction
-	\item Anyone can participate
-	\item Start with a simple timed auction and explore other auction types later.
-\end{itemize}
+
+	\begin{itemize}
+		\item<1-> One contract per auction
+		\item<1-> Anyone can participate
+		\item<1-> Start with a simple timed auction and explore other auction types later.
+	\end{itemize}
+	
+\uncover<2->{
 	\begin{samplecode}{Auction Contract}
 		\input{../assets/solidity_code/auction-contract.tex}
 	\end{samplecode}
+	}
+	
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Variable Default Values}
-\begin{itemize}
-	\item Each variable has a default value when initialized.
-\end{itemize}
 
-\begin{center}
-\begin{table}
-		\begin{tabular}{|ll|}
+	\begin{itemize}
+		\item Each variable has a default value when initialized.
+	\end{itemize}
+
+	\begin{table}
+		\begin{tabular}{m{4cm} m{4cm}}
+		\rowcolor{highlight}
 			\hline
 			Data Types & Zero Values\\
-			\hline
+			\hline 
+			\rowcolor{brightanthracite}
 			Integer types & \texttt{0} \\
 			bool &  \texttt{false} \\
+			\rowcolor{brightanthracite}
 			address & \texttt{0x0} \\
 			byte & \texttt{0} \\
+			\rowcolor{brightanthracite}
 			Array & [ ] (length = 0) \\
 			mapping & no keys \\
+			\rowcolor{brightanthracite}
+			enum & (first choice) \\
+			string & " " \\
 			\hline
 		\end{tabular}
 %		\caption{Variable default values}
-		\label{tbl:simpletable}
+%		\label{tbl:variable_default_values}
 	\end{table}	
-\end{center}
+	
 \end{frame}
+
 %%%
 
 \end{document}
