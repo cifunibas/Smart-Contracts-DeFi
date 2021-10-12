@@ -1,0 +1,9 @@
+\begin{lstlisting}[language=Solidity]
+function bid() public payable {
+  require(block.timestamp < endTime, 'Auction Ended');
+  require(msg.value > highestBid, 'Bid too small');
+  highestBid = msg.value;
+  highestBidder = msg.sender;
+}
+
+\end{lstlisting}
