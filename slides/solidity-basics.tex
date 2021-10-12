@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Title of Video Lecture}
+\subtitle{Solidity Basics 1}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -77,6 +77,7 @@
 	\begin{samplecode}{Basic Contract Structure}
 		\input{../assets/solidity_code/basic-contract-structure.tex}
 	\end{samplecode}
+	\vspace{1em}
 	\begin{itemize}
 		\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
 		\item \textbf{Contract:} \texttt{\textcolor{blue}{contract} <ContractName> \{\}}
@@ -89,17 +90,17 @@
 %%%
 \begin{frame}{State Variables}
 
+	\begin{itemize}
+		\item State variables for a contract are permanently stored on the blockchain.
+		\item Arbitrarily large area to store variables, but it is the most expensive operation.
+		\item Complex types can be larger and usually store their length in the initial 32 bytes slot
+	\end{itemize}
+	
 	\begin{figure}
 		\includegraphics[scale=0.2]{../assets/images/sc_storage}
 \caption{\link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}}
 		\label{fig:sc_storage}
 	\end{figure}
-
-	\begin{itemize}
-		\item State variables for a contract are permanently stored on the blockchain.
-		\item Arbitrarily large area to store variables, but it is the most expensive operation. For a more detailed overview, follow link in image resource.
-		\item Complex types can be larger and usually store their length in the initial 32 bytes slot
-	\end{itemize}
 
 \end{frame}
 %%%
@@ -111,11 +112,11 @@
 		\input{../assets/solidity_code/integers.tex}
 	\end{samplecode}
 	\begin{itemize}
-		\item<2->{\texttt{uint}, which is short for \texttt{uint256} is the native integer.}
+		\item<2->{\texttt{\textcolor{teal}{uint}}, which is short for \texttt{\textcolor{teal}{uint256}} is the native integer.}
 		\item<3->{Most common type. Can store a single number up to 32 bytes.}
 		\item<4->{Stores non-negative values from \texttt{[0,$2^{256-1}$]}}
-		\item<5->{There exist smaller \texttt{uints}, like \texttt{uint8}, \texttt{uint16}, ..., \texttt{uint248}, but under normal circumstances they are all converted to uint256 before use.}
-		\item<6->{\texttt{int} resp. \texttt{int256} can store negative numbers in half the range of \texttt{uint256}. Only use \texttt{int} when you explicitly need negative numbers. }
+		\item<5->{There exist smaller \texttt{\textcolor{teal}{uints}}, like \texttt{\textcolor{teal}{uint8}}, \texttt{\textcolor{teal}{uint16}}, ..., \texttt{\textcolor{teal}{uint248}}, but under normal circumstances they are all converted to \texttt{\textcolor{teal}{uint256}} before use.}
+		\item<6->{\texttt{\textcolor{teal}{int}} resp. \texttt{\textcolor{teal}{int256}} can store negative numbers in half the range of \texttt{\textcolor{teal}{uint256}}. Only use \texttt{\textcolor{teal}{int}} when you explicitly need negative numbers. }
 	\end{itemize}
 
 \end{frame}
@@ -125,10 +126,10 @@
 \begin{frame}{More Elementary Types}
 
 	\begin{itemize}
-		\item<1-> \texttt{address}: Stores a 20 byte Ethereum address.
-		\item<1-> \texttt{bool}: Can be \texttt{true} or \texttt{false}. For logical operations.
-		\item<1-> \texttt{bytes1,...,bytes32}: Stores arbitrarily data of a fixed size.
-		\item<1-> \texttt{fixed} / \texttt{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
+		\item<1-> \texttt{\textcolor{teal}{address}}: Stores a 20 byte Ethereum address.
+		\item<1-> \texttt{\textcolor{teal}{bool}}: Can be \texttt{\textcolor{blue}{true}} or \texttt{\textcolor{blue}{false}}. For logical operations.
+		\item<1-> \texttt{\textcolor{teal}{bytes1},\dots,\textcolor{teal}{bytes32}}: Stores arbitrarily data of a fixed size.
+		\item<1-> \texttt{\textcolor{teal}{fixed}} / \texttt{\textcolor{teal}{ufixed}}: Fixed point numbers are not fully supported yet. Do not use them!
 	\end{itemize}
 	
 	\vspace{1em}
@@ -159,10 +160,6 @@
 %%%
 \begin{frame}{Variable Default Values}
 
-	\begin{itemize}
-		\item Each variable has a default value when initialized.
-	\end{itemize}
-
 	\begin{table}
 		\begin{tabular}{m{4cm} m{4cm}}
 		\rowcolor{highlight}
@@ -186,6 +183,11 @@
 %		\caption{Variable default values}
 %		\label{tbl:variable_default_values}
 	\end{table}	
+
+\begin{itemize}
+		\item Each variable has a default value when initialized.
+		\item E.g. \texttt{\textcolor{teal}{bool} hasEnded;} is the same as \texttt{\textcolor{teal}{bool} hasEnded = \textcolor{blue}{false};}
+	\end{itemize}	
 	
 \end{frame}
 
