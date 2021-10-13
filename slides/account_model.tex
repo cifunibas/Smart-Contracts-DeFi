@@ -85,11 +85,11 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 \vspace{2em}
 \uncover<2->{
 	\texttt{Keccak(0xD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4)} = \\
-\vspace{0.5em}
+\vspace{0.1em}
 
 	\hspace{4.75em}\texttt{\textcolor{highlight}{e}1\textcolor{focus}{254}6\textcolor{focus}{7}9\textcolor{highlight}{f}8029\textcolor{highlight}{e}f\textcolor{focus}{7}c379d\textcolor{focus}{6}0b9\textcolor{highlight}{a}49f44\textcolor{highlight}{8}9\textcolor{highlight}{f}b\textcolor{focus}{4}c\textcolor{highlight}{8}\textcolor{focus}{7}2\dots}  \\
 	  
-\vspace{0.5em}
+\vspace{2em}
 
 	\hspace{3.7em}\texttt{0xD3\textcolor{focus}{eec}7\textcolor{focus}{a}7\textcolor{highlight}{C}7867\textcolor{highlight}{B}9\textcolor{focus}{d}02248\textcolor{focus}{b}414\textcolor{highlight}{F}08609\textcolor{highlight}{A}2\textcolor{highlight}{A}6\textcolor{focus}{c}2\textcolor{highlight}{A}\textcolor{focus}{b}4}
 	}
@@ -147,7 +147,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 	\input{../assets/figures/contract_creation.tex}
 \vspace{1em}
 	\begin{enumerate}
-				\item<1-> EOA or CA issues transaction with \textcolor{focus}{\textbf{zero address}} as recipient address.
+				\item<1-> EOA (or CA) issues (internal) transaction with \textcolor{focus}{\textbf{zero address}} as recipient address.
 				\item<2-> The transaction carries the contract code.
 				\item<3-> Transaction confirmation = contract deployment
 				\item<4-> New contract account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
@@ -158,7 +158,7 @@ No checksum encoding $\rightarrow$ Typos were a severe problem. \\
 
 %%%
 \begin{frame}{Account-based Model vs. UTXO-based Model}
-	The account-based model may be more intuitive at first, however, it does have some drawbacks compared to the UTXO model. \\ 
+	The account-based model is more intuitive and flexible than the UTXO-based model, but it also has some drawbacks. \\ 
 	\vspace{2em}
 		\begin{columns}[T]
 			\begin{column}{0.25\textwidth}
