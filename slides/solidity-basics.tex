@@ -10,8 +10,6 @@
 
 % Config File
 \input{../config/config.tex}
-%\usepackage{array}
-%\usepackage[table]{xcolor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,8 +54,10 @@
 %%%
 \begin{frame}{Solidity Version and the Pragma}
 
-	\texttt{\textcolor{blue}{pragma solidity} \^{}0.8.9;}
+\genkey{pragma solidity} \^{}0.8.9;	
+
 \vspace{1em}
+
 	\begin{itemize}
 		\item<1-> The pragma declares the version of the compiler to be used.
  		\item<2-> Versioning follows \link \href{https://semver.org/}{semver}: \textbf{Major.Minor.Patch}
@@ -80,7 +80,7 @@
 	\vspace{1em}
 	\begin{itemize}
 		\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
-		\item \textbf{Contract:} \texttt{\textcolor{blue}{contract} <ContractName> \{\}}
+		\item \textbf{Contract:} \texttt{\genkey{contract} <ContractName> \{\}}
 	\end{itemize}
 
 \end{frame}
@@ -112,11 +112,11 @@
 		\input{../assets/solidity_code/integers.tex}
 	\end{samplecode}
 	\begin{itemize}
-		\item<2->{\texttt{\textcolor{teal}{uint}}, which is short for \texttt{\textcolor{teal}{uint256}} is the native integer.}
+		\item<2->{\typesunits{uint}, which is short for \typesunits{uint256} is the native integer.}
 		\item<3->{Most common type. Can store a single number up to 32 bytes.}
 		\item<4->{Stores non-negative values from \texttt{[0,$2^{256-1}$]}}
-		\item<5->{There exist smaller \texttt{\textcolor{teal}{uints}}, like \texttt{\textcolor{teal}{uint8}}, \texttt{\textcolor{teal}{uint16}}, ..., \texttt{\textcolor{teal}{uint248}}, but under normal circumstances they are all converted to \texttt{\textcolor{teal}{uint256}} before use.}
-		\item<6->{\texttt{\textcolor{teal}{int}} resp. \texttt{\textcolor{teal}{int256}} can store negative numbers in half the range of \texttt{\textcolor{teal}{uint256}}. Only use \texttt{\textcolor{teal}{int}} when you explicitly need negative numbers. }
+		\item<5->{There exist smaller \typesunits{uints}, like \typesunits{uint8}, \typesunits{uint16}, ..., \typesunits{uint248}, but under normal circumstances they are all converted to \typesunits{uint256} before use.}
+		\item<6->{\typesunits{int} resp. \typesunits{int256} can store negative numbers in half the range of \typesunits{uint256}. Only use \typesunits{int} when you explicitly need negative numbers. }
 	\end{itemize}
 
 \end{frame}
@@ -126,10 +126,10 @@
 \begin{frame}{More Elementary Types}
 
 	\begin{itemize}
-		\item<1-> \texttt{\textcolor{teal}{address}}: Stores a 20 byte Ethereum address.
-		\item<1-> \texttt{\textcolor{teal}{bool}}: Can be \texttt{\textcolor{blue}{true}} or \texttt{\textcolor{blue}{false}}. For logical operations.
-		\item<1-> \texttt{\textcolor{teal}{bytes1},\dots,\textcolor{teal}{bytes32}}: Stores arbitrarily data of a fixed size.
-		\item<1-> \texttt{\textcolor{teal}{fixed}} / \texttt{\textcolor{teal}{ufixed}}: Fixed point numbers are not fully supported yet. Do not use them!
+		\item<1-> \typesunits{address}: Stores a 20 byte Ethereum address.
+		\item<1-> \typesunits{bool}: Can be \genkey{true} or \genkey{false}. For logical operations.
+		\item<1-> \typesunits{bytes1},\dots,\typesunits{bytes32}: Stores arbitrarily data of a fixed size.
+		\item<1-> \typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
 	\end{itemize}
 	
 	\vspace{1em}
@@ -186,7 +186,7 @@
 
 \begin{itemize}
 		\item Each variable has a default value when initialized.
-		\item E.g. \texttt{\textcolor{teal}{bool} hasEnded;} is the same as \texttt{\textcolor{teal}{bool} hasEnded = \textcolor{blue}{false};}
+		\item E.g. \typesunits{bool} \texttt{hasEnded;} is the same as \typesunits{bool} \texttt{hasEnded} = \genkey{false};
 	\end{itemize}	
 	
 \end{frame}
