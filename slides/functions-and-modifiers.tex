@@ -1,0 +1,170 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Functions and Modifiers}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Functions}
+	\textbf{Functions are executable parts of a smart contract.}
+		
+	\uncover<2->{
+		\begin{samplecode}{Function example}
+			\input{../assets/solidity_code/function_example.tex}
+		\end{samplecode}
+	}
+		
+	\begin{itemize}
+		\item<3-> \texttt{<parameters>}:
+		\begin{itemize}
+			\item<3-> Used in the \texttt{<function body>}
+			\item<3-> Must be different from state variables	
+		\end{itemize}
+		\item<4-> \texttt{<modifiers>}:
+		\begin{itemize}
+			\item<4-> Accessibility modifiers
+			\item<4-> State permission modifiers
+			\item<4-> Special modifiers
+			\item<4-> Custom modifiers
+		\end{itemize}
+		\item<5-> \texttt{<return variables>}
+		\begin{itemize}
+			\item<5-> Optional
+			\item<5-> Can return multiple return variables
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Accessibility Modifiers}
+	\textbf{Accessibility modifiers state which accounts can access a function or variable. They are required for...}
+	
+	\begin{itemize}
+		\item<2-> ... all functions.
+		\item<2-> ... all variables, but...
+		\begin{itemize}
+			\item<2-> ...default to private if omitted.
+		\end{itemize}	
+	\end{itemize}
+	
+	\uncover<3->{
+	\textbf{Who can access which functions/variables?}
+		\begin{table}
+			\begin{tabular}{lp{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}}
+			\hline
+				\rowcolor{highlight}
+				\textbf{Keyword} & \textbf{EOA} & \textbf{This contract} & \textbf{Inheriting contract} & \textbf{External contract}\\
+				\texttt{private} & No & Yes & No & No \\
+				\texttt{internal} & No & Yes & Yes & No \\
+				\texttt{external} & Yes & No & No & Yes \\
+				\texttt{public} & Yes & Yes & Yes & Yes \\
+				\hline
+			\end{tabular}
+		\end{table}
+	}
+	
+	\uncover<4->{
+	\begin{keytakeaway}{Additional information}
+		\begin{itemize}
+			\item \texttt{external} can only be used for functions.
+			\item Declaring a variable as \texttt{public} will create a getter function with the same name.
+			\item \texttt{private} does not mean the variable is invisible.
+		\end{itemize}
+	\end{keytakeaway}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{State Permission Modifiers}
+	\textbf{State permission modifiers define which functions can read from or modify (write) to the state.}
+	\begin{table}
+		\begin{tabular}{lll}
+			\hline
+			\rowcolor{highlight}
+			\textbf{Keyword} & \textbf{Read} & \textbf{Write}\\
+			\texttt{pure} & No & No\\
+			\texttt{view} & Yes & No\\
+			 & Yes & Yes\\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Special and Custom Modifiers}
+\textbf{There are even more modifiers for functions:}
+	\begin{itemize}
+		\item<1-> \texttt{payable}: allows a function to receive ETH as part of the transaction.
+		\item<2-> \texttt{virtual} \& \texttt{override}: used for inheritance (\textcolor{focus}{more on this later!}).
+		\item<3-> \texttt{constant} \& \texttt{immutable}: disallow changing the value of a variable during the contract's lifetime.
+		\begin{itemize}
+			\item<3->{Difference: \texttt{immutable} can be set during contract deployment}	
+		\end{itemize}
+		\item<4-> Custom (user-defined) modifiers (\textcolor{focus}{more on this later!})
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Update Our Auction Contract}
+	\textbf{Goal: Make variables public to add a getter function and show that manually adding a getter function is the same.}
+	
+	\uncover<2->{
+		\begin{samplecode}{Public Variables}
+			\input{../assets/solidity_code/public_variables.tex}
+		\end{samplecode}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Contract Constructors}
+	\textbf{Instead of \texttt{initialize(\textcolor{highlight}{address} \_beneficiary)}, we can use a special function that is executed when the contract is deployed -- the so-called ''constructor".}
+
+	\begin{samplecode}{Constructor Example}
+			\input{../assets/solidity_code/constructor_example.tex}
+	\end{samplecode}
+	
+	\uncover<3->{
+	\textbf{In our specific case, we could add the following code snippet to our contract:}
+		\begin{samplecode}{Constructor for Our Auction Contract}
+			\input{../assets/solidity_code/constructor_beneficiary.tex}
+		\end{samplecode}
+	}
+	
+	\textbf{...and change the beneficiary address to be \texttt{immutable}:}
+	\begin{samplecode}{Line 3 in \texttt{SimpleAuction}}
+		address public immutable beneficiary;
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Current State of the Auction Contract}
+	\begin{samplecode}{After Integrating the Constructor into \texttt{SimpleAuction}}
+		\input{../assets/solidity_code/constructor.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+\end{document}
