@@ -10,7 +10,6 @@
 
 % Config File
 \input{../config/config.tex}
-% \input{../config/progress.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,8 +36,6 @@
 %%%%%%%%%%%%%%%%%%
 %%% Connection %%%
 %%%%%%%%%%%%%%%%%%
-
-% \section{Connection}
 
 %%%
 \begin{frame}{Blockchain Connection}
@@ -132,8 +129,6 @@
 %%% Account Creation and Funding %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Funding}
-
 %%%
 \begin{frame}{Account Creation and Funding}
 	
@@ -157,7 +152,6 @@
 %%% IDE and Tool Setup %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Tool Setup}
 
 %%%
 \begin{frame}{IDE and Tool Setup}
@@ -210,8 +204,6 @@
 %%% Contract Development %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Development}
-
 %%%
 \begin{frame}{Contract Development}
 		
@@ -235,91 +227,9 @@
 \end{frame}
 %%%
 
-%%%
-%\begin{frame}{Storage Contract: Your First Smart Contract}
-%	
-%	\begin{columns}
-%		\begin{column}{0.15\textwidth}
-%			\begin{figure}
-%				\includegraphics[width = \textwidth]{../assets/images/box.png}
-%			\end{figure}
-%		\end{column}
-%		\begin{column}{0.85\textwidth}
-%			Remember the pseudo code example from earlier in this course?\\
-%			Let's create a \texttt{SharedStorage} contract where everyone can store an integer on the blockchain.
-%		\end{column}
-%	\end{columns}
-%	\vspace{1.5em}
-%	\begin{exercise}{Exercise 5}
-%		\begin{enumerate}
-%			\item Develop a contract with the two functions \texttt{\textcolor{focus}{store}(uint x)} and \texttt{\textcolor{focus}{read}()}.
-%			\item The function \texttt{\textcolor{focus}{store}(uint x)} is used to store an integer value in the contract. The function \texttt{\textcolor{focus}{read}()} allows anyone to lookup the value without the need for a transaction.
-%			\item Deploy the contract on your local Ganache testnet using the Remix Solidity IDE.
-%			\item Change the inital value to 133.
-%		\end{enumerate}
-%	\end{exercise}
-%	
-%\end{frame}
-%%%
-
-%%%
-%\begin{frame}{Storage Contract: Your First Smart Contract}
-%	\begin{samplecode}{Public Storage Contract:}
-%		pragma solidity \^{}0.7.0;\\
-%		\hfill
-%		
-%		contract SharedStorage \{ \\
-%		\hphantom{~~~~}uint dataStorage;\\
-%		\hfill
-%		
-%		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
-%		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
-%			\hphantom{~~~~~~~~}dataStorage = \_x;\\
-%		\hphantom{~~~~}\} \\
-%		\hfill
-%		
-%		\hphantom{~~~~}\textcolor{softanthracite}{// Read dataStorage value}\\
-%		\hphantom{~~~~}function \textcolor{focus}{read}() public view returns (uint) \{ \\
-%			\hphantom{~~~~~~~~}return dataStorage;\\
-%			\hphantom{~~~~}\} \\
-%			\hfill
-%			
-%		\}
-%	\end{samplecode}
-%\end{frame}
-%%%
-
-%%%
-%\begin{frame}{Storage Contract: A More Compact Version}
-%	\begin{samplecode}{Public Storage Contract:}
-%		pragma solidity \^{}0.7.0;\\
-%		\hfill
-%		
-%		contract SharedStorage \{ \\
-%		\hphantom{~~~~}uint public dataStorage;\\
-%		\hfill
-%		
-%		\hphantom{~~~~}\textcolor{softanthracite}{// Set dataStorage value}\\
-%		\hphantom{~~~~}function \textcolor{focus}{store}(uint \_x) public \{ \\
-%			\hphantom{~~~~~~~~}dataStorage = \_x;\\
-%		\hphantom{~~~~}\} \\
-%		\hfill
-%		
-%		\}
-%	\end{samplecode}
-%	
-%	\begin{itemize}
-%		\item No explicit \texttt{\textcolor{focus}{read}()} function. Instead \texttt{public} function modifier.
-%		\item Getter function is automatically added.	
-%	\end{itemize}
-%\end{frame}
-%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Contract Compilation %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Compilation}
 
 %%%
 \begin{frame}{Contract Compilation}
@@ -358,8 +268,6 @@
 %%% Contract Deployment %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Deployment}
-
 %%%
 \begin{frame}{Contract Deployment}
 		
@@ -382,8 +290,6 @@
 %%% Contract Testing %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \section{Testing}
-
 %%%
 \begin{frame}{Contract Testing}
 		
@@ -403,14 +309,6 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-%%%
-
-%%%
-%\begin{frame}%[allowframebreaks]
-%\frametitle{References and Recommended Reading}
-%	\bibliographystyle{amsplain}
-%	\bibliography{../assets/bib/refs}
-%\end{frame}
 %%%
 
 \end{document}
