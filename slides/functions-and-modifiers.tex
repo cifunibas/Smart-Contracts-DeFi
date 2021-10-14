@@ -26,43 +26,63 @@
 	\textbf{Functions are executable parts of a smart contract.}
 		
 	\uncover<2->{
-		\begin{samplecode}{Function example}
+		\begin{samplecode}{Function Example}
 			\input{../assets/solidity_code/function_example.tex}
 		\end{samplecode}
 	}
+	
+	\scriptsize
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
 		
-	\begin{itemize}
-		\item<3-> \texttt{<parameters>}:
-		\begin{itemize}
-			\item<3-> Used in the \texttt{<function body>}
-			\item<3-> Must be different from state variables	
-		\end{itemize}
-		\item<4-> \texttt{<modifiers>}:
-		\begin{itemize}
-			\item<4-> Accessibility modifiers
-			\item<4-> State permission modifiers
-			\item<4-> Special modifiers
-			\item<4-> Custom modifiers
-		\end{itemize}
-		\item<5-> \texttt{<return variables>}
-		\begin{itemize}
-			\item<5-> Optional
-			\item<5-> Can return multiple return variables
-		\end{itemize}
-	\end{itemize}
+		\uncover<3->{
+			\texttt{<functionName>}\\
+			\begin{itemize}
+				\item Pick and set a unique name for your function	
+			\end{itemize}
+		}
+		
+		\uncover<4->{
+			\texttt{<parameters>}\\
+			\begin{itemize}
+				\item Used in the \texttt{<function body>}
+				\item Must be different from state variables	
+			\end{itemize}
+		}
+		
+		\end{column}
+		\begin{column}{0.48\textwidth}
+		
+		\uncover<5->{
+			\texttt{<modifiers>}\\
+			\begin{itemize}
+				\item Accessibility modifiers
+				\item State permission modifiers
+				\item Special modifiers
+				\item Custom modifiers	
+			\end{itemize}
+		}
+		
+		\uncover<6->{
+			\texttt{<return variables>}
+			\begin{itemize}
+				\item Optional
+				\item Multiple return variables possible	
+			\end{itemize}
+		}
+
+		\end{column}
+	\end{columns}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Accessibility Modifiers}
-	\textbf{Accessibility modifiers state which accounts can access a function or variable. They are required for...}
+	\textbf{Accessibility modifiers state which accounts can access a function or variable.}
 	
 	\begin{itemize}
-		\item<2-> ... all functions.
-		\item<2-> ... all variables, but...
-		\begin{itemize}
-			\item<2-> ...default to private if omitted.
-		\end{itemize}	
+		\item<2-> They are explicitly required for all functions.
+		\item<2-> They can be defined for variables, but default to \genkey{private} if omitted. 
 	\end{itemize}
 	
 	\uncover<3->{
@@ -72,10 +92,10 @@
 			\hline
 				\rowcolor{highlight}
 				\textbf{Keyword} & \textbf{EOA} & \textbf{This contract} & \textbf{Inheriting contract} & \textbf{External contract}\\
-				\texttt{private} & No & Yes & No & No \\
-				\texttt{internal} & No & Yes & Yes & No \\
-				\texttt{external} & Yes & No & No & Yes \\
-				\texttt{public} & Yes & Yes & Yes & Yes \\
+				\genkey{private} & No & Yes & No & No \\
+				\genkey{internal} & No & Yes & Yes & No \\
+				\genkey{external} & Yes & No & No & Yes \\
+				\genkey{public} & Yes & Yes & Yes & Yes \\
 				\hline
 			\end{tabular}
 		\end{table}
@@ -84,9 +104,9 @@
 	\uncover<4->{
 	\begin{keytakeaway}{Additional information}
 		\begin{itemize}
-			\item \texttt{external} can only be used for functions.
-			\item Declaring a variable as \texttt{public} will create a getter function with the same name.
-			\item \texttt{private} does not mean the variable is invisible.
+			\item \genkey{external} can only be used for functions.
+			\item Declaring a variable as \genkey{public} will create a getter function with the same name.
+			\item \genkey{private} does not mean the variable is invisible.
 		\end{itemize}
 	\end{keytakeaway}
 	}
@@ -95,30 +115,32 @@
 
 %%%
 \begin{frame}{State Permission Modifiers}
-	\textbf{State permission modifiers define which functions can read from or modify (write) to the state.}
-	\begin{table}
-		\begin{tabular}{lll}
-			\hline
-			\rowcolor{highlight}
-			\textbf{Keyword} & \textbf{Read} & \textbf{Write}\\
-			\texttt{pure} & No & No\\
-			\texttt{view} & Yes & No\\
-			 & Yes & Yes\\
-			\hline
-		\end{tabular}
-	\end{table}
+	\textbf{State permission modifiers define which functions can read from or modify (write to) the state.}
+	\uncover<2->{
+		\begin{table}
+			\begin{tabular}{lll}
+				\hline
+				\rowcolor{highlight}
+				\textbf{Keyword} & \textbf{Read} & \textbf{Write}\\
+				\genkey{pure} & No & No\\
+				\genkey{view} & Yes & No\\
+				\textit{$<$omitted$>$} & Yes & Yes\\
+				\hline
+			\end{tabular}
+		\end{table}
+	}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Special and Custom Modifiers}
-\textbf{There are even more modifiers for functions:}
+\textbf{Special modifiers for functions:}
 	\begin{itemize}
-		\item<1-> \texttt{payable}: allows a function to receive ETH as part of the transaction.
-		\item<2-> \texttt{virtual} \& \texttt{override}: used for inheritance (\textcolor{focus}{more on this later!}).
-		\item<3-> \texttt{constant} \& \texttt{immutable}: disallow changing the value of a variable during the contract's lifetime.
+		\item<1-> \genkey{payable}: allows a function to receive ETH as part of the transaction.
+		\item<2-> \genkey{virtual} \& \genkey{override}: used for inheritance (\textcolor{focus}{more on this later!}).
+		\item<3-> \genkey{constant} \& \genkey{immutable}: disallow changing the value of a variable during the contract's lifetime.
 		\begin{itemize}
-			\item<3->{Difference: \texttt{immutable} can be set during contract deployment}	
+			\item<3->{Difference: \genkey{immutable} can be set during contract deployment}	
 		\end{itemize}
 		\item<4-> Custom (user-defined) modifiers (\textcolor{focus}{more on this later!})
 	\end{itemize}
@@ -126,36 +148,56 @@
 %%%
 
 %%%
-\begin{frame}{Update Our Auction Contract}
-	\textbf{Goal: Make variables public to add a getter function and show that manually adding a getter function is the same.}
-	
-	\uncover<2->{
-		\begin{samplecode}{Public Variables}
-			\input{../assets/solidity_code/public_variables.tex}
-		\end{samplecode}
-	}
+\begin{frame}{Update of The Auction Contract}
+	\begin{exercise}{Exercise:}
+		\begin{enumerate}
+			\item Make sure the variables \texttt{beneficiary}, \texttt{highestBid}, \texttt{highestBidder} and \texttt{hasEnded} are \genkey{public}.
+			\item Create a function that allows any EOA or external contract to set the \texttt{beneficiary}.
+			\item Self-check: how can you get the values of the previous variables?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Update The Auction Contract}
+	\begin{samplecode}{Solution}
+		\input{../assets/solidity_code/public_variables.tex}
+	\end{samplecode}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Contract Constructors}
-	\textbf{Instead of \texttt{initialize(\textcolor{highlight}{address} \_beneficiary)}, we can use a special function that is executed when the contract is deployed -- the so-called ''constructor".}
 
+	\textbf{The \genkey{constructor} is a special function that is executed when the contract is deployed.}
+	
 	\begin{samplecode}{Constructor Example}
 			\input{../assets/solidity_code/constructor_example.tex}
 	\end{samplecode}
 	
-	\uncover<3->{
-	\textbf{In our specific case, we could add the following code snippet to our contract:}
-		\begin{samplecode}{Constructor for Our Auction Contract}
+\end{frame}
+
+\begin{frame}{Immutable \texttt{beneficiary}}
+
+	\begin{exercise}{Exercise:}
+		\begin{enumerate}
+			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address}\texttt{\_beneficiary)} \genkey{external} \texttt{\{...\}} from our auction contract.
+			\item Use the \genkey{constructor} to set the \texttt{beneficiary} at the time of contract deployment for the contract's entire lifetime.
+		\end{enumerate}
+	\end{exercise}
+		
+	\uncover<2->{
+	\textbf{Solution:}
+	\begin{samplecode}{Constructor for Our Auction Contract}
 			\input{../assets/solidity_code/constructor_beneficiary.tex}
-		\end{samplecode}
-	}
+	\end{samplecode}
 	
-	\textbf{...and change the beneficiary address to be \texttt{immutable}:}
-	\begin{samplecode}{Line 3 in \texttt{SimpleAuction}}
+	\begin{samplecode}{Line \ref{line:benef} in the previous contract}
 		address public immutable beneficiary;
 	\end{samplecode}
+	}
+	
 \end{frame}
 %%%
 
