@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance Applications}
@@ -28,7 +28,7 @@
 		\includegraphics[width=\textwidth ]{../assets/images/alan-turing.png}
 	\end{column}
 	\begin{column}{0.7\textwidth}
-		In 1936, Alan Turing proved that it's impossible for a (turing) machine to inspect any code that you give it, and correctly tell you whether the code will halt or run forever.\\
+		In 1936, Alan Turing has shown that a (turing) machine cannot tell if a script will halt or run forever, before execution.\\
 		\vspace{1em}
 		\link \href{https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf}{Online PDF}\\
 		\vspace{1em}	
@@ -103,9 +103,36 @@
 %%%
 
 %%%
+\begin{frame}{Understanding the Ethereum Fee Process}
+	\begin{center}
+	\begin{tikzpicture}
+		\input{../assets/figures/ethereumFeeProcess.tex}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Gas Consumption Example}
+	\begin{center}
+	 	\begin{tabular}{m{0.2\textwidth} m{0.3\textwidth}}
+	 		\includegraphics[width=2cm]{../assets/images/gas-pump.png} &
+			\parbox{\textwidth}{gasLimit: 100 \\
+    		remainingGas: \only<1>{100}\textcolor{red}{\only<2>{97}\only<3>{92}\only<4->{62}} \\
+    		gasPrice: x}
+ 		\end{tabular}
+	\begin{tikzpicture}
+		\input{../assets/figures/gasConsumptionExample.tex}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+
+%%%
 \begin{frame}{Ethereum Gas Fees: EIP-1559}
 	\uncover<1->{
-		On August 5, 2021 (at block 12.965.000), the Ethereum gas mechanism was updated through the London hard fork\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}. The proposal is called EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}.\\
+		On August 5, 2021 (at block 12 965 000), the Ethereum gas mechanism was updated through the London hard fork.\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}} The proposal is called EIP-1559.\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}\\
 		\vspace{0.2cm}
 	}
 	\uncover<2->{
@@ -154,7 +181,7 @@
 		}
 		\uncover<2->{
 			\item Miners are incentivized to include transactions with higher gas prices first
-			\item All transaction fees ($gasPrice * gasUsed$) go to miner of the block
+			\item All transaction fees ($\texttt{gasPrice}  *\texttt{gasUsed} $) go to miner of the block
 		}
 	\end{itemize}
 \end{frame}
@@ -175,8 +202,8 @@
 	\begin{itemize}
 		\item \textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
 		\item \textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
-		\item \textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
-		\item \textbf{Refund:} $maxFee - (baseFee + priorityFee)$ is refunded to the user after transaction execution. 
+		\item \textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $\texttt{baseFee}  > \texttt{maxFee} $.
+		\item \textbf{Refund:} $max \left(0, \text{ }\texttt{maxFee} - (\texttt{baseFee}  + \texttt{maxPriorityFee} )\right)$ is refunded to the user after transaction execution. 
 	\end{itemize}	
 \end{frame}
 %%%
@@ -196,32 +223,6 @@
 		\vspace{0.1cm}
 		$r_{cur} := r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
 	\end{itemize}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Understanding the Ethereum Fee Process}
-	\begin{center}
-	\begin{tikzpicture}
-		\input{../assets/figures/ethereumFeeProcess.tex}
-	\end{tikzpicture}
-	\end{center}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{A Gas Consumption Example}
-	\begin{center}
-	 	\begin{tabular}{m{0.2\textwidth} m{0.3\textwidth}}
-	 		\includegraphics[width=2cm]{../assets/images/gas-pump.png} &
-			\parbox{\textwidth}{gasLimit: 100 \\
-    		remainingGas: \only<1>{100}\textcolor{red}{\only<2>{97}\only<3>{92}\only<4->{62}} \\
-    		gasPrice: x}
- 		\end{tabular}
-	\begin{tikzpicture}
-		\input{../assets/figures/gasConsumptionExample.tex}
-	\end{tikzpicture}
-	\end{center}
 \end{frame}
 %%%
 
@@ -256,7 +257,6 @@
 		\item Establish a market for priority access to network
 	\end{itemize}
 \end{frame}	
-
 %%%
 %%%
 \begin{frame}{Exercise}
@@ -272,7 +272,7 @@
 \end{frame}
 
 %%%
-\begin{frame}{Gasprice Market - Some Interesting Observations}
+\begin{frame}{Gas Price Market - Some Interesting Observations}
 	\begin{center}
 	\begin{tikzpicture}
 		\input{../assets/figures/meanGasPriceChart.tex}
