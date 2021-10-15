@@ -213,6 +213,17 @@
 	\begin{figure}
 		\input{../assets/figures/eip-1559.tex}
 	\end{figure}
+	
+	\vspace{-1.25em}
+	
+	\scriptsize
+	\textbf{Three cases:}
+	\begin{enumerate}
+		\item<3-> \textbf{Refund:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $<$ \texttt{maxFee}
+		\item<5-> \textbf{No refund, decreasing tip:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $\geq$ \texttt{maxFee} \& \texttt{baseFee} $\leq$ \texttt{maxFee}
+		\item<7-> \textbf{Unconsidered transaction:} \texttt{baseFee} $>$ \texttt{maxFee}
+	\end{enumerate}
+	
 \end{frame}
 %%%
 
