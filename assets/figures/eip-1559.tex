@@ -65,12 +65,13 @@
 	
 	% burn
 	\uncover<8-8>{
-		\filldraw[color = softred] (4,4) circle (2pt) node[right, yshift=-1mm, rotate = 270] {\texttt{baseFee = maxFee}};
-		
+				
 		% exclusion zone
 		\draw[thick, color = focus] (4,4) -- (7,4);
 		\draw[thick, color = focus] (4,4) -- (5.5,5.5);
 		\draw[fill=focus!30, draw = none] plot[smooth, samples=100, domain=4:5.25] (\x, \x) -| (7,4) node[above left]{\textcolor{focus}{exclusion zone}} -- cycle;
+		
+		\filldraw[color = softred] (4,4) circle (2pt) node[right, yshift=-1mm, rotate = 270] {\texttt{baseFee = maxFee}};
 
 		% burn
 		\draw[thick, <->, color = focus] (5,0.2) -- (5,4.8) node[midway, right]{burn$_{high}$};
