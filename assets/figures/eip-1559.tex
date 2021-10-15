@@ -5,7 +5,7 @@
 	%%% axes and 45 degree line
 	% axes
 	\draw[->] (0,0) -- (7,0) node[right]{\texttt{baseFee}};
-	\draw[->] (0,0) -- (0,5.5) node[above,left]{Fee parameters};
+	\draw[->] (0,0) -- (0,5.5) node[left]{$\frac{\text{ETH}}{\text{computation step}}$};
 	
 	% baseFee
 	\draw[thick, softanthracite] (0,0) -- (5.5,5.5) node[right]{\texttt{baseFee}};
@@ -46,11 +46,14 @@
 		\draw[dashed] (3, -0.2) node[below]{\texttt{baseFee}$_{mid}$} -- (3,4.5);
 	}
 	
-	% burn
 	\uncover<6-6>{
-		\draw[thick, <->, color = focus] (3,0.2) -- (3,2.8) node[midway, right, yshift=-3mm]{burn$_{mid}$};
 	
-	% tip
+		% 
+		\filldraw[color = softred] (2.5,4) circle (2pt) node[right, yshift=1mm, rotate = 90, text width = 2cm] {\texttt{baseFee + maxPriorityFee = maxFee}};
+		% burn
+		\draw[thick, <->, color = focus] (3,0.2) -- (3,2.8) node[midway, right, yshift=-3mm]{burn$_{mid}$};
+		
+		% tip
 		\draw[thick, <->, color = strongmint] (3,3.2) -- (3,3.8) node[midway, left]{tip$_{mid}$};
 	}
 
@@ -70,7 +73,7 @@
 		\draw[fill=focus!30, draw = none] plot[smooth, samples=100, domain=4:5.25] (\x, \x) -| (7,4) node[above left]{\textcolor{focus}{exclusion zone}} -- cycle;
 
 		% burn
-		\draw[thick, <->, color = focus] (5,0.2) -- (5,4.8) node[midway, right]{burn$_{high} > $ \texttt{maxFee}?};
+		\draw[thick, <->, color = focus] (5,0.2) -- (5,4.8) node[midway, right]{burn$_{high}$};
 	}
 	
 \end{tikzpicture}
