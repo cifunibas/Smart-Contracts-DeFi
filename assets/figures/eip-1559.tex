@@ -1,0 +1,76 @@
+\begin{tikzpicture}
+
+	\scriptsize
+	
+	%%% axes and 45 degree line
+	% axes
+	\draw[->] (0,0) -- (7,0) node[right]{\texttt{baseFee}};
+	\draw[->] (0,0) -- (0,5.5) node[above,left]{Fee parameters};
+	
+	% baseFee
+	\draw[thick, softanthracite] (0,0) -- (5.5,5.5) node[right]{\texttt{baseFee}};
+	
+	%%% user-chosen parameters
+	\uncover<2->{
+	
+		% maxFee
+		\draw[dashed, thick] (-0.1,4) node[left]{\texttt{maxFee}} -- (7,4);
+
+		% maxPriorityFee
+		\draw[dashed, thick] (-0.1,1.5) node[left]{\texttt{maxPriorityFee}} -- (0.1,1.5);
+		\draw[thick, color = strongmint] (0,1.5) -- (2.5,4);
+		\draw[thick, color = strongmint] (2.5,4) -- (4,4);
+	
+	}
+	
+	%%% baseFee "low"
+	% vertical line
+	\uncover<3-4>{
+		\draw[dashed] (1.5, -0.2) node[below]{\texttt{baseFee}$_{low}$} -- (1.5,4.5);
+	}
+	
+	% burn
+	\uncover<4-4>{
+		\draw[thick, <->, color = focus] (1.5,0.2) -- (1.5,1.3) node[midway, right]{burn$_{low}$};
+	
+	% tip
+		\draw[thick, <->, color = strongmint] (1.5,1.7) -- (1.5,2.8) node[midway, right, yshift=2mm]{tip$_{low}$};
+	
+	% refund
+		\draw[thick, <->, color = darkmint] (1.5,3.2) -- (1.5,3.8) node[midway, left] {refund$_{low}$};
+	}
+	
+	%%% baseFee "mid"
+	% vertical line
+	\uncover<5-6>{
+		\draw[dashed] (3, -0.2) node[below]{\texttt{baseFee}$_{mid}$} -- (3,4.5);
+	}
+	
+	% burn
+	\uncover<6-6>{
+		\draw[thick, <->, color = focus] (3,0.2) -- (3,2.8) node[midway, right, yshift=-3mm]{burn$_{mid}$};
+	
+	% tip
+		\draw[thick, <->, color = strongmint] (3,3.2) -- (3,3.8) node[midway, left]{tip$_{mid}$};
+	}
+
+	%%% baseFee "high"
+	% vertical line
+	\uncover<7-8>{
+		\draw[dashed] (5, -0.2) node[below]{\texttt{baseFee}$_{high}$} -- (5,5);
+	}
+	
+	% burn
+	\uncover<8-8>{
+		\filldraw[color = softred] (4,4) circle (2pt) node[right, yshift=-1mm, rotate = 270] {\texttt{baseFee = maxFee}};
+		
+		% exclusion zone
+		\draw[thick, color = focus] (4,4) -- (7,4);
+		\draw[thick, color = focus] (4,4) -- (5.5,5.5);
+		\draw[fill=focus!30, draw = none] plot[smooth, samples=100, domain=4:5.25] (\x, \x) -| (7,4) node[above left]{\textcolor{focus}{exclusion zone}} -- cycle;
+
+		% burn
+		\draw[thick, <->, color = focus] (5,0.2) -- (5,4.8) node[midway, right]{burn$_{high} > $ \texttt{maxFee}?};
+	}
+	
+\end{tikzpicture}
