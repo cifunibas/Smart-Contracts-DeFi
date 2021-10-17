@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -32,7 +32,7 @@
 \begin{minipage}{0.65\textwidth}
 	\textbf{Goal:} Contract users must be able to set an end time for their auction.\\
 	
-	\color{highlight}\textbf{How does a contract keep track of time?}
+	\color{darkmint}\textbf{How does a contract keep track of time?}
 \end{minipage}
 
 \vspace{2em}
@@ -58,11 +58,11 @@ Solidity offers \globvar{global variables.}
 \begin{frame}{Other Block Variables }
 
 \begin{itemize}
-	\item \globvar{block.basefee} returns current block’s base fee.
-	\item \globvar{block.chainid} returns current chain id.
-	\item \globvar{block.coinbase} returns the miner address of the current block.
-	\item \globvar{block.difficulty} returns current block difficulty.
-	\item \globvar{block.gaslimit} returns current block gaslimit.
+	\item \globvar{block.basefee}  returns current block’s base fee.
+	\item \globvar{block.chainid}  returns current chain id.
+	\item \globvar{block.coinbase}  returns the miner address of the current block.
+	\item \globvar{block.difficulty}  returns current block difficulty.
+	\item \globvar{block.gaslimit}  returns current block gaslimit.
 	\item \globvar{block.number} returns the current block number.
 \end{itemize}
 
@@ -111,7 +111,9 @@ Solidity offers \globvar{global variables.}
 %%%
 \begin{frame}{Units}
 
-Solidity supports time and monetary units natively.
+Solidity supports \textbf{time} and \textbf{monetary} units natively.
+
+\vspace{0.5 em}
 
 \uncover<2->{
 
@@ -119,7 +121,7 @@ Solidity supports time and monetary units natively.
 	\input{../assets/solidity_code/ether_units.tex}
 \end{samplecode}
 
-The most common are \typesunits{wei} $(1)$,  \typesunits{gwei} $(10^9)$, and  \typesunits{ether} $(10^{18})$.
+Most common are \typesunits{wei} $(1)$,  \typesunits{gwei} $(10^9)$, and  \typesunits{ether} $(10^{18})$.
 }
 
 \vspace{1.5em}
@@ -165,22 +167,25 @@ Time suffixes can be used to convert to seconds. Supported are \typesunits{secon
 %%%
 \begin{frame}{Function Restrictions and Requirements}
 
-Often, functions in a contract need to be restricted in some way.
+\vspace{1 em}
+Often, functions in a contract need to be \textbf{restricted} in some way.
 
 \vspace{0.5em}
 
-\textbf{Example:} We need a \texttt{bid()} function in our auction contract, but it should only be callable before the auction ended.
+\textbf{Goal:} \texttt{bid()} should only be callable during an active auction.
 
 \uncover<2->{
-\vspace{1.5em}
+\vspace{1.5 em}
 
-In Solidity we use \genkey{require}\texttt{(<condition>, <error message>);} to implement a restriction.
+Solidity offers \genkey{require}\texttt{(<condition>, <error message>);}:
+\begin{itemize}
+	\item if \texttt{<condition>} evaluates to \texttt{false}, the \textbf{whole} transaction is \textbf{reverted.}
+	\item  \texttt{<error message>} is optional but improves usability.
+\end{itemize}
 
 \begin{samplecode}{Restricted bid() Function}
 	\input{../assets/solidity_code/bid_restriction.tex}
 \end{samplecode}
-
-$\Rightarrow$ A \genkey{require} statement evaluating to \texttt{false}), \textbf{reverts the whole transaction.}
 }
 	
 \end{frame}
@@ -190,14 +195,17 @@ $\Rightarrow$ A \genkey{require} statement evaluating to \texttt{false}), \textb
 %%%
 \begin{frame}{Building the bid() function}
 
+\vspace{1em}
+
 \textbf{Accept and store valid bids:}
 \begin{itemize}
 	\item Add \genkey{payable} modifier to be able to receive ether.\\
-	\textit{All ether received is in full control of the contract.}
+	\textit{$\Rightarrow$ All ether received are in full control of the contract.}
 	\item Check if bid (\globvar{msg.value}) is higher than previous valid bid.
 	\item Store the new highest bid and bidder (\globvar{msg.sender}).
 \end{itemize}
 
+\vspace{1em}
 \begin{samplecode}{bid() Function}
 	\input{../assets/solidity_code/bid_function.tex}
 \end{samplecode}
@@ -210,21 +218,33 @@ $\Rightarrow$ A \genkey{require} statement evaluating to \texttt{false}), \textb
 %%%
 \begin{frame}{Refunding the Outbidden}
 
-If a new bid is accepted, we need to refund the previous bidders.
+\textbf{Goal:} Whenever a new valid bid is received, the previous bidder is refunded.\\
 
 \vspace{1em}
 
-\textbf{Remember:} A smart contract can't initiate transactions by itself
+\textbf{Remember:} A smart contract is unable to initiate transactions by itself.
 
-\vspace{1.5em}
+\vspace{2em}
 \uncover<2->{
 \textbf{Options:}
-\begin{itemize}
-	\item Refund as part of the new bid transaction.\\
-	\uncover<3->{\textit{Passing execution to another address introduces significant security risk.}}
-	\item Allow the user to withdraw his invalidated bids.\\
-	\uncover<3->{\textbf{Preferred option}}
-\end{itemize}
+
+\begin{minipage}{0.18\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/refund.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.8\textwidth}
+	\begin{enumerate}
+		\item Refund as part of the new bid transaction.\\
+			\uncover<3->{$\rightarrow$ \textit{Passing execution to another address introduces significant security risk.}}
+			\vspace{0.5em}
+		\item Allow the user to withdraw his invalidated bids.\\
+		\uncover<3->{\color{darkmint}\textbf{$\rightarrow$ Preferred option}}
+	\end{enumerate}
+\end{minipage}
+
+
 }
 
 \end{frame}
@@ -232,193 +252,253 @@ If a new bid is accepted, we need to refund the previous bidders.
 
 
 %%%
-\begin{frame}{Title}
+\begin{frame}{Mappings}
+
+\textbf{Goal:} Keep track of how much ether a previous bidder can withdraw.
+
+\vspace{1em}
+
+\uncover<2->{
+\emph{Mappings} store \texttt{key => value} pairs, similar to a hash map or dictionary in other programming languages:
+\begin{itemize}
+	\item The key's keccak256 hash points to the storage slot for the value.
+	\item Mappings span the full storage space of $2^{256}$ slots.
+	\item Declaration: \texttt{mapping(keyType => valueType) <visibility> <variable name>;}
+\end{itemize}
+}
+
+\vspace{1em}
+
+\uncover<3->{
+\textbf{Visibility:} If a mapping is declared as \genkey{public,} it automatically has a getter function in form of \texttt{<variable name>(<keyType> key) returns (<valueType>)}.
+}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Store withdrawable funds per address}
+
+\begin{samplecode}{pendingReturns Mapping}
+	\input{../assets/solidity_code/pendingReturns.tex}
+\end{samplecode}
+
+\textbf{$\Rightarrow$ Using \texttt{+=} prevents overwriting previous unclaimed refunds.}
 
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Title}
+\begin{frame}{More on Mappings}
+
+Mappings are very powerful data structures with some drawbacks:
+\begin{itemize}
+	\item	Lack of length property.
+	\item	Can not be enumerated or returned.
+	\item	Can not be cleared easily.
+\end{itemize}
+
+\uncover<2->{
+\vspace{1em}
+\color{darkmint} $\Rightarrow$ \textbf{No straightforward way to reconstruct storage state}.\color{black}
+
+\vspace{0.5em}
+Separately storing all keys used can be a workaround. 
+}
+
+\uncover<3->{
+\vspace{1.5em}
+Mappings can be \textbf{nested}.\\
+\texttt{mapping(address => mapping(uint => bool))} will store a \texttt{uint => bool} mapping for each address.
+}
 
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Title}
+\begin{frame}{Sending Ether from a Contract to an Address}
+
+\textbf{Goal:} Return ether to outbidden user as part of \texttt{withdraw()}.
+
+\uncover<2->{
+\vspace{1.5em}
+
+For security reasons, Solidity differentiates between \genkey{payable} and non-payable addresses.
+
+\vspace{1.5em}
+To be able to send ether to an address, it needs to be explicitly declared as \genkey{payable:}\\
+
+\texttt{address payable payableAddress = payable(normalAddress)};
+ }
 
 \end{frame}
 %%%
 
-
 %%%
-\begin{frame}{Title}
+\begin{frame}{The Three Options of a Contract to Transfer Ether}
+
+\begin{enumerate}
+	\item 	\texttt{address payable.transfer(<amount>)}\\
+	Forwards 2300 gas and tries to transfer \texttt{<amount>} ether to the target address. Transfer failure reverts the whole transaction.
+	\vspace{0.5em}
+	\item<2->	\texttt{address payable.send(<amount>)}\\
+	Same as \texttt{transfer} but does not revert on failure. Returns \texttt{true} or \texttt{false} depending success.
+	\vspace{0.5em}
+	\item<3->	\texttt{address payable.call $\{$value: <amount> $\}$("")}\\
+	Low level call to the address. Forwards all remaining gas or an exact value, if so specified via \texttt{$\{$value: <amount>, gas: <gas amount>.$\}$}
+\end{enumerate}
+
+\vspace{1.5em}
+\uncover<4->{
+For simplicity and security reasons, we are using \texttt{transfer}. But there are good reasons to use call instead. Especially to ensure forward-compatibility regarding gas costs.
+}
 
 \end{frame}
 %%%
 
-
 %%%
-\begin{frame}{Bullets and Uncover Animations}
+\begin{frame}{Building the withdraw() function}
 
-This is how lists can be used in the template. \\ \vspace{1em}
+\begin{samplecode}{withdraw() Function}
+	\input{../assets/solidity_code/withdraw_function.tex}
+\end{samplecode}
 
-Some of the main features of this template:
-	
-	\begin{itemize}
-		\item<1-> stay focused
-		\item<2-> save ink
-		\item<3-> do not get distracted
-	\end{itemize}
+\begin{itemize}
+	\item 	Add a return parameter to the function that holds the total amount of ether transferred.
+	\item<2-> 	Specify the name of the return value to avoid declaring the variable and an explicit return statement. 
+	\item<3->	To prevent re-entrancy attacks, update the balance \color{focus}before \color{black} transfer.
+\end{itemize}
 
-	\vspace{1em}	
-	\uncover<4->{The same works for Enumerate environments:}
-
-	\begin{enumerate}
-		\item<5-> This is the first point
-		\item<6-> and the second one
-		\item<7-> Last but not least, the third one
-	\end{enumerate}
-	
-\end{frame}
-%%%	
-
-%%%
-\begin{frame}{Tables}
-	\begin{table}
-		\begin{tabular}{ll}
-			A & B\\
-			C & D
-		\end{tabular}
-		\caption{This is a table}
-		\label{tbl:simpletable}
-	\end{table}
-\end{frame}
-
-%%%
-
-
-%%%
-\begin{frame}{Box Conventions}
-	
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-1em}
-			\begin{samplecode}{Basic Contract Structure (Solidity)}
-				Pragma solidity  \textasciicircum 0.4.19; \
-				contract HelloWorld \{ \\
-				\color{softanthracite} /* This is where you write your code */
-			\end{samplecode}			
-		\end{column} %\hfill
-
-		\begin{column}{0.5\textwidth}
-			\textbf{Sample Code Box}\\
-			Contains code snippets in Solidity or pseudo code.
-		\end{column}
-	\end{columns}
-
-\vspace{2.5em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-0.8em}
-			\begin{keytakeaway}{Transaction Definitions}
-				A transaction is a message send by an externally owned account.
-			\end{keytakeaway}			
-		\end{column}
-		
-		\begin{column}{0.5\textwidth}
-			\textbf{Key Take-Away}\\
-			Highlights important concepts and definitions.
-		\end{column}
-	\end{columns}
-
-\vspace{2.5em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-0.9em}
-			\begin{exercise}{Exercise 1}
-				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
-			\end{exercise}					
-		\end{column}
-		\begin{column}{0.5\textwidth}
-		\textbf{Exercises}\\
-			Things for you to try out.
-		\end{column}
-	\end{columns}
-
-\end{frame}
-
-%%%
-
-
-%%%
-\begin{frame}{Code Sample}
-	\begin{samplecode}{Minimum viable token}
-		\input{../assets/solidity_code/minimum-viable-token.tex}
-	\end{samplecode}
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Equations}
-
-Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
-
-However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
-	\begin{align}
-		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
-		y &= x^2-5 \label{eq:secondstep}
-	\end{align}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Figures}
+\begin{frame}{Ending the Auction}
+
+\textbf{Goal:} After endTime, the highest bid is to be transferred to the beneficiary.
+
+\vspace{1.5em}
+
+\textbf{Remember:} Smart contracts can not do anything by themselves.
+
+\uncover<2->{
+\vspace{0.5em}
+$\Rightarrow$ \texttt{auctionEnd()} to close the auction and transfer the bid is needed.
+
+
+\vspace{1.5em}
+\textbf{Structuring guidelines} for functions interacting with other addresses:
+\begin{enumerate}
+	\item Check all conditions.
+	\item Apply all internal state changes.
+	\item Interact with other addresses.
+\end{enumerate}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The auctionEnd() Function}
+
+
+\begin{samplecode}{auctionEnd() Function}
+	\input{../assets/solidity_code/auctionEnd_function.tex}
+\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Events}
+
+\begin{minipage}{0.65\textwidth}
+\textbf{As Blockchains are fully transparent, so is the full history of bids?}
+
+\uncover<2->{
+\vspace{1 em}
+
+\textit{Yes, using a lot of resources: Access an archive node and call the state at every block to check the bid variable. }
+}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
 	\begin{figure}
 		\center
-		\includegraphics[width=0.8\textwidth]{../config/logo_cif}	
-		\caption{Center for Innovative Finance Logo}
-		\label{fig:logo}
+		\includegraphics[width= 2.2cm]{../assets/images/event.png}	
 	\end{figure}
+\end{minipage}
+
+\uncover<3->{
+\vspace{1.5em}
+\textbf{Should the bid of each user be stored permanently then?}
+}
+
+\vspace{1 em}
+
+\uncover<4->{
+\textit{No: This is expensive and causes state bloat.}
+}
+
+\uncover<5->{
+\vspace{1.5em}
+
+\textbf{Solution:} Write data into logs.
+\begin{itemize}
+	\item	\textbf{Cheap:} It is stored in a separate place than state.
+	\item	\textbf{Verifiable:} It is part of the block hash.
+	\item	\textbf{Downside:} It can not be accessed on-chain by contracts.
+\end{itemize}
+}
+
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Links}
-		Links are signaled with the respective icon, which is set up in the config file and can be called with the respective command.\\
-		
-		\link \href{https://github.com/cifunibas}{Repository: CIF on GitHub}.
-		
+\begin{frame}{Declaring Events}
+
+\textbf{Declaration:}
+\begin{itemize}
+	\item \texttt{event <EventName> (<parameterType> <indexed> <parameterName>, ...)}
+	\item	Once emitted, the corresponding log can be queried from a full node.  
+\end{itemize}
+
+\uncover<2->{
+\vspace{0.5 em}
+
+\textbf{Indexing:}
+\begin{itemize}
+	\item Indexed parameters can be used to filter logs.
+	\item Slightly more expensive to emit.
+	\item Maximum of three indexed parameters per log.
+\end{itemize}
+}
+
+\uncover<3->{
+\vspace{0.5 em}
+
+\textbf{Emission:} \texttt{emit <EventName> (<value>,... );}
+}
+
+\uncover<4->{
+\vspace{1 em}
+
+$\Rightarrow$ Most node clients offer functionality to subscribe to events and get notified whenever a specific contract emits a specified event.
+}
+
 \end{frame}
 %%%
 
-
 %%%
-\begin{frame}{Labels and (Non-Bib) References}
-	In some cases in can make sense to reference to a figure, table or equation on a different slide. Use \texttt{$\backslash$pageref\{$<$label$>$\}} if you want to highlight, that there is a related resource on slide \pageref{fig:logo}.\\ \vspace{1em}
-	
-	Do - under no circumstances - hardcode references.	
+\begin{frame}{Building Events for the Auction}
+
+\begin{samplecode}{NewBid and AuctionEnded Events}
+	\input{../assets/solidity_code/auction_events.tex}
+\end{samplecode}
+
 \end{frame}
 %%%
-
-%%%
-\begin{frame}{Bib-References}
-		Read the Bitcoin Whitepaper, \cite{nakamotoBitcoin2008}.
-\end{frame}
-%%%
-
-%%%
-\begin{frame}%[allowframebreaks]
-\frametitle{References and Recommended Reading}
-	\bibliographystyle{amsplain}
-	\bibliography{../assets/bib/refs}
-\end{frame}
-%%%
-
 
 
 \end{document}

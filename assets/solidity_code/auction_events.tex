@@ -1,0 +1,20 @@
+\begin{lstlisting}[language=Solidity]
+// Events
+event NewBid(address indexed bidder, uint amount);
+event AuctionEnded(address winner, uint amount);
+
+function bid() public payable { // ...
+  highestBid = msg.value;
+  highestBidder = msg.sender;
+  emit NewBid(msg.sender, msg.value);
+}
+function auctionEnd() external { 
+  // 1. Check all conditions...
+  // 2. Apply all internal state changes
+  hasEnded = true;
+  emit AuctionEnded(highestBidder, highestBid);
+  // 3. Interact with other addresses
+  payable(beneficiary).transfer(highestBid);
+}
+
+\end{lstlisting}
