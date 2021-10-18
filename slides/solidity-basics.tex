@@ -27,9 +27,9 @@
 	\begin{column}{0.7\textwidth}
 		Solidity is \dots
 			\begin{itemize}
-				\item<1-> a curly-bracket \{\} language.
+			\item<1-> the most popular language for EVM Smart Contracts.
 				\item<2-> influenced by C++, Python and JavaScript.
-				\item<3-> statistically typed, supports inheritance, libraries and complex user-defined types.
+				\item<3-> statically typed, supports inheritance, libraries and complex user-defined types.
 				\item<4-> still under rapid development with regular breaking changes.
 			\end{itemize}
 	\end{column}
@@ -54,16 +54,16 @@
 %%%
 \begin{frame}{Solidity Version and the Pragma}
 
-\genkey{pragma solidity} \^{}0.8.9;	
+\genkey{pragma solidity}{ }\^{}0.8.9;	
 
 \vspace{1em}
 
 	\begin{itemize}
 		\item<1-> The pragma declares the version of the compiler to be used.
- 		\item<2-> Versioning follows \link \href{https://semver.org/}{semver}: \textbf{Major.Minor.Patch}
- 		\item<3-> Breaking changes only with new minor versions. \\ {\small $\rightarrow$ Next time with 0.9.0}
-		\item<4->  \^{} is commonly used and means "including any future version until the next minor release" or "patch updates are allowed". \\
- {$\rightarrow$ \small Example: Everything from 0.8.9 until 0.9.0}
+ 		\item<2-> The versioning follows \link \href{https://semver.org/}{Semantic Versioning 2.0.0}: \textbf{Major.Minor.Patch}
+ 		\item<3-> Breaking changes only come with new minor versions. \\ {\small $\rightarrow$ Next time with 0.9.0}
+		\item<4-> The \textbf{\^{}} is commonly used and means "including any future version until the next minor release". \\ % or "patch updates are allowed". 
+ {$\rightarrow$ \small Everything from 0.8.9 until 0.9.0}
  		\item<5-> Use the same pragma for all files in a project!
 	\end{itemize}
 	
@@ -80,7 +80,7 @@
 	\vspace{1em}
 	\begin{itemize}
 		\item \textbf{License identifier:} \texttt{UNLICENSED} is possible, but don't omit it.
-		\item \textbf{Contract:} \texttt{\genkey{contract} <ContractName> \{\}}
+		\item \textbf{Contract:} \texttt{\genkey{contract}{ }<ContractName> \{\}}
 	\end{itemize}
 
 \end{frame}
@@ -93,7 +93,7 @@
 	\begin{itemize}
 		\item State variables for a contract are permanently stored on the blockchain.
 		\item Arbitrarily large area to store variables, but it is the most expensive operation.
-		\item Complex types can be larger and usually store their length in the initial 32 bytes slot
+		\item Complex types can be larger and usually store their length in the initial 32 bytes slot.
 	\end{itemize}
 	
 	\begin{figure}
@@ -112,12 +112,22 @@
 		\input{../assets/solidity_code/integers.tex}
 	\end{samplecode}
 	\begin{itemize}
-		\item<2->{\typesunits{uint}, which is short for \typesunits{uint256} is the native integer.}
-		\item<3->{Most common type. Can store a single number up to 32 bytes.}
-		\item<4->{Stores non-negative values from \texttt{[0,$2^{256-1}$]}}
-		\item<5->{There exist smaller \typesunits{uints}, like \typesunits{uint8}, \typesunits{uint16}, ..., \typesunits{uint248}, but under normal circumstances they are all converted to \typesunits{uint256} before use.}
-		\item<6->{\typesunits{int} resp. \typesunits{int256} can store negative numbers in half the range of \typesunits{uint256}. Only use \typesunits{int} when you explicitly need negative numbers. }
+		\item<2->{\typesunits{uint}, which is short for \typesunits{uint256}, is the native integer.}
+		\item<3->{It is the most common type and can store a single number up to 32 bytes.}
+		\item<4->{Non-negative values from \texttt{[0,$2^{256}-1$]} can be stored.}
 	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Integers}
+
+\begin{itemize}
+ \item<1->{There exist smaller \typesunits{uints}, like \typesunits{uint8}, \typesunits{uint16}, \dots , \typesunits{uint248}, but under normal circumstances they are all converted to \typesunits{uint256}{ }before use.}
+ 
+\item<2->{\typesunits{int}{ }resp. \typesunits{int256}{ }can store negative numbers in half the range of \typesunits{uint256}. Only use \typesunits{int}{ }when you explicitly need negative numbers. }
+\end{itemize}
 
 \end{frame}
 %%%
@@ -125,16 +135,15 @@
 %%%
 \begin{frame}{More Elementary Types}
 
-	\begin{itemize}
-		\item<1-> \typesunits{address}: Stores a 20 byte Ethereum address.
-		\item<1-> \typesunits{bool}: Can be \genkey{true} or \genkey{false}. For logical operations.
-		\item<1-> \typesunits{bytes1},\dots,\typesunits{bytes32}: Stores arbitrarily data of a fixed size.
-		\item<1-> \typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
-	\end{itemize}
-	
+\typesunits{address}: Stores a 20 byte Ethereum address. \\
+ 	\vspace{0.5em}  
+\typesunits{bool}: Can be \genkey{true}{ }or \genkey{false}{ }and is used for logical operations. \\
+	\vspace{0.5em}
+\typesunits{bytes1},\dots, \typesunits{bytes32}: Stores arbitrary data of a fixed size.\\
+	\vspace{0.5em}
+\typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!	\\
 	\vspace{1em}
-	
-	\uncover<2->{ We will look at more variable types as we use them.}
+\uncover<2->{\textbf{We will look at more variable types as we use them.}}
 	
 \end{frame}
 %%%
@@ -143,9 +152,9 @@
 \begin{frame}{Let's Build an Auction Platform}
 
 	\begin{itemize}
-		\item<1-> One contract per auction
-		\item<1-> Anyone can participate
-		\item<1-> Start with a simple timed auction and explore other auction types later.
+		\item<1->{One separate contract for each auction.}
+		\item<1->{Anyone should be able to participate.}
+		\item<1->{Start with a simple timed auction and explore other auction types later.}
 	\end{itemize}
 	
 \uncover<2->{
@@ -171,26 +180,22 @@
 			bool &  \texttt{false} \\
 			\rowcolor{brightanthracite}
 			address & \texttt{0x0} \\
-			byte & \texttt{0} \\
+			bytesX & \texttt{0x0} \\
 			\rowcolor{brightanthracite}
 			Array & [ ] (length = 0) \\
-			mapping & no keys \\
+			mapping & empty (no keys) \\
 			\rowcolor{brightanthracite}
 			enum & (first choice) \\
-			string & " " \\
+			string & "" \\
 			\hline
 		\end{tabular}
 %		\caption{Variable default values}
 %		\label{tbl:variable_default_values}
 	\end{table}	
-
-\begin{itemize}
-		\item Each variable has a default value when initialized.
-		\item E.g. \typesunits{bool} \texttt{hasEnded;} is the same as \typesunits{bool} \texttt{hasEnded} = \genkey{false};
-	\end{itemize}	
+\vspace{1em}
+Each variable has a default value when initialized. E.g. \typesunits{bool}{ }\texttt{hasEnded;} is the same as \typesunits{bool}{ }\texttt{hasEnded} = \genkey{false};	
 	
 \end{frame}
-
 %%%
 
 \end{document}
