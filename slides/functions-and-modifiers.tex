@@ -47,6 +47,7 @@
 			\begin{itemize}
 				\item Used in the \texttt{<function body>}
 				\item Must be different from state variables	
+				\item Recommendation: Use underscore as a prefix to differentiate between state variables and parameters
 			\end{itemize}
 		}
 		
@@ -182,7 +183,7 @@
 
 	\begin{exercise}{Exercise:}
 		\begin{enumerate}
-			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address}\texttt{\_beneficiary)} \genkey{external} \texttt{\{\dots\}} from the auction contract.
+			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address} \texttt{\_beneficiary)} \genkey{external} \texttt{\{\dots\}} from the auction contract.
 			\item Use the \genkey{constructor} to set the \texttt{beneficiary} at the time of contract deployment for the contract's entire lifetime.
 		\end{enumerate}
 	\end{exercise}
