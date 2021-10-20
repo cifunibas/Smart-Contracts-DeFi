@@ -137,7 +137,7 @@
 \textbf{Special modifiers for functions:}
 	\begin{itemize}
 		\item<1-> \genkey{payable}: allows a function to receive ETH as part of the transaction.
-		\item<2-> \genkey{virtual} \& \genkey{override}: used for inheritance (\textcolor{focus}{more on this later!}).
+		\item<2-> \genkey{virtual} \& \genkey{override}: used for inheritance (\textcolor{focus}{more on inheritance later!}).
 		\item<3-> \genkey{constant} \& \genkey{immutable}: disallow changing the value of a variable during the contract's lifetime.
 		\begin{itemize}
 			\item<3->{Difference: \genkey{immutable} can be set during contract deployment}	
@@ -148,7 +148,7 @@
 %%%
 
 %%%
-\begin{frame}{Update of The Auction Contract}
+\begin{frame}{Update of the Auction Contract}
 	\begin{exercise}{Exercise:}
 		\begin{enumerate}
 			\item Make sure the variables \texttt{beneficiary}, \texttt{highestBid}, \texttt{highestBidder} and \texttt{hasEnded} are \genkey{public}.
@@ -160,7 +160,7 @@
 %%%
 
 %%%
-\begin{frame}{Update The Auction Contract}
+\begin{frame}{Update the Auction Contract}
 	\begin{samplecode}{Solution}
 		\input{../assets/solidity_code/public_variables.tex}
 	\end{samplecode}
@@ -182,14 +182,14 @@
 
 	\begin{exercise}{Exercise:}
 		\begin{enumerate}
-			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address}\texttt{\_beneficiary)} \genkey{external} \texttt{\{...\}} from our auction contract.
+			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address}\texttt{\_beneficiary)} \genkey{external} \texttt{\{\dots\}} from the auction contract.
 			\item Use the \genkey{constructor} to set the \texttt{beneficiary} at the time of contract deployment for the contract's entire lifetime.
 		\end{enumerate}
 	\end{exercise}
 		
 	\uncover<2->{
 	\textbf{Solution:}
-	\begin{samplecode}{Constructor for Our Auction Contract}
+	\begin{samplecode}{Constructor for the Auction Contract}
 			\input{../assets/solidity_code/constructor_beneficiary.tex}
 	\end{samplecode}
 	
