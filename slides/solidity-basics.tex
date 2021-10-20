@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Solidity Basics 1}
+\subtitle{Solidity Basics}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -25,7 +25,7 @@
 
 \begin{columns}[T]
 	\begin{column}{0.7\textwidth}
-		Solidity is \dots
+		\textbf{Solidity is \dots}
 			\begin{itemize}
 			\item<1-> the most popular language for EVM Smart Contracts.
 				\item<2-> influenced by C++, Python and JavaScript.
@@ -54,7 +54,10 @@
 %%%
 \begin{frame}{Solidity Version and the Pragma}
 
-\genkey{pragma solidity}{ }\^{}0.8.9;	
+\begin{samplecode}{Version of the Compiler}
+	\genkey{pragma solidity} \^{}0.8.9;	
+\end{samplecode}
+
 
 \vspace{1em}
 
@@ -123,6 +126,7 @@
 %%%
 \begin{frame}{Integers}
 
+\textbf{You can define both signed and unsigned integers:}
 \begin{itemize}
  \item<1->{There exist smaller \typesunits{uints}, like \typesunits{uint8}, \typesunits{uint16}, \dots , \typesunits{uint248}, but under normal circumstances they are all converted to \typesunits{uint256}{ }before use.}
  
@@ -135,14 +139,14 @@
 %%%
 \begin{frame}{More Elementary Types}
 
-\typesunits{address}: Stores a 20 byte Ethereum address. \\
- 	\vspace{0.5em}  
-\typesunits{bool}: Can be \genkey{true}{ }or \genkey{false}{ }and is used for logical operations. \\
-	\vspace{0.5em}
-\typesunits{bytes1},\dots, \typesunits{bytes32}: Stores arbitrary data of a fixed size.\\
-	\vspace{0.5em}
-\typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!	\\
-	\vspace{1em}
+\textbf{A selection of more types:}
+\begin{itemize}
+	\item<1-> \typesunits{address}: Stores a 20 byte Ethereum address.
+	\item<2-> \typesunits{bool}: Can be \genkey{true}{ }or \genkey{false}{ }and is used for logical operations.
+	\item<3-> \typesunits{bytes1},\dots, \typesunits{bytes32}: Stores arbitrary data of a fixed size.
+	\item<4-> \typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
+\end{itemize}
+
 \uncover<2->{\textbf{We will look at more variable types as we use them.}}
 	
 \end{frame}
@@ -169,6 +173,7 @@
 %%%
 \begin{frame}{Variable Default Values}
 
+\textbf{Each variable has a default value when initialized. \\ E.g. \typesunits{bool}{ }\texttt{hasEnded;} is the same as \typesunits{bool}{ }\texttt{hasEnded} = \genkey{false};}
 	\begin{table}
 		\begin{tabular}{m{4cm} m{4cm}}
 		\rowcolor{highlight}
@@ -192,8 +197,6 @@
 %		\caption{Variable default values}
 %		\label{tbl:variable_default_values}
 	\end{table}	
-\vspace{1em}
-Each variable has a default value when initialized. \\ E.g. \typesunits{bool}{ }\texttt{hasEnded;} is the same as \typesunits{bool}{ }\texttt{hasEnded} = \genkey{false};	
 	
 \end{frame}
 %%%
