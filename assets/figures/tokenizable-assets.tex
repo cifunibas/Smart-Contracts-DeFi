@@ -1,14 +1,18 @@
-\begin{tikzpicture}[align = center, scale = 1.2]
-	
-	% define coordinates
-	\coordinate (1) at (-4, 0);
-	\coordinate (2) at (0, 0);
-	\coordinate (3) at (4, 0);
-	
-%\node at (1) {\filldraw[color = highlight!70, fill = highlight!15, thick](6,4)circle(2pt)};
-	
-\node at (2) {\includegraphics[height = 3.0cm]{../assets/images/next.png}};
+\begin{tikzpicture}[scale = 1]
+		
+	\node (1) at (-4, 0) [circle, draw=highlight!80, fill=highlight!20, thick, inner sep=0pt,minimum size=100pt]{};
 
-\node at (3) {\includegraphics[height = 3.0cm]{../assets/images/token.png}};
+	\node (2) at (0, 0) {\includegraphics[height = 3.0cm]{../assets/images/next.png}};
+
+	\node (3) at (4, 0) {\includegraphics[height = 3.0cm]{../assets/images/token.png}};
+
+
+\node (4) at (-5, 0) {\includegraphics[height=1.0cm]{../assets/images/art.png}};
+
+\node (5) at (-3, 0) {\includegraphics[height=1.0cm]{../assets/images/house.png}};
+
+\node (6) at (-4, 1) {\includegraphics[height=1.0cm]{../assets/images/certificate.png}};
+
+\node (7) at (-4,-1) {\includegraphics[height=1.0cm]{../assets/images/money.png}};
 
 \end{tikzpicture}
