@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -380,9 +380,9 @@ persistentStorage <- parameter \\
 \begin{scriptsize}
 \uncover<1->{\textbf{Native On-Chain Data}}
 		\begin{itemize}
-			\item<2-> Data stored on-chain and fully secured by  consensus protocol
-			\item<3-> Native protocol token transactions and some endogeneous (token) contracts
-			\item<4->On-chain validation
+			\item<1-> Data stored on-chain and fully secured by  consensus protocol
+			\item<1-> Native protocol token transactions and some endogeneous (token) contracts
+			\item<1->On-chain validation
 		\end{itemize}
 \end{scriptsize}					
 		\end{minipage}
@@ -394,7 +394,7 @@ persistentStorage <- parameter \\
 				
 				
 				\vspace{1em}
-		\uncover<5->{\begin{minipage}{0.3\textwidth}
+		\uncover<2->{\begin{minipage}{0.3\textwidth}
 		 \center
 			\begin{tikzpicture}[scale=0.02]
 			
@@ -417,17 +417,17 @@ persistentStorage <- parameter \\
 		\end{minipage}}
 		\begin{minipage}{0.65\textwidth}
 \begin{scriptsize}
-\uncover<5->{\textbf{Static Off-Chain Data}}
+\uncover<2->{\textbf{Off-Chain Data}}
 		\begin{itemize}
-			\item<6-> No native on-chain representation
-			\item<7-> Data can be hashed
-			\item<8-> Requires trustworthy data interfaces (oracles)
+			\item<2-> No native on-chain representation
+			\item<2-> Data can be hashed
+			\item<2-> Requires trustworthy data providers (oracles)
 		\end{itemize}
 \end{scriptsize}					
 		\end{minipage}
 				
 				\vspace{1em}
-		\uncover<9->{\begin{minipage}{0.3\textwidth}
+		\uncover<3->{\begin{minipage}{0.3\textwidth}
 		\center
 		\includegraphics[scale=0.13]{../assets/images/supply_chain.png}
 \begin{tiny}
@@ -438,11 +438,11 @@ persistentStorage <- parameter \\
 		\end{tiny}		\end{minipage}}
 		\begin{minipage}{0.65\textwidth}
 \begin{scriptsize}
-\uncover<9->{\textbf{Dynamic Off-Chain Data}}
+\uncover<3->{\textbf{Physical Off-Chain Reference}}
 		\begin{itemize}
-			\item<10-> No native on-chain representation
-			\item<11-> Data cannot be hashed
-			\item<12-> Requires trustworthy data interfaces (oracles) as well as reliable cryptoanchors.
+			\item<3-> No native on-chain representation
+			\item<3-> Data cannot be hashed
+			\item<3-> Requires trustworthy data providers (oracles) as well as reliable cryptoanchors.
 		\end{itemize}
 \end{scriptsize}					
 		\end{minipage}			
@@ -567,7 +567,7 @@ $\rightarrow$ {\scriptsize An example: \url{https://etherscan.io/block/8652103}}
 %%%
 
 %%%
-\begin{frame}{Why Web3 Matters}
+\begin{frame}{Some Notes on Web3}
 	\begin{figure}
 		\input{../assets/figures/web3.tex}
 	\end{figure}
