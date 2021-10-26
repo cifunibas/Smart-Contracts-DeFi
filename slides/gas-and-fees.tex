@@ -38,7 +38,7 @@
 \uncover<3->{
 	\begin{keytakeaway}{Bitcoin and Ethereum Deal With This Problem in Different Ways}
 		\begin{itemize}
-			\item Bitcoin Script is a restricted scripting language.
+			\item Bitcoin Script is a deliberately limited scripting language.
 			\item Ethereum has a Turing complete instruction set. It charges a small fee (gas) for each computation step.
 		\end{itemize}
 	\end{keytakeaway}
@@ -90,7 +90,7 @@
 		\item Every transaction has a user-specified \textbf{gas limit}, i.e. the maximum number of gas units that can be in this transaction.
 		\hspace{-1em}
 		\begin{itemize}
-			\item 21000 required to send ETH
+			\item 21 000 required to send ETH
 			\item Contract execution varies
 		\end{itemize}
 		}
@@ -181,7 +181,7 @@
 		}
 		\uncover<2->{
 			\item Miners are incentivized to include transactions with higher gas prices first
-			\item All transaction fees ($\texttt{gasPrice}  *\texttt{gasUsed} $) go to miner of the block
+			\item All transaction fees ($\texttt{gasPrice}  \cdot \texttt{gasUsed} $) go to miner of the block
 		}
 	\end{itemize}
 \end{frame}
@@ -216,30 +216,27 @@
 	
 	\vspace{-1.25em}
 	
+	\uncover<3->{
 	\scriptsize
 	\textbf{Three cases:}
 	\begin{enumerate}
 		\item<3-> \textbf{Refund:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $<$ \texttt{maxFee}
-		\item<5-> \textbf{No refund, decreasing tip:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $\geq$ \texttt{maxFee} \& \texttt{baseFee} $\leq$ \texttt{maxFee}
-		\item<7-> \textbf{Unconsidered transaction:} \texttt{baseFee} $>$ \texttt{maxFee}
+		\item<5-> \textbf{Partial Tip:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $\geq$ \texttt{maxFee} \& \texttt{baseFee} $\leq$ \texttt{maxFee}
+		\item<7-> \textbf{Pending:} \texttt{baseFee} $>$ \texttt{maxFee}
 	\end{enumerate}
+	}
 	
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Ethereum Gas Fees: Block Size}
-	\textbf{Before EIP-1559}
-	\begin{itemize}
-		\item Fixed block size
-	\end{itemize}
-	\vspace{0.2cm}
-	\textbf{After EIP-1559}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
+\begin{frame}{Ethereum Gas Fees: EIP-1559 Base Fee Adjustment}
+	\textbf{EIP-1559 Base Fee Adjustment Mechanism}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
 	\begin{itemize}
 		\item Target block size: currently 15 million gas ($s_{target}$)
 		\item Block limit: currently 30 million gas (2x target block size)
 		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$):\\
-		\vspace{0.1cm}
+		\vspace{0.5cm}
 		$r_{cur} := r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
 	\end{itemize}
 \end{frame}
@@ -264,32 +261,7 @@
 %%%
 
 %%%
-\begin{frame}{Advantages of the Gas System}
-	\textbf{Fees help to secure the network:}
-	\begin{itemize}
-		\item Stops execution of…
-		\begin{itemize}
-			\item Badly written code
-			\item Infinite loops
-		\end{itemize}
-		\item Reduce spam transactions
-		\item Establish a market for priority access to network
-	\end{itemize}
-\end{frame}	
-%%%
-
-%%%
-\begin{frame}{Gas Price Market - Some Interesting Observations}
-	\begin{center}
-	\begin{tikzpicture}
-		\input{../assets/figures/meanGasPriceChart.tex}
-	\end{tikzpicture}
-	\end{center}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Exercise 1 - Transactions With \texttt{EIP1559}} 
+\begin{frame}{Exercise 1 - Transactions With EIP-1559}
 	\begin{exercise}{Exercise 1} 
 	For the following questions assume a \texttt{baseFee}  of 0.000000013 GWEI and a threshold \texttt{priorityFee} of 1 GWEI:\footnote{Please note: The values we use in this exercise have been chosen with Ropsten testnet in mind. The Mainnet \texttt{baseFee} is much higher.}
 	\begin{enumerate}[a]
