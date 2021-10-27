@@ -3,7 +3,7 @@
 \documentclass[handout]{beamer}
 
 % Video Meta Data
-\title{Smart Contracts and Decentralized Finance Applications}
+\title{Smart Contracts and Decentralized Finance}
 \subtitle{Gas and Fees}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
@@ -207,15 +207,18 @@ The user also sets the \textbf{gas price} for each transaction, i.e., the price 
 
 %%%
 \begin{frame}{Ethereum Gas Fees: Gas Price After EIP-1559}
-	\begin{itemize}
-		\item \textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
-		\vspace{1 em}
-		\item \textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
-		\vspace{1 em}
-		\item \textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $\texttt{baseFee}  > \texttt{maxFee} $.
-		\vspace{1 em}
-		\item \textbf{Refund:} $max \left(0, \text{ }\texttt{maxFee} - (\texttt{baseFee}  + \texttt{maxPriorityFee} )\right)$ is refunded to the user after transaction execution. 
-	\end{itemize}	
+
+\textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
+\vspace{1 em}
+
+\textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
+\vspace{1 em}
+
+\textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $\texttt{baseFee}  > \texttt{maxFee} $.
+\vspace{1 em}
+
+\textbf{Refund:} $max \left(0, \text{ }\texttt{maxFee} - (\texttt{baseFee}  + \texttt{maxPriorityFee} )\right)$ is refunded to the user after transaction execution. 
+	
 \end{frame}
 %%%
 
@@ -243,13 +246,19 @@ The user also sets the \textbf{gas price} for each transaction, i.e., the price 
 %%%
 \begin{frame}{Ethereum Gas Fees: EIP-1559 Base Fee Adjustment}
 	\textbf{EIP-1559 Base Fee Adjustment Mechanism}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
+	\vspace{0.5 em}
 	\begin{itemize}
-		\item Target block size: currently 15 million gas ($s_{target}$)
-		\item Block limit: currently 30 million gas (2x target block size)
-		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$):\\
-		\vspace{0.5cm}
-		$r_{cur} := r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
+		\item Target block size: currently 15 million gas ($s_{target}$).
+		\vspace{0.5 em}
+		\item Block limit: currently 30 million gas (2x target block size).
+		\vspace{0.5 em}
+		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$).\\
 	\end{itemize}
+
+		\vspace{1.0 em}
+\begin{center}
+		$r_{cur} = r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
+\end{center}
 \end{frame}
 %%%
 
