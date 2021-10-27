@@ -1,0 +1,22 @@
+\begin{footnotesize}
+	\uncover<1->{
+		\node (avatar1) at (-4.5, 3) {\includegraphics[width=.15\textwidth]{../assets/images/avatar.png}};
+		\node (start) at (-4.5, 0) [circle,fill=mint,minimum size=1.2cm, label={south,mint:+100}] {Start};
+		\draw[->, dotted, very thick] (avatar1) -- (start) node[midway, right, mint] (text1) {100 $\cdot$ x GWEI};
+	}
+	\uncover<2->{
+		\node (add) at (-2.5,0) [rectangle,fill=mint,minimum width=1.9cm,minimum height=0.6cm, label={south,red:-3}] {ADD};
+	}
+	\uncover<3->{
+		\node (mul) at (0,0) [rectangle,fill=mint,minimum width=1.9cm,minimum height=0.6cm, label={south,red:-5}] {MUL};
+	}
+	\uncover<4->{
+		\node (sha3base) at (2.5,0) [rectangle,fill=mint,minimum width=1.9cm,minimum height=0.6cm,label={south,red:-30}] {SHA3BASE};
+		\node (rect) at (-3.7,-0.1) [draw,dotted,thick,minimum width=7.4cm,minimum height=1.5cm, right,label=south:EVM Operations]{};
+	}
+	\uncover<5->{
+		\node (end) at (4.5, 0) [circle,fill=mint,minimum size=1.2cm] {End};
+		\node (avatar2) at (4.5, 3) {\includegraphics[width=.15\textwidth]{../assets/images/avatar.png}};
+		\draw[->, dotted, very thick] (end) -- (avatar2) node[midway, left, mint] (text2) {62 $\cdot$ x GWEI};
+	}
+\end{footnotesize}

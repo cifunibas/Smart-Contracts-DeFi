@@ -1,0 +1,167 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Transactions}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Transactions on Ethereum}
+
+\vspace{1em}
+\textbf{A transaction is a message sent from an externally owned account (EOA).}
+
+\vspace{0.5em}
+
+\uncover<2->{
+	Transactions can modify states:
+		\begin{itemize}
+			\item<1-> Ether balances of accounts
+			\item<2-> Contract account's (CA) storage
+		\end{itemize}
+	}
+\vspace{0.5em}
+
+\uncover<3->{
+	Transactions optionally contain:
+		\begin{itemize}
+			\item<1-> Ether
+			\item<2-> Data
+		\end{itemize}
+	}
+\vspace{1.0 em}
+
+\uncover<4->{
+		\input{../assets/figures/transactions_by_recipient.tex}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Internal Transactions}
+
+\begin{columns}[T]
+	\begin{column}{0.25\textwidth}
+		\includegraphics[width=3cm]{../assets/images/CA}
+	\end{column} %\hfill
+		
+	\begin{column}{0.7\textwidth}
+		\begin{keytakeaway}{Contract Accounts Send Internal Transactions}
+			CAs can only issue internal transactions / internal calls. A (non-internal) transaction can never originate with a smart contract. In other words: Initially, CAs \textbf{must} be triggered by an EOA transaction.
+		\end{keytakeaway}
+	\end{column}
+	
+\end{columns}
+\vspace{1em}
+
+\uncover<2->{
+	\input{../assets/figures/transaction_arrows.tex}
+}
+
+\uncover<3->{
+	\input{../assets/figures/CA_to_CA.tex}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Transactions and Calls}
+
+\textbf{Transaction:} Must originate with an EOA. States can only be changed through transactions and each transaction leads to a state change. May contain multiple internal transactions and/or internal calls.
+
+\vspace{1em}
+
+\uncover<2->{
+	\textbf{Call:} A call is executed locally (on the node). It is read-only, i.e., does not lead to state changes. \\
+
+\vspace{1em}
+
+\uncover<3->{
+	\textbf{Internal Transaction:} An internal transaction is a transaction that is part of another transaction. The internal transaction must be executed alongside the containing transaction.
+	}
+
+\vspace{1em}
+
+\uncover<4->{
+	\textbf{Internal Call:} An internal call is a call that is part of a transaction. The internal call must be executed alongside the containing transaction. Note that, in contrast to a regular call, internal calls are s.t. network fees. 
+	}
+
+}
+
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Detailed Look at Ethereum Transactions}
+
+Ethereum Transactions \textbf{always} contain the following data points:
+\vspace{0.5 em}
+	\begin{itemize}
+		\item \textbf{Recipient Address:} The recipient's hexadecimal 		address.
+		\item \textbf{Nonce:} Transaction count from sender.
+		\item \textbf{Signature:} Consisting of the variables V, R and S.
+		\item \textbf{Gas Limit:} Maximum number of transaction execution steps.
+		\item \textbf{Gas Price:} Fee the sender is willing to pay per execution step. 
+	\end{itemize}
+	
+\vspace{2 em}
+
+\uncover<2->{	
+Depending on the transaction purpose, they \textbf{further} include:
+\vspace{0.5 em}
+	\begin{itemize}
+		\item \textbf{Value:} Ether value in Wei, where $10^{18}$ Wei = 1 ETH. 
+		\item \textbf{Data:} Contract execution or deployment instructions.
+	\end{itemize}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to EOA}
+
+\center
+	\includegraphics[width=8cm]{../assets/images/EOA_to_EOA}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to CA}
+
+\center
+	\includegraphics[width=8cm]{../assets/images/EOA_to_CA}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EOA to 0}
+
+\center
+	\includegraphics[width=10cm]{../assets/images/EOA_to_0}
+
+\end{frame}
+%%%
+
+\end{document}

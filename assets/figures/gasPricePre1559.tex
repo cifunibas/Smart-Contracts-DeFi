@@ -1,0 +1,13 @@
+\begin{footnotesize}
+	\uncover<1->{
+		\node (user) at (-4.5, 0) {\includegraphics[width=.15\textwidth]{../assets/images/avatar.png}};
+		\node (gasPrice) at (0, 0) [fill=mint,minimum size=2cm, minimum height = 3cm] {Gas Price};
+		\draw[->, dotted, very thick] (user) -- (gasPrice) node[midway, mint] (text1) {};
+	}
+	\uncover<2->{
+	}
+	\uncover<2->{
+		\node (miner) at (4.5, 0) {\includegraphics[width=.3\textwidth]{../assets/images/miner_single.png}};
+		\draw[->, dotted, very thick] (gasPrice) -- (miner) node[midway, mint] (text1) {};
+	}
+	\end{footnotesize}

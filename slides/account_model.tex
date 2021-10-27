@@ -1,0 +1,248 @@
+% Choose one to switch betweeen slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Account-based Model}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+
+%%%
+\begin{frame}{Programmable Money Paradigms}
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\centering
+			\includegraphics[scale=0.075]{../assets/images/bitcoin_network_symbol.png}\\
+			\textbf{UTXO Model}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\centering
+			\includegraphics[scale=0.1]{../assets/images/EOA.png}
+			\includegraphics[scale=0.1]{../assets/images/CA.png}
+			\textbf{Account-based Model}
+		\end{column}
+	\end{columns}
+	\vspace{1em}
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+		\vspace{1em}
+			\begin{itemize}
+				\item Conditions are on each UTXO.
+				\item Determine how the UTXO can be spend.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+		\vspace{1em}
+			\begin{itemize}
+				\item Conditions are on each account.
+				\item Determine how the account is governed.
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\vspace{1em}
+\uncover<2->{
+	\begin{keytakeaway}{Key Takeaway}
+		The ability to implement logic on an account-level is more flexible, more intuitive and easier to handle than conditions on the UTXO-level.
+	\end{keytakeaway}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Accounts}
+Instead of Bitcoin's UTXO model, Ethereum uses actual accounts.
+	\vspace{1em}
+		\begin{itemize}
+			\item<1-> Each account has a 20 byte address.
+			\item<1-> Hexadecimal encoding
+		\end{itemize}
+	\vspace{1em}
+	Example: \texttt{0xD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4}
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{EIP-55: Capital letter checksum}
+No checksum encoding $\rightarrow$ Typos were a severe problem. \\ 
+\vspace{2em}
+	\textbf{\link \href{https://eips.ethereum.org/EIPS/eip-55}{EIP-55}} fixes this: Use keccak hash function $H(x)=h$, where input $x$ corresponds to the address and $h$ to the hash value. For each character (\texttt{a}-\texttt{f}) at position $x[i]$, capitalize $x[i]$, if $h[i] > 7$.\\
+\vspace{2em}
+\uncover<2->{
+	\texttt{Keccak(0xD3EEC7A7C7867B9D02248B414F08609A2A6C2AB4)} = \\
+\vspace{0.1em}
+
+	\hspace{4.75em}\texttt{\textcolor{highlight}{e}1\textcolor{focus}{254}6\textcolor{focus}{7}9\textcolor{highlight}{f}8029\textcolor{highlight}{e}f\textcolor{focus}{7}c379d\textcolor{focus}{6}0b9\textcolor{highlight}{a}49f44\textcolor{highlight}{8}9\textcolor{highlight}{f}b\textcolor{focus}{4}c\textcolor{highlight}{8}\textcolor{focus}{7}2\dots}  \\
+	  
+\vspace{2em}
+
+	\hspace{3.7em}\texttt{0xD3\textcolor{focus}{eec}7\textcolor{focus}{a}7\textcolor{highlight}{C}7867\textcolor{highlight}{B}9\textcolor{focus}{d}02248\textcolor{focus}{b}414\textcolor{highlight}{F}08609\textcolor{highlight}{A}2\textcolor{highlight}{A}6\textcolor{focus}{c}2\textcolor{highlight}{A}\textcolor{focus}{b}4}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Different Types of Accounts}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\centering
+			\includegraphics[scale=0.09]{../assets/images/EOA.png} \\
+			\textbf{Externally Owned Accounts}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+		\centering
+			\includegraphics[scale=0.093]{../assets/images/CA.png}\\
+			\textbf{Contract Accounts}
+		\end{column}
+	\end{columns}  
+\vspace{1em}
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item Address
+				\item Balance
+				\item Nonce (\# of transactions)
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{itemize}
+				\item Address
+				\item Balance
+				\item Nonce (\# of accounts created)
+				\item Contract code
+				\item Contract storage
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\vspace{1em}
+\uncover<2->{
+	\begin{keytakeaway}{Control Over Accounts}
+		 Externally  Owned  Accounts  are  controlled  by  a  private  key.  Contract accounts are controlled by the contract code.
+	\end{keytakeaway}	
+	}			
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{How Contract Accounts are created}
+
+	\input{../assets/figures/contract_creation.tex}
+\vspace{1em}
+	\begin{enumerate}
+				\item<1-> EOA (or CA) issues (internal) transaction with \textcolor{focus}{\textbf{zero address}} as recipient address.
+				\item<2-> The transaction carries the contract code.
+				\item<3-> Transaction confirmation = contract deployment
+				\item<4-> New contract account address = \texttt{SHA3.256(address\_sender, nonce)} %corresponds to hash value of the deployment transaction sender's address and the transaction nonce.
+	\end{enumerate}
+			
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Account-based Model vs. UTXO-based Model}
+	The account-based model is more intuitive and flexible than the UTXO-based model, but it also has some drawbacks. \\ 
+	\vspace{2em}
+		\begin{columns}[T]
+			\begin{column}{0.25\textwidth}
+				\center
+				\includegraphics[scale=0.1]{../assets/images/privacy.png}
+			\end{column}
+			\begin{column}{0.8\textwidth}
+				\textbf{Privacy Concerns}\\
+People usually use the same address for many transactions - in contrast to UTXO-based systems where you use a new address for each transaction. \\
+\href{https://etherscan.io/address/0x8cbcb10a365a5e26dfcd41b1257fda54bc604c70}{\link {\small Etherscan}}
+			\end{column}
+		\end{columns}	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Account-based vs. UTXO-based Model}
+	\begin{columns}[T]
+		\begin{column}{0.25\textwidth}
+			\center
+			\includegraphics[scale=0.1]{../assets/images/alert.png}
+		\end{column}
+		\begin{column}{0.8\textwidth}
+			\textbf{Transactions getting stuck}\\
+			If a transaction from an account has not been confirmed yet, subsequent ones (higher nonce) from the same account will not be confirmed.
+		\end{column}
+	\end{columns}
+	\vspace{2em}
+\uncover<2->{
+	\begin{columns}[T]
+		\begin{column}{0.25\textwidth}
+			\center
+			\includegraphics[scale=0.1]{../assets/images/argument.png}
+		\end{column}
+		\begin{column}{0.8\textwidth}
+			\textbf{Unintended Conflicts}\\
+If a user uses two or more wallets for the same address and the two are not in sync, two transactions A and B may be conflicting, even if the total balance of the account is larger than the aggregated amount sent with transactions A and B (same Problem with SC).
+		\end{column}
+	\end{columns}
+		}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Creating and Funding A Metamask Account}
+
+	\begin{exercise}{Exercise 1:}
+		\begin{enumerate}
+			\item Go to \url{https://metamask.io/} and get the Metamask Browser extension.
+			\item Set up a new account and connect to Ropsten testnet.
+			\item Backup the mnemonic phrase of your wallet.
+			\item Go to \link \href{https://faucet.ropsten.be/}{Ropsten Faucet} and get some Ropsten testnet Ether (rETH).
+		\end{enumerate}
+	\end{exercise}	
+\uncover<2->{		
+	\begin{columns}[T]
+		\begin{column}{0.2\textwidth}
+			\center
+			\includegraphics[scale=0.1]{../assets/images/alert.png}
+		\end{column}
+		\begin{column}{0.8\textwidth}
+		\vspace{1em}
+		If you are currently managing Mainnet funds with Metamask, make sure \textcolor{focus}{\textbf{NOT}} to use the same mnemonic seed for your testnet transactions. In doing so you will put your ETH and tokens at risk.
+		\end{column}
+	\end{columns}
+}
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Creating and Funding A Metamask Account}
+
+	\begin{exercise}{Exercise 2:}
+		\begin{enumerate}
+			\item Create a second account with metamask.
+			\item Transfer 0.1 rETH from your first account to your second account.
+			\item Check the transaction details on \link \href{https://ropsten.etherscan.io/}{Ropsten Etherscan}.
+			\item Transfer the balance from your second account, back to your first account. 
+		\end{enumerate}
+	\end{exercise}	
+\end{frame}
+%%%	
+
+\end{document}
