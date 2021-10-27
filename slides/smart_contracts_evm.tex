@@ -1,0 +1,487 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Smart Contracts and the EVM}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+\captionsetup[figure]{font=tiny,labelformat=simple}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+\definecolor{mypink}{RGB}{245, 204, 213}
+\definecolor{myred}{RGB}{209, 7, 54}
+
+%%%
+\begin{frame}{The Ethereum Virtual Machine (EVM)}
+	\vspace{1em}
+\begin{minipage}{0.49\textwidth}
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+		\input{../assets/figures/network}
+	\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.46\textwidth}
+	\begin{small}
+		\begin{itemize}
+		
+			\item<1-> Runs on every (full) node
+			\item<2-> Processes transactions and performs state changes (deterministically)
+			\item<3-> Is Turing complete
+			\item<4-> State changes as part of consensus; everyone performing all computations
+		\end{itemize}
+		\end{small}
+	\end{minipage}	
+			\vspace{1em}
+			
+			
+\uncover<5->{\begin{keytakeaway}{A Slow State Machine}
+				The Ethereum Virtual Machine is often referred to as a World computer. It is a relatively slow computer network. However, the strength of the network is that any code executed on the EVM will be executed exactly as specified and state changes can be tracked and verified by any network participant.
+\end{keytakeaway}}			
+			
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{The EVM and State Changes}
+	\vspace{1em}
+	\vspace{1em}
+
+		\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]
+	
+%Define Coordinates
+
+\coordinate (1) at (-8,0);
+\coordinate (2) at (-6,0);
+\coordinate (3) at (-4,0);
+\coordinate (4) at (-2,0);
+\coordinate (5) at (0,0);
+\coordinate (6) at (2,0);
+\coordinate (7) at (4,0);
+\coordinate (8) at (6,0);
+\coordinate (9) at (8,0);
+\coordinate (10) at (10,0);
+
+\coordinate (11) at (-6,-3);
+\coordinate (12) at (-2,-3);
+\coordinate (13) at (2,-3);
+\coordinate (14) at (6,-3);
+
+\coordinate (15) at (10,0);
+\coordinate (16) at (10,0);
+\coordinate (17) at (10,0);
+\coordinate (18) at (10,0);
+
+
+%Empty Files
+
+\node (state)at(1)  [scale=0.26]{\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (3) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (5) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (7) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+\node (state)at (9) [scale=0.26] {\includegraphics{../assets/images/empty_file.png}};
+
+
+%1s and 0 within Empty Files
+
+\node [align=left, yshift= -8pt] at(1){\textbf{10100}\\\textbf{11010}\\\textbf{11101}};
+\node [align=left, yshift= -8pt] at(3){\textbf{11101}\\\textbf{11011}\\\textbf{10001}};
+\node [align=left, yshift= -8pt] at(5){\textbf{01101}\\\textbf{10010}\\\textbf{10110}};
+\node [align=left, yshift= -8pt] at(7){\textbf{11101}\\\textbf{00011}\\\textbf{01001}};
+\node [align=left, yshift= -8pt] at(9){\textbf{01111}\\\textbf{10110}\\\textbf{10010}};
+
+
+
+%...
+
+\node [align=left] at(10){\textbf{{\Huge ...}}};	
+
+
+%Arrow Empty File --> Empty File (mintgreen)
+
+\node at(2)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(4)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(6)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+\node at(8)[scale=0.08] {\includegraphics{../assets/images/next_mint.png}};
+	
+
+%Upper Arrow <->
+
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(1.east) + (up:2.5cm) 
+	coordinate (1_east_shifted) -- 
+	(3.west |- 1_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(3.east) + (up:2.5cm) 
+	coordinate (3_east_shifted) -- 
+	(5.west |- 3_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(5.east) + (up:2.5cm) 
+	coordinate (5_east_shifted) -- 
+	(7.west |- 5_east_shifted);
+\draw  [<->, shorten >=15pt, shorten <=15pt, thick] 	(7.east) + (up:2.5cm) 
+	coordinate (7_east_shifted) -- 
+	(9.west |- 7_east_shifted);
+	
+%Upper Arrow Label 15 sec	
+		
+\node [yshift=2.9cm] at (2) {$\approx$ 15 sec};
+\node [yshift=2.9cm] at (4) {$\approx$ 15 sec};
+\node [yshift=2.9cm] at (6) {$\approx$ 15 sec};
+\node [yshift=2.9cm] at (8) {$\approx$ 15 sec};
+	%\draw[<->, thick] (1.east)  {} (2.west);		
+
+%States
+
+\node [yshift=1.8cm] at (1) {{\large State $t$}};	
+\node [yshift=1.8cm] at (3) {{\large State $t _{\textit{ + 1}}$}};	
+\node [yshift=1.8cm] at (5) {{\large State $t _{\textit{ + 2}}$}};
+\node [yshift=1.8cm] at (7) {{\large State $t _{\textit{ + 3}}$}};
+\node [yshift=1.8cm] at (9) {{\large State $t _{\textit{ + 4}}$}};	
+
+
+%Network
+
+\node at (11) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+\node  at (12) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+\node  at (13) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+
+\node at (14) {
+	\scalebox{0.4}{
+		\begin{tikzpicture}[scale=0.35, every node/.style={scale=0.35}]
+			\input{../assets/figures/network}
+		\end{tikzpicture}
+		}
+};
+
+
+%Arrow Empty File --> Network, Network --> Empty File
+
+\draw [-stealth, shorten >=18pt, thick, yshift=-18pt, xshift = 8pt](-8,-1) -- (11);
+
+\draw [stealth-, shorten >=18pt, thick, yshift=-18pt, xshift = -8pt](-4,-1) -- (11);
+
+\draw [-stealth, shorten >=18pt, thick, yshift=-18pt, xshift = 8pt](-4,-1) -- (12);
+
+\draw [stealth-, shorten >=18pt, thick, yshift=-18pt, xshift = -8pt](0,-1) -- (12);
+
+\draw [-stealth, shorten >=18pt, thick, yshift=-18pt, xshift = 8pt](0,-1) -- (13);
+
+\draw [stealth-, shorten >=18pt, thick, yshift=-18pt, xshift = -8pt](4,-1) -- (13);
+
+\draw [-stealth, shorten >=18pt, thick, yshift=-18pt, xshift = 8pt](4,-1) -- (14);
+
+\draw [stealth-, shorten >=18pt, thick, yshift=-18pt, xshift = -8pt](8,-1) -- (14);
+
+
+
+%Transactions Box
+
+\node at (-6,-6.4) {
+	\scalebox{0.5}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+\node at (-2,-6.4) {
+	\scalebox{0.5}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+\node at (2,-6.4) {
+	\scalebox{0.5}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+\node at (6,-6.4) {
+	\scalebox{0.5}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+
+%Text Transactions
+
+\node at (-6,-7.9) {Transactions};
+\node at (-2,-7.9) {Transactions};
+\node at (2,-7.9) {Transactions};
+\node at (6,-7.9) {Transactions};
+
+
+
+%Arrows Transaction --> Network
+
+\draw [-stealth, shorten >=18pt, shorten <=18pt, thick, ](-6,-6.4) -- (11);
+\draw [-stealth, shorten >=18pt, shorten <=18pt, thick, ](-2,-6.4) -- (12);
+\draw [-stealth, shorten >=18pt, shorten <=18pt, thick, ](2,-6.4) -- (13);
+\draw [-stealth, shorten >=18pt, shorten <=18pt, thick, ](6,-6.4) -- (14);
+	
+	\end{tikzpicture}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Pros and Cons of the EVM}
+
+\begin{minipage}{0.15\textwidth}
+		\center
+		\vspace{3.5em}
+		\includegraphics[width=1.8cm]{../assets/images/minus_circle.png}
+		
+		\vspace{3.5em}
+		\uncover<2->{
+		\includegraphics[width=1.8cm]{../assets/images/plus_circle.png}}
+		\vspace{0.5em}
+	\end{minipage}
+    \hfill
+	\begin{minipage}{0.7\textwidth}
+	\vspace{1em}
+
+		\begin{itemize}
+			\item<1-> EVM is slow
+			\item<1-> Every full node processes all transactions
+			\item<1-> Tradeoff: inclusion vs performance
+			\begin{itemize}				
+    				\item<1-> Verification (computation resources)
+    				\item<1-> Data exchange (network resources)
+  			\end{itemize}
+			\item<1-> Currently 10-20 transactions per second	
+		\end{itemize}
+		\vspace{1em}
+
+		\begin{itemize}
+			\item<2-> Permissionless
+			\item<2-> Distributed / very robust
+			\item<2-> Trustless / verifiable
+			\item<2-> Irreversible
+
+
+		\end{itemize}
+	\end{minipage}
+	
+	
+	\uncover<3->{\begin{keytakeaway}{EVM Properties and Smart Contracts}
+				The EVM is an ideal execution environment for smart contracts.
+\end{keytakeaway}}				
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Simple Contract in Pseudo Code}
+		\vspace{1em}
+
+\begin{minipage}{0.15\textwidth}
+		\center
+		\vspace{0.5em}
+
+		\uncover<1->{\includegraphics[width=1.6cm]{../assets/images/smart_contract.png}
+		{\scriptsize 0x281ad20ff212…}}
+
+		
+	\end{minipage}
+    \hfill
+	\begin{minipage}{0.7\textwidth}
+	\uncover<1->{\begin{samplecode}{Shared Storage Contract (Pseudo Code):}
+	
+				store <- function(parameter)\{ \\ \text{ } \text{}
+persistentStorage <- parameter \\
+\} 
+			\end{samplecode}	}
+	
+	\end{minipage}
+	\vspace{1em}
+
+	\uncover<2->{\begin{minipage}{0.35\textwidth}
+		
+\textbf{{Transaction}: \\
+}\begin{tiny}
+\textbf{Recipient Address:} 0x281ad20ff212… \\
+\textbf{Nonce:} 0 \\
+\textbf{Signature:} V, R and S \\
+\textbf{Gas Limit:} 200000 \\
+\textbf{Gas Price:} 20 \\
+\textbf{Value (optional):} 0 (WEI)\\
+\textbf{Data (optional):} store() function w/ \\ \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{  } \text{ }  \text{} parameter 133
+\end{tiny}
+	\end{minipage}}\uncover<3->{
+	\begin{minipage}{0.6\textwidth}
+	\scalebox{1}{
+	\begin{tikzpicture} [scale=0.5, every node/.style={scale=0.5}]
+			\input{../assets/figures/simple_contract}
+		\end{tikzpicture}}
+	\end{minipage}}
+
+					
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Limited Computation Context}
+		\vspace{1em}
+
+		\uncover<1->{\begin{minipage}{0.3\textwidth}
+		\center
+		\includegraphics[scale=0.016]{../assets/images/eth.png}
+		
+	\begin{center}
+		{\tiny e.g. ETH transactions}
+	\end{center}
+		
+		\end{minipage}}
+		\begin{minipage}{0.65\textwidth}
+\begin{scriptsize}
+\uncover<1->{\textbf{Native On-Chain Data}}
+		\begin{itemize}
+			\item<1-> Data stored on-chain and fully secured by  consensus protocol
+			\item<1-> Native protocol token transactions and some endogeneous (token) contracts
+			\item<1->On-chain validation
+		\end{itemize}
+\end{scriptsize}					
+		\end{minipage}
+				
+				
+				
+				
+				
+				
+				
+				\vspace{1em}
+		\uncover<2->{\begin{minipage}{0.3\textwidth}
+		 \center
+			\begin{tikzpicture}[scale=0.02]
+			
+			\node  at (0,0) {
+	\scalebox{0.12}
+{\includegraphics{../assets/images/fcb.png}}};			
+			
+\node  at (60,0) {
+	\scalebox{0.12}
+{\includegraphics{../assets/images/rain.png}}};	
+			
+			
+			\end{tikzpicture}
+		\begin{tiny}
+\begin{center}
+				  e.g. football scores \\
+				  and weather data	
+
+		\end{center}		\end{tiny}
+		\end{minipage}}
+		\begin{minipage}{0.65\textwidth}
+\begin{scriptsize}
+\uncover<2->{\textbf{Off-Chain Data}}
+		\begin{itemize}
+			\item<2-> No native on-chain representation
+			\item<2-> Data can be hashed
+			\item<2-> Requires trustworthy data providers (oracles)
+		\end{itemize}
+\end{scriptsize}					
+		\end{minipage}
+				
+				\vspace{1em}
+		\uncover<3->{\begin{minipage}{0.3\textwidth}
+		\center
+		\includegraphics[scale=0.13]{../assets/images/supply_chain.png}
+\begin{tiny}
+				\begin{center}
+				e.g. shipment containers
+				\end{center}
+
+		\end{tiny}		\end{minipage}}
+		\begin{minipage}{0.65\textwidth}
+\begin{scriptsize}
+\uncover<3->{\textbf{Physical Off-Chain Reference}}
+		\begin{itemize}
+			\item<3-> No native on-chain representation
+			\item<3-> Data cannot be hashed
+			\item<3-> Requires trustworthy data providers (oracles) as well as reliable cryptoanchors.
+		\end{itemize}
+\end{scriptsize}					
+		\end{minipage}			
+\vspace{1em}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum’s Tree Structure}
+\vspace{1em}
+\uncover<1->{
+	\begin{figure}[htp]
+    		\centering
+    		\includegraphics[scale= 0.5]{../assets/images/buterin15_tree_structure.jpg}
+      	\caption{
+      		\tiny Ethereum Tree Structuce, \cite{merkleTree}
+      	}
+      	\label{fig:1}
+    \end{figure}}
+\end{frame}
+%%% 
+
+%%%
+\begin{frame}{Some Notes on Web3}
+	\begin{figure}
+		\input{../assets/figures/web3.tex}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}

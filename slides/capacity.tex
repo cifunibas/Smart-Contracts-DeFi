@@ -1,0 +1,171 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Capacity}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Centralized vs. Decentralized Networks}
+
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+		\center
+			\begin{tikzpicture}[scale=0.56, every node/.style={scale=0.63}]
+				\input{../assets/figures/centralized_network}
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\center
+			\begin{tikzpicture}[scale=0.63, every node/.style={scale=0.63}]
+				\input{../assets/figures/p2p}
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+	
+	\vspace{1em}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+		\center
+		\textbf{Centralized}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\center
+		\textbf{Decentralized}
+		\end{column}
+		
+	\end{columns}
+		
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Personal Database and Transaction Queue}
+	\begin{minipage}{0.15\textwidth}
+		\center
+		\includegraphics[width=2.4cm]{../assets/images/miner_single.png}
+	\end{minipage}
+	\begin{minipage}{0.1\textwidth}
+		\begin{tikzpicture}[scale=1]
+			\draw [decorate,decoration={brace,amplitude=10pt}, color = mint, line width=2pt]
+			(0.5,0.0) -- (0.5,5.5) node [black,midway,xshift=-0.8cm] 
+			{\footnotesize};
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.7\textwidth}
+		\uncover<1->{\textbf{Personal Version of the Blockchain}}
+		\begin{itemize}
+			\item<1-> Personal ledger of valid transactions in block structure.
+			\item<1-> Has an incentive to keep in sync with consensus.
+		\end{itemize}
+		\vspace{1em}
+		\uncover<2->{\textbf{Personal Transaction Queue}}
+		\begin{itemize}
+			\item<2-> Transactions that are not yet valid.
+			\item<2-> Waiting for inclusion in database $\rightarrow$ queue.
+		\end{itemize}
+	\end{minipage}
+
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Handshake and Address List}
+	\vspace{1em}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/ver_verack}
+		\end{tikzpicture}
+	\end{center}
+	
+	\vspace{0.5em}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/getaddr}
+		\end{tikzpicture}	
+	\end{center}
+	
+	\vspace{0.25em}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.72, every node/.style ={scale=0.8}]
+			\input{../assets/figures/network_with_computing_power}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Exchange of Blocks and Transactions}
+
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/block_exchange}
+		\end{tikzpicture}
+	\end{center}
+	\vspace{1em}
+	\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+			\input{../assets/figures/tx_exchange}
+		\end{tikzpicture}	
+	\end{center}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{SPV, Proxy Connections and Managed Accounts}
+
+\uncover<1->{\color{focus} \textbf{Not everyone is running a full node!} \color{black}} \\ \vspace{1em}
+
+\uncover<2->{\textbf{Managed Accounts}}
+	
+	\begin{itemize}
+		\item<2-> User has no direct control over funds!
+		\item<2-> User relies on centralized party for transaction verification.
+	\end{itemize}
+
+	\vspace{1em}	
+		
+	\uncover<3->{\textbf{Proxy Connections}}
+		
+		\begin{itemize}
+		\item<3-> User relies on centralized party for transaction verification.
+	\end{itemize}		
+	
+	\vspace{1em}
+	
+	\uncover<4->{\textbf{Simple Payment Verification Clients}}
+	
+	\begin{itemize}
+		\item<4-> User relies on a set of nodes for transaction propagation and verification.
+
+	\end{itemize}
+	
+
+	
+\end{frame}
+%%%	
+
+\end{document}
