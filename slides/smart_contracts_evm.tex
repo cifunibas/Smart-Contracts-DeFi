@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -456,94 +456,14 @@ persistentStorage <- parameter \\
 \uncover<1->{
 	\begin{figure}[htp]
     		\centering
-    		\includegraphics[scale= 0.4]{../assets/images/buterin15_tree_structure.jpg}
+    		\includegraphics[scale= 0.5]{../assets/images/buterin15_tree_structure.jpg}
       	\caption{
       		\tiny Ethereum Tree Structuce, \cite{merkleTree}
       	}
       	\label{fig:1}
     \end{figure}}
-\vspace{1em}
-\begin{itemize}
-	\item<2-> \textbf{Transaction Root:} Very similar to Merkle tree in Bitcoin
-	\item<3-> \textbf{State Root:} Merkle Patricia Tree containing the states
-	\item<4-> \textbf{Receipts Root:} Essentially showing effect of transactions
-\end{itemize}
-
 \end{frame}
 %%% 
-
-%%%
-\begin{frame}{The Modified Merkle Patricia Trie}
-\vspace{1em}
-\captionsetup[figure]{font=tiny,labelformat=empty}
-\begin{figure}[htp]
-\centering
-\includegraphics[scale= 0.5]{../assets/images/modified_merkle_patricia_state_tree.jpg}
-      \caption{{\tiny Source: \link \url{https://ethereum.stackexchange.com/questions/268/ethereum-block-architecture}}}\label{fig:2}
-\end{figure}
-
-		
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Ethereum Block Uncles}
-\vspace{1em}
-\uncover<1->{Uncle = Valid orphan Block \& parent max. 6 blocks from present}
-\begin{itemize}
-	\item<2-> Equivalent of Bitcoin’s orphan blocks
-	\item<3-> Short block time $\rightarrow $ higher orphan rate
-\end{itemize}
-\uncover<3->{ Allowing Uncle inclusion...}
-\begin{itemize}
-			\item<4->Mitigates disadvantages from network delays
-			\item<4->Encourages solo mining
-\end{itemize}
-
-
-%Options for upcoming Table
-\setlength{\extrarowheight}{5pt}
-\setlength{\aboverulesep}{0pt}
-\setlength{\belowrulesep}{0pt}
-\newcommand\bigstrut{\rule[-7pt]{7pt}{0pt}}
-
-
-\center
-\uncover<4->{
-	\scalebox{0.8}{
-		\begin{tabularx}{300pt}{X X} 
-			\toprule
-			\rowcolor{mint} \multicolumn{2}{c} 
-			{\textbf{Current Reward Schedule}
-			\bigstrut
-			}\\
-			\bottomrule
-			\rowcolor{lightergray} {\footnotesize Block Reward} & {\footnotesize \hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}\hspace{1pt}  2 ETH}
-			\bigstrut \\
-			{\footnotesize Uncle Block Reward} & {\footnotesize $\frac{7}{8}$ \hspace{1pt}  \hspace{1pt}  $*$  2 ETH = 1.75 ETH}
-			\bigstrut \\
-
-
-			\rowcolor{lightergray}{\footnotesize Uncle Block Inclusion} &{\footnotesize $\frac{1} {32}$ \hspace{1pt} $*$ 2 ETH = 0.0625 ETH}  
-			\bigstrut \\
-			\bottomrule
-		\end{tabularx}
-	}
-\center 
-\begin{tiny}
-If a miner includes an uncle block, both the miner of this block and the miner of
-the uncle block get rewarded.
-\end{tiny}
-\vspace{0.5em} }
-\uncover<5->{\begin{minipage}[c]{0.05\textwidth}
-\includegraphics[scale=0.5]{../assets/images/book.jpg}
-\end{minipage}
-\begin{minipage}[c]{0.8\textwidth}
-$\rightarrow$ {\scriptsize An example: \url{https://etherscan.io/block/8652103}}
-\end{minipage}}
-\end{frame}
-%%%
 
 %%%
 \begin{frame}{Some Notes on Web3}
