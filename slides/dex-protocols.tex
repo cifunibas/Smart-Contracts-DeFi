@@ -24,7 +24,41 @@
 
 %%%
 \begin{frame}{Centralized Exchanges}
-Problems
+\begin{figure}[h!]
+\begin{tikzpicture}
+[ %sibling distance =10em ,
+node/.style = {shape=rectangle, %rounded corners,
+	draw , align = center ,
+	top color=highlight, bottom color = highlight}]]
+ \tikzstyle{level 1}=[sibling distance=50mm]
+ \tikzstyle{level 2}=[sibling distance=28mm]
+ %\tikzstyle{level 3}=[sibling distance=18mm]
+  
+  \node {Exchanges}
+  	child { node {centralized}
+  			node [below=0.5cm] {\includegraphics[scale=0.02]{../assets/images/coinbase}}
+  			node [below=1cm] {\includegraphics[scale=0.025]{../assets/images/binance}}
+  			}
+  	child { node {decentralized}}
+  	
+  	
+  			%child { node {on-Chain}}
+  			%child { node {off-Chain}}}
+  		%child { node {OTC/ P2P}}
+  		%child { node {Reserven \\Aggregator}}
+  		%child { node {CFMM}}
+  		;
+\end{tikzpicture}
+%\caption{}
+\end{figure}
+
+Problems:
+	\begin{itemize}
+		\item To be able to trade, funds must be deposited with the exchange.
+		\item Thereby, access is forfeited and trust towards the exchange operator needed.
+		\item Create a single point of attack and face constant threat of becoming the target of malicious third parties.
+	\end{itemize}
+	
 \end{frame}
 %%%
 
@@ -32,29 +66,59 @@ Problems
 %%%
 \begin{frame}{Decentralized Exchange Protocols}
 
-\begin{figure}[h!]
-\begin{tikzpicture}
-[ sibling distance =10em ,
-every node/.style = {shape=rectangle, rounded corners,
-	draw , align = center ,
-	top color=highlight, bottom color = highlight}]]
- \tikzstyle{level 1}=[sibling distance=30mm]
- \tikzstyle{level 2}=[sibling distance=28mm]
- \tikzstyle{level 3}=[sibling distance=18mm]
-  
-  \node {Exchange Protocols}
-  	child { node {centralized}}
-  	child { node {decentralized}
-  		child { node {Order book}
-  			child { node {on-Chain}}
-  			child { node {off-Chain}}}
-  		child { node {OTC/ P2P}}
-  		child { node {Reserve \\Aggregator}}
-  		child { node {CFMM}}
-  		};
-\end{tikzpicture}
-\end{figure}
 
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Function Market Maker}
+\begin{figure}	
+\centering
+	\begin{tikzpicture}
+	
+	%% Pool
+	
+		\fill[highlight] (0,0) ellipse (40pt and 5pt);
+		\draw (0,0) ellipse (40pt and 5pt);
+		\draw (-1.4,0) arc(-180:0:1.4cm and 1.5cm);
+		\node at (0,-0.8) {\includegraphics[scale=0.05]{../assets/images/formula}};	
+		\node [below=0.8cm] at (0,-0.8) {Liquidity Pool};
+		
+		%\node [above=1cm] at (0,-0.8) {\includegraphics[scale=0.004]{../assets/images/eth};
+		
+	%% LP and Trader
+	\uncover<2->{
+		\node at (-4,-0.8) {\includegraphics[scale=0.05]{../assets/images/agents/agent_right}};
+		\node [below=0.8cm] at (-4,-0.8) {Liquidity Provider};
+		}
+	\uncover<3->{
+		\node at (4,-0.8) {\includegraphics[scale=0.05]{../assets/images/agents/agent_left}};
+		\node [below=0.8cm]at (4,-0.8) {Trader};
+		}
+	%% Flow
+	\uncover<2->{
+		\draw[->] (-3.5, -0.8) -- (-1.5, -0.8) node [midway, below] {\includegraphics[scale=0.004]{../assets/images/eth}};
+		\draw[->] (-3.5, -0.5) -- (-1.5, -0.5) node [midway, above] {\includegraphics[scale=0.05]{../assets/images/dai}};
+	}
+	\uncover<3->{
+		\draw[->] (3.5, -0.8) -- (1.5, -0.8) node [midway, below] {\includegraphics[scale=0.004]{../assets/images/eth}};
+		}
+	\uncover<4->{
+		\draw[->] (1.5, -0.5) -- (3.5, -0.5) node [midway, above] {\includegraphics[scale=0.05]{../assets/images/dai}};
+		}
+		
+	\end{tikzpicture}
+\end{figure}
+\vspace{1em}
+\begin{enumerate}
+	\item<2-> Liquidity Providers (LPs) provide both tokens in equal value.
+	\item<3-> Traders trade against the Liquidity Pool.
+	\item<4-> Price is determined endogenously via a formula.
+	\item<5-> Arbitrage opportunities keep price up to date.
+	\item<5-> Each trade accrues fees that go to LPs.
+\end{enumerate}
 \end{frame}
 %%%
 
@@ -102,8 +166,8 @@ Visualize swap example in tikz
 
 
 %%%
-\begin{frame}{Exercise}
-Provide liquidit to uniswap
+\begin{frame}{Exercse}
+Provide liquidity to uniswap
 make a swap on uniswap in the same pool
 remove liquidity and analyze what happened to you liquidity position
 \end{frame}
