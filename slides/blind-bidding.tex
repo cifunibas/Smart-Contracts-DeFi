@@ -1,0 +1,198 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Blind Bidding}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Submitting a bid}
+
+	\begin{itemize}
+		\item Input: A hashed blinded bid
+		\item Create a new Bid object
+		\item Add the new bid to the sender's list of bids
+	\end{itemize}
+	
+	function bid(bytes32 blindedBid) external payable {
+  		Bid memory newBid = Bid({
+    	blindedBid: blindedBid,
+    	deposit: msg.value
+  	});
+
+  		bids[msg.sender].push(newBid);
+	}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Data Location}
+	\begin{itemize}
+		\item Notice when creating a new Bid object we need to specify a location for the object.
+		\item All structs and arrays (including strings) can exist in three different locations:
+		\begin{itemize}
+			\item $memory$: The object is not written or read from the blockchain and only exists in the current scope.
+			\item $calldata$: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
+			\item $storage$: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
+		\end{itemize}		
+		\item Good heuristic: Use calldata for function arguments of external functions. Use storage if you want to load or modify a state variable. Use memory otherwise.
+	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The reveal mechanic}
+	Let's think about what the reveal function needs to do:
+	\begin{itemize}
+		\item Accept a list of unencrypted bids to reveal
+		\item Validate that the length of this list corresponds to the number of committed bids
+		\item Check if the reveal period is active
+		\item Ignore fake bids
+		\item Update the highest bid and highest bidder if applicable
+		\item Handle all refunds
+	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Split the function}
+
+	For better readability, we split the logic into two parts:
+	\begin{itemize}
+		\item reveal() handles all the reveal related checks and refunds
+		\item placeBid() handles the bid related checks and refunds
+	\end{itemize}
+	
+	placeBid() is similar to the simple auction's bid function:
+	
+	function placeBid(address bidder, uint bidAmount) internal returns (bool success) {
+  if (bidAmount <= highestBid) {
+    return false;
+  }
+  if (highestBidder != address(0)) {
+    // Refund the previously highest bidder.
+    pendingReturns[highestBidder] += highestBid;
+  }
+  highestBid = bidAmount;
+  highestBidder = bidder;
+  return true;
+}
+
+\begin{itemize}
+	\item The function is internal, meaning it can only be called from the contract itself.
+	\item It returns true if the new highest bid was accepted and false otherwise
+\end{itemize} 
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Simple Reveal}
+	Start with a simple version: Only one bid exists
+
+	function reveal(uint bidAmount, bool isLegit, string calldata salt) external {
+    bytes32 hashedInput = generateBlindedBid(bidAmount, isLegit, salt);
+    Bid storage bidToCheck = bids[msg.sender][0]; // Load the first element of the array
+    uint refund;
+
+    if (bidToCheck.blindedBid == hashedInput) {
+        // Bid is successfully revealed
+        refund = bidToCheck.deposit;
+        if (isLegit && bidToCheck.deposit >= bidAmount) {
+            // Bid is valid
+            bool success = placeBid(msg.sender, bidAmount);
+            if(success) {
+                // Bid is new highest bid
+                refund -= bidAmount;
+            }
+        }
+        // Prevent re-claiming the same deposit
+      	bidToCheck.blindedBid = bytes32(0);
+    }
+
+    if (refund > 0) {
+        payable(msg.sender).transfer(refund);
+    }
+}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Loops}
+	\begin{itemize}
+		\item We need to iterate over all bids of a user
+		\item Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
+		\item for-loops are typically used to iterate over arrays:
+		\item javascript
+			// T[]  array;
+			for (uint i = 0; i < array.length; i++) {
+			 	T  element = array[i];
+			}
+		\item continue will skip to the next iteration. break will end the loop.
+		\item In addition to for-loops, do and while loops are also available.
+	\end{itemize}
+
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Custom Modifiers}
+	\begin{itemize}
+		\item The only thing remaining is to end the auction and to implement time constraints
+		\item We could do the time constraints similar to the simple auction contract
+		\item However, if we have the same repeated require checks at the start (or end) of functions we can make use of custom modifiers
+		\item Custom modifiers are a convenient, reusable way to validate inputs to functions
+	\end{itemize}
+	
+	modifier onlyBefore(uint time) {
+    require(block.timestamp < time, 'too late');
+    _;
+}
+
+modifier onlyAfter(uint time) {
+    require(block.timestamp > time, 'too early');
+    _;
+}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Finish the Contract}
+	Add a function to end the auction with the modifier onlyAfter:
+
+	function auctionEnd() external onlyAfter(revealEnd) {
+  require(!hasEnded, 'Auction already ended');
+  emit AuctionEnded(highestBidder, highestBid);
+  hasEnded = true;
+  payable(beneficiary).transfer(highestBid);
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Excercise}
+	Excercise: Add time constraints to bid() and reveal()
+\end{frame}
+%%%
+
+\end{document}
