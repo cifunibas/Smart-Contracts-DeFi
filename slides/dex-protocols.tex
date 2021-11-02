@@ -1,0 +1,124 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Decentralized Exchange Protocols}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+
+
+%%%
+\begin{frame}{Centralized Exchanges}
+Problems
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Decentralized Exchange Protocols}
+
+\begin{figure}[h!]
+\begin{tikzpicture}
+[ sibling distance =10em ,
+every node/.style = {shape=rectangle, rounded corners,
+	draw , align = center ,
+	top color=highlight, bottom color = highlight}]]
+ \tikzstyle{level 1}=[sibling distance=30mm]
+ \tikzstyle{level 2}=[sibling distance=28mm]
+ \tikzstyle{level 3}=[sibling distance=18mm]
+  
+  \node {Exchange Protocols}
+  	child { node {centralized}}
+  	child { node {decentralized}
+  		child { node {Order book}
+  			child { node {on-Chain}}
+  			child { node {off-Chain}}}
+  		child { node {OTC/ P2P}}
+  		child { node {Reserve \\Aggregator}}
+  		child { node {CFMM}}
+  		};
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Product Formula}
+\begin{align*}
+		k &= x \cdot y \\
+		k &= (x + \Delta x) \cdot (y + \Delta y) \\
+		\Delta y &= \biggl( \frac{k}{x + \Delta x} \biggr) - y 
+	\end{align*} 
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap}
+Graph
+Slippage
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap Example}
+Visualize swap example in tikz
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Liquidity Provision}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Other DEX protocols}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Aggregators}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Exercise}
+Provide liquidit to uniswap
+make a swap on uniswap in the same pool
+remove liquidity and analyze what happened to you liquidity position
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
