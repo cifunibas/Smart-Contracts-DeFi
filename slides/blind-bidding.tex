@@ -28,16 +28,10 @@
 		\item Create a new Bid object
 		\item Add the new bid to the sender's list of bids
 	\end{itemize}
-	
-	function bid(bytes32 blindedBid) external payable {
-  		Bid memory newBid = Bid({
-    	blindedBid: blindedBid,
-    	deposit: msg.value
-  	});
 
-  		bids[msg.sender].push(newBid);
-	}
-
+	\begin{samplecode}{bid function}
+		\input{../assets/solidity_code/bid-function}
+	\end{samplecode}
 \end{frame}
 %%%	
 
@@ -77,122 +71,100 @@
 
 	For better readability, we split the logic into two parts:
 	\begin{itemize}
-		\item reveal() handles all the reveal related checks and refunds
 		\item placeBid() handles the bid related checks and refunds
+		\item reveal() handles all the reveal related checks and refunds
 	\end{itemize}
-	
-	placeBid() is similar to the simple auction's bid function:
-	
-	function placeBid(address bidder, uint bidAmount) internal returns (bool success) {
-  if (bidAmount <= highestBid) {
-    return false;
-  }
-  if (highestBidder != address(0)) {
-    // Refund the previously highest bidder.
-    pendingReturns[highestBidder] += highestBid;
-  }
-  highestBid = bidAmount;
-  highestBidder = bidder;
-  return true;
-}
-
-\begin{itemize}
-	\item The function is internal, meaning it can only be called from the contract itself.
-	\item It returns true if the new highest bid was accepted and false otherwise
-\end{itemize} 
 
 \end{frame}
 %%%
 
+\begin{frame}{Place Bid}
+	\only<1>{
+	placeBid() is similar to the simple auction's bid function:
+	
+	\begin{itemize}
+		\item The function is internal, meaning it can only be called from the contract itself.
+		\item It returns true if the new highest bid was accepted and false otherwise
+	\end{itemize} 	
+	}
+	
+	\only<2>{
+	%%%
+	\begin{samplecode}{placeBid function}
+		\input{../assets/solidity_code/placeBid_function.tex}
+	\end{samplecode}
+	%%%
+	}
+
+\end{frame}
+
 %%%
 \begin{frame}{Simple Reveal}
-	Start with a simple version: Only one bid exists
-
-	function reveal(uint bidAmount, bool isLegit, string calldata salt) external {
-    bytes32 hashedInput = generateBlindedBid(bidAmount, isLegit, salt);
-    Bid storage bidToCheck = bids[msg.sender][0]; // Load the first element of the array
-    uint refund;
-
-    if (bidToCheck.blindedBid == hashedInput) {
-        // Bid is successfully revealed
-        refund = bidToCheck.deposit;
-        if (isLegit && bidToCheck.deposit >= bidAmount) {
-            // Bid is valid
-            bool success = placeBid(msg.sender, bidAmount);
-            if(success) {
-                // Bid is new highest bid
-                refund -= bidAmount;
-            }
-        }
-        // Prevent re-claiming the same deposit
-      	bidToCheck.blindedBid = bytes32(0);
-    }
-
-    if (refund > 0) {
-        payable(msg.sender).transfer(refund);
-    }
-}
-	
+	\begin{samplecode}{placeBid function}
+		\input{../assets/solidity_code/simpleReveal_function.tex}
+	\end{samplecode}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Loops}
 	\begin{itemize}
-		\item We need to iterate over all bids of a user
-		\item Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
-		\item for-loops are typically used to iterate over arrays:
-		\item javascript
-			// T[]  array;
-			for (uint i = 0; i < array.length; i++) {
-			 	T  element = array[i];
-			}
-		\item continue will skip to the next iteration. break will end the loop.
-		\item In addition to for-loops, do and while loops are also available.
+		\item \uncover<1->{We need to iterate over all bids of a user}
+		\item \uncover<2->{Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.}
+		\item \uncover<3->{$for$-loops are typically used to iterate over arrays}
+		\item \uncover<5->{$continue$ will skip to the next iteration. $break$ will end the loop.}
+		\item \uncover<6->{In addition to $for$-loops, $do$ and $while$ loops are also available.}
 	\end{itemize}
 
+	\uncover<4->{
+		\begin{samplecode}{For Loop}
+			\input{../assets/solidity_code/for_loop.tex}
+		\end{samplecode}
+	}
 	
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Custom Modifiers}
+	\only<1>{
 	\begin{itemize}
 		\item The only thing remaining is to end the auction and to implement time constraints
 		\item We could do the time constraints similar to the simple auction contract
 		\item However, if we have the same repeated require checks at the start (or end) of functions we can make use of custom modifiers
 		\item Custom modifiers are a convenient, reusable way to validate inputs to functions
 	\end{itemize}
+	}
+	\only<2>{
+	\begin{samplecode}{Only Before}
+		\input{../assets/solidity_code/onlyBefore.tex}
+	\end{samplecode}
 	
-	modifier onlyBefore(uint time) {
-    require(block.timestamp < time, 'too late');
-    _;
-}
-
-modifier onlyAfter(uint time) {
-    require(block.timestamp > time, 'too early');
-    _;
-}	
+	\begin{samplecode}{Only After}
+		\input{../assets/solidity_code/onlyAfter.tex}
+	\end{samplecode}
+	}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Finish the Contract}
-	Add a function to end the auction with the modifier onlyAfter:
-
-	function auctionEnd() external onlyAfter(revealEnd) {
-  require(!hasEnded, 'Auction already ended');
-  emit AuctionEnded(highestBidder, highestBid);
-  hasEnded = true;
-  payable(beneficiary).transfer(highestBid);
-}
+	\uncover<1->{Add a function to end the auction with the modifier onlyAfter:}
+		\vspace{.5cm}
+	\uncover<2->{
+		\begin{samplecode}{Only After}
+			\input{../assets/solidity_code/auctionEnd.tex}
+		\end{samplecode}
+	}
+	\uncover<3->{
+		\vspace{.5cm}
+		\begin{exercise}{Exercise}
+			Add time constraints to bid() and reveal()
+		\end{exercise}
+	}
 \end{frame}
 %%%
 
-%%%
-\begin{frame}{Excercise}
-	Excercise: Add time constraints to bid() and reveal()
-\end{frame}
 %%%
 
 \end{document}

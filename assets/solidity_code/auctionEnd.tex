@@ -1,0 +1,8 @@
+\begin{lstlisting}[language=Solidity]
+function auctionEnd() external onlyAfter(revealEnd) {
+  require(!hasEnded, 'Auction already ended');
+  emit AuctionEnded(highestBidder, highestBid);
+  hasEnded = true;
+  payable(beneficiary).transfer(highestBid);
+}
+\end{lstlisting}
