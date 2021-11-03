@@ -84,40 +84,52 @@ Problems:
 		\draw (0,0) ellipse (40pt and 5pt);
 		\draw (-1.4,0) arc(-180:0:1.4cm and 1.5cm);
 		\node at (0,-0.8) {\includegraphics[scale=0.05]{../assets/images/formula}};	
-		\node [below=0.8cm] at (0,-0.8) {Liquidity Pool};
+		\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
+	\uncover<3->{
+		\node at (-0.3,0.7) {\includegraphics[scale=0.004]{../assets/images/eth}};
+		\node at (0.3,0.7) {\includegraphics[scale=0.05]{../assets/images/dai}};
+		}
 		
-		%\node [above=1cm] at (0,-0.8) {\includegraphics[scale=0.004]{../assets/images/eth};
-		
+	
 	%% LP and Trader
 	\uncover<2->{
-		\node at (-4,-0.8) {\includegraphics[scale=0.05]{../assets/images/agents/agent_right}};
-		\node [below=0.8cm] at (-4,-0.8) {Liquidity Provider};
+		\node at (-4.5,-0.5) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
+		\node at (-4,-0.8) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
+		\node at (-5,-0.8) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
+		\node [below=0.8cm] at (-4.5,-0.8) {\scriptsize{Liquidity Providers}};
 		}
 	\uncover<3->{
 		\node at (4,-0.8) {\includegraphics[scale=0.05]{../assets/images/agents/agent_left}};
-		\node [below=0.8cm]at (4,-0.8) {Trader};
+		\node [below=0.8cm]at (4,-0.8) {\scriptsize{Trader}};
 		}
+		
 	%% Flow
-	\uncover<2->{
+	\uncover<2>{
 		\draw[->] (-3.5, -0.8) -- (-1.5, -0.8) node [midway, below] {\includegraphics[scale=0.004]{../assets/images/eth}};
 		\draw[->] (-3.5, -0.5) -- (-1.5, -0.5) node [midway, above] {\includegraphics[scale=0.05]{../assets/images/dai}};
 	}
-	\uncover<3->{
-		\draw[->] (3.5, -0.8) -- (1.5, -0.8) node [midway, below] {\includegraphics[scale=0.004]{../assets/images/eth}};
+	\uncover<3>{
+	\draw[->] (-1.5, -0.8) -- (-3.5, -0.8) node [midway, above] {\scriptsize{Pool Token}};
+	}
+	\uncover<4>{
+		\draw[->] (3.5, -0.8) -- (1.5, -0.8) node [midway, above] {\includegraphics[scale=0.004]{../assets/images/eth}};
 		}
-	\uncover<4->{
+	\uncover<5>{
 		\draw[->] (1.5, -0.5) -- (3.5, -0.5) node [midway, above] {\includegraphics[scale=0.05]{../assets/images/dai}};
 		}
 		
+		
 	\end{tikzpicture}
 \end{figure}
-\vspace{1em}
+
+
 \begin{enumerate}
 	\item<2-> Liquidity Providers (LPs) provide both tokens in equal value.
-	\item<3-> Traders trade against the Liquidity Pool.
-	\item<4-> Price is determined endogenously via a formula.
-	\item<5-> Arbitrage opportunities keep price up to date.
-	\item<5-> Each trade accrues fees that go to LPs.
+	\item<3-> LPs get a Pool Token that represents their share.
+	\item<4-> Traders trade against the Liquidity Pool.
+	\item<5-> Price is determined endogenously via a formula.
+	\item<6-> Arbitrage opportunities keep price up to date.
+	\item<6-> Each trade accrues fees that go to LPs.
 \end{enumerate}
 \end{frame}
 %%%
@@ -134,7 +146,7 @@ Problems:
 %%%
 
 %%%
-\begin{frame}{Swap}
+\begin{frame}{Swap (without fees)}
 Graph
 Slippage
 \end{frame}
@@ -148,15 +160,16 @@ Visualize swap example in tikz
 
 %%%
 \begin{frame}{Liquidity Provision}
-
+%ETH/DAI POOL
+%Visualize swap example in tikz
+%Box on top right with
+%pool balance Token A (DAI) and B (ETH)
+%Price in DAI
+%Pool & Hold Value
+%Impermanent loss
 \end{frame}
 %%%
 
-%%%
-\begin{frame}{Other DEX protocols}
-
-\end{frame}
-%%%
 
 %%%
 \begin{frame}{Aggregators}
@@ -166,10 +179,15 @@ Visualize swap example in tikz
 
 
 %%%
-\begin{frame}{Exercse}
-Provide liquidity to uniswap
-make a swap on uniswap in the same pool
-remove liquidity and analyze what happened to you liquidity position
+\begin{frame}{Exercise}
+	\begin{exercise}{Exercise 1}
+		\begin{enumerate}
+			\item Swap ETH to DAI on UniSwap V2
+			\item Provide liquidity to ETH/DAI Pool
+			\item Make another Swap
+			\item Remove your liquidity, analyze what happened to your liquidity position
+		\end{enumerate}
+	\end{exercise}
 \end{frame}
 %%%
 
