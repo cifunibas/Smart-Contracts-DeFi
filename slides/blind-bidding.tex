@@ -5,7 +5,7 @@
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
 \subtitle{Blind Bidding}
-\author{Prof. Dr. Fabian Schär}
+\author{Prof. Dr. Fabian Sch\"ar}
 \institute{University of Basel}
 
 % Config File
@@ -22,32 +22,44 @@
 
 %%%
 \begin{frame}{Submitting a bid}
-
+\uncover<1->{
+	Input:
 	\begin{itemize}
-		\item Input: A hashed blinded bid
+		\item A hashed blinded bid
+	\end{itemize}
+\vspace{.3cm}
+}
+\uncover<2->{	
+	Tasks:
+	\begin{itemize}
 		\item Create a new Bid object
 		\item Add the new bid to the sender's list of bids
 	\end{itemize}
+}
+\vspace{.3cm}
+	\uncover<3->{
+		\begin{samplecode}{bid()}
+			\input{../assets/solidity_code/bid-function.tex}
+		\end{samplecode}
+	}
 
-	\begin{samplecode}{bid function}
-		\input{../assets/solidity_code/bid-function}
-	\end{samplecode}
 \end{frame}
 %%%	
 
 %%%
 \begin{frame}{Data Location}
 	\begin{itemize}
-		\item Notice when creating a new Bid object we need to specify a location for the object.
-		\item All structs and arrays (including strings) can exist in three different locations:
+		\item<1-> Notice when creating a new Bid object we need to specify a location for the object.
+		\item<2-> All structs and arrays (including strings) can exist in three different locations:
+		
 		\begin{itemize}
-			\item $memory$: The object is not written or read from the blockchain and only exists in the current scope.
-			\item $calldata$: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
-			\item $storage$: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
-		\end{itemize}		
-		\item Good heuristic: Use calldata for function arguments of external functions. Use storage if you want to load or modify a state variable. Use memory otherwise.
+			\item<3-> $memory$: The object is not written or read from the blockchain and only exists in the current scope.
+			\item<4-> $calldata$: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
+			\item<5-> $storage$: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.		
+		\end{itemize}
+		
+		\item<6-> Good heuristic: Use $calldata$ for function arguments of external functions. Use $storage$ if you want to load or modify a state variable. Use $memory$ otherwise.
 	\end{itemize}
-
 \end{frame}
 %%%
 
@@ -55,53 +67,59 @@
 \begin{frame}{The reveal mechanic}
 	Let's think about what the reveal function needs to do:
 	\begin{itemize}
-		\item Accept a list of unencrypted bids to reveal
-		\item Validate that the length of this list corresponds to the number of committed bids
-		\item Check if the reveal period is active
-		\item Ignore fake bids
-		\item Update the highest bid and highest bidder if applicable
-		\item Handle all refunds
+		\item<2-> Accept a list of unencrypted bids to reveal.
+		\item<3-> Validate that the length of this list corresponds to the number of committed bids.
+		\item<4-> Check if the reveal period is active.
+		\item<5-> Ignore fake bids.
+		\item<6-> Update the highest bid and highest bidder if applicable.
+		\item<7-> Handle all refunds.
 	\end{itemize}
-
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Split the function}
-
-	For better readability, we split the logic into two parts:
+For better readability, we split the logic into two parts:
 	\begin{itemize}
-		\item placeBid() handles the bid related checks and refunds
-		\item reveal() handles all the reveal related checks and refunds
+		\item<2-> $placeBid()$ handles the bid related checks and refunds.
+		\item<3-> $reveal()$ handles all the reveal related checks and refunds.
 	\end{itemize}
-
 \end{frame}
 %%%
 
+%%%
 \begin{frame}{Place Bid}
-	\only<1>{
-	placeBid() is similar to the simple auction's bid function:
-	
+$placeBid()$ is similar to the simple auction's bid function:
 	\begin{itemize}
-		\item The function is internal, meaning it can only be called from the contract itself.
-		\item It returns true if the new highest bid was accepted and false otherwise
+		\item<2-> The function is internal, meaning it can only be called from the contract itself.
+		\item<3-> It returns $true$ if the new highest bid was accepted and $false$ otherwise.
 	\end{itemize} 	
-	}
-	
-	\only<2>{
-	%%%
-	\begin{samplecode}{placeBid function}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Place Bid - Sample code}
+	\begin{samplecode}{placeBid()}
 		\input{../assets/solidity_code/placeBid_function.tex}
 	\end{samplecode}
-	%%%
-	}
-
 \end{frame}
+%%%
 
 %%%
 \begin{frame}{Simple Reveal}
-	\begin{samplecode}{placeBid function}
+Start with a simple version: Only one bid exists:
+\vspace{.3cm}
+	\begin{samplecode}{reveal() - Part I}
 		\input{../assets/solidity_code/simpleReveal_function.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Simple Reveal}
+\vspace{.3cm}
+	\begin{samplecode}{reveal() - Part II}
+		\input{../assets/solidity_code/simpleReveal_function2.tex}
 	\end{samplecode}
 \end{frame}
 %%%
@@ -109,15 +127,15 @@
 %%%
 \begin{frame}{Loops}
 	\begin{itemize}
-		\item \uncover<1->{We need to iterate over all bids of a user}
-		\item \uncover<2->{Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.}
-		\item \uncover<3->{$for$-loops are typically used to iterate over arrays}
-		\item \uncover<5->{$continue$ will skip to the next iteration. $break$ will end the loop.}
-		\item \uncover<6->{In addition to $for$-loops, $do$ and $while$ loops are also available.}
+		\item<1->We need to iterate over all bids of a user
+		\item<2->Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
+		\item<3->$for$-loops are typically used to iterate over arrays
+		\item<5->$continue$ will skip to the next iteration. $break$ will end the loop.
+		\item<6->In addition to $for$-loops, $do$ and $while$ loops are also available.
 	\end{itemize}
 
 	\uncover<4->{
-		\begin{samplecode}{For Loop}
+		\begin{samplecode}{for()}
 			\input{../assets/solidity_code/for_loop.tex}
 		\end{samplecode}
 	}
@@ -127,25 +145,30 @@
 
 %%%
 \begin{frame}{Custom Modifiers}
-	\only<1>{
 	\begin{itemize}
-		\item The only thing remaining is to end the auction and to implement time constraints
-		\item We could do the time constraints similar to the simple auction contract
-		\item However, if we have the same repeated require checks at the start (or end) of functions we can make use of custom modifiers
-		\item Custom modifiers are a convenient, reusable way to validate inputs to functions
+		\item<1-> The only thing remaining is to end the auction and to implement time constraints.
+		\item<2-> We could do the time constraints similar to the simple auction contract.
+		\item<3-> However, if we have the same repeated $require$ checks at the start (or end) of functions we can make use of custom modifiers.
+		\item<4-> Custom modifiers are a convenient, reusable way to validate inputs to functions.
 	\end{itemize}
-	}
-	\only<2>{
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Custom Modifiers - Code Samples}
+	\uncover<1->{
 	\begin{samplecode}{Only Before}
 		\input{../assets/solidity_code/onlyBefore.tex}
 	\end{samplecode}
-	
+	}
+	\uncover<2->{
 	\begin{samplecode}{Only After}
 		\input{../assets/solidity_code/onlyAfter.tex}
 	\end{samplecode}
 	}
 \end{frame}
 %%%
+
 
 %%%
 \begin{frame}{Finish the Contract}
@@ -163,8 +186,6 @@
 		\end{exercise}
 	}
 \end{frame}
-%%%
-
 %%%
 
 \end{document}

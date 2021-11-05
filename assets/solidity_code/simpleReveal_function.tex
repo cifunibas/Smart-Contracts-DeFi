@@ -7,20 +7,4 @@ function reveal(uint bidAmount, bool isLegit, string calldata salt) external {
     if (bidToCheck.blindedBid == hashedInput) {
         // Bid is successfully revealed
         refund = bidToCheck.deposit;
-        if (isLegit && bidToCheck.deposit >= bidAmount) {
-            // Bid is valid
-            bool success = placeBid(msg.sender, bidAmount);
-            if(success) {
-                // Bid is new highest bid
-                refund -= bidAmount;
-            }
-        }
-        // Prevent re-claiming the same deposit
-      	bidToCheck.blindedBid = bytes32(0);
-    }
-
-    if (refund > 0) {
-        payable(msg.sender).transfer(refund);
-    }
-}
 \end{lstlisting}
