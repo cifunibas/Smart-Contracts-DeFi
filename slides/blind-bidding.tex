@@ -22,14 +22,14 @@
 
 %%%
 \begin{frame}{Submitting a bid}
-\uncover<1->{
+\uncover<1->{
 	Input:
 	\begin{itemize}
 		\item A hashed blinded bid
 	\end{itemize}
 \vspace{.3cm}
 }
-\uncover<2->{	
+\uncover<2->{
 	Tasks:
 	\begin{itemize}
 		\item Create a new Bid object
@@ -37,11 +37,11 @@
 	\end{itemize}
 }
 \vspace{.3cm}
-	\uncover<3->{
-		\begin{samplecode}{bid()}
-			\input{../assets/solidity_code/bid-function.tex}
-		\end{samplecode}
-	}
+\uncover<3->{
+	\begin{samplecode}{bid()}
+		\input{../assets/solidity_code/bid-function.tex}
+	\end{samplecode}
+}
 
 \end{frame}
 %%%	
@@ -49,17 +49,16 @@
 %%%
 \begin{frame}{Data Location}
 	\begin{itemize}
-		\item<1-> Notice when creating a new Bid object we need to specify a location for the object.
+		\item Notice when creating a new Bid object we need to specify a location for the object.
 		\item<2-> All structs and arrays (including strings) can exist in three different locations:
-		
-		\begin{itemize}
-			\item<3-> \texttt{memory}: The object is not written or read from the blockchain and only exists in the current scope.
-			\item<4-> \texttt{calldata}: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
-			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.		
-		\end{itemize}
-		
+			\begin{itemize}
+			\item<3-> \texttt{memory}: The object is not written or read from the blockchain and only exists in the current scope.
+			\item<4-> \texttt{calldata}: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
+			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
+			\end{itemize}
+
 		\item<6-> Good heuristic: Use \texttt{calldata} for function arguments of external functions. Use \texttt{storage} if you want to load or modify a state variable. Use \texttt{memory} otherwise.
-	\end{itemize}
+		\end{itemize}
 \end{frame}
 %%%
 
@@ -69,10 +68,10 @@
 	\begin{itemize}
 		\item<2-> Accept a list of unencrypted bids to reveal.
 		\item<3-> Validate that the length of this list corresponds to the number of committed bids.
-		\item<4-> Check if the reveal period is active.
+		\item<4-> Check if the reveal period is active.
 		\item<5-> Ignore fake bids.
-		\item<6-> Update the highest bid and highest bidder if applicable.
-		\item<7-> Handle all refunds.
+		\item<6-> Update the highest bid and highest bidder if applicable.
+		\item<7-> Handle all refunds.
 	\end{itemize}
 \end{frame}
 %%%
@@ -87,7 +86,7 @@ For better readability, we split the logic into two parts:
 \end{frame}
 %%%
 
-%%%
+%%
 \begin{frame}{Place Bid}
 \texttt{placeBid()} is similar to the simple auction's bid function:
 	\begin{itemize}
@@ -97,14 +96,13 @@ For better readability, we split the logic into two parts:
 \end{frame}
 %%%
 
-%%%
+%%%
 \begin{frame}{Place Bid - Sample code}
 	\begin{samplecode}{placeBid()}
 		\input{../assets/solidity_code/placeBid_function.tex}
 	\end{samplecode}
 \end{frame}
-%%%
-
+%%%
 %%%
 \begin{frame}{Simple Reveal}
 Start with a simple version: Only one bid exists:
@@ -130,7 +128,7 @@ Start with a simple version: Only one bid exists:
 		\item<1->We need to iterate over all bids of a user
 		\item<2->Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
 		\item<3->\texttt{for}-loops are typically used to iterate over arrays
-		\item<5->\texttt{continue} will skip to the next iteration. \texttt{break} will end the loop.
+		\item<5->\texttt{continue} will skip to the next iteration. \texttt{break} will end the loop.
 		\item<6->In addition to \texttt{for}-loops, \texttt{do} and \texttt{while} loops are also available.
 	\end{itemize}
 
@@ -160,7 +158,7 @@ Start with a simple version: Only one bid exists:
 	\begin{samplecode}{Only Before}
 		\input{../assets/solidity_code/onlyBefore.tex}
 	\end{samplecode}
-	}
+	}
 	\uncover<2->{
 	\begin{samplecode}{Only After}
 		\input{../assets/solidity_code/onlyAfter.tex}
@@ -168,7 +166,6 @@ Start with a simple version: Only one bid exists:
 	}
 \end{frame}
 %%%
-
 
 %%%
 \begin{frame}{Finish the Contract}

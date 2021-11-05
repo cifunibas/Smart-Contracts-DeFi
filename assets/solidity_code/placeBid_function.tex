@@ -1,14 +1,14 @@
 \begin{lstlisting}[language=Solidity]
 function placeBid(address bidder, uint bidAmount) internal returns (bool success) {
-  if (bidAmount <= highestBid) {
-    return false;
-  }
-  if (highestBidder != address(0)) {
-    // Refund the previously highest bidder.
-    pendingReturns[highestBidder] += highestBid;
-  }
-  highestBid = bidAmount;
-  highestBidder = bidder;
-  return true;
+	if (bidAmount <= highestBid) {
+		return false;
+	}
+	if (highestBidder != address(0)) {
+		// Refund the previously highest bidder.
+		pendingReturns[highestBidder] += highestBid;
+	}
+	highestBid = bidAmount;
+	highestBidder = bidder;
+	return true;
 }
 \end{lstlisting}
