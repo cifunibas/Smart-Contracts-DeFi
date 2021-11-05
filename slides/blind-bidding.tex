@@ -49,16 +49,16 @@
 %%%
 \begin{frame}{Data Location}
 	\begin{itemize}
-		\item<1-> Notice when creating a new Bid object we need to specify a location for the object.
+		\item<1-> Notice when creating a new Bid object we need to specify a location for the object.
 		\item<2-> All structs and arrays (including strings) can exist in three different locations:
 		
 		\begin{itemize}
-			\item<3-> $memory$: The object is not written or read from the blockchain and only exists in the current scope.
-			\item<4-> $calldata$: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
-			\item<5-> $storage$: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.		
+			\item<3-> \texttt{memory}: The object is not written or read from the blockchain and only exists in the current scope.
+			\item<4-> \texttt{calldata}: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
+			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.		
 		\end{itemize}
 		
-		\item<6-> Good heuristic: Use $calldata$ for function arguments of external functions. Use $storage$ if you want to load or modify a state variable. Use $memory$ otherwise.
+		\item<6-> Good heuristic: Use \texttt{calldata} for function arguments of external functions. Use \texttt{storage} if you want to load or modify a state variable. Use \texttt{memory} otherwise.
 	\end{itemize}
 \end{frame}
 %%%
@@ -81,18 +81,18 @@
 \begin{frame}{Split the function}
 For better readability, we split the logic into two parts:
 	\begin{itemize}
-		\item<2-> $placeBid()$ handles the bid related checks and refunds.
-		\item<3-> $reveal()$ handles all the reveal related checks and refunds.
+		\item<2-> \texttt{placeBid()} handles the bid related checks and refunds.
+		\item<3-> \texttt{reveal()} handles all the reveal related checks and refunds.
 	\end{itemize}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Place Bid}
-$placeBid()$ is similar to the simple auction's bid function:
+\texttt{placeBid()} is similar to the simple auction's bid function:
 	\begin{itemize}
 		\item<2-> The function is internal, meaning it can only be called from the contract itself.
-		\item<3-> It returns $true$ if the new highest bid was accepted and $false$ otherwise.
+		\item<3-> It returns \texttt{true} if the new highest bid was accepted and \texttt{false} otherwise.
 	\end{itemize} 	
 \end{frame}
 %%%
@@ -129,9 +129,9 @@ Start with a simple version: Only one bid exists:
 	\begin{itemize}
 		\item<1->We need to iterate over all bids of a user
 		\item<2->Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
-		\item<3->$for$-loops are typically used to iterate over arrays
-		\item<5->$continue$ will skip to the next iteration. $break$ will end the loop.
-		\item<6->In addition to $for$-loops, $do$ and $while$ loops are also available.
+		\item<3->\texttt{for}-loops are typically used to iterate over arrays
+		\item<5->\texttt{continue} will skip to the next iteration. \texttt{break} will end the loop.
+		\item<6->In addition to \texttt{for}-loops, \texttt{do} and \texttt{while} loops are also available.
 	\end{itemize}
 
 	\uncover<4->{
@@ -148,7 +148,7 @@ Start with a simple version: Only one bid exists:
 	\begin{itemize}
 		\item<1-> The only thing remaining is to end the auction and to implement time constraints.
 		\item<2-> We could do the time constraints similar to the simple auction contract.
-		\item<3-> However, if we have the same repeated $require$ checks at the start (or end) of functions we can make use of custom modifiers.
+		\item<3-> However, if we have the same repeated \texttt{require} checks at the start (or end) of functions we can make use of custom modifiers.
 		\item<4-> Custom modifiers are a convenient, reusable way to validate inputs to functions.
 	\end{itemize}
 \end{frame}
