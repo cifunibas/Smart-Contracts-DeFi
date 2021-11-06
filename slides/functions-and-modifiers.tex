@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -79,7 +79,7 @@
 
 %%%
 \begin{frame}{Accessibility Modifiers}
-	\textbf{Accessibility modifiers state which accounts can access a function or variable.}
+	\textbf{Accessibility modifiers define which accounts can access a function or variable.}
 	
 	\begin{itemize}
 		\item<2-> They are explicitly required for all functions.
@@ -107,7 +107,7 @@
 		\begin{itemize}
 			\item \genkey{external} can only be used for functions.
 			\item Declaring a variable as \genkey{public} will create a getter function with the same name.
-			\item \genkey{private} does not mean the variable is invisible.
+			\item \genkey{private} does NOT mean that the variable is hidden.
 		\end{itemize}
 	\end{keytakeaway}
 	}
@@ -139,22 +139,37 @@
 	\begin{itemize}
 		\item<1-> \genkey{payable}: allows a function to receive ETH as part of the transaction.
 		\item<2-> \genkey{virtual} \& \genkey{override}: used for inheritance (\textcolor{focus}{more on inheritance later!}).
+		\end{itemize}
+
+\vspace{1em}
+\uncover<3->{
+\textbf{Special modifiers for variables:}
+	\begin{itemize}
 		\item<3-> \genkey{constant} \& \genkey{immutable}: disallow changing the value of a variable during the contract's lifetime.
 		\begin{itemize}
 			\item<3->{Difference: \genkey{immutable} can be set during contract deployment}	
 		\end{itemize}
+	\end{itemize}
+}
+		
+\vspace{1em}	
+\uncover<4->{		
+\textbf{Custom modifiers:}
+	\begin{itemize}
 		\item<4-> Custom (user-defined) modifiers (\textcolor{focus}{more on this later!})
 	\end{itemize}
+	}
+	
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Update of the Auction Contract}
-	\begin{exercise}{Exercise:}
+	\begin{exercise}{Exercise 1:}
 		\begin{enumerate}
 			\item Make sure the variables \texttt{beneficiary}, \texttt{highestBid}, \texttt{highestBidder} and \texttt{hasEnded} are \genkey{public}.
 			\item Create a function that allows any EOA or external contract to set the \texttt{beneficiary}.
-			\item Self-check: how can you get the values of the previous variables?
+			\item Get the values of the previous variables?
 		\end{enumerate}
 	\end{exercise}
 \end{frame}
@@ -181,7 +196,7 @@
 
 \begin{frame}{Immutable \texttt{beneficiary}}
 
-	\begin{exercise}{Exercise:}
+	\begin{exercise}{Exercise 2:}
 		\begin{enumerate}
 			\item Remove \genkey{function} \texttt{initialize(}\typesunits{address} \texttt{\_beneficiary)} \genkey{external} \texttt{\{\dots\}} from the auction contract.
 			\item Use the \genkey{constructor} to set the \texttt{beneficiary} at the time of contract deployment for the contract's entire lifetime.
