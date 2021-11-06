@@ -91,7 +91,7 @@
 
 
 %%%
-\begin{frame}{State Variables}
+\begin{frame}{Storing Data On-Chain: State Variables}
 
 	\begin{figure}
 		\includegraphics[scale=0.2]{../assets/images/sc_storage}
@@ -99,13 +99,15 @@
 		\label{fig:sc_storage}
 	\end{figure}
 
+\uncover<2->{
 \textbf{Some types use multiple slots:}
 
 	\begin{itemize}
-		\item Fixed size arrays and structs store their values in multiple subsequent slots, starting with their position.
-		\item Dynamic size arrays store their length at their position and their values in multiple subsequent slots, starting with the hash of their position.
-		\item Mappings store nothing at their position. The values are stored in the slots that correspond to the hash of the respective keys and the position of the mapping.
+		\item<2-> Fixed size arrays and structs store their values in multiple subsequent slots, starting with their position.
+		\item<3-> Dynamic size arrays store their length at their position and their values in multiple subsequent slots, starting with the hash of their position.
+		\item<4-> Mappings store nothing at their position. The values are stored in the slots that correspond to the hash of the respective keys and the position of the mapping.
 	\end{itemize}
+}
 
 \end{frame}
 %%%
