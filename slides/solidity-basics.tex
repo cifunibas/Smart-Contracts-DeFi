@@ -93,17 +93,19 @@
 %%%
 \begin{frame}{State Variables}
 
-	\begin{itemize}
-		\item State variables for a contract are permanently stored on the blockchain.
-		\item Arbitrary large area to store variables, but it is the most expensive operation.
-		\item Complex types can be larger and usually store their length in the initial 32 bytes slot.
-	\end{itemize}
-	
 	\begin{figure}
 		\includegraphics[scale=0.2]{../assets/images/sc_storage}
 \caption{\link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}}
 		\label{fig:sc_storage}
 	\end{figure}
+
+\textbf{Some types use multiple slots:}
+
+	\begin{itemize}
+		\item Fixed size arrays and structs store their values in multiple subsequent slots, starting with their position.
+		\item Dynamic size arrays store their length at their position and their values in multiple subsequent slots, starting with the hash of their position.
+		\item Mappings store nothing at their position. The values are stored in the slots that correspond to the hash of the respective keys and the position of the mapping.
+	\end{itemize}
 
 \end{frame}
 %%%
@@ -190,7 +192,7 @@
 			address & \texttt{0x0} \\
 			bytesX & \texttt{0x0} \\
 			\rowcolor{brightanthracite}
-			Array & [ ] (length = 0) \\
+			array & [ ] (length = 0) \\
 			mapping & empty (no keys) \\
 			\rowcolor{brightanthracite}
 			enum & (first choice) \\
