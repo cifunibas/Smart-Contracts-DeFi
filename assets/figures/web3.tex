@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+
+	\small
+	% boxes
+	\uncover<2->{
+		\draw[dashed] (0,0) rectangle (3,7) node[midway, below, yshift = -3.5cm]{Untrusted Environment};
+	}
+	\draw[dashed] (3.5,0) rectangle (11,7) node[midway, below, yshift = -3.5cm]{Trusted Environment};
+	
+	% server
+	\uncover<2->{
+		\node (server_pic) at (1.5, 5.5) {\includegraphics[width = 0.15\textwidth]{../assets/images/server.png}};
+		\node[below =-0.15cm of server_pic] (server_label) {Server};
+	}
+	
+	% computer
+	\node (computer_pic) at (5.7, 5.5) {\includegraphics[height = 0.2\textheight]{../assets/images/computer.png}};
+	\node[below =-0.15cm of computer_pic] (computer_label) {Client};
+	\uncover<3->{
+		\node[text width = 0.125\textwidth] at (5.7, 5.9) {\tiny HTML, CSS, JS Interface};
+	}
+	
+	% browser
+	\uncover<3->{
+		\node (browser_pic) at (8.8, 5.7) {\includegraphics[height = 0.2\textheight]{../assets/images/browser.png}};
+		\node[below =0.05cm of browser_pic] (browser_label) {Web Browser};
+		\draw[fill=highlight, draw=none]  (6.47,5.5) -- (6.47, 6) -- (7.94, 6) -- (7.94, 5.1) -- cycle;
+	}
+	
+	% node
+	\uncover<4->{
+	\node[below= 2cm of computer_pic] (node_pic) {\includegraphics[width = 0.1\textwidth]{../assets/images/eth.png}};
+	\node[below =-0.15cm of node_pic] (node_label) {Ethereum Node};
+	\node[right=-0.1cm of node_pic, yshift = 0.25cm] {$\bullet$ Your own node};
+	\node[right=-0.1cm of node_pic, yshift = -0.25cm] {$\bullet$ External node (e.g.\ Infura)};
+	}
+	
+	% arrows
+	\uncover<2->{
+		\draw[<->, ultra thick] (server_pic.east) -- (computer_pic.west);
+	}
+	\uncover<4->{
+		\draw[<->, ultra thick] (computer_label.south) -- (node_pic.north) node[midway, left]{\includegraphics[width = 0.05\textwidth]{../assets/images/logo_metamask}} node[midway, right]{Critical data and computations};
+	}
+	
+\end{tikzpicture}

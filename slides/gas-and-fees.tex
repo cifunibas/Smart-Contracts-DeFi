@@ -1,9 +1,9 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
-\title{Smart Contracts and Decentralized Finance Applications}
+\title{Smart Contracts and Decentralized Finance}
 \subtitle{Gas and Fees}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
@@ -23,22 +23,24 @@
 %%%	
 \begin{frame}{The Halting Problem and its Implications}
 \begin{columns}
-	\begin{column}{0.3\textwidth}
+	\begin{column}{0.25\textwidth}
 		\center
 		\includegraphics[width=\textwidth ]{../assets/images/alan-turing.png}
 	\end{column}
-	\begin{column}{0.7\textwidth}
-		In 1936, Alan Turing proved that it's impossible for a (turing) machine to inspect any code that you give it, and correctly tell you whether the code will halt or run forever.\\
+	\begin{column}{0.65\textwidth}
+		In 1936, Alan Turing has shown that a (turing) machine cannot tell if a script will halt or run forever, before execution.\\
 		\vspace{1em}
 		\link \href{https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf}{Online PDF}\\
 		\vspace{1em}	
-		\uncover<2->{Implication: Infinite loops or resource intensive scripts are a potential attack vector and must be dealt with.}\\
+		\uncover<2->{$\Rightarrow$ Infinite loops or resource intensive scripts are a potential attack vector that must be addressed.}\\
 	\end{column}
 \end{columns}
+
+\vspace{1.0 em}
 \uncover<3->{
 	\begin{keytakeaway}{Bitcoin and Ethereum Deal With This Problem in Different Ways}
 		\begin{itemize}
-			\item Bitcoin Script is a restricted scripting language.
+			\item Bitcoin Script is a deliberately limited scripting language.
 			\item Ethereum has a Turing complete instruction set. It charges a small fee (gas) for each computation step.
 		\end{itemize}
 	\end{keytakeaway}
@@ -48,92 +50,125 @@
 
 %%%
 \begin{frame}{Ethereum Gas Fees: The Basics}
-	\begin{itemize}
-		\item Every EVM operation consumes a pre-defined amount of gas. These values cannot be changed by the user. Some examples:\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}
-			\begin{columns}
-				\uncover<2->{
-				\begin{column}{0.08\textwidth}
-				\end{column}
-				\begin{column}{0.25\textwidth}
-					\begin{samplecode}{Addition}
-						\begin{center}
-							\includegraphics[width=2em]{../assets/images/plus.png}
-						\end{center}
-						$\rightarrow$ 3 gas units 
-					\end{samplecode}				
-				\end{column}
-				}
-				\uncover<3->{
-				\begin{column}{0.25\textwidth}
-					\begin{samplecode}{Multiplication}
-						\begin{center}
-							\includegraphics[width=2em]{../assets/images/multiply.png}
-						\end{center}
-						$\rightarrow$ 5 gas units 
-					\end{samplecode}
-				\end{column}
-				}
-				\uncover<4->{
-				\begin{column}{0.25\textwidth}
-					\begin{samplecode}{Store 256 bits}
-						\begin{center}
-							\includegraphics[width=2em]{../assets/images/database.png}
-						\end{center}
-						$\rightarrow$ 20k gas units 
-					\end{samplecode}	
-				\end{column}
-				}
-				\begin{column}{0.02\textwidth}
-				\end{column}
-			\end{columns}
-		\uncover<5->{
-		\item Every transaction has a user-specified \textbf{gas limit}, i.e. the maximum number of gas units that can be in this transaction.
+
+Each EVM operation consumes a defined amount of gas. The user cannot change these amounts. Some examples:\footnote{\href{https://docs.google.com/spreadsheets/d/1m89CVujrQe5LAFJ8-YAUCcNK950dUzMQPMJBxRtGCqs}{Full list} \link}
+	\begin{columns}
+	\uncover<2->{
+		\begin{column}{0.08\textwidth}
+		\end{column}
+		\begin{column}{0.25\textwidth}
+			\begin{samplecode}{Addition}
+				\begin{center}
+					\includegraphics[width=2em]{../assets/images/plus.png}
+				\end{center}
+				$\rightarrow$ 3 gas units 
+			\end{samplecode}				
+		\end{column}
+	}
+	\uncover<3->{
+		\begin{column}{0.25\textwidth}
+			\begin{samplecode}{Multiplication}
+				\begin{center}
+					\includegraphics[width=2em]{../assets/images/multiply.png}
+				\end{center}
+				$\rightarrow$ 5 gas units 
+			\end{samplecode}
+		\end{column}
+	}
+	\uncover<4->{
+		\begin{column}{0.25\textwidth}
+			\begin{samplecode}{Store 256 bits}
+				\begin{center}
+					\includegraphics[width=2em]{../assets/images/database.png}
+				\end{center}
+				$\rightarrow$ 20k gas units 
+			\end{samplecode}	
+		\end{column}
+	}
+		\begin{column}{0.02\textwidth}
+		\end{column}
+	\end{columns}
+\vspace{1em}
+
+\uncover<5->{
+For each transaction the user specifies a \textbf{gas limit}, i.e., the maximum amount of gas that can be consumed by it. Examples:
 		\hspace{-1em}
 		\begin{itemize}
-			\item 21000 required to send ETH
-			\item Contract execution varies
+			\item $21k$ gas units are required to send ETH.
+			\item Gas consumption of contract execution varies.
 		\end{itemize}
-		}
-		\uncover<6->{
-		\hspace{1em}
-		\item Every transaction has a certain \textbf{gas price}, i.e. the price in $\mu ETH$ or GWEI the user pays per unit of gas.
-		}
-	\end{itemize} 
+}
+\vspace{0.5em}
+\uncover<6->{
+The user also sets the \textbf{gas price} for each transaction, i.e., the price in $\mu ETH$ or gwei the user offers to pay per unit of gas.
+}
+
 \end{frame}
 %%%
 
 %%%
+\begin{frame}{Understanding the Ethereum Fee Process}
+
+\vspace{-1.0 em}
+	\begin{center}
+	\begin{tikzpicture}
+		\input{../assets/figures/ethereumFeeProcess.tex}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{A Gas Consumption Example}
+
+	\begin{center}
+	 	\begin{tabular}{m{0.2\textwidth} m{0.3\textwidth}}
+	 		\includegraphics[width=2cm]{../assets/images/gas-pump.png} &
+			\parbox{\textwidth}{gasLimit: 100 \\
+    		remainingGas: \only<1>{100}\textcolor{red}{\only<2>{97}\only<3>{92}\only<4->{62}} \\
+    		gasPrice: x}
+ 		\end{tabular}
+	\begin{tikzpicture}
+		\input{../assets/figures/gasConsumptionExample.tex}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+%%%
+
+
+%%%
 \begin{frame}{Ethereum Gas Fees: EIP-1559}
 	\uncover<1->{
-		On August 5, 2021 (at block 12.965.000), the Ethereum gas mechanism was updated through the London hard fork\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}. The proposal is called EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}}.\\
-		\vspace{0.2cm}
+		On August 5, 2021, the Ethereum gas mechanism was updated with EIP-1559\footnote{\href{https://eips.ethereum.org/EIPS/eip-1559}{More details on EIP 1559 \link}} as part of the London hard fork.\footnote{\href{https://ethereum.org/en/history/\#london}{More details on the London hard fork \link}}\\
+		\vspace{1.0 em}
 	}
 	\uncover<2->{
 		\textbf{Issues addressed by the proposal}:	
 		\begin{itemize}
 	}
 	\uncover<3->{
-		\item Mismatch between volatility of transaction fee levels and social cost of transactions
+		\item Mismatch between volatility of transaction fee levels and social cost of transactions.
 	}
 	\uncover<4->{
-		\item Needless delays for users
+		\item Needless delays for users.
 	}
 	\uncover<5->{
-		\item Inefficiencies of first price auctions
+		\item Inefficiencies of first price auctions.
 	}
 	\uncover<6->{	
-		\item Instability of blockchains with no block reward
+		\item Instability of blockchains with no block reward.
 		\end{itemize}
 	}
+	\vspace{1.0 em}
 	\uncover<7->{
 		\textbf{Key changes}:
 		\begin{itemize}
 	}
 	\uncover<8->{
-		\item Dynamic base fee calculated and burned by the network
+		\item Dynamic base fee calculated and burned by the network.
 	}
 	\uncover<9->{
-		\item Variable block size
+		\item Variable block size.
 		\end{itemize}
 	}
 \end{frame}
@@ -150,11 +185,11 @@
 	\textbf{First-price auction}
 	\begin{itemize}
 		\uncover<1->{
-			\item User specifies gas price, he is willing to pay for the transaction
+			\item User specifies gas price, he is willing to pay for the transaction.
 		}
 		\uncover<2->{
-			\item Miners are incentivized to include transactions with higher gas prices first
-			\item All transaction fees ($gasPrice * gasUsed$) go to miner of the block
+			\item Miners are incentivized to include transactions with higher gas prices first.
+			\item All transaction fees ($\texttt{gasPrice}  \cdot \texttt{gasUsed} $) go to miner of the block.
 		}
 	\end{itemize}
 \end{frame}
@@ -172,56 +207,58 @@
 
 %%%
 \begin{frame}{Ethereum Gas Fees: Gas Price After EIP-1559}
-	\begin{itemize}
-		\item \textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
-		\item \textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
-		\item \textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $baseFee > maxFee$.
-		\item \textbf{Refund:} $maxFee - (baseFee + priorityFee)$ is refunded to the user after transaction execution. 
-	\end{itemize}	
+
+\textbf{Base fee} is calculated by the network depending on demand for block space. It can in- or decrease by max 12.5\% from one block to the next. It gets burned by the network, taking ETH out of circulation.
+\vspace{1 em}
+
+\textbf{Priority fee (tip)} is set by the user to give the miner an incentive to include the transaction in the block. Miner receives the priority fee of all included transactions.
+\vspace{1 em}
+
+\textbf{Max fee} is set by the user and corresponds to the maximum willingness to pay for one unit of gas. Transaction remains pending if $\texttt{baseFee}  > \texttt{maxFee} $.
+\vspace{1 em}
+
+\textbf{Refund:} $max \left(0, \text{ }\texttt{maxFee} - (\texttt{baseFee}  + \texttt{maxPriorityFee} )\right)$ is refunded to the user after transaction execution. 
+	
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Ethereum Gas Fees: Block Size}
-	\textbf{Before EIP-1559}
+\begin{frame}{Ethereum Gas Fees: Gas Price After EIP-1559}
+	\begin{figure}
+		\input{../assets/figures/eip-1559.tex}
+	\end{figure}
+	
+	\vspace{-1.25em}
+	
+	\uncover<3->{
+	\scriptsize
+	\textbf{Three cases:}
+	\begin{enumerate}
+		\item<3-> \textbf{Refund:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $<$ \texttt{maxFee}
+		\item<5-> \textbf{Partial Tip:} \texttt{baseFee} $+$ \texttt{maxPriorityFee} $\geq$ \texttt{maxFee} \& \texttt{baseFee} $\leq$ \texttt{maxFee}
+		\item<7-> \textbf{Pending:} \texttt{baseFee} $>$ \texttt{maxFee}
+	\end{enumerate}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ethereum Gas Fees: EIP-1559 Base Fee Adjustment}
+	\textbf{EIP-1559 Base Fee Adjustment Mechanism}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
+	\vspace{0.5 em}
 	\begin{itemize}
-		\item Fixed block size
+		\item Target block size: currently 15 million gas ($s_{target}$).
+		\vspace{0.5 em}
+		\item Block limit: currently 30 million gas (2x target block size).
+		\vspace{0.5 em}
+		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$).\\
 	\end{itemize}
-	\vspace{0.2cm}
-	\textbf{After EIP-1559}\footnote{\href{https://timroughgarden.org/papers/eip1559.pdf}{Roughgarden (2020) \link}}
-	\begin{itemize}
-		\item Target block size: currently 15 million gas ($s_{target}$)
-		\item Block limit: currently 30 million gas (2x target block size)
-		\item Block size and base fee of previous block ($s_{pred}, r_{pred}$) determine base fee of current block ($r_{cur}$):\\
-		\vspace{0.1cm}
-		$r_{cur} := r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
-	\end{itemize}
-\end{frame}
-%%%
 
-%%%
-\begin{frame}{Understanding the Ethereum Fee Process}
-	\begin{center}
-	\begin{tikzpicture}
-		\input{../assets/figures/ethereumFeeProcess.tex}
-	\end{tikzpicture}
-	\end{center}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{A Gas Consumption Example}
-	\begin{center}
-	 	\begin{tabular}{m{0.2\textwidth} m{0.3\textwidth}}
-	 		\includegraphics[width=2cm]{../assets/images/gas-pump.png} &
-			\parbox{\textwidth}{gasLimit: 100 \\
-    		remainingGas: \only<1>{100}\textcolor{red}{\only<2>{97}\only<3>{92}\only<4->{62}} \\
-    		gasPrice: x}
- 		\end{tabular}
-	\begin{tikzpicture}
-		\input{../assets/figures/gasConsumptionExample.tex}
-	\end{tikzpicture}
-	\end{center}
+		\vspace{1.0 em}
+\begin{center}
+		$r_{cur} = r_{pred}\cdot\left(1+\frac{1}{8}\cdot\frac{s_{pred}-s_{target}}{s_{target}}\right)$
+\end{center}
 \end{frame}
 %%%
 
@@ -244,40 +281,17 @@
 %%%
 
 %%%
-\begin{frame}{Advantages of the Gas System}
-	\textbf{Fees help to secure the network:}
-	\begin{itemize}
-		\item Stops execution of…
-		\begin{itemize}
-			\item Badly written code
-			\item Infinite loops
-		\end{itemize}
-		\item Reduce spam transactions
-		\item Establish a market for priority access to network
-	\end{itemize}
-\end{frame}	
-
-%%%
-%%%
-\begin{frame}{Exercise}
-	\begin{exercise}{Exercise}
-	For the following questions assume a baseFee of 20 GWEI:
-	\begin{itemize}
-		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI and a maxFee of 100 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
-		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 0 GWEI, a maxFee of 0 GWEI and a gasLimit of 21000. What do you expect to happen?
-		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000000. What do you expect to happen?
-		\item Use your Metamask account to issue an ETH transaction with a maxPriorityFee of 2 GWEI, a maxFee of 100 GWEI and a gasLimit of 1000. What do you expect to happen?
-	\end{itemize}
+\begin{frame}{Exercise 1 - Transactions With EIP-1559}
+	\begin{exercise}{Exercise 1} 
+	For the following questions assume a \texttt{baseFee}  of 0.000000013 GWEI and a threshold \texttt{priorityFee} of 1 GWEI:\footnote{Please note: The values we use in this exercise have been chosen with Ropsten testnet in mind. The Mainnet \texttt{baseFee} is much higher.}
+	\begin{enumerate}[a]
+		\item Use your Metamask account to initiate a simple ETH value transaction with a \texttt{maxPriorityFee} of 2 GWEI and a \texttt{maxFee} of 3 GWEI. How large do you expect the fee to be considering a gasLimit of 21000?
+		\item Use your Metamask account to initiate a simple ETH value transaction with a \texttt{maxPriorityFee} of 0.5 GWEI, a \texttt{maxFee} of 1 GWEI and a gasLimit of 21000. What do you expect to happen?
+		\item Use your Metamask account to initiate a simple ETH value transaction with a \texttt{maxPriorityFee} of 2 GWEI, a \texttt{maxFee} of 3 GWEI and a gasLimit of 1000000. What do you expect to happen?
+		\item Use your Metamask account to initiate a simple ETH value transaction with a \texttt{maxPriorityFee} of 2 GWEI, a \texttt{maxFee} of 3 GWEI and a gasLimit of 1000. What do you expect to happen?
+		\item Use your Metamask account to initiate a simple ETH value transaction with a \texttt{maxPriorityFee} of 3 GWEI, a \texttt{maxFee} of 3 GWEI and a gasLimit of 21000. What do you expect to happen?
+	\end{enumerate}
 	\end{exercise}
-\end{frame}
-
-%%%
-\begin{frame}{Gasprice Market - Some Interesting Observations}
-	\begin{center}
-	\begin{tikzpicture}
-		\input{../assets/figures/meanGasPriceChart.tex}
-	\end{tikzpicture}
-	\end{center}
 \end{frame}
 %%%
 
