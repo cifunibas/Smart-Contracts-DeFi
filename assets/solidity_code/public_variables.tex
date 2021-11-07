@@ -1,0 +1,15 @@
+\begin{lstlisting}[language=Solidity,escapechar=|]
+contract SimpleAuction {
+  // Auction parameters
+  address public beneficiary;|\label{line:benef}|
+  
+  // State of the auction
+  uint public highestBid;
+  address public highestBidder;
+  bool public hasEnded;
+
+  function initialize(address _beneficiary) external {
+    beneficiary = _beneficiary;
+  }
+}
+\end{lstlisting}

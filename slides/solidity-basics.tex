@@ -1,0 +1,228 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Solidity Basics}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{What is Solidity?}
+
+\begin{columns}[T]
+	\begin{column}{0.7\textwidth}
+		\textbf{Solidity is \dots}
+			\begin{itemize}
+			\item<1-> the most popular language for EVM Smart Contracts.
+				\item<2-> influenced by C++, Python and JavaScript.
+				\item<3-> statically typed, supports inheritance, libraries and complex user-defined types.
+				\item<4-> still under rapid development with regular breaking changes.
+			\end{itemize}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+	\center
+			\includegraphics[scale=0.04]{../assets/images/solidity_logo_new}
+	\end{column}
+\end{columns}	
+
+\vspace{1em}
+	
+\uncover<5->{
+	\begin{keytakeaway}{Cutting edge tech}
+		Use documentation frequently: \link \href{https://docs.soliditylang.org}{https://docs.soliditylang.org}
+	\end{keytakeaway}
+	}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Solidity Version and the Pragma}
+
+\begin{samplecode}{Version of the Compiler}
+	\genkey{pragma solidity} \^{}0.8.9;	
+\end{samplecode}
+
+
+\vspace{1em}
+
+	\begin{itemize}
+		\item<1-> The pragma declares the version of the compiler to be used.
+ 		\item<2-> The versioning follows \link \href{https://semver.org/}{Semantic Versioning 2.0.0}: \textbf{Major.Minor.Patch}
+ 		\item<3-> Breaking changes only come with new minor versions. \\ {\small $\rightarrow$ e.g., changes from 0.8.x to 0.9.0}
+		\item<4-> The \textbf{\^{}} is commonly used and means "including any future version until the next minor release". \\ % or "patch updates are allowed". 
+ {$\rightarrow$ \small In our case: Any \texttt{ver} that satisfies \texttt{ver} $\geq$ 0.8.9 \& \texttt{ver} $<$ 0.9.0}
+ 		\item<5-> Use the same pragma for all files in a project!
+	\end{itemize}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Basic Contract Structure}
+
+	\begin{samplecode}{Basic Contract Structure}
+		\input{../assets/solidity_code/basic-contract-structure.tex}
+	\end{samplecode}
+	\vspace{1em}
+	\begin{itemize}
+		\item \textbf{License identifier:} \texttt{UNLICENSED} is ok, but do not omit it.
+		\item \textbf{Contract:} \texttt{\genkey{contract}{ }<ContractName> \{\}}
+	\end{itemize}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Storing Data On-Chain: State Variables}
+
+	\begin{figure}
+		\includegraphics[scale=0.2]{../assets/images/sc_storage}
+\caption{\link \href{https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/}{Understanding Ethereum Smart Contract Storage}}
+		\label{fig:sc_storage}
+	\end{figure}
+
+\uncover<2->{
+\textbf{Some types use multiple slots:}
+
+	\begin{itemize}
+		\item<2-> Fixed size arrays and structs store their values in multiple subsequent slots, starting with their position.
+		\item<3-> Dynamic size arrays store their length at their position and their values in multiple subsequent slots, starting with the hash of their position.
+		\item<4-> Mappings store nothing at their position. The values are stored in the slots that correspond to the hash of the respective keys and the position of the mapping.
+	\end{itemize}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Integers}
+
+	\begin{samplecode}{Integers}
+		\input{../assets/solidity_code/integers.tex}
+	\end{samplecode}
+	\begin{itemize}
+		\item<2->{\typesunits{uint}, which is short for \typesunits{uint256}, is the native integer.}
+		\item<3->{It is the most common type and can store a single number up to 32 bytes.}
+		\item<4->{Non-negative values from \texttt{[0,$2^{256}-1$]} can be stored.}
+	\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Integers}
+
+\textbf{You can define both signed and unsigned integers:}
+\begin{itemize}
+ \item<1->{There exist smaller \typesunits{uints}, like \typesunits{uint8}, \typesunits{uint16}, \dots , \typesunits{uint248}, but under normal circumstances they are all converted to \typesunits{uint256}{ }before use.}
+ 
+\item<2->{\typesunits{int}{ }resp. \typesunits{int256}{ }can store negative numbers in half the range of \typesunits{uint256}. Only use \typesunits{int}{ }when you explicitly need negative numbers. }
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{More Elementary Types}
+
+\textbf{A selection of more types:}
+\begin{itemize}
+	\item<1-> \typesunits{address}: Stores a 20 byte Ethereum address.
+	\item<2-> \typesunits{bool}: Can be \genkey{true}{ }or \genkey{false}{ }and is used for logical operations.
+	\item<3-> \typesunits{bytes1},\dots, \typesunits{bytes32}: Stores arbitrary data of a fixed size.
+	\item<4-> \typesunits{fixed} / \typesunits{ufixed}: Fixed point numbers are not fully supported yet. Do not use them!
+\end{itemize}
+
+\vspace{1em}
+
+\uncover<2->{\textbf{We will look at more variable types as we use them.}}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Let's Build an Auction Platform}
+
+	\begin{itemize}
+		\item<1->{One separate contract for each auction.}
+		\item<1->{Anyone should be able to participate.}
+		\item<1->{Start with a simple timed auction and explore other auction types later.}
+	\end{itemize}
+	
+\uncover<2->{
+	\begin{samplecode}{Auction Contract}
+		\input{../assets/solidity_code/auction-contract.tex}
+	\end{samplecode}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Variable Default Values}
+
+\textbf{Each variable has a default value when initialized.} \\
+
+	\begin{table}
+		\begin{tabular}{m{4cm} m{4cm}}
+		\rowcolor{highlight}
+			\hline
+			Data Types & Zero Values\\
+			\hline 
+			\rowcolor{brightanthracite}
+			Integer types & \texttt{0} \\
+			bool &  \texttt{false} \\
+			\rowcolor{brightanthracite}
+			address & \texttt{0x0} \\
+			bytesX & \texttt{0x0} \\
+			\rowcolor{brightanthracite}
+			array & [ ] (length = 0) \\
+			mapping & empty (no keys) \\
+			\rowcolor{brightanthracite}
+			enum & (first choice) \\
+			string & "" \\
+			\hline
+		\end{tabular}
+%		\caption{Variable default values}
+%		\label{tbl:variable_default_values}
+	\end{table}	
+	
+	E.g. \typesunits{bool}{ }\texttt{hasEnded;} is the same as \typesunits{bool}{ }\texttt{hasEnded} = \genkey{false};
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Exercise}
+	\begin{exercise}{Exercise 1}
+	Use the \texttt{HelloWorld} contract from the \typesunits{integer} section of this slide deck and familiarize yourself with the \link \href{https://remix.ethereum.org}{Remix IDE}.
+	\begin{itemize}
+		\item Create a new contract file.
+		\item Connect to the JavaScript VM, Ropsten and your local Ganache blockchain.
+		\item Compile your contract.
+		\item Deploy your contract.
+		\item Read the \texttt{answer} \typesunits{integer} value from the blockchain.
+	\end{itemize}  
+	\end{exercise}
+\end{frame}
+%%%
+
+\end{document}
