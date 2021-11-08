@@ -1,0 +1,331 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Blind Auction}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Blind Auctions}
+
+	\textbf{Blind auction:} Bidders submit sealed/secret bids so that no bidder knows the bid of any other participant.\\
+	
+	\vspace{1em}
+	
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\uncover<2->{		
+				\textbf{Open auction example:}
+				\begin{figure}
+					\input{../assets/figures/sealed_bid.tex}	
+				\end{figure}
+			}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\uncover<3->{		
+				\textbf{Blind auction example:}
+				\begin{figure}
+					\input{../assets/figures/open_bid.tex}
+				\end{figure}
+			}
+		\end{column}
+	\end{columns}
+	
+	\vspace{1em}
+	
+	\uncover<4->{
+		\begin{keytakeaway}{Bid and Reveal Phases}
+			In blind auctions, participants bid quasi-simultaneously, i.e., the auction process consists of two phases. First, bidders submit their bids, and second, the bids are revealed and the highest bidder is determined.
+		\end{keytakeaway}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Problem 1: Blind Auction}
+
+	\textbf{Problem:} Transaction data on public blockchains/blockchain networks is transparent.
+		
+	\begin{figure}
+		\input{../assets/figures/transparency.tex}
+	\end{figure}
+		
+	\uncover<2->{
+		\textbf{Solution: Commit and reveal}\\
+		Send a hash of the bid during the bidding phase. Send the unencrypted value during the reveal phase.
+
+		\begin{figure}
+			\input{../assets/figures/commit_reveal.tex}
+		\end{figure}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Problem 2: Binding Auction}
+
+	\textbf{Problem:} Ensure that the highest bidder pays if they win, but keep the bids secret.
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+		\textbf{Separate problems:}
+		\begin{itemize}
+			\item<2-> No way to force the bidder to pay later $\rightarrow$ value must be deposited at the time of the bid.
+			\item<3-> Value transfers are visible on chain / in the network $\rightarrow$ how can we ensure that bids are still secret?
+		\end{itemize}
+	}
+	
+	\vspace{1em}
+	
+	\uncover<4->{
+		\textbf{Solution:} Allow for ''fake" bids. During the reveal phase, check:\\
+	}
+	
+	\begin{itemize}
+		\item<5-> Deposit $<$ Bid: Bid invalid, full refund
+		\item<6-> Deposit $==$ Bid: Bid valid, no refund.
+		\item<7-> Deposit $>$ Bid: Bid valid, excess deposit (Deposit - Bid) refunded.
+	\end{itemize}
+
+	\uncover<8->{
+		$\rightarrow$ Additionally, allow the bidder to secretly state if their bid is fake or legitimate.
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Hashing the Bid}
+
+	\textbf{Hashing in Solidity:} \texttt{keccak256(bytes) returns (bytes32)} can be used for any arbitrary input.\\
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+		\textbf{Creating a bytes array from any variables:} \texttt{abi.encodePacked()} combines all variables in a single bytes array without padding or extending them.\\
+	}
+	
+	\vspace{1em}
+	
+	\uncover<3->{
+		\textbf{What we will hash:}
+		\begin{enumerate}
+			\item<3-> Value of the bid
+			\item<4-> Variable that indicates if the bid is fake/real
+			\item<5-> Salt to prevent guessing
+		\end{enumerate}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Commit and Reveal Exercise}
+	
+	\begin{exercise}{Exercise: Test one implementation of commit/reveal yourself}
+		\begin{enumerate}
+			\item Read the introduction for the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller}{\link Ethereum Name Service (ENS) \texttt{ETHRegistrarController}} and the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller\#calculate-commitment-hash}{\link \texttt{makeCommitment}} description.
+			\item Check out the \texttt{makeCommitment} function in the ''Read Code" section of the deployed contract on \href{https://etherscan.io/address/0x283af0b28c62c092c9727f1ee09c02ca627eb7f5\#readContract}{\link etherscan}.
+			\item If nothing else is specified, assume the following input values:
+		\end{enumerate}
+					
+		\begin{itemize}
+			\item \texttt{name: vitalik}
+			\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
+			\item \texttt{secret: 0x6162636400000000000000000000000000000000000000000000000000000000}
+		\end{itemize}
+			
+		\textbf{Question 1:} What is the output of the function?
+		
+	\end{exercise}	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Commit and Reveal Exercise}
+
+	\begin{exercise}{Exercise: Test one implementation of commit/reveal yourself:}
+	
+		Assume someone made a commitment with the same \texttt{owner} and \texttt{secret}. The commitment hash was \\
+\texttt{0x5af80c257639b6180b3d8e91ad2fefa8006afe66bbc98f2e46384e7ccefbe823}.\\
+
+		\vspace{0.5em}
+
+		\textbf{Question 2:}  Which of the following names did they want to register?
+		\vspace{-0.5em}
+		\begin{multicols}{2}
+				\begin{itemize}
+					\item[A.] vitalik
+					\item[C.] mary
+					\item[B.] aaron
+					\item[D.] patricia
+				\end{itemize}
+			\end{multicols}
+		
+		\uncover<2->{
+		\textbf{Question 3:} Assume someone made a commitment with the hash\\ \texttt{0xedc18ec53ab6729380c138ef6ab3f04c1a73fec9540cfc09d5ea84ff27ebe796} for the same \texttt{owner} address. You do not know the \texttt{secret} they used. Are you able to find out which one of the four names they wanted to register?
+		}
+	\end{exercise}
+	
+	\uncover<3->{
+		\begin{exercise}{Solution to question 3: low probability of success (for verification purposes only)}
+			\begin{itemize}
+						\item \texttt{name: patricia}
+						\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
+						\item \texttt{secret:\\
+					0x61626364000000009990000000000120000000034000005600000abcdefabcd}
+			\end{itemize}
+		\end{exercise}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Strings}
+
+	\textbf{Problem of hashing the bid:} Others can brute-force the hash.
+	
+	\begin{samplecode}{Pseudo-code}
+		
+		hash\_from\_alice = 0xb680ae657719a9...\\
+		
+		for(x in 1:100) \{ \\
+		\phantom{....}hash = H("I bid x ETH.") \\
+		\phantom{....}return(hash == hash\_from\_alice) \\
+		\}
+		
+	\end{samplecode}
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+	\textbf{Solution:} add additional arbitrary information to the input -- a so-called ''salt".
+	
+		\begin{itemize}
+			\item In our example, we use a string because it is intuitive and easy to remember.
+			\item A string stores text and is written with single (' ') or double quotes ('' ").
+			\item Unicode strings can be used by prefixing \texttt{unicode}, e.g., \texttt{unicode"Secret \includegraphics[height = 0.8\baselineskip]{../assets/images/earth_emoji.png}"}.
+		\end{itemize}
+	}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Hashing the Bid}
+
+	\textbf{Create a pure function to generate a blinded bid:}
+	
+	\input{../assets/solidity_code/generateBlindedBid}
+	
+	This is safe to use: No trace of a pure/view function call is stored on chain\\
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}[allowframebreaks]{Creating the New Contract}
+
+	\textbf{Procedure:}
+	
+	\begin{itemize}
+		\item Keep the basics from the simple auction contract.
+		\item Split the auction into two periods by setting an end time for both periods.	
+	\end{itemize}
+	
+	\input{../assets/solidity_code/BlindAuction.tex}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Structs}
+
+	\textbf{Purpose:}
+	
+	\begin{itemize}
+		\item Keep track of hash blinded bids with the corresponding deposit amount
+		\item Complex user defined types with any number of properties
+	\end{itemize}
+	
+	\uncover<2->{
+		\input{../assets/solidity_code/structBid}
+	}
+	
+	\uncover<3->{
+		\texttt{Bid} can now be used as a variable type, e.g.,\\
+
+		\begin{samplecode}{}
+		Bid newBid = Bid(generateBlindedBid(50e18, true, "secret"), 50e18);
+		\end{samplecode}
+	}
+	
+	\uncover<4->{
+		\begin{keytakeaway}{Structs usage}
+			\begin{itemize}
+				\item Structs can be used in mappings and arrays
+				\item Structs can obtain mappings and arrays
+			\end{itemize}
+		\end{keytakeaway}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Arrays}
+
+	\textbf{Idea:} use mapping to store one bid per address:
+	
+	\begin{samplecode}{}
+		mapping(address => Bid) bids;
+	\end{samplecode}
+	
+	\uncover<2->{
+		\textbf{Problem:} what if users want to create multiple bids?
+	
+	$\rightarrow$ Use a variable sized list of elements that is enumerable: Dynamic Arrays.
+	
+	\begin{keytakeaway}{Arrays in Solidity}
+		\begin{itemize}
+			\item \texttt{T[<k>]}: Fixed size array of type \texttt{T} and length {k}.
+			\item \texttt{T[]}: Dynamic size array of type \texttt{T}.
+		\end{itemize}
+		Both array types have the \texttt{.length()} property. Fixed arrays will return \texttt{k}, dynamic arrays the current length.\\
+		Dynamic arrays have the \texttt{.push()} and \texttt{.pop()} methods to add or remove an element at the end of the array.
+	\end{keytakeaway}
+	}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Store Bids per Address}
+
+	Use a mapping to store a dynamic array (a variable size list) for each address:\\
+	
+	\input{../assets/solidity_code/structAndMapping}
+	
+\end{frame}
+%%%
+
+\end{document}
