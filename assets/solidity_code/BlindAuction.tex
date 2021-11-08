@@ -1,0 +1,38 @@
+\begin{lstlisting}[language=Solidity]
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract BlindAuction {
+  // Auction parameters
+  address public immutable beneficiary;
+  uint public biddingEnd;
+  uint public revealEnd;
+  
+  // State of the auction
+  uint public highestBid;
+  address public highestBidder;
+  bool public hasEnded;
+  
+  // Allowed withdrawals of previous bids
+  mapping(address => uint) public pendingReturns;
+  
+  event AuctionEnded(address winner, uint amount);
+
+  constructor (address _beneficiary, uint durationBiddingMinutes, uint durationRevealMinutes) 	{
+    beneficiary = _beneficiary;
+    biddingEnd = block.timestamp + durationBiddingMinutes * 1 minutes;
+    revealEnd = biddingEnd + durationRevealMinutes * 1 minutes;
+  }
+  
+  function withdraw() external returns (uint amount) {
+    amount = pendingReturns[msg.sender];
+    if (amount > 0) {
+      pendingReturns[msg.sender] = 0;
+      payable(msg.sender).transfer(amount);
+    }
+  }
+  
+  function generateBlindedBid...
+}
+	
+\end{lstlisting}

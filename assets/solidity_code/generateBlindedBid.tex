@@ -1,0 +1,7 @@
+\begin{lstlisting}[language=Solidity]
+contract BlindAuction {
+	function generateBlindedBid(uint bidAmount, bool isLegit, string memory salt) public pure returns (bytes32 blindedBid) {
+			blindedBid = keccak256(abi.encodePacked(bidAmount, isLegit, salt));
+		}
+}
+\end{lstlisting}

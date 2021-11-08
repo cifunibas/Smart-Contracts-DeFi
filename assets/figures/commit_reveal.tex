@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\scriptsize
+	
+	\node[label = above:{Alice}] (alice) at (-3,0) {\includegraphics[height = 0.15\textheight]{../assets/images/avatar.png}};
+	\node[label = above:{\texttt{AuctionContract}}] (sc) at (5,0) {\includegraphics[height = 0.15\textheight]{../assets/images/smart_contract.png}};
+	
+	\uncover<3->{
+		\node[below = -.03cm of alice] {\texttt{H(}``I bid 3 ETH."\texttt{)}};
+	}
+	
+	\uncover<4->{
+		\draw[->] ($(alice)+(2,0.4)$) node[left]{\textbf{Commit}} -- ($(sc)+(-2,0.4)$) node[right]{\textbf{Stores}};
+		\filldraw[fill=black!20,dotted,thick] (-0.5,0.1) -- (2.5,0.1) -- (2.5,0.8) -- (-0.5,0.8) -- (-0.5,0.1) node[midway, right]{\texttt{0xb680ae657719a9...}};
+	}
+	
+	\uncover<4>{
+		\node[below = -.03cm of sc] {Alice \texttt{=> 0xb680...}};
+	}
+	
+	\uncover<5->{
+		\draw[->] ($(alice)+(2,-0.4)$) node[left]{\textbf{Reveal}} -- ($(sc)+(-2,-0.4)$) node[right]{\textbf{Checks}};
+		\filldraw[fill=black!20,dotted,thick] (-0.5,-0.1) -- (2.5,-0.1) -- (2.5,-0.8) -- (-0.5,-0.8) -- (-0.5,-0.1) node[midway, right]{``I bid 3 ETH."};
+	}
+	
+	\uncover<5>{
+		\node[below = .25cm of sc] {\texttt{H(}``I bid 3 ETH."\texttt{)== 0xb680...}};
+	
+	}
+
+\end{tikzpicture}

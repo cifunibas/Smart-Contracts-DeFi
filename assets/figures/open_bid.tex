@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+
+	\scriptsize
+	% Alice
+	\node (alice) at (-2.5, 0) {\includegraphics[height= 0.125\textheight]{../assets/images/avatar.png}};
+	\node[above =-.05cm of alice] (name1) {Alice};
+	\node[below= -.05cm of alice](valuation) {Valuation: $v_a$};
+
+	% Bob	
+	\node (bob) at (0, 0) {\includegraphics[height= 0.125\textheight]{../assets/images/avatar.png}};
+	\node[above =-.05cm of bob] (name2) {Bob};
+	\node[below= -.05cm of bob](valuation) {Valuation: $v_b$};
+	
+	% Simultaneous bidding
+	\node[text width = 3.5cm] (optimal) at (-1.25, -2) {Bid based on expectation\\ about other participants' valuations.};
+	
+\end{tikzpicture}
