@@ -21,43 +21,36 @@
 \end{frame}
 
 
-
 %%%
-\begin{frame}{Centralized Exchanges}
-\begin{figure}[h!]
-\begin{tikzpicture}
-[ %sibling distance =10em ,
-node/.style = {shape=rectangle, %rounded corners,
-	draw , align = center ,
-	top color=highlight, bottom color = highlight}]]
- \tikzstyle{level 1}=[sibling distance=50mm]
- \tikzstyle{level 2}=[sibling distance=28mm]
- %\tikzstyle{level 3}=[sibling distance=18mm]
-  
-  \node {Exchanges}
-  	child { node {centralized}
-  			node [below=0.5cm] {\includegraphics[scale=0.02]{../assets/images/coinbase}}
-  			node [below=1cm] {\includegraphics[scale=0.025]{../assets/images/binance}}
-  			}
-  	child { node {decentralized}}
-  	
-  	
-  			%child { node {on-Chain}}
-  			%child { node {off-Chain}}}
-  		%child { node {OTC/ P2P}}
-  		%child { node {Reserven \\Aggregator}}
-  		%child { node {CFMM}}
-  		;
-\end{tikzpicture}
-%\caption{}
-\end{figure}
+\begin{frame}{Exchanges}
 
-Problems:
-	\begin{itemize}
-		\item To be able to trade, funds must be deposited with the exchange.
-		\item Thereby, access is forfeited and trust towards the exchange operator needed.
-		\item Create a single point of attack and face constant threat of becoming the target of malicious third parties.
-	\end{itemize}
+	\begin{figure}[h!]
+		\begin{tikzpicture}
+		[ sibling distance =10em ,
+		every node/.style = {shape=rectangle, rounded corners,
+		draw , align = center,
+		%top color=white, bottom color = highlight
+		}]]
+ 		\tikzstyle{level 1}=[sibling distance=30mm]
+ 		\tikzstyle{level 2}=[sibling distance=20mm]
+ 		\tikzstyle{level 3}=[sibling distance=18mm]
+  
+  			\node {Tauschprotokolle}
+  			child { node [red] {centralized}}
+  			child { node {decentralized}
+  				child { node {\scriptsize{Order Book}}
+  					child { node {\scriptsize{on-Chain}}}
+  					child { node {\scriptsize{off-Chain}}}}
+  				child { node {\scriptsize{OTC/ P2P}}}
+  				child { node[right=-8mm] {\scriptsize{Reserve Aggregator}}}
+  				child { node[right=1em] {\scriptsize{Const. Function}\\ \scriptsize{Market Maker}}}
+  			};
+		\end{tikzpicture}
+	\end{figure}
+
+	\begin{keytakeaway}{Problems}
+		To be able to trade on a CEX, a users' funds must be deposited with the exchange. Thereby, access is forfeited and trust towards the exchange operator needed.  CEXs are also a single point of attack and face the constant threat of becoming the target of malicious third parties.
+	\end{keytakeaway}
 	
 \end{frame}
 %%%
@@ -145,12 +138,34 @@ Problems:
 \end{frame}
 %%%
 
+
 %%%
 \begin{frame}{Swap (without fees)}
-Graph
-Slippage
+
 \end{frame}
 %%%
+
+
+%%%
+\begin{frame}{Swap (with fees)}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Liquidity Provision}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divergence Loss}
+
+\end{frame}
+%%%
+
 
 %%%
 \begin{frame}{Swap Example}
@@ -158,21 +173,51 @@ Visualize swap example in tikz
 \end{frame}
 %%%
 
+
 %%%
-\begin{frame}{Liquidity Provision}
-%ETH/DAI POOL
-%Visualize swap example in tikz
-%Box on top right with
-%pool balance Token A (DAI) and B (ETH)
-%Price in DAI
-%Pool & Hold Value
-%Impermanent loss
+\begin{frame}{Different Functions (Curve)}
+
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Aggregators}
+\begin{frame}{Concentrated Liquidity}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{n $>$ 2 Pool Assets}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Concept of Aggregators}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Frontrunning}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Add. Liquidity Mining \& Vampire Attack}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Initial DEX offerings}
 
 \end{frame}
 %%%
@@ -181,11 +226,13 @@ Visualize swap example in tikz
 %%%
 \begin{frame}{Exercise}
 	\begin{exercise}{Exercise 1}
+	For this exercise we use the ERC20 Token created in one of the previous videos (select Ropsten). Go two UniSwap Frontend Link to complete the following tasks:
+	
 		\begin{enumerate}
-			\item Swap ETH to DAI on UniSwap V2
-			\item Provide liquidity to ETH/DAI Pool
+			\item Swap ETH to CIF
+			\item Provide liquidity to ETH/CIF Pool
 			\item Make another Swap
-			\item Remove your liquidity, analyze what happened to your liquidity position
+			\item Remove your liquidity position and analyze what happened
 		\end{enumerate}
 	\end{exercise}
 \end{frame}
@@ -200,6 +247,8 @@ Visualize swap example in tikz
 	\bibliography{../assets/bib/refs}
 \end{frame}
 %%%
+
+
 
 
 
