@@ -35,7 +35,7 @@
  		\tikzstyle{level 2}=[sibling distance=20mm]
  		\tikzstyle{level 3}=[sibling distance=18mm]
   
-  			\node {Tauschprotokolle}
+  			\node {Exchange Protocols}
   			child { node [red] {centralized}}
   			child { node {decentralized}
   				child { node {\scriptsize{Order Book}}
@@ -71,17 +71,40 @@
 \centering
 	\begin{tikzpicture}
 	
-	%% Pool
+%	%% Pool
+%	
+%		\fill[highlight] (0,0) ellipse (40pt and 5pt);
+%		\draw (0,0) ellipse (40pt and 5pt);
+%		\draw (-1.4,0) arc(-180:0:1.4cm and 1.5cm);
+%		\node at (0,-0.8) {\includegraphics[scale=0.05]{../assets/images/formula}};	
+%		\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
+%	\uncover<3->{
+%		\node at (-0.3,0.7) {\includegraphics[scale=0.004]{../assets/images/eth}};
+%		\node at (0.3,0.7) {\includegraphics[scale=0.05]{../assets/images/dai}};
+%		}
+
+	\draw [thick] (-1,-1.5) -- (1,-1.5);
+	\draw [thick](-1,-1.5) -- (-1, 0.6);
+	\draw [thick](1,-1.5) -- (1, 0.6);
+	\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
 	
-		\fill[highlight] (0,0) ellipse (40pt and 5pt);
-		\draw (0,0) ellipse (40pt and 5pt);
-		\draw (-1.4,0) arc(-180:0:1.4cm and 1.5cm);
-		\node at (0,-0.8) {\includegraphics[scale=0.05]{../assets/images/formula}};	
-		\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
-	\uncover<3->{
-		\node at (-0.3,0.7) {\includegraphics[scale=0.004]{../assets/images/eth}};
-		\node at (0.3,0.7) {\includegraphics[scale=0.05]{../assets/images/dai}};
-		}
+	%balanced
+\uncover<2,3>{	
+	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.25);
+	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.25);
+}	
+	%unequal
+\uncover<4>{
+	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0);
+	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.5);
+	\draw [dashed] (-1,0.25) -- (1,0.25);
+}	
+	
+%	%unequal
+%\uncover<5>{	
+%	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.5);
+%	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.0);
+%}	
 		
 	
 	%% LP and Trader
