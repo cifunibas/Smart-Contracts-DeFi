@@ -1,0 +1,25 @@
+\begin{tikzpicture}[]
+    
+ 	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$x$-tokens} ;%{\small{$x$-tokens in liquidity pool}};
+	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$y$-tokens};%{\small{$y$-tokens in liquidity pool}};
+
+	% k before swap
+ 	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;    
+
+	% k after swap
+ 	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=1.345:4.55, smooth, variable=\x] plot ({\x}, {6/\x}) node[right,color=blue] {$k_\rho$} ;    
+	 
+	% reserves before swap
+	\draw[fill=black] (1.75,2.3) circle(2pt);
+	\draw[dotted,thick] (1.75,2.3) -- (1.75,0) node[below]{\scriptsize{${x}$}};
+	\draw[dotted,thick] (1.75,2.3) -- (0,2.3) node[left]{\scriptsize{$y$}};
+	
+	% reserves after swap (incl. fees)
+	\draw[fill=black] (3.5,1.715) circle(2pt);
+	\draw[dotted,thick] (3.5,1.715) -- (3.5,0) node[below]{\scriptsize{${x+\Delta(x)}$}};
+	\draw[dotted,thick] (3.5,1.715) -- (0,1.715) node[left]{\scriptsize{${y-\Delta(y_\rho)}$}};
+	
+	% reserves after swap (excl. fees)
+	\draw[dotted,thick] (3.5,1.13) -- (0,1.13) node[left]{\scriptsize{${y-\Delta(y_\rho)-\tau}$}};
+ 
+\end{tikzpicture}

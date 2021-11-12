@@ -153,17 +153,66 @@
 
 %%%
 \begin{frame}{Constant Product Formula}
-\begin{align*}
-		k &= x \cdot y \\
-		k &= (x + \Delta x) \cdot (y + \Delta y) \\
-		\Delta y &= \biggl( \frac{k}{x + \Delta x} \biggr) - y 
-	\end{align*} 
+	\only<1-4>{
+		\begin{align*}
+			k &= x \cdot y
+		\end{align*}
+	}
+	\only<1>{
+		\begin{itemize}
+			\item k: constant
+			\item x: number of x-tokens in the pool
+			\item y: number of y-tokens in the pool
+		\end{itemize}
+		\vspace{0.5cm}
+	}
+
+	\only<2-4>{\textbf{Properties:}}
+	\begin{itemize}
+		\item<3-4> Convexity of the indifference set
+		\item<4> Dynamic endogenous pricing model
+	\end{itemize}
+	
+	\only<5>{
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/constant_product_function.tex}
+			\end{center}
+		\end{figure}
+	}
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{AMM Functions}
+	\begin{itemize}
+		\item<1-> swap():
+		\item<2-> mint():
+		\item<3-> burn(): 
+	\end{itemize}
+\end{frame}
+%%%
 
 %%%
 \begin{frame}{Swap (without fees)}
+	\only<1>{
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/constant_product_swap_no_fees.tex}
+			\end{center}
+		\end{figure}
+	}
+
+	\only<2>{
+		\begin{align*}
+			k &= (x + \Delta x) \cdot (y - \Delta y) \\
+			\Delta y &= y - \biggl( \frac{k}{x + \Delta x} \biggr)
+		\end{align*}
+		
+		\begin{itemize}
+			\item TODO: Explain slippage and relation to trade size / pool size
+		\end{itemize}
+	}
 
 \end{frame}
 %%%
@@ -171,7 +220,7 @@
 
 %%%
 \begin{frame}{Swap (with fees)}
-
+	\input{../assets/figures/constant_product_swap_with_fees.tex}
 \end{frame}
 %%%
 
