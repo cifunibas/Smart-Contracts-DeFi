@@ -1,0 +1,314 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Development Workflow}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering, plain]
+	\titlepage
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The Workflow}
+	\begin{figure}
+		\begingroup
+			\tikzset{every picture/.style={scale=0.8}}
+			\input{../assets/figures/dev_workflow}
+		\endgroup
+	\end{figure}
+	\vspace{1.5em}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%
+%%% Connection %%%
+%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Blockchain Connection}
+
+	\vspace{0.5em}
+	\textbf{What are you connecting to?}
+	\begin{scriptsize}
+	\uncover<2->{
+	\begin{table}
+		\centering
+		\begin{tabular}{lllllll}
+			
+				\hline
+				\rowcolor{highlight}
+				\textbf{Network} & \textbf{Security} & \textbf{Speed} & \textbf{Access} & \textbf{Value} & \textbf{Cost} & \textbf{Ideal for} \\ \hline
+			
+				\begin{tabular}
+					{@{}l@{}}Ethereum \\mainnet
+				\end{tabular} & High & Slow & Public & Yes & ETH & Production \\
+				\hline
+			
+			\uncover<3->{\href{https://ethereum.org/en/developers/docs/networks/\#testnets}{\begin{tabular}{@{}l@{}}\link Public \\ testnet \end{tabular}} & Low & Slow & Public & No & \begin{tabular}{@{}l@{}}Free \\ (Faucet) \end{tabular} & \begin{tabular}{@{}l@{}}Open \\ Alpha \end{tabular} \\ \hline}
+			\uncover<4->{\begin{tabular}{@{}l@{}}Private \\ testnet / \\ JavaScript \\ VM\end{tabular} & Very low & Instant & Private & No & Free & \begin{tabular}{@{}l@{}}Early \\ development\end{tabular} \\ \hline}
+			\uncover<5->{\begin{tabular}{@{}l@{}}Mainnet\\ fork\end{tabular} & Very low & Instant & Private & No & Free & \begin{tabular}{@{}l@{}}Integrated \\ development\end{tabular} \\ \hline}
+		\end{tabular}
+		\label{tbl:mainnet_vs_testnet}
+		\end{table}
+	}
+	
+	\end{scriptsize}
+	
+	\uncover<6->{
+	\textbf{How are you connecting?}	
+	\vspace{-0.5em}
+	\begin{columns}[T]
+	\begin{column}{0.45\textwidth}
+		\begin{itemize}
+		\item \href{https://ethereum.org/en/developers/docs/nodes-and-clients/\#clients}{\link Local node}
+		\begin{itemize}
+			\item Best security
+			\item Local validation
+			\item Archive node: high hardware requirements
+		\end{itemize}
+	\end{itemize}
+	\end{column}
+	\begin{column}{0.55\textwidth}
+		\begin{itemize}
+			\item<7-> Third party service (e.g.,\\ \href{https://infura.io/}{\link Infura}) % archive node alternative: archivenode.io from defidude?
+		\begin{itemize}
+			\item<7-> Most convenient option
+			\item<7-> But: heavily centralized
+			\item<7-> Archive node: costly
+		\end{itemize}
+	\end{itemize}
+	\end{column}
+
+	\end{columns}
+	}
+		
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Create Your Private Test Chain with Ganache}
+
+	\begin{columns}
+		\begin{column}{0.15\textwidth}
+			\begin{figure}
+				\includegraphics[width = \textwidth]{../assets/images/logo_ganache.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.85\textwidth}
+			Ganache quickly creates a private (Ethereum) Blockchain on your computer and prefunds 10 accounts with 100 custom Ether each. It is a great solution to quickly set up a private development chain, or to fork the Ethereum mainnet for integrated smart contract development.
+		\end{column}
+	\end{columns}
+	\vspace{1em}
+	\begin{exercise}{Exercise 1:}
+		\begin{enumerate}
+			\item Install \href{https://www.trufflesuite.com/ganache}{\link Ganache} on your personal computer.
+			\item Open Ganache and change hostname to local (0.0.0.0 -- All Interfaces).
+			\item Download \href{https://metamask.io/}{\link Metamask}.
+			\item Connect Metamask to your private chain (RPC URL: https://localhost:8545 and Chain ID: 1337)
+			\item Import the Ganache private key of account 1 to Metamask.
+			\item Make a transaction from account 1 to account 2.
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Account Creation and Funding %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Account Creation and Funding}
+	
+	Depending on the blockchain you are working on, you get ETH in different ways:\\
+	
+	\begin{itemize}
+		\item<1-> On \textbf{mainnet} you have to \textbf{buy Ether}	 (usually from an exchange).
+		\item<2-> On \textbf{public testnets} you get Ether through an \textbf{Ether faucet}.
+		\item<3-> On \textbf{private chains} you can simply \textbf{create new custom Ether}.
+	\end{itemize}
+	\vspace{1em}
+	\uncover<4->{
+	\begin{keytakeaway}{Additional Information on Private Chains}
+		\href{https://souptacular.gitbooks.io/ethereum-tutorials-and-tips-by-hudson/content/private-chain.html}{\link Ethereum Tutorials and Tips by Hudson}
+	\end{keytakeaway}
+	}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% IDE and Tool Setup %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%
+\begin{frame}{IDE and Tool Setup}
+		
+	We recommend one of the following two IDEs:\\
+	
+	\begin{columns}
+		\begin{column}{0.1\textwidth}
+			\begin{figure}		\includegraphics[width = \textwidth]{../assets/images/logo_remix.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.85\textwidth}
+			\textbf{\href{https://remix.ethereum.org/}{\link Remix}} is a browser-based IDE for Solidity.\\
+		\end{column}
+	\end{columns}
+	
+	\begin{columns}
+	\begin{column}{0.1\textwidth}
+			\begin{figure}
+				\includegraphics[width = \textwidth]{../assets/images/logo_atom.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.85\textwidth}
+			\textbf{\href{https://atom.io/}{\link Atom}} is a general-purpose IDE. Make sure to download syntax highlighting packages for Solidity.
+		\end{column}
+	\end{columns}
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+	For versioning purposes we recommend Git:\\
+	
+	\vspace{1em}
+	
+	\begin{columns}
+	\begin{column}{0.1\textwidth}
+			\begin{figure}
+				\includegraphics[width = \textwidth]{../assets/images/logo_github.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.85\textwidth}
+			\textbf{\href{https://github.com/}{\link GitHub}} is a hosting platform for Git repositories. Open Source projects are free and there is an educational account.
+		\end{column}
+	\end{columns}
+	}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Development %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Contract Development}
+		
+	\begin{itemize}
+		\item \textbf{Define your goal}
+		\begin{itemize}
+			\item What are you trying to achieve with your smart contract?
+		\end{itemize}
+		\item<2-> \textbf{Define your variables}
+		\begin{itemize}
+			\item<2-> What needs to be stored in the smart contract?
+			\item<2-> Type and size needed.
+		\end{itemize}
+		\item<3-> \textbf{Define your functions}
+		\begin{itemize}
+			\item<3-> What is the function supposed to do?
+			\item<3-> What are the input parameters?
+			\item<3-> Are there any access restrictions?
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Compilation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Contract Compilation}
+
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{figure}[h!]
+				\center
+					\input{../assets/figures/CA_and_ABI.tex}
+			\end{figure}\vspace{1em}
+		\end{column}
+		
+		\begin{column}{0.5\textwidth}
+			\textbf{Bytecode}
+				\begin{itemize}
+					\item Deployed on blockchain
+					\item Actual code that gets executed
+				\end{itemize}
+		\vspace{1em}
+			\textbf{Application Binary Interface}
+				\begin{itemize}
+					\item List of contract functions and their arguments (JSON)
+					\item En- \& decoding of data (translation) 
+				\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\begin{keytakeaway}{The Need for an ABI}
+		 Without the ABI, applications would not know the available functions and function arguments. The ABI can be seen as a translation or contract interface specification.
+	\end{keytakeaway}		
+
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Deployment %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Contract Deployment}
+		
+	\begin{keytakeaway}{Contract Deployment}
+		Creating your contract on the blockchain, i.e., sending a deployment transaction.
+	\end{keytakeaway}
+	
+	\vspace{1.5em}
+	\uncover<2->{
+	\textbf{You can either \dots}
+	\begin{itemize}
+		\item<2-> \dots (compile and) deploy a contract directly from most development frameworks (incl.\ \href{https://remix.ethereum.org/}{\link Remix}).
+		\item<3-> \dots use any wallet to deploy bytecode.
+	\end{itemize}
+	}
+\end{frame}
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Contract Testing %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+\begin{frame}{Contract Testing}
+		
+	\textbf{Testing your contract is very important.}\\
+	
+	\begin{itemize}
+		\item<2-> Manual testing
+		\begin{itemize}
+			\item<2-> \href{https://remix.ethereum.org/}{\link Remix}
+			\item<2-> \href{https://metamask.io}{\link Metamask}
+		\end{itemize}
+		\item<3-> Automated testing
+		\begin{itemize}
+			\item<3-> \href{https://hardhat.org/}{\link Hardhat} (automated JavaScript test cases)
+			\item<3-> \href{https://github.com/eth-brownie/brownie}{\link Brownie} (automated Python test cases)
+			\item<3-> \href{https://www.trufflesuite.com/truffle}{\link Truffle} (automated JavaScript test cases)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+%%%
+
+\end{document}
