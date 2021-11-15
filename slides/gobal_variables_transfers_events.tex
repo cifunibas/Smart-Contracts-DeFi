@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Solidity Basics: Global Variables, Transfers, and Events}
+\subtitle{Global Variables, Transfers, and Events}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -366,8 +366,8 @@ For simplicity and security reasons, we are using \texttt{transfer}. But there a
 \end{samplecode}
 
 \begin{itemize}
-	\item 	Add a return parameter to the function that holds the total amount of ether transferred.
-	\item<2-> 	Specify the name of the return value to avoid declaring the variable and an explicit return statement. 
+	\item 	Add a returns statement to the function to show the amount of ether withdrawn.
+	\item<2->  Specify the name of the return value to avoid declaring the variable and an explicit return statement. 
 	\item<3->	To prevent re-entrancy attacks, update the balance \color{focus}before \color{black} transfer.
 \end{itemize}
 
@@ -415,7 +415,7 @@ $\Rightarrow$ \texttt{auctionEnd()} to close the auction and transfer the bid is
 \begin{frame}{Events}
 
 \begin{minipage}{0.65\textwidth}
-\textbf{As Blockchains are fully transparent, so is the full history of bids?}
+\textbf{The Blockchain is fully transparent. Does this mean that one can obtain the full history of bids?}
 
 \uncover<2->{
 \vspace{1 em}
@@ -438,7 +438,7 @@ $\Rightarrow$ \texttt{auctionEnd()} to close the auction and transfer the bid is
 \vspace{1 em}
 
 \uncover<4->{
-\textit{No: This is expensive and causes state bloat.}
+\textit{No, this would be very expensive and causes state bloat.}
 }
 
 \uncover<5->{
@@ -446,9 +446,9 @@ $\Rightarrow$ \texttt{auctionEnd()} to close the auction and transfer the bid is
 
 \textbf{Solution:} Write data into logs.
 \begin{itemize}
-	\item	\textbf{Cheap:} It is stored in a separate place than state.
+	\item	\textbf{Cheap:} It is stored in a different place than the state.
 	\item	\textbf{Verifiable:} It is part of the block hash.
-	\item	\textbf{Downside:} It can not be accessed on-chain by contracts.
+	\item	\textbf{Downside:} It cannot be accessed as part of a transaction.
 \end{itemize}
 }
 
