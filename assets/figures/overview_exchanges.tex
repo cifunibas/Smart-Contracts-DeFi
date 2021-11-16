@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+		[ sibling distance =10em ,
+		every node/.style = {shape=rectangle, rounded corners,
+		draw , align = center,
+		%top color=white, bottom color = highlight
+		}]]
+ 		\tikzstyle{level 1}=[sibling distance=30mm]
+ 		\tikzstyle{level 2}=[sibling distance=20mm]
+ 		\tikzstyle{level 3}=[sibling distance=18mm]
+  
+  			\node {Exchange Protocols}
+  			child { node[alert] {centralized}}
+  			child { node {decentralized}
+  				child { node {\scriptsize{Order Book}}
+  					child { node {\scriptsize{on-Chain}}}
+  					child { node {\scriptsize{off-Chain}}}}
+  				child { node {\scriptsize{OTC/ P2P}}}
+  				child { node[right=-8mm] {\scriptsize{Reserve Aggregator}}}
+  				child { node[right=1em] {\scriptsize{Const. Function}\\ \scriptsize{Market Maker}}}
+  			};
+		\end{tikzpicture}

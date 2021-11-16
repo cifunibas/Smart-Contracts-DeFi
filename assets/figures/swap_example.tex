@@ -1,0 +1,36 @@
+\begin{tikzpicture}[]
+	
+			% function
+      		\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {\scriptsize{$k = 100$}} ;
+      
+     		\uncover<2->{ 
+      		\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=1.345:4.55, smooth, variable=\x] plot ({\x}, {6/\x}) node[right,color=blue] {\scriptsize{$k_\rho = 100.0273$}} ; 
+ 			}
+ 			
+			% x-axis
+  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{$x$-tokens}} ;
+  			% y-axis
+  			\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{$y$-tokens}};
+  	
+  			% first state
+  			\uncover<1->{
+    		\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize{10}};
+    
+   			\draw[dotted, thick] (2,2)--(2,0) node[below]{\scriptsize{10}};
+    	
+  			\draw[fill=black] (2,2) circle(2pt);
+   			}
+    
+    		%second state
+    		\uncover<2->{
+    
+    		% reserves after swap (incl. fees)
+			\draw[fill=black] (3.5,1.715) circle(2pt);
+			\draw[dotted,thick] (3.5,1.715) -- (3.5,0) node[below]{\scriptsize{11}};
+			\draw[dotted,thick] (3.5,1.715) -- (0,1.715) node[left]{\scriptsize{9.0934}};
+	
+			% reserves after swap (excl. fees)
+			\draw[dotted,thick] (3.5,1.13) -- (0,1.13) node[left]{\scriptsize{9.0909}};
+    		}
+    
+    		\end{tikzpicture}

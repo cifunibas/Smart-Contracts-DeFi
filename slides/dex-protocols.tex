@@ -25,41 +25,19 @@
 \begin{frame}{Exchanges}
 
 	\begin{figure}[h!]
-		\begin{tikzpicture}
-		[ sibling distance =10em ,
-		every node/.style = {shape=rectangle, rounded corners,
-		draw , align = center,
-		%top color=white, bottom color = highlight
-		}]]
- 		\tikzstyle{level 1}=[sibling distance=30mm]
- 		\tikzstyle{level 2}=[sibling distance=20mm]
- 		\tikzstyle{level 3}=[sibling distance=18mm]
-  
-  			\node {Exchange Protocols}
-  			child { node [red] {centralized}}
-  			child { node {decentralized}
-  				child { node {\scriptsize{Order Book}}
-  					child { node {\scriptsize{on-Chain}}}
-  					child { node {\scriptsize{off-Chain}}}}
-  				child { node {\scriptsize{OTC/ P2P}}}
-  				child { node[right=-8mm] {\scriptsize{Reserve Aggregator}}}
-  				child { node[right=1em] {\scriptsize{Const. Function}\\ \scriptsize{Market Maker}}}
-  			};
-		\end{tikzpicture}
+		\input{../assets/figures/overview_exchanges.tex}
 	\end{figure}
-
+\uncover<2->{
 	\begin{keytakeaway}{Problems}
 		To be able to trade on a CEX, a users' funds must be deposited with the exchange. Thereby, access is forfeited and trust towards the exchange operator needed.  CEXs are also a single point of attack and face the constant threat of becoming the target of malicious third parties.
 	\end{keytakeaway}
-	
+}	
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{Decentralized Exchange Protocols}
-
-
 
 \end{frame}
 %%%
@@ -68,90 +46,18 @@
 %%%
 \begin{frame}{Constant Function Market Maker}
 
-\begin{figure}	
-\centering
-	\begin{tikzpicture}
-	
-	% Pool
-	\draw [thick] (-1,-1.5) -- (1,-1.5);
-	\draw [thick](-1,-1.5) -- (-1, 0.6);
-	\draw [thick](1,-1.5) -- (1, 0.6);
-	\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
-	
-	% Balanced Pool
-\uncover<2,3>{	
-	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.25);
-	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.25);
-}	
+	\begin{figure}	
+		\centering
+		\input{../assets/figures/cfmm.tex}
+	\end{figure}
 
-	% Unbalanced Pool
-\uncover<4,5>{
-	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0);
-	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.5);
-	\draw [dashed] (-1,0.25) -- (1,0.25);
-}	
-
-	% Token labels
-\uncover<2->{
-\node at (-0.5,-0.7) {\scriptsize{CIF}};
-\node at (0.5,-0.7) {\scriptsize{ETH}};
+\uncover<5->{
+	\begin{itemize}
+		\item The price is determined endogenously via a formula. There are different types of formulas.
+		\item Traders pay a fee, this fee is subtracted in the formula. Fees are needed to incentivize Liquidity Providers.
+		\item When the pool price differs from the market price (e.g on a centralized exchange), there is an arbitrage opportunity. This keeps the price up to date (in line with Market Price).
+	\end{itemize}
 }
-
-\uncover<4->{
- \node at (-4.5, 0.5) {\scriptsize{Pool Token}};
-}
-	
-	%% LPs, Trader
-	\uncover<1->{
-		\node at (-4.5,-0.5) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
-		\node at (-4,-0.8) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
-		\node at (-5,-0.8) {\includegraphics[scale=0.03]{../assets/images/agents/agent_right}};
-		\node [below=0.8cm] at (-4.5,-0.8) {\scriptsize{Liquidity Providers}};
-		}
-	\uncover<1->{
-		\node at (4,-0.8) {\includegraphics[scale=0.05]{../assets/images/agents/agent_left}};
-		\node [below=0.8cm]at (4,-0.8) {\scriptsize{Trader}};
-		}
-		
-	%% Flow
-	\uncover<2>{
-		\draw[->] (-3.5, -0.8) -- (-1.5, -0.8) node [midway, below] {\includegraphics[scale=0.004]{../assets/images/eth}};
-		\draw[->] (-3.5, -0.5) -- (-1.5, -0.5) node [midway, above]{\scriptsize{CIF}};
-	}
-	\uncover<3>{
-	\draw[->] (-1.5, -0.8) -- (-3.5, -0.8) node [midway, above] {\scriptsize{Pool Token}};
-	}
-	\uncover<4>{
-		\draw[->] (3.5, -0.8) -- (1.2, -0.8) node [midway, above] {\includegraphics[scale=0.004]{../assets/images/eth}};
-		}
-%	\uncover<5>{
-%		\draw[->] (1.5, -0.5) -- (3.5, -0.5) node [midway, above] {\includegraphics[scale=0.05]{../assets/images/dai}};
-%		}
-		
-	\uncover<4>{
-		\draw[->] (-0.5,0) arc (150:30:2.5cm) node [midway, above] {\scriptsize{CIF}};
-	
-		\draw[dashed, <-] (-3.5,-2.5) arc (-130:-50:5.5cm) node [midway, above] {\scriptsize{Fees}};
-	}
-	
-	\uncover<5>{
-	\draw (0,1) node {\scriptsize{Arbitrage Opportunity}};
-	}
-		
-	\end{tikzpicture}
-	
-\end{figure}
-
-
-%\begin{enumerate}
-%	\item<2-> Liquidity Providers (LPs) provide both tokens in equal value.
-%	\item<3-> LPs get a Pool Token that represents their share.
-%	\item<4-> Traders trade against the Liquidity Pool.
-%	\item<5-> Price is determined endogenously via a formula.
-%	\item<6-> Arbitrage opportunities keep price up to date.
-%	\item<6-> Each trade accrues fees that go to LPs.
-%\end{enumerate}
-
 
 \end{frame}
 %%%
@@ -248,68 +154,85 @@
 %%%
 \begin{frame}{Swap Example}
 
-\textbf{Swap one x-token with a fee of 0.3 \%} \\
+\textbf{Swap one x-token with a fee of 0.3 \%} \\ \vspace{1.5em}
 
 	\begin{minipage}{0.5\textwidth}
-
 		\begin{figure}[h!]
-		\begin{center}
- 		\begin{tikzpicture}[]
-	
-			% function
-      		\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {\scriptsize{$k = 100$}} ;
-      
-     		\uncover<2->{ 
-      		\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=1.345:4.55, smooth, variable=\x] plot ({\x}, {6/\x}) node[right,color=blue] {\scriptsize{$k_\rho = 100.0273$}} ; 
- 			}
- 			
-			% x-axis
-  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$x$-tokens} ;
-  			% y-axis
-  			\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$y$-tokens};
-  	
-  			% first state
-  			\uncover<1->{
-    		\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize{10}};
-    
-   			\draw[dotted, thick] (2,2)--(2,0) node[below]{\scriptsize{10}};
-    	
-  			\draw[fill=black] (2,2) circle(2pt);
-   			}
-    
-    		%second state
-    		\uncover<2->{
-    
-    		% reserves after swap (incl. fees)
-			\draw[fill=black] (3.5,1.715) circle(2pt);
-			\draw[dotted,thick] (3.5,1.715) -- (3.5,0) node[below]{\scriptsize{11}};
-			\draw[dotted,thick] (3.5,1.715) -- (0,1.715) node[left]{\scriptsize{9.0934}};
-	
-			% reserves after swap (excl. fees)
-			\draw[dotted,thick] (3.5,1.13) -- (0,1.13) node[left]{\scriptsize{9.0909}};
-    		}
-    
-    		\end{tikzpicture}
+			\begin{center}
+ 				\input{../assets/figures/swap_example.tex}
 			\end{center}
-			%\caption{Visualization of the token reserve adjustments during an exchange, considering the constant product constraint.}
-			%\label{fig:constantproductconstraint}
-			\end{figure}
-
+		\end{figure}
 	\end{minipage}
 \vspace{1em}
 	\begin{minipage}{0.4\textwidth}
-	\vspace{-4em}
-	\begin{scriptsize}
-	\begin{align*}
-		\Delta (y) &= \dfrac{k}{x+ (1-f) \Delta (x)} - y \\
-		\uncover<2>{
-		\Delta (y) &= \dfrac{100}{10+ (1-0.003) \cdot 10} - 10 \\
-		\Delta (y) &= -0.9066
-		}
-	\end{align*}
-	\end{scriptsize}
+		\vspace{-4em}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1>{
+				\Delta (y) &= \dfrac{k}{x+ (1-\tau) \Delta (x)} - y \\
+			}
+			\only<2>{
+			 	\Delta (y) &= \dfrac{100}{10+ (1-0.003) \cdot 10} - 10 \\
+		 		&= -0.9066 \\
+		 	}
+		 	\only<3>{
+		 		y' &= 10 - 0.9066 = 9.0934 \\
+		 		k' &= 11 \cdot 9.0934 = 100.0274 \\
+			}
+			\only<4>{
+				PR &= \dfrac{y}{x} = 10/10 = 1 \\
+				P_{eff} &= \dfrac{\Delta (y)}{\Delta (x)} = \dfrac{0.9066}{1} = 0.9066\\
+				PR' &= \dfrac{y'}{x'} = \dfrac{9.0934}{11} =  0.8267 \\
+			}
+			\only<5>{
+				S &= \dfrac{P_{eff}}{PR} - 1 = \dfrac{0.9066}{1} - 1 = -0.0934 \\
+			}
+			\end{align*}
+		\end{scriptsize}
 	\end{minipage}
 
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap Example 2}
+	\textbf{Swap one x-token with a fee of 0.3 \%} \\
+
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/swap_example_2.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+\vspace{1em}
+	\begin{minipage}{0.4\textwidth}
+		\vspace{-4em}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1>{
+				PR &= \dfrac{y}{x} = 100/100 = 1 \\
+				P_{eff} &= \dfrac{\Delta (y)}{\Delta (x)} = \dfrac{0.9872}{1} = 0.9872\\
+				PR' &= \dfrac{y'}{x'} = \dfrac{99.0128}{101} =  0.9803 \\
+			}
+			\only<2>{
+				S &= \dfrac{P_{eff}}{PR} - 1 = \dfrac{0.9872}{1} - 1 = -0.0128 \\
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+	
+	\uncover<2>{When the trade size is smaller compared to the pool liquidity, slippage is also reduced. In our example from $\approx$ 10\% to $\approx$ 1.3\%.
+	}
+		
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divergence Loss Example}
+	Liquidity Provision, Divergence Loss Example
 \end{frame}
 %%%
 
