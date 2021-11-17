@@ -270,7 +270,7 @@ Solidity offers \genkey{require}\texttt{(<condition>, <error message>);}:
 \vspace{1em}
 
 \uncover<3->{
-\textbf{Visibility:} If a mapping is declared as \genkey{public,} it automatically has a getter function in form of \texttt{<variable name>(<keyType> key) returns (<valueType>)}.
+\textbf{Visibility:} If a mapping is declared as \genkey{public}, it automatically has a getter function in form of \texttt{<variable name>(<keyType> key) returns (<valueType>)}.
 }
 \end{frame}
 %%%
@@ -328,7 +328,7 @@ Mappings can be \textbf{nested}.\\
 For security reasons, Solidity differentiates between \genkey{payable} and non-payable addresses.
 
 \vspace{1.5em}
-To be able to send ether to an address, it needs to be explicitly declared as \genkey{payable:}\\
+To be able to send ether to an address, it needs to be explicitly declared as \genkey{payable:}\\ \vspace{1em}
 
 \texttt{address payable payableAddress = payable(normalAddress)};
  }
@@ -497,6 +497,17 @@ $\Rightarrow$ Most node clients offer functionality to subscribe to events and g
 	\input{../assets/solidity_code/auction_events.tex}
 \end{samplecode}
 
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Update of the Auction Contract}
+	\begin{exercise}{Exercise 1:}
+	\begin{enumerate}
+		\item Add the code snippets shown in this slide deck to the SimpleAuction contract.
+		\item Deploy the contract, and interact with it using different addresses.
+	\end{enumerate}
+	\end{exercise}
 \end{frame}
 %%%
 

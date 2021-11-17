@@ -1,7 +1,7 @@
 \begin{lstlisting}[language=Solidity]
 contract SimpleAuction {
   // Allowed withdrawals of previous bids
-  mapping(address => uint) pendingReturns;
+  mapping(address => uint) public pendingReturns;
   
   function bid() public payable {
     require(block.timestamp < endTime, 'Auction ended');
