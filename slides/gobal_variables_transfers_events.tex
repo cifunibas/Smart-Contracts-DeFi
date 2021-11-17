@@ -1,0 +1,515 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Global Variables, Transfers, and Events}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Time on the Blockchain}
+
+\begin{minipage}{0.3\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/time.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.65\textwidth}
+	\textbf{Goal:} Contract users must be able to set an end time for their auction.\\
+	
+	\color{darkmint}\textbf{How does a contract keep track of time?}
+\end{minipage}
+
+\vspace{2em}
+
+\uncover<2->{
+
+Solidity offers \globvar{global variables}.
+
+\vspace{1em}
+
+\textbf{Example:} \globvar{block.timestamp} gives us the time that the miner sets in the block where our transaction is included.\\
+
+\vspace{1em}
+
+\textbf{Security consideration:} This information can be influenced by the miner.
+}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Other Block Variables }
+
+\begin{itemize}
+	\item \globvar{block.basefee}  returns current block’s base fee.
+	\item \globvar{block.chainid}  returns current chain id.
+	\item \globvar{block.coinbase}  returns the miner address of the current block.
+	\item \globvar{block.difficulty}  returns current block difficulty.
+	\item \globvar{block.gaslimit}  returns current block gaslimit.
+	\item \globvar{block.number} returns the current block number.
+\end{itemize}
+
+\vspace{1.5em}
+
+\link \href{https://docs.soliditylang.org/en/v0.8.9/units-and-global-variables.html}{Solidity Documentation: Block and Transaction Properties}.
+
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Other Global Variables}
+
+\textbf{Frequently used}
+\begin{itemize}
+	\item \globvar{msg.sender} sender address of the message (current call).\\
+		\textit{This is not necessarily the origin of the transaction, it can be the address of another contract that made an internal call.}
+	\item \globvar{msg.value} ether amount in wei sent with the message.
+\end{itemize}
+
+\vspace{0.5em}
+
+\uncover<2->{
+
+\textbf{Others}
+\begin{itemize}
+	\item \globvar{msg.data} complete calldata.
+	\item \globvar{msg.sig} first four bytes of the calldata indicating the function that is called.
+	\item \globvar{tx.origin} address of the \textbf{original} sender of the transaction.
+	\item \globvar{tx.gasprice} gas price of the transaction.
+	\item \globvar{blockhash(blockNumber)} hash of the indicated block.
+\end{itemize}
+
+\vspace{0.5em}
+
+\link \href{https://docs.soliditylang.org/en/v0.8.9/cheatsheet.html}{Solidity Documentation: Cheatsheet | Global Variables}.
+
+}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Units}
+
+Solidity supports \textbf{time} and \textbf{monetary} units natively.
+
+\vspace{0.5 em}
+
+\uncover<2->{
+
+\begin{samplecode}{Ether Units}
+	\input{../assets/solidity_code/ether_units.tex}
+\end{samplecode}
+
+Most common are \typesunits{wei} $(1)$,  \typesunits{gwei} $(10^9)$, and  \typesunits{ether} $(10^{18})$.
+}
+
+\vspace{1.5em}
+
+\uncover<3->{
+
+Time suffixes can be used to convert to seconds. Supported are \typesunits{seconds}, \typesunits{minutes}, \typesunits{hours}, \typesunits{days}, \typesunits{weeks}.
+\begin{samplecode}{Time Units}
+	\input{../assets/solidity_code/time_units.tex}
+\end{samplecode} 
+%
+%$\Rightarrow$ months or years are \textbf{not} supported.
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Suffixes and Variables}
+
+\textbf{Keep in mind:} Usage of variables with suffixes is disallowed.
+
+\vspace{1.5em}
+\begin{samplecode}{Hours to Seconds}
+	\input{../assets/solidity_code/suffix_wrong.tex}
+\end{samplecode}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Add Duration to the Auction}
+
+\begin{samplecode}{Auction Parameters}
+	\input{../assets/solidity_code/auction_duration.tex}
+\end{samplecode} 
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Function Restrictions and Requirements}
+
+\vspace{1 em}
+Often, functions in a contract need to be \textbf{restricted} in some way.
+
+\vspace{0.5em}
+
+\textbf{Goal:} \texttt{bid()} should only be callable during an active auction.
+
+\uncover<2->{
+\vspace{1.5 em}
+
+Solidity offers \genkey{require}\texttt{(<condition>, <error message>);}:
+\begin{itemize}
+	\item if \texttt{<condition>} evaluates to \texttt{false}, the \textbf{whole} transaction is \textbf{reverted.}
+	\item  \texttt{<error message>} is optional but improves usability.
+\end{itemize}
+
+\begin{samplecode}{Restricted bid() Function}
+	\input{../assets/solidity_code/bid_restriction.tex}
+\end{samplecode}
+}
+	
+\end{frame}
+%%
+
+%
+%%%
+\begin{frame}{Building the bid() function}
+
+\vspace{1em}
+
+\textbf{Accept and store valid bids:}
+\begin{itemize}
+	\item Add \genkey{payable} modifier to be able to receive ether.\\
+	\textit{$\Rightarrow$ All ether received are in full control of the contract.}
+	\item Check if bid (\globvar{msg.value}) is higher than previous valid bid.
+	\item Store the new highest bid and bidder (\globvar{msg.sender}).
+\end{itemize}
+
+\vspace{1em}
+\begin{samplecode}{bid() Function}
+	\input{../assets/solidity_code/bid_function.tex}
+\end{samplecode}
+
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Refunding the Outbidden}
+
+\textbf{Goal:} Whenever a new valid bid is received, the previous bidder is refunded.\\
+
+\vspace{1em}
+
+\textbf{Remember:} A smart contract is unable to initiate transactions by itself.
+
+\vspace{2em}
+\uncover<2->{
+\textbf{Options:}
+
+\begin{minipage}{0.18\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/refund.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.8\textwidth}
+	\begin{enumerate}
+		\item Refund as part of the new bid transaction.\\
+			\uncover<3->{$\rightarrow$ \textit{Passing execution to another address introduces significant security risk.}}
+			\vspace{0.5em}
+		\item Allow the user to withdraw his invalidated bids.\\
+		\uncover<3->{\color{darkmint}\textbf{$\rightarrow$ Preferred option}}
+	\end{enumerate}
+\end{minipage}
+
+
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Mappings}
+
+\textbf{Goal:} Keep track of how much ether a previous bidder can withdraw.
+
+\vspace{1em}
+
+\uncover<2->{
+\emph{Mappings} store \texttt{key => value} pairs, similar to a hash map or dictionary in other programming languages:
+\begin{itemize}
+	\item The key's keccak256 hash points to the storage slot for the value.
+	\item Mappings span the full storage space of $2^{256}$ slots.
+	\item Declaration: \texttt{mapping(keyType => valueType) <visibility> <variable name>;}
+\end{itemize}
+}
+
+\vspace{1em}
+
+\uncover<3->{
+\textbf{Visibility:} If a mapping is declared as \genkey{public}, it automatically has a getter function in form of \texttt{<variable name>(<keyType> key) returns (<valueType>)}.
+}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Store withdrawable funds per address}
+
+\begin{samplecode}{pendingReturns Mapping}
+	\input{../assets/solidity_code/pendingReturns.tex}
+\end{samplecode}
+
+\textbf{$\Rightarrow$ Using \texttt{+=} prevents overwriting previous unclaimed refunds.}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{More on Mappings}
+
+Mappings are very powerful data structures with some drawbacks:
+\begin{itemize}
+	\item	Lack of length property.
+	\item	Cannot be enumerated or returned.
+	\item	Cannot be cleared easily.
+\end{itemize}
+
+\uncover<2->{
+\vspace{1em}
+\color{darkmint} $\Rightarrow$ \textbf{No straightforward way to reconstruct storage state}.\color{black}
+
+\vspace{0.5em}
+Separately storing all keys used can be a workaround. 
+}
+
+\uncover<3->{
+\vspace{1.5em}
+Mappings can be \textbf{nested}.\\
+\texttt{mapping(address => mapping(uint => bool))} will store a \texttt{uint => bool} mapping for each address.
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Sending Ether from a Contract to an Address}
+
+\textbf{Goal:} Return ether to outbidden user as part of \texttt{withdraw()}.
+
+\uncover<2->{
+\vspace{1.5em}
+
+For security reasons, Solidity differentiates between \genkey{payable} and non-payable addresses.
+
+\vspace{1.5em}
+To be able to send ether to an address, it needs to be explicitly declared as \genkey{payable:}\\ \vspace{1em}
+
+\texttt{address payable payableAddress = payable(normalAddress)};
+ }
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The Three Options of a Contract to Transfer Ether}
+
+\begin{enumerate}
+	\item 	\texttt{address payable.transfer(<amount>)}\\
+	Forwards 2300 gas and tries to transfer \texttt{<amount>} ether to the target address. Transfer failure reverts the whole transaction.
+	\vspace{0.5em}
+	\item<2->	\texttt{address payable.send(<amount>)}\\
+	Same as \texttt{transfer} but does not revert on failure. Returns \texttt{true} or \texttt{false} depending success.
+	\vspace{0.5em}
+	\item<3->	\texttt{address payable.call $\{$value: <amount> $\}$("")}\\
+	Low level call to the address. Forwards all remaining gas or an exact value, if so specified via \texttt{$\{$value: <amount>, gas: <gas amount>.$\}$}
+\end{enumerate}
+
+\vspace{1.5em}
+\uncover<4->{
+For simplicity and security reasons, we are using \texttt{transfer}. But there are good reasons to use call instead. Especially to ensure forward-compatibility regarding gas costs.
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Building the withdraw() function}
+
+\begin{samplecode}{withdraw() Function}
+	\input{../assets/solidity_code/withdraw_function.tex}
+\end{samplecode}
+
+\begin{itemize}
+	\item 	Add a returns statement to the function to show the amount of ether withdrawn.
+	\item<2->  Specify the name of the return value to avoid declaring the variable and an explicit return statement. 
+	\item<3->	To prevent re-entrancy attacks, update the balance \color{focus}before \color{black} transfer.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Ending the Auction}
+
+\textbf{Goal:} After endTime, the highest bid is to be transferred to the beneficiary.
+
+\vspace{1.5em}
+
+\textbf{Remember:} Smart contracts can not do anything by themselves.
+
+\uncover<2->{
+\vspace{0.5em}
+$\Rightarrow$ \texttt{auctionEnd()} to close the auction and transfer the bid is needed.
+
+
+\vspace{1.5em}
+\textbf{Structuring guidelines} for functions interacting with other addresses:
+\begin{enumerate}
+	\item Check all conditions.
+	\item Apply all internal state changes.
+	\item Interact with other addresses.
+\end{enumerate}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The auctionEnd() Function}
+
+
+\begin{samplecode}{auctionEnd() Function}
+	\input{../assets/solidity_code/auctionEnd_function.tex}
+\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Events}
+
+\begin{minipage}{0.65\textwidth}
+\textbf{The Blockchain is fully transparent. Does this mean that one can obtain the full history of bids?}
+
+\uncover<2->{
+\vspace{1 em}
+
+\textit{Yes, using a lot of resources: Access an archive node and call the state at every block to check the bid variable. }
+}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/event.png}	
+	\end{figure}
+\end{minipage}
+
+\uncover<3->{
+\vspace{1.5em}
+\textbf{Should the bid of each user be stored permanently then?}
+}
+
+\vspace{1 em}
+
+\uncover<4->{
+\textit{No, this would be very expensive and causes state bloat.}
+}
+
+\uncover<5->{
+\vspace{1.5em}
+
+\textbf{Solution:} Write data into logs.
+\begin{itemize}
+	\item	\textbf{Cheap:} It is stored in a different place than the state.
+	\item	\textbf{Verifiable:} It is part of the block hash.
+	\item	\textbf{Downside:} It cannot be accessed as part of a transaction.
+\end{itemize}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Declaring Events}
+
+\textbf{Declaration:}
+\begin{itemize}
+	\item \texttt{event <EventName> (<parameterType> <indexed> <parameterName>, ...)}
+	\item	Once emitted, the corresponding log can be queried from a full node.  
+\end{itemize}
+
+\uncover<2->{
+\vspace{0.5 em}
+
+\textbf{Indexing:}
+\begin{itemize}
+	\item Indexed parameters can be used to filter logs.
+	\item Slightly more expensive to emit.
+	\item Maximum of three indexed parameters per log.
+\end{itemize}
+}
+
+\uncover<3->{
+\vspace{0.5 em}
+
+\textbf{Emission:} \texttt{emit <EventName> (<value>,... );}
+}
+
+\uncover<4->{
+\vspace{1 em}
+
+$\Rightarrow$ Most node clients offer functionality to subscribe to events and get notified whenever a specific contract emits a specified event.
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Building Events for the Auction}
+
+\begin{samplecode}{NewBid and AuctionEnded Events}
+	\input{../assets/solidity_code/auction_events.tex}
+\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Update of the Auction Contract}
+	\begin{exercise}{Exercise 1:}
+	\begin{enumerate}
+		\item Add the code snippets shown in this slide deck to the SimpleAuction contract.
+		\item Deploy the contract, and interact with it using different addresses.
+	\end{enumerate}
+	\end{exercise}
+\end{frame}
+%%%
+
+
+\end{document}
