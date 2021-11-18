@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Blind Auction}
+\subtitle{Hashing and Complex Types}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -21,16 +21,16 @@
 \end{frame}
 
 %%%
-\begin{frame}{Blind Auctions}
+\begin{frame}{Sealed Bid Auctions}
 
-	\textbf{Blind auction:} Bidders submit sealed/secret bids so that no bidder knows the bid of any other participant.\\
+	\textbf{Sealed bid auction:} Bidders submit sealed/secret bids so that no bidder knows the bid of any other participant.\\
 	
 	\vspace{1em}
 	
 	\begin{columns}[T]
 		\begin{column}{0.45\textwidth}
 			\uncover<2->{		
-				\textbf{Open auction example:}
+				\textbf{Open auction:}
 				\begin{figure}
 					\input{../assets/figures/sealed_bid.tex}	
 				\end{figure}
@@ -38,7 +38,7 @@
 		\end{column}
 		\begin{column}{0.45\textwidth}
 			\uncover<3->{		
-				\textbf{Blind auction example:}
+				\textbf{Sealed bid auction:}
 				\begin{figure}
 					\input{../assets/figures/open_bid.tex}
 				\end{figure}
@@ -50,14 +50,14 @@
 	
 	\uncover<4->{
 		\begin{keytakeaway}{Bid and Reveal Phases}
-			In blind auctions, participants bid quasi-simultaneously, i.e., the auction process consists of two phases. First, bidders submit their bids, and second, the bids are revealed and the highest bidder is determined.
+			In sealed bid auctions, participants bid quasi-simultaneously, i.e., the auction process consists of two phases. First, bidders submit their bids, and second, the bids are revealed and the highest bidder is determined.
 		\end{keytakeaway}
 	}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Problem 1: Blind Auction}
+\begin{frame}{Problem 1: Sealed Bids}
 
 	\textbf{Problem:} Transaction data on public blockchains/blockchain networks is transparent.
 		
@@ -80,7 +80,7 @@
 %%%
 \begin{frame}{Problem 2: Binding Auction}
 
-	\textbf{Problem:} Ensure that the highest bidder pays if they win, but keep the bids secret.
+	\textbf{Problem:} Ensure that the highest bidder pays if they win.
 	
 	\vspace{1em}
 	
@@ -114,7 +114,7 @@
 %%%
 \begin{frame}{Hashing the Bid}
 
-	\textbf{Hashing in Solidity:} \texttt{keccak256(bytes) returns (bytes32)} can be used for any arbitrary input.\\
+	\textbf{Hashing in Solidity:} \texttt{\genkey{keccak256}(\typesunits{bytes}) \genkey{returns} (\typesunits{bytes32})} can be used for any arbitrary input.\\
 	
 	\vspace{1em}
 	
@@ -128,76 +128,13 @@
 		\textbf{What we will hash:}
 		\begin{enumerate}
 			\item<3-> Value of the bid
-			\item<4-> Variable that indicates if the bid is fake/real
-			\item<5-> Salt to prevent guessing
+			\item<4-> Indicator whether the bid is fake or real
+			\item<5-> Secret (salt) to prevent guessing
 		\end{enumerate}
 	}
 	
 \end{frame}
 %%%
-
-%%%
-\begin{frame}{Commit and Reveal Exercise}
-	
-	\begin{exercise}{Exercise: Test one implementation of commit/reveal yourself}
-		\begin{enumerate}
-			\item Read the introduction for the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller}{\link Ethereum Name Service (ENS) \texttt{ETHRegistrarController}} and the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller\#calculate-commitment-hash}{\link \texttt{makeCommitment}} description.
-			\item Check out the \texttt{makeCommitment} function in the ''Read Code" section of the deployed contract on \href{https://etherscan.io/address/0x283af0b28c62c092c9727f1ee09c02ca627eb7f5\#readContract}{\link etherscan}.
-			\item If nothing else is specified, assume the following input values:
-		\end{enumerate}
-					
-		\begin{itemize}
-			\item \texttt{name: vitalik}
-			\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
-			\item \texttt{secret: 0x6162636400000000000000000000000000000000000000000000000000000000}
-		\end{itemize}
-			
-		\textbf{Question 1:} What is the output of the function?
-		
-	\end{exercise}	
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Commit and Reveal Exercise}
-
-	\begin{exercise}{Exercise: Test one implementation of commit/reveal yourself:}
-	
-		Assume someone made a commitment with the same \texttt{owner} and \texttt{secret}. The commitment hash was \\
-\texttt{0x5af80c257639b6180b3d8e91ad2fefa8006afe66bbc98f2e46384e7ccefbe823}.\\
-
-		\vspace{0.5em}
-
-		\textbf{Question 2:}  Which of the following names did they want to register?
-		\vspace{-0.5em}
-		\begin{multicols}{2}
-				\begin{itemize}
-					\item[A.] vitalik
-					\item[C.] mary
-					\item[B.] aaron
-					\item[D.] patricia
-				\end{itemize}
-			\end{multicols}
-		
-		\uncover<2->{
-		\textbf{Question 3:} Assume someone made a commitment with the hash\\ \texttt{0xedc18ec53ab6729380c138ef6ab3f04c1a73fec9540cfc09d5ea84ff27ebe796} for the same \texttt{owner} address. You do not know the \texttt{secret} they used. Are you able to find out which one of the four names they wanted to register?
-		}
-	\end{exercise}
-	
-	\uncover<3->{
-		\begin{exercise}{Solution to question 3: low probability of success (for verification purposes only)}
-			\begin{itemize}
-						\item \texttt{name: patricia}
-						\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
-						\item \texttt{secret:\\
-					0x61626364000000009990000000000120000000034000005600000abcdefabcd}
-			\end{itemize}
-		\end{exercise}
-	}
-\end{frame}
-%%%
-
 
 %%%
 \begin{frame}{Strings}
@@ -210,7 +147,7 @@
 		
 		for(x in 1:100) \{ \\
 		\phantom{....}hash = H("I bid x ETH.") \\
-		\phantom{....}return(hash == hash\_from\_alice) \\
+		\phantom{....}print(hash == hash\_from\_alice) \\
 		\}
 		
 	\end{samplecode}
@@ -218,10 +155,10 @@
 	\vspace{1em}
 	
 	\uncover<2->{
-	\textbf{Solution:} add additional arbitrary information to the input -- a so-called ''salt".
+	\textbf{Solution:} add additional arbitrary information to the input.
 	
 		\begin{itemize}
-			\item In our example, we use a string because it is intuitive and easy to remember.
+			\item In our example, we use a string because it is intuitive and can be used similarly to a password.
 			\item A string stores text and is written with single (' ') or double quotes ('' ").
 			\item Unicode strings can be used by prefixing \texttt{unicode}, e.g., \texttt{unicode"Secret \includegraphics[height = 0.8\baselineskip]{../assets/images/earth_emoji.png}"}.
 		\end{itemize}
@@ -233,11 +170,11 @@
 %%%
 \begin{frame}{Hashing the Bid}
 
-	\textbf{Create a pure function to generate a blinded bid:}
+	\textbf{Create a pure function to generate a sealed bid:}
 	
 	\input{../assets/solidity_code/generateBlindedBid}
 	
-	This is safe to use: No trace of a pure/view function call is stored on chain\\
+	No trace of a pure/view function call is stored on chain.\\
 	
 \end{frame}
 %%%
@@ -263,8 +200,8 @@
 	\textbf{Purpose:}
 	
 	\begin{itemize}
-		\item Keep track of hash blinded bids with the corresponding deposit amount
-		\item Complex user defined types with any number of properties
+		\item Keep track of hashed sealed bids with the corresponding deposit amount.
+		\item Complex user defined types with any number of properties.
 	\end{itemize}
 	
 	\uncover<2->{
@@ -275,15 +212,15 @@
 		\texttt{Bid} can now be used as a variable type, e.g.,\\
 
 		\begin{samplecode}{}
-		Bid newBid = Bid(generateBlindedBid(50e18, true, "secret"), 50e18);
+		Bid newBid = Bid(generateSealedBid(50e18, true, "secret"), 50e18);
 		\end{samplecode}
 	}
 	
 	\uncover<4->{
 		\begin{keytakeaway}{Structs usage}
 			\begin{itemize}
-				\item Structs can be used in mappings and arrays
-				\item Structs can obtain mappings and arrays
+				\item Structs can be used in mappings and arrays.
+				\item Structs can contain mappings and arrays.
 			\end{itemize}
 		\end{keytakeaway}
 	}
@@ -303,15 +240,20 @@
 	\uncover<2->{
 		\textbf{Problem:} what if users want to create multiple bids?
 	
-	$\rightarrow$ Use a variable sized list of elements that is enumerable: Dynamic Arrays.
+	$\rightarrow$ Use a variable sized list of elements that is enumerable: Dynamic Arrays.\\
 	
-	\begin{keytakeaway}{Arrays in Solidity}
-		\begin{itemize}
-			\item \texttt{T[<k>]}: Fixed size array of type \texttt{T} and length {k}.
+	\vspace{1em}
+	
+	\textbf{Arrays in Solidity:}
+	\begin{itemize}
+			\item \texttt{T[<k>]}: Fixed size array of type \texttt{T} and length \texttt{k}.
 			\item \texttt{T[]}: Dynamic size array of type \texttt{T}.
 		\end{itemize}
+		
+	
+	\begin{keytakeaway}{Array properties and methods}
 		Both array types have the \texttt{.length()} property. Fixed arrays will return \texttt{k}, dynamic arrays the current length.\\
-		Dynamic arrays have the \texttt{.push()} and \texttt{.pop()} methods to add or remove an element at the end of the array.
+		Dynamic arrays have the \texttt{.push(<value>)} and \texttt{.pop()} methods to add or remove an element at the end of the array.
 	\end{keytakeaway}
 	}
 
@@ -325,6 +267,66 @@
 	
 	\input{../assets/solidity_code/structAndMapping}
 	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Commit and Reveal Exercise}
+	
+	\begin{exercise}{Exercise 1}
+		\textbf{Preparation:}
+		\begin{itemize}
+			\item Read the introduction for the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller}{\link Ethereum Name Service (ENS) \texttt{ETHRegistrarController}} and the \href{https://docs.ens.domains/contract-api-reference/.eth-permanent-registrar/controller\#calculate-commitment-hash}{\link \texttt{makeCommitment}} description.
+			\item Check out the \texttt{makeCommitment} function in the ''Read Code" section of the deployed contract on \href{https://etherscan.io/address/0x283af0b28c62c092c9727f1ee09c02ca627eb7f5\#readContract}{\link etherscan}.
+		\end{itemize}
+		
+		\textbf{Question 1:} What is the output of the function if you use
+					
+		\begin{itemize}
+			\item \texttt{name: vitalik}
+			\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
+			\item \texttt{secret: 0x6162636400000000000000000000000000000000000000000000000000000000}
+		\end{itemize}
+		
+		as the input values?
+					
+	\end{exercise}	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Commit and Reveal Exercise}
+
+	\begin{exercise}{Exercise 1 (part 2)}
+	
+		\textbf{Question 2:} Assume someone created the commitment hash \texttt{0x5af80c257639b6180b3d8e91ad2fefa8006afe66bbc98f2e46384e7ccefbe823}. They used the \texttt{owner} and \texttt{secret} from \textbf{Question 1}. Which one of the following names did they want to register?
+			
+		\vspace{-0.5em}
+		\begin{multicols}{2}
+				\begin{itemize}
+					\item[A.] vitalik
+					\item[C.] mary
+					\item[B.] aaron
+					\item[D.] patricia
+				\end{itemize}
+			\end{multicols}
+		
+		\uncover<2->{
+		\textbf{Question 3:} Assume someone created the commitment hash \texttt{0xedc18ec53ab6729380c138ef6ab3f04c1a73fec9540cfc09d5ea84ff27ebe796}. They used the \texttt{owner} from \textbf{Question 1}. You do not know the \texttt{secret} they used. Are you able to find out which one of the four names from \textbf{Question 2} they wanted to register?
+		}
+	\end{exercise}
+	
+%	\uncover<3->{
+%		\begin{exercise}{Solution to question 3: very low probability of success (for verification purposes only)}
+%			\begin{itemize}
+%						\item \texttt{name: patricia}
+%						\item \texttt{owner: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045}
+%						\item \texttt{secret:\\
+%					0x61626364000000009990000000000120000000034000005600000abcdefabcd}
+%			\end{itemize}
+%		\end{exercise}
+%	}
 \end{frame}
 %%%
 
