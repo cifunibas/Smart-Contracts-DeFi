@@ -1,0 +1,7 @@
+\begin{lstlisting}[language=Solidity]
+contract SealedBidAuction {
+	function generateSealedBid(uint _bidAmount, bool _isLegit, string memory _secret) public pure returns (bytes32 sealedBid) {
+			sealedBid = keccak256(abi.encodePacked(_bidAmount, _isLegit, _secret));
+	}
+}
+\end{lstlisting}
