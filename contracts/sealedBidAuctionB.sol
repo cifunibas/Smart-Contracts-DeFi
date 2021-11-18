@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+// Warning: For educational purposes only. Do not use with real funds.
+
 pragma solidity ^0.8.9;
 
 contract SealedBidAuction {
