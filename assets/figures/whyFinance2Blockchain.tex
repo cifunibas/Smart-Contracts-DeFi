@@ -1,0 +1,102 @@
+% Avatars LEFT
+		\node (agenta) at (0,5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agentb) at (0,2.5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agentc) at (0,0) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agentd) at (4,5) {\includegraphics[height = 0.8 cm]{../assets/images/bank.png}};
+		
+		\node (agente) at (4,2.5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_left.png}};
+		
+		\node (agentf) at (4,0) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_left.png}};
+		
+
+% Avatars RIGHT
+		\node (agentg) at (7.5,5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agenth) at (7.5,2.5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agenti) at (7.5,0) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_right.png}};
+		
+		\node (agentj) at (11.5,5) {\includegraphics[height = 0.8 cm]{../assets/images/smart_contract.png}};
+		
+		\node (agentk) at (11.5,2.5) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_left.png}};
+		
+		\node (agentl) at (11.5,0) {\includegraphics[height = 0.8 cm]{../assets/images/agents/handing_left.png}};
+		
+
+
+		
+
+% Arrows BRACKETS
+
+		\draw[ultra thick,] (5.65,5.5) -- (6.05,5) -- (5.65,4.5);
+		
+		\draw[ultra thick,] (5.65,3) -- (6.05,2.5) -- (5.65,2);
+		
+		\draw[ultra thick,] (5.65,0.5) -- (6.05,0) -- (5.65,-0.5);
+		
+
+		
+		
+%Arrows <->
+		\draw  [<->, shorten >=7pt, shorten <=7pt, thick] 	(agenth.east)
+	coordinate (1_east_shifted) -- 
+	(agentk.west |- 1_east_shifted);
+		
+%Arrows ->
+		\draw  [->, shorten >=7pt, shorten <=7pt, thick] 	(agenta.east)
+	coordinate (1_east_shifted) -- 
+	(agentd.west |- 1_east_shifted);
+		\draw  [->, shorten >=7pt, shorten <=7pt, thick] 	(agentg.east)
+	coordinate (1_east_shifted) -- 
+	(agentj.west |- 1_east_shifted);	
+		
+		
+%middleman bank
+		
+		\node [xshift=2cm] at (agentb) {\includegraphics[height = 0.8 cm]{../assets/images/bank.png}};
+		\node [xshift=2cm] at (agentc) {\includegraphics[height = 0.8 cm]{../assets/images/bank.png}};
+		
+%Padlock
+				\node [xshift=1.25cm, yshift =-0.1cm] at (agentc) {\includegraphics[height = 0.4 cm]{../assets/images/locked-padlock.png}};
+				\node [xshift=2.75cm, yshift =-0.1cm] at (agentc) {\includegraphics[height = 0.4 cm]{../assets/images/locked-padlock.png}};
+		
+		
+% Programatic Composability
+		
+		\node [xshift=1.1cm] at (agenti) {\includegraphics[height = 0.8 cm]{../assets/images/smart_contract.png}};
+		\node [xshift=2cm] at (agenti) {\includegraphics[height = 0.8 cm]{../assets/images/construction.png}};
+		\node [xshift=2.9cm] at (agenti) {\includegraphics[height = 0.8 cm]{../assets/images/smart_contract.png}};
+		
+%Peer2Peer
+		
+		\node [xshift=2cm, yshift =0.3cm] at (agenth) {\includegraphics[height = 0.4 cm, angle=137]{../assets/images/link.png}};
+		
+%Small Arrows <->
+		
+		\draw  [<->, shorten >=7pt, shorten <=65pt, thick] 	(agentb.east)
+	coordinate (1_east_shifted) -- 
+	(agentf.west |- 1_east_shifted);
+		\draw  [<->, shorten >=65pt, shorten <=7pt, thick] 	(agentb.east)
+	coordinate (1_east_shifted) -- 
+	(agentf.west |- 1_east_shifted);
+	
+%Writing
+		
+				\begin{footnotesize}
+%left
+		
+		\node at (agenta) [align=right, yshift = 1cm, xshift = 2cm]{Trust-based execution};		
+		\node at (agentb) [align=right , yshift = 1cm, xshift = 2cm]{Centralized Clearing and Settlement};		
+		\node at (agentc) [align=right , yshift = 1cm, xshift = 2cm]{Silo Services};
+		
+%right
+		
+		\node at (agentg) [align=right , yshift = 1cm, xshift = 2cm]{Deterministic Execution};
+		\node at (agenth) [align=right , yshift = 1cm, xshift = 2cm]{Atomic Settlement (Peer-to-Peer)};
+		\node at (agenti) [align=right , yshift = 1cm, xshift = 2cm]{Programmatic Composability};
+		
+		\end{footnotesize}
+		
