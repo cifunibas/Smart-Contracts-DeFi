@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-contract BlindAuction {
+contract SealedBidAuction {
   // Auction parameters
   address public immutable beneficiary;
   uint public biddingEnd;
@@ -18,10 +18,10 @@ contract BlindAuction {
   
   event AuctionEnded(address winner, uint amount);
 
-  constructor (address _beneficiary, uint durationBiddingMinutes, uint durationRevealMinutes) 	{
+  constructor (address _beneficiary, uint _durationBiddingMinutes, uint _durationRevealMinutes) 	{
     beneficiary = _beneficiary;
-    biddingEnd = block.timestamp + durationBiddingMinutes * 1 minutes;
-    revealEnd = biddingEnd + durationRevealMinutes * 1 minutes;
+    biddingEnd = block.timestamp + _durationBiddingMinutes * 1 minutes;
+    revealEnd = biddingEnd + _durationRevealMinutes * 1 minutes;
   }
   
   function withdraw() external returns (uint amount) {
@@ -32,7 +32,9 @@ contract BlindAuction {
     }
   }
   
-  function generateBlindedBid...
+  function generateSealedBid(uint _bidAmount, _bool isLegit, string memory _secret) public pure returns (bytes32 sealedBid) {
+			sealedBid = keccak256(abi.encodePacked(_bidAmount, _isLegit, _secret));
+	}
 }
 	
 \end{lstlisting}
