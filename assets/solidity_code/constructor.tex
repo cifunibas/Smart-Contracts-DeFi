@@ -1,0 +1,18 @@
+\begin{lstlisting}[language=Solidity]
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract SimpleAuction {
+  // Auction parameters
+  address public immutable beneficiary;
+  
+  // State of the auction
+  uint public highestBid;
+  address public highestBidder;
+  bool public hasEnded;
+
+  constructor (address _beneficiary) {
+    beneficiary = _beneficiary;
+  }
+}
+\end{lstlisting}

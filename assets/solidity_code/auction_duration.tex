@@ -1,0 +1,10 @@
+\begin{lstlisting}[language=Solidity]
+// Auction parameters
+address public beneficiary;
+uint public endTime; // As UNIX timestamp
+
+constructor (address _beneficiary, uint _durationMinutes) {
+	beneficiary = _beneficiary;
+	endTime = block.timestamp + _durationMinutes * 1 minutes;
+}
+\end{lstlisting}

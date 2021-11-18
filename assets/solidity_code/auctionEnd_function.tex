@@ -1,0 +1,13 @@
+\begin{lstlisting}[language=Solidity]
+function auctionEnd() external {
+  // 1. Check all conditions
+  require(!hasEnded, 'Auction already ended');
+  require(block.timestamp >= endTime, 'Wait for auction to end');
+  
+  // 2. Apply all internal state changes
+  hasEnded = true;
+  
+  // 3. Interact with other addresses
+  payable(beneficiary).transfer(highestBid);
+}
+\end{lstlisting}
