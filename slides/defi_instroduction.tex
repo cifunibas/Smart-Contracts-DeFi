@@ -1,0 +1,94 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Defi Introduction}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Definition}
+
+DeFi employs public \textbf{Blockchain networks} and \textbf{smart contracts} to build open, transparent, composable and non-custodial financial protocols. \\ \vspace{3em}
+
+\uncover<2->{What it is \textbf{NOT}:}
+	\vspace{1em}
+	\begin{itemize}
+		\item<3-> CBDC / Programmable Euro
+		\item<4-> Running an In-house “Blockchain”
+		\item<5-> Heavily centralized settlement chain
+	\end{itemize}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Characteristics}
+\vspace{2em}
+	\begin{table}
+	\footnotesize 
+		\begin{tabular}{lll}
+			\uncover<2->{\pbox{1cm}{\includegraphics[width=0.06\textwidth]{../assets/images/open-lock.png}} &	{\normalsize Open} &  \pbox{7cm}{By default – no access restrictions.\\ Not only on Blockchain but also on protocol level, i.e., no KYC, no whitelisting, no minimum amounts.}\\[1cm]}
+			\uncover<3->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/find.png}} & {\normalsize Transparent} & \pbox{7cm}{Mathematically verifiable by anyone. \\ All relevant logic is on-chain with every step \\ of a process transparently defined in code.} \\ [1cm]}
+			\uncover<4->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/construction.png}} & {\normalsize Composable} & \pbox{7cm}{Interoperable lego pieces. Protocols do not discriminate between human or other smart contracts as users. Thus, they can be combined to new services or made accessible via different applications.} \\ [1cm]}
+			\uncover<5->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/hands.png}} & {\normalsize Non-Custodial} & \pbox{7cm}{No trust requirements. Due to the full-transparency of the smart contract logic in combination with a public blockchain as settlement layer.} \\[1cm]}
+		\end{tabular}
+		\label{tbl:simpletable}
+	\end{table}
+\end{frame}
+
+%%%
+
+
+%%%
+\begin{frame}{DeFi Building Blocks}
+	\scalebox{0.7}{
+	\begin{tikzpicture}
+	\input{../assets/figures/defi_stack}
+	\end{tikzpicture}
+	}
+\end{frame}
+
+%%%
+
+%%%
+\begin{frame}{Why take Finance to the Blockchain?}
+	
+	\scalebox{0.85}{
+	\begin{tikzpicture}
+		\input{../assets/figures/whyFinance2Blockchain.tex}
+		
+	\end{tikzpicture}
+	}
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+	Decentralized Finance: On Blockchain- and Smart Contract-Based Financial Markets, \cite{schaer_2021}.
+\end{frame}
+%%%
+
+
+
+\end{document}
