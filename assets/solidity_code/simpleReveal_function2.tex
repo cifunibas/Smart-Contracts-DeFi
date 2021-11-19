@@ -1,10 +1,10 @@
 \begin{lstlisting}[language=Solidity]
-		if (isLegit && bidToCheck.deposit >= bidAmount) {
+		if (_isLegit && bidToCheck.deposit >= _bidAmount) {
 			// Bid is valid
-			bool success = placeBid(msg.sender, bidAmount);
+			bool success = updateBid(msg.sender, _bidAmount);
 			if(success) {
 				// Bid is new highest bid
-				refund -= bidAmount;
+				refund -= _bidAmount;
 			}
 		}
 		// Prevent re-claiming the same deposit
