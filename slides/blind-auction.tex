@@ -329,4 +329,21 @@
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Commit and Reveal Exercise}
+
+	\begin{exercise}{Exercise 2}
+		\begin{enumerate}
+			\item Create a new contract file named SealedBidAuction.sol
+			\item Copy the SimpleAuction.sol code to the new file.
+			\item Delete the \texttt{bid()} function and \texttt{auctionEnd()} function. Also delete any associated events.
+			\item Add the \texttt{biddingEnd} and \texttt{revealEnd} variables and set them as part of the \texttt{constructor()}.
+			\item Add the \texttt{generateSealedBid()} function.
+			\item Deploy the contract and test the \texttt{generateSealedBid()} function. Note that we have not yet reimplemented the rest of the auction contract, i.e. the bidding and resolution part. 
+		\end{enumerate}
+	\end{exercise}
+	
+\end{frame}
+%%%
+
 \end{document}
