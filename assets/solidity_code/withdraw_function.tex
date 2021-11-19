@@ -1,0 +1,11 @@
+\begin{lstlisting}[language=Solidity]
+function withdraw() external returns (uint amount) {
+  amount = pendingReturns[msg.sender];
+  if (amount > 0) {
+    pendingReturns[msg.sender] = 0;
+	payable(msg.sender).transfer(amount);
+  }
+  // optional: return amount;
+}
+
+\end{lstlisting}

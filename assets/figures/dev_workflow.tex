@@ -1,0 +1,41 @@
+\usetikzlibrary{fit, backgrounds}
+
+\begin{tikzpicture}[
+  node distance=7mm,
+  title/.style={font=\fontsize{6}{6}\color{black!50}},
+  typetag/.style={rectangle, draw=black!50, font=\scriptsize, anchor=west, minimum height = 1.2cm, minimum width = 1.7cm, fill = highlight!80, text width = 1.7cm}
+]
+
+  % Preparation
+
+  \node (prep) at (0, 0) [title] {Preparation};
+
+  \node (conn) [below=of prep.west, yshift=-3mm, typetag] {Blockchain\\ Connection};
+  \node (fund) [right=of conn.east, typetag] {Account\\ Creation\\ \& Funding};
+  \node (setup) [right=of fund.east, typetag] {IDE \& Tool\\ Setup};
+  
+  \draw[->, thick] (conn.east) -- (fund.west);
+  \draw[->, thick] (fund.east) -- (setup.west);
+
+  \begin{scope}[on background layer]
+  	\node [draw=black!50, fit={(prep) (conn) (fund) (setup)}, fill = highlight!30] {};
+  \end{scope}
+  
+  % Development
+  \node (dev) at (0, -5) [title] {Development};
+  
+  \node (develop) [above=of dev.west, typetag, yshift=2mm] {Contract \\ Development};
+  \node (comp) [right=of develop.east, typetag] {Contract \\ Compilation};
+  \node (depl) [right=of comp.east, typetag] {Contract \\ Deployment};
+  \node (test) [right=of depl.east, typetag] {Contract \\ Testing};
+  
+  \draw[->, thick] (setup.south) -- ++(0, -0.6) -| (develop.north);
+  \draw[->, thick] (develop.east) -- (comp.west);
+  \draw[->, thick] (comp.east) -- (depl.west);
+  \draw[->, thick] (depl.east) -- (test.west);
+
+  \begin{scope}[on background layer]
+  	  \node [draw=black!50, fit={(dev) (develop) (comp) (depl) (test)}, fill = highlight!30] {};
+  \end{scope}
+
+\end{tikzpicture}
