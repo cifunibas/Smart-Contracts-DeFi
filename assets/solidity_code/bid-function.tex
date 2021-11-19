@@ -1,7 +1,7 @@
 \begin{lstlisting}[language=Solidity]
-function bid(bytes32 blindedBid) external payable {
+function bid(bytes32 sealedBid) external payable {
 	Bid memory newBid = Bid({
-		blindedBid: blindedBid,
+		sealedBid: sealedBid,
 	deposit: msg.value
 	});
 	

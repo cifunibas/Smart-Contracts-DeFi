@@ -8,7 +8,7 @@
 			}
 		}
 		// Prevent re-claiming the same deposit
-		bidToCheck.blindedBid = bytes32(0);
+		bidToCheck.sealedBid = bytes32(0);
 	}
 	if (refund > 0) {
 		payable(msg.sender).transfer(refund);

@@ -1,10 +1,10 @@
 \begin{lstlisting}[language=Solidity]
 function reveal(uint bidAmount, bool isLegit, string calldata salt) external {
-	bytes32 hashedInput = generateBlindedBid(bidAmount, isLegit, salt);
+	bytes32 hashedInput = generateSealedBid(bidAmount, isLegit, salt);
 	Bid storage bidToCheck = bids[msg.sender][0]; // Load the first element of the array
 	uint refund;
 
-	if (bidToCheck.blindedBid == hashedInput) {
+	if (bidToCheck.sealedBid == hashedInput) {
 		// Bid is successfully revealed
 		refund = bidToCheck.deposit;
 \end{lstlisting}

@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Blind Bidding}
+\subtitle{Sealed Bidding}
 \author{Prof. Dr. Fabian Sch\"ar}
 \institute{University of Basel}
 
@@ -25,7 +25,7 @@
 \uncover<1->{
 	Input:
 	\begin{itemize}
-		\item A hashed blinded bid
+		\item A hashed sealed bid
 	\end{itemize}
 \vspace{.3cm}
 }
@@ -57,7 +57,7 @@
 			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
 			\end{itemize}
 
-		\item<6-> Good heuristic: Use \texttt{calldata} for function arguments of external functions. Use \texttt{storage} if you want to load or modify a state variable. Use \texttt{memory} otherwise.
+		\item<6-> Good heuristic: Use \texttt{storage} if you want to load or modify a state variable. Use \texttt{memory} otherwise (\texttt{calldata} for gas optimization).
 		\end{itemize}
 \end{frame}
 %%%
@@ -69,9 +69,10 @@
 		\item<2-> Accept a list of unencrypted bids to reveal.
 		\item<3-> Validate that the length of this list corresponds to the number of committed bids.
 		\item<4-> Check if the reveal period is active.
-		\item<5-> Ignore fake bids.
-		\item<6-> Update the highest bid and highest bidder if applicable.
-		\item<7-> Handle all refunds.
+		\item<5-> Compute hash values and compare them to commit
+		\item<6-> Ignore fake bids.
+		\item<7-> Update the highest bid and highest bidder if applicable.
+		\item<8-> Handle refunds related to reveal mechanism.
 	\end{itemize}
 \end{frame}
 %%%
@@ -80,15 +81,15 @@
 \begin{frame}{Split the function}
 For better readability, we split the logic into two parts:
 	\begin{itemize}
-		\item<2-> \texttt{placeBid()} handles the bid related checks and refunds.
+		\item<2-> \texttt{updateBid()} handles the bid related checks and refunds.
 		\item<3-> \texttt{reveal()} handles all the reveal related checks and refunds.
 	\end{itemize}
 \end{frame}
 %%%
 
 %%
-\begin{frame}{Place Bid}
-\texttt{placeBid()} is similar to the simple auction's bid function:
+\begin{frame}{Update Bid}
+\texttt{updateBids()} is similar to the simple auction's bid function:
 	\begin{itemize}
 		\item<2-> The function is internal, meaning it can only be called from the contract itself.
 		\item<3-> It returns \texttt{true} if the new highest bid was accepted and \texttt{false} otherwise.
@@ -97,12 +98,13 @@ For better readability, we split the logic into two parts:
 %%%
 
 %%%
-\begin{frame}{Place Bid - Sample code}
-	\begin{samplecode}{placeBid()}
-		\input{../assets/solidity_code/placeBid_function.tex}
+\begin{frame}{Update Bid - Sample code}
+	\begin{samplecode}{updateBid()}
+		\input{../assets/solidity_code/updateBid_function.tex}
 	\end{samplecode}
 \end{frame}
 %%%
+
 %%%
 \begin{frame}{Simple Reveal}
 Start with a simple version: Only one bid exists:
@@ -128,7 +130,7 @@ Start with a simple version: Only one bid exists:
 		\item<1->We need to iterate over all bids of a user
 		\item<2->Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
 		\item<3->\texttt{for}-loops are typically used to iterate over arrays
-		\item<5->\texttt{continue} will skip to the next iteration. \texttt{break} will end the loop.
+		\item<5->\texttt{continue} will jump to the beginning of the next iteration. \texttt{break} will end the loop.
 		\item<6->In addition to \texttt{for}-loops, \texttt{do} and \texttt{while} loops are also available.
 	\end{itemize}
 
@@ -176,12 +178,27 @@ Start with a simple version: Only one bid exists:
 			\input{../assets/solidity_code/auctionEnd.tex}
 		\end{samplecode}
 	}
-	\uncover<3->{
-		\vspace{.5cm}
-		\begin{exercise}{Exercise}
-			Add time constraints to bid() and reveal()
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Exercise: Update Your SealedBidAuction Contract}
+		\begin{exercise}{Exercise 1}
+			\textbf{a) Only one bid exists}
+			\begin{itemize}
+				\item Add a function to submit a new bid to your \texttt{SealedBidAuction} contract
+				\item Implement a reveal function in your \texttt{SealedBidAuction} contract
+				\item Add time constraints to the \texttt{bid()}, \texttt{reveal()} and \texttt{auctionEnd()} functions
+			\end{itemize}
+			\vspace{0.5cm}
+			\textbf{b) Extended version: allow for multiple bids}
+			\begin{itemize}
+				\item Extend your contract to handle multiple bids
+			\end{itemize}
+			\vspace{0.5cm}
+			\textbf{Hint:} You can find all the code components needed for Exercise 1. a) on the previous slides. For Exercise 1. b) you need to extend your contract using a loop. \\
 		\end{exercise}
-	}
 \end{frame}
 %%%
 

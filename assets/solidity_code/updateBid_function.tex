@@ -1,5 +1,5 @@
 \begin{lstlisting}[language=Solidity]
-function placeBid(address bidder, uint bidAmount) internal returns (bool success) {
+function updateBid(address bidder, uint bidAmount) internal returns (bool success) {
 	if (bidAmount <= highestBid) {
 		return false;
 	}
