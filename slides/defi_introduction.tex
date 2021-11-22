@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -10,6 +10,7 @@
 
 % Config File
 \input{../config/config.tex}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,36 +24,40 @@
 
 %%%
 \begin{frame}{Definition}
+\vspace{0.5em}
+DeFi employs  public \textbf{Blockchain networks} and \textbf{smart contracts} to build \textbf{open}, \textbf{transparent}, \textbf{composable} and \textbf{non-custodial} financial protocols. 
 
-DeFi employs public \textbf{Blockchain networks} and \textbf{smart contracts} to build open, transparent, composable and non-custodial financial protocols. \\ \vspace{3em}
+	\begin{table}
+	\scriptsize 
+	\centering
+		\begin{tabular}{rll}
+			\uncover<2->{\pbox{0.7cm}{\includegraphics[width=0.07\textwidth]{../assets/images/globe.png}} &	{\normalsize Open} &  \pbox{7cm}{By default – no access restrictions.\\ Not only on Blockchain but also on protocol level, i.e., no KYC, no whitelisting, no minimum amounts.}\\[1cm]}
+			\uncover<3-> {\pbox{0.8cm} {\centering \includegraphics[width=0.07\textwidth]{../assets/images/find.png}} & {\normalsize Transparent} & \pbox{7cm}{Mathematically verifiable by anyone. \\ All relevant logic is on-chain with every step \\ of a process transparently defined in code.} \\ [1cm]}
+			\uncover<4->{\pbox{0.7cm}{\includegraphics[width=0.07\textwidth]{../assets/images/construction.png}} & {\normalsize Composable} & \pbox{7cm}{Interoperable lego pieces. Protocols do not discriminate between human or other smart contracts as users. Thus, they can be combined to new services or made accessible via different applications.} \\ [1cm]}
+			\uncover<5->{\pbox{0.68cm}{\includegraphics[width=0.07\textwidth]{../assets/images/non-custodial.png}} & {\normalsize Non-Custodial} & \pbox{7cm}{No trust requirements. Due to the full-transparency of the smart contract logic in combination with a public blockchain as settlement layer.} \\[1cm]}
 
-\uncover<2->{What it is \textbf{NOT}:}
-	\vspace{1em}
+		\end{tabular}
+		\label{tbl:simpletable}
+	\end{table}
+
+\end{frame}
+
+%%%
+
+%%%
+
+\begin{frame}{Definition}
+
+What it is \textbf{NOT}:
+	\vspace{3em}
 	\begin{itemize}
-		\item<3-> CBDC / Programmable Euro
-		\item<4-> Running an In-house “Blockchain”
-		\item<5-> Heavily centralized settlement chain
+		\item<2-> CBDC / Programmable Euro
+		\item<3-> Running an In-house “Blockchain”
+		\item<4-> Heavily centralized settlement chain
 	\end{itemize}
 	
 \end{frame}
 %%%	
-
-%%%
-\begin{frame}{Characteristics}
-\vspace{2em}
-	\begin{table}
-	\footnotesize 
-		\begin{tabular}{lll}
-			\uncover<2->{\pbox{1cm}{\includegraphics[width=0.06\textwidth]{../assets/images/open-lock.png}} &	{\normalsize Open} &  \pbox{7cm}{By default – no access restrictions.\\ Not only on Blockchain but also on protocol level, i.e., no KYC, no whitelisting, no minimum amounts.}\\[1cm]}
-			\uncover<3->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/find.png}} & {\normalsize Transparent} & \pbox{7cm}{Mathematically verifiable by anyone. \\ All relevant logic is on-chain with every step \\ of a process transparently defined in code.} \\ [1cm]}
-			\uncover<4->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/construction.png}} & {\normalsize Composable} & \pbox{7cm}{Interoperable lego pieces. Protocols do not discriminate between human or other smart contracts as users. Thus, they can be combined to new services or made accessible via different applications.} \\ [1cm]}
-			\uncover<5->{\pbox{1cm}{\includegraphics[width=0.07\textwidth]{../assets/images/hands.png}} & {\normalsize Non-Custodial} & \pbox{7cm}{No trust requirements. Due to the full-transparency of the smart contract logic in combination with a public blockchain as settlement layer.} \\[1cm]}
-		\end{tabular}
-		\label{tbl:simpletable}
-	\end{table}
-\end{frame}
-
-%%%
 
 
 %%%
@@ -83,9 +88,10 @@ DeFi employs public \textbf{Blockchain networks} and \textbf{smart contracts} to
 %%%
 \begin{frame}%[allowframebreaks]
 \frametitle{References and Recommended Reading}
+\nocite{FS:21}
 	\bibliographystyle{amsplain}
 	\bibliography{../assets/bib/refs}
-	Decentralized Finance: On Blockchain- and Smart Contract-Based Financial Markets, \cite{schaer_2021}
+ 
 \end{frame}
 %%%
 
