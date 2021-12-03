@@ -22,16 +22,33 @@
 
 
 %%%
-\begin{frame}{Exchanges}
+\begin{frame}{Exchange Overview}
 
 	\begin{figure}[h!]
 		\input{../assets/figures/overview_exchanges.tex}
 	\end{figure}
-\uncover<2->{
-	\begin{keytakeaway}{Problems}
-		To be able to trade on a CEX, a users' funds must be deposited with the exchange. Thereby, access is forfeited and trust towards the exchange operator needed.  CEXs are also a single point of attack and face the constant threat of becoming the target of malicious third parties.
-	\end{keytakeaway}
+	
+\only<2>{
+\textbf{Problems of CEXs:}
+\begin{small}
+\begin{itemize}
+	\item A users' funds must be deposited with the exchange
+	\item Access is forfeited and trust towards the exchange operator needed.
+	\item Singe point of attack $\rightarrow$ Constant threat of becoming target of malicious third parties.
+\end{itemize}
+\end{small}
 }	
+
+\only<3>{
+\textbf{Advantages of DEXs:}
+\begin{small}
+\begin{itemize}
+	\item User remains in exclusive control of assets until trade is executed.
+	\item Atomic trade execution = One indivisible transaction.
+	\item No counterparty risk.
+\end{itemize}
+\end{small}
+}
 \end{frame}
 %%%
 
@@ -51,11 +68,17 @@
 		\input{../assets/figures/cfmm.tex}
 	\end{figure}
 
-\uncover<5->{
+\only<4>{
 	\begin{itemize}
-		\item The price is determined endogenously via a formula. There are different types of formulas.
-		\item Traders pay a fee, this fee is subtracted in the formula. Fees are needed to incentivize Liquidity Providers.
-		\item When the pool price differs from the market price (e.g on a centralized exchange), there is an arbitrage opportunity. This keeps the price up to date (in line with Market Price).
+		\item The price is determined endogenously via a formula.
+		\item The trader pays a fee which is added to the liquidity pool. Since no new Pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all Liquidity Providers.
+		%\item When the pool price differs from the market price (e.g on a centralized exchange), there is an arbitrage opportunity. %This keeps the price up to date (in line with Market Price).
+	\end{itemize}
+}
+
+\only<5>{
+	\begin{itemize}
+		\item When the pool price differs from the market price (e.g on a centralized exchange), there is an arbitrage opportunity. This should keep the price in line with the Market Price.
 	\end{itemize}
 }
 
@@ -146,15 +169,28 @@
 
 %%%
 \begin{frame}{Divergence Loss}
-
+		\textbf{General assumptions:} No fees, no other LPs \\ 
+		
+		\begin{enumerate}
+			\item We provide 10 units both of ETH and CIF, both valued at 1\$.
+			\begin{align*}
+			10 \cdot 1\$ + 10 \cdot 1\$ = 20 \$	
+			\end{align*}
+			\item The price for ETH on the open market doubles to 2\$, the price of CIF stays the same. This opens up an arbitrage opportunity in the pool. After arbitrage, prices should correspond  to the market prices and with the following pool balances.
+			\begin{align*}
+			x &= \sqrt{k/P_{x}}	 = \sqrt{100/2} = 7.0716 \\
+			y &= k / x = 100 / 7.0716 = 14.141
+			\end{align*}
+		\end{enumerate}
+		
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Swap Example}
+\begin{frame}{Swap one x-token with 0.03\% fee}
 
-\textbf{Swap one x-token with a fee of 0.3 \%} \\ \vspace{1.5em}
+%\textbf{Swap one x-token with a fee of 0.3 \%} \\ \vspace{1.5em}
 
 	\begin{minipage}{0.5\textwidth}
 		\begin{figure}[h!]
@@ -196,8 +232,8 @@
 
 
 %%%
-\begin{frame}{Swap Example 2}
-	\textbf{Swap one x-token with a fee of 0.3 \%} \\
+\begin{frame}{Swap one x-token in a bigger pool}
+	%\textbf{Swap one x-token with a fee of 0.3 \%} \\
 
 	\begin{minipage}{0.5\textwidth}
 		\begin{figure}[h!]
@@ -223,23 +259,67 @@
 		\end{scriptsize}
 	\end{minipage}
 	
-	\uncover<2>{When the trade size is smaller compared to the pool liquidity, slippage is also reduced. In our example from $\approx$ 10\% to $\approx$ 1.3\%.
+	\uncover<2>{
+	\begin{keytakeaway}{Slippage}
+	In our first example, the trader got 0.9066 y-Tokens, in the second 0.9872. When the trade size is smaller compared to the total pool liquidity, slippage is also reduced. In our example from $\approx$ 10\% to $\approx$ 1.3\%.
+	\end{keytakeaway}
+
 	}
 		
 \end{frame}
 %%%
 
 
+
+
 %%%
-\begin{frame}{Divergence Loss Example}
-	Liquidity Provision, Divergence Loss Example
+\begin{frame}
+	\begin{enumerate}
+	\setcounter{enumi}{2}
+		\item The total pool value now is: 
+			\begin{align*}
+			7.0716 \cdot 2 \$ + 14.141 \cdot 1 \$ = 	28.284 \$
+			\end{align*}
+		\item If we simply held our initial allocation, we would have:
+			\begin{align*}
+			10 \cdot 2 \$ + 10 \cdot 1 \$ = 	30 \$
+			\end{align*}
+		\item The difference between the Pool Value and the Hold Value is called divergence loss.
+		\begin{align*}
+			DL = \tfrac{Pool_V}{Hold_V} -1 = \tfrac{28.284}{30} - 1 = -5.72 \%
+			\end{align*}
+	\end{enumerate}	
+\begin{keytakeaway}{Note}
+	In order to be profitable, a LP must collect more fees than the Divergence Loss. DL is only realized by selling the LP position (burning LP Tokens). There is no DL if the price ratio between the two pool assets stays equal.
+\end{keytakeaway}
+
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Different Functions (Curve)}
-
+\begin{frame}{Different Bonding Curves}
+\begin{figure*}
+	\includegraphics[scale=0.6]{../assets/images/bonding-curves.png}
+\end{figure*}
+%\begin{tikzpicture}[]
+%    
+%    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {\scriptsize{Uniswap}} ;
+%   	\draw[samples = 200, color=red, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4-\x})
+%    	node[right,color=red] {\scriptsize{linear function}} ;    
+%    
+%  	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$x$-tokens} ;
+%    \draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$y$-tokens};  
+%  
+%    \draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
+%
+%    \draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+%  
+%	\draw[fill=black] (2,2) circle(2pt);
+%
+%%% https://miguelmota.com/blog/understanding-stableswap-curve/
+%
+%\end{tikzpicture}
 \end{frame}
 %%%
 

@@ -1,7 +1,7 @@
 \begin{tikzpicture}[]
     
- 	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$x$-tokens} ;%{\small{$x$-tokens in liquidity pool}};
-	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$y$-tokens};%{\small{$y$-tokens in liquidity pool}};
+ 	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{$x$-tokens}} ;%{\small{$x$-tokens in liquidity pool}};
+	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{$y$-tokens}};%{\small{$y$-tokens in liquidity pool}};
 
 	% k before swap
  	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {\scriptsize{10000}} ;    
