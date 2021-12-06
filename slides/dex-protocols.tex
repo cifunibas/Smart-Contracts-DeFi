@@ -172,17 +172,41 @@
 		\textbf{General assumptions:} No fees, no other LPs \\ 
 		
 		\begin{enumerate}
-			\item We provide 10 units both of ETH and CIF, both valued at 1\$.
+			\item We provide 10 units both of ETH and CIF, which are equal in value ($1 \tfrac{CIF}{ETH}$).
 			\begin{align*}
-			10 \cdot 1\$ + 10 \cdot 1\$ = 20 \$	
+			10 \cdot 10 = 100	
 			\end{align*}
-			\item The price for ETH on the open market doubles to 2\$, the price of CIF stays the same. This opens up an arbitrage opportunity in the pool. After arbitrage, prices should correspond  to the market prices and with the following pool balances.
+			\item The price for ETH on the open market doubles, the price of CIF stays the same ($2 \tfrac{CIF}{ETH}$). This opens up an arbitrage opportunity in the pool. After arbitrage, prices should correspond  to the market prices and with the following pool balances.
 			\begin{align*}
-			x &= \sqrt{k/P_{x}}	 = \sqrt{100/2} = 7.0716 \\
-			y &= k / x = 100 / 7.0716 = 14.141
+			y &= \sqrt{k/P_{y}}	 = \sqrt{100/2} = 7.0716 \\
+			x &= k / y = 100 / 7.0716 = 14.141
 			\end{align*}
 		\end{enumerate}
 		
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Divergence Loss}
+	\begin{enumerate}
+	\setcounter{enumi}{2}
+		\item The total pool value in CIF is: 
+			\begin{align*}
+				7.0716 \cdot 2 \tfrac{CIF}{ETH} + 14.141 \cdot 1 \tfrac{CIF}{ETH} = 28.284 \tfrac{CIF}{ETH}
+			\end{align*}
+		\item If we simply held our initial allocation, we would have:
+			\begin{align*}
+			10 \cdot 2 \tfrac{CIF}{ETH} + 10 \cdot 1 \tfrac{CIF}{ETH} = 	30 \tfrac{CIF}{ETH}
+			\end{align*}
+		\item The difference between the Pool Value and the Hold Value is called divergence loss.
+		\begin{align*}
+			DL = \tfrac{Pool_V}{Hold_V} -1 = \tfrac{28.284}{30} - 1 = -5.72 \%
+			\end{align*}
+	\end{enumerate}	
+\begin{keytakeaway}{Note}
+	In order to be profitable, a LP must collect more fees than the Divergence Loss. DL is only realized by selling the LP position (burning LP Tokens). There is no DL if the price ratio between the two pool assets stays equal.
+\end{keytakeaway}
+
 \end{frame}
 %%%
 
@@ -208,20 +232,21 @@
 				\Delta (y) &= \dfrac{k}{x+ (1-\tau) \Delta (x)} - y \\
 			}
 			\only<2>{
-			 	\Delta (y) &= \dfrac{100}{10+ (1-0.003) \cdot 10} - 10 \\
-		 		&= -0.9066 \\
+			 	\Delta y &= \tfrac{100}{10+ (1-0.003) \cdot 10} - 10 = -0.9066 \\
+		 		y' &= 10 - 0.9066 = 9.0934 \\
+		 		k' &= 11 \cdot 9.0934 = 100.0274 \\
 		 	}
 		 	\only<3>{
 		 		y' &= 10 - 0.9066 = 9.0934 \\
 		 		k' &= 11 \cdot 9.0934 = 100.0274 \\
 			}
 			\only<4>{
-				PR &= \dfrac{y}{x} = 10/10 = 1 \\
-				P_{eff} &= \dfrac{\Delta (y)}{\Delta (x)} = \dfrac{0.9066}{1} = 0.9066\\
-				PR' &= \dfrac{y'}{x'} = \dfrac{9.0934}{11} =  0.8267 \\
+				PR &= \tfrac{y}{x} = 10/10 = 1 \\
+				Swap Price &= \tfrac{\Delta y}{\Delta x} = \tfrac{0.9066}{1} = 0.9066\\
+				PR' &= \tfrac{y'}{x'} = \tfrac{9.0934}{11} =  0.8267 \\
 			}
 			\only<5>{
-				S &= \dfrac{P_{eff}}{PR} - 1 = \dfrac{0.9066}{1} - 1 = -0.0934 \\
+				S &= \tfrac{Swap Price}{PR} - 1 = \tfrac{0.9066}{1} - 1 = -0.0934 \\
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -248,12 +273,12 @@
 		\begin{scriptsize}
 			\begin{align*}
 			\only<1>{
-				PR &= \dfrac{y}{x} = 100/100 = 1 \\
-				P_{eff} &= \dfrac{\Delta (y)}{\Delta (x)} = \dfrac{0.9872}{1} = 0.9872\\
-				PR' &= \dfrac{y'}{x'} = \dfrac{99.0128}{101} =  0.9803 \\
+				PR &= \tfrac{y}{x} = 100/100 = 1 \\
+				P_{eff} &= \tfrac{\Delta (y)}{\Delta (x)} = \tfrac{0.9872}{1} = 0.9872\\
+				PR' &= \tfrac{y'}{x'} = \tfrac{99.0128}{101} =  0.9803 \\
 			}
 			\only<2>{
-				S &= \dfrac{P_{eff}}{PR} - 1 = \dfrac{0.9872}{1} - 1 = -0.0128 \\
+				S &= \tfrac{Swap Price}{PR} - 1 = \tfrac{0.9872}{1} - 1 = -0.0128 \\
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -271,37 +296,12 @@
 
 
 
-
-%%%
-\begin{frame}
-	\begin{enumerate}
-	\setcounter{enumi}{2}
-		\item The total pool value now is: 
-			\begin{align*}
-			7.0716 \cdot 2 \$ + 14.141 \cdot 1 \$ = 	28.284 \$
-			\end{align*}
-		\item If we simply held our initial allocation, we would have:
-			\begin{align*}
-			10 \cdot 2 \$ + 10 \cdot 1 \$ = 	30 \$
-			\end{align*}
-		\item The difference between the Pool Value and the Hold Value is called divergence loss.
-		\begin{align*}
-			DL = \tfrac{Pool_V}{Hold_V} -1 = \tfrac{28.284}{30} - 1 = -5.72 \%
-			\end{align*}
-	\end{enumerate}	
-\begin{keytakeaway}{Note}
-	In order to be profitable, a LP must collect more fees than the Divergence Loss. DL is only realized by selling the LP position (burning LP Tokens). There is no DL if the price ratio between the two pool assets stays equal.
-\end{keytakeaway}
-
-\end{frame}
-%%%
-
-
 %%%
 \begin{frame}{Different Bonding Curves}
 \begin{figure*}
 	\includegraphics[scale=0.6]{../assets/images/bonding-curves.png}
 \end{figure*}
+
 %\begin{tikzpicture}[]
 %    
 %    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {\scriptsize{Uniswap}} ;
@@ -332,7 +332,16 @@
 
 
 %%%
-\begin{frame}{n $>$ 2 Pool Assets}
+\begin{frame}{More than two Pool Assets}
+\begin{itemize}
+	\item The constant of UniSwap can also be extended to pools with more than two assets.
+	\item Constant Mean Formula:
+		\begin{align*}
+			V = \prod_t B^{w_{t}}_{t}
+		\end{align*}
+	V : constant, w : normalized weight $[0,1]$, B : Balance
+	\item The Constant Product formula is basically just a subset of the Constant Mean formula with two equally weighted assets ($w_t$ = 0.5).
+\end{itemize}
 
 \end{frame}
 %%%
