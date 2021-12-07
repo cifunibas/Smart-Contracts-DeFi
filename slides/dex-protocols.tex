@@ -20,6 +20,31 @@
 	\titlepage
 \end{frame}
 
+%%% TODO
+\begin{frame}{Centralized Exchanges}
+	Problems of CeXes: Trust towards exchange operator, forfeit direct access, central point of attack
+\end{frame}
+%%%
+
+%%% TODO
+\begin{frame}{From Shapeshift to EtherDelta to CFMM}
+Shapeshift V1:
+\begin{itemize}
+	\item Quote valid for 15 minutes
+	\item Send token A to exchange address
+	\item Get back token B immediately
+	\item Faced regulatory pressure
+\end{itemize}
+
+Etherdelta:
+\begin{itemize}
+	\item Onchain orderbook exchange
+	\item During ICO hype
+	\item High fees
+	\item hacked
+\end{itemize}
+\end{frame}
+%%%
 
 %%%
 \begin{frame}{Exchange Overview}
@@ -155,6 +180,7 @@
 
 %%%
 \begin{frame}{Swap (with fees)}
+	% TODO: Introduce PR = Pool Ratio
 	\input{../assets/figures/constant_product_swap_with_fees.tex}
 \end{frame}
 %%%
@@ -162,7 +188,7 @@
 
 %%%
 \begin{frame}{Liquidity Provision}
-
+	\input{../assets/figures/constant_product_liquidity_provision.tex}
 \end{frame}
 %%%
 
@@ -386,6 +412,8 @@
 %%%
 \begin{frame}%[allowframebreaks]
 \frametitle{References and Recommended Reading}
+	% Uniswap Whitepaper
+	% Curve Whitepaper
 	\bibliographystyle{amsplain}
 	\bibliography{../assets/bib/refs}
 \end{frame}
