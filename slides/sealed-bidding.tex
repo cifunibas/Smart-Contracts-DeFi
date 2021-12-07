@@ -52,7 +52,7 @@
 		\item Notice when creating a new Bid object we need to specify a location for the object.
 		\item<2-> All structs and arrays (including strings) can exist in three different locations:
 			\begin{itemize}
-			\item<3-> \texttt{memory}: The object is not written or read from the blockchain and only exists in the current scope.
+			\item<3-> \texttt{memory}: The object is neither written nor read from the blockchain and only exists in the current scope.
 			\item<4-> \texttt{calldata}: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
 			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
 			\end{itemize}
@@ -65,7 +65,7 @@
 %%%
 \begin{frame}{The reveal mechanic}
 	Let's think about what the reveal function needs to do:
-	\begin{itemize}
+	\begin{enumerate}
 		\item<2-> Accept a list of unencrypted bids to reveal.
 		\item<3-> Validate that the length of this list corresponds to the number of committed bids.
 		\item<4-> Check if the reveal period is active.
@@ -73,7 +73,7 @@
 		\item<6-> Ignore fake bids.
 		\item<7-> Update the highest bid and highest bidder if applicable.
 		\item<8-> Handle refunds related to reveal mechanism.
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 %%%
 
@@ -92,7 +92,7 @@ For better readability, we split the logic into two parts:
 \texttt{updateBids()} is similar to the simple auction's bid function:
 	\begin{itemize}
 		\item<2-> The function is internal, meaning it can only be called from the contract itself.
-		\item<3-> It returns \texttt{true} if the new highest bid was accepted and \texttt{false} otherwise.
+		\item<3-> It returns \texttt{true} if the new bid is accepted as the highest bid and \texttt{false} otherwise.
 	\end{itemize} 	
 \end{frame}
 %%%
