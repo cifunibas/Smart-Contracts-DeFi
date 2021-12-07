@@ -1,29 +1,29 @@
-pragma solidity ^0.7.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
 
 contract SimpleToken {
-    
-    // 1. Variables	
-    uint256 constant private MAX_UINT256 = 2**256 - 1;
-    mapping (address => uint256) public balances;
-    mapping (address => mapping (address => uint256)) public allowed;
-    uint256 totalSupply;
-    string public name;                   
-    uint8 public decimals;                
-    string public symbol;                 
+
+    // 1. Variables
+    mapping (address => uint256) private balances;
+    mapping (address => mapping (address => uint256)) private allowed;
+    uint256 public totalSupply;
+    string public name;
+    uint8 public decimals;
+    string public symbol;
 
     // 2. Events
     event Transfer(
-        address indexed from,
-        address indexed to,
+        address indexed _from,
+        address indexed _to,
         uint256 value
     );
 
     event Approval(
-        address indexed owner,
-        address indexed spender,
-        uint256 value
+        address indexed _owner,
+        address indexed _spender,
+        uint256 _value
     );
-    
+
     // 3. Constructor
     constructor (
         uint256 _initialAmount,
@@ -31,31 +31,32 @@ contract SimpleToken {
         uint8 _decimalUnits,
         string memory _tokenSymbol
     ) {
-        balances[msg.sender] = _initialAmount;               
-        totalSupply = _initialAmount;                        
-        name = _tokenName;                                   
-        decimals = _decimalUnits;                            
-        symbol = _tokenSymbol;                               
+        balances[msg.sender] = _initialAmount;
+        totalSupply = _initialAmount;
+        name = _tokenName;
+        decimals = _decimalUnits;
+        symbol = _tokenSymbol;
+        emit Transfer(address(0), msg.sender, _initialAmount);
     }
 
     // 4. Functions
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        require(balances[msg.sender] >= _value);
+        require(balances[msg.sender] >= _value, "Insufficient balance");
         balances[msg.sender] -= _value;
         balances[_to] += _value;
-        emit Transfer(msg.sender, _to, _value); 
+        emit Transfer(msg.sender, _to, _value);
         return true;
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        uint256 allowance = allowed[_from][msg.sender];
-        require(balances[_from] >= _value && allowance >= _value);
-        balances[_to] += _value;
-        balances[_from] -= _value;
-        if (allowance < MAX_UINT256) {
+        require(allowed[_from][msg.sender] >= _value, "Insufficient allowance");
+        require(balances[_from] >= _value, "Insufficient balance");
+        if (allowed[_from][msg.sender] < type(uint256).max) {
             allowed[_from][msg.sender] -= _value;
         }
-        emit Transfer(_from, _to, _value); 
+        balances[_to] += _value;
+        balances[_from] -= _value;
+        emit Transfer(_from, _to, _value);
         return true;
     }
 
@@ -65,7 +66,7 @@ contract SimpleToken {
 
     function approve(address _spender, uint256 _value) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
-        emit Approval(msg.sender, _spender, _value); 
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
