@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -33,8 +33,8 @@ DeFi employs  public \textbf{Blockchain networks} and \textbf{smart contracts} t
 		\begin{tabular}{rll}
 			\uncover<2->{\pbox{0.7cm}{\includegraphics[width=0.07\textwidth]{../assets/images/globe.png}} &	{\normalsize Open} &  \pbox{7cm}{By default – no access restrictions.\\ Not only on Blockchain but also on protocol level, i.e., no KYC, no whitelisting, no minimum amounts.}\\[1cm]}
 			\uncover<3-> {\pbox{0.8cm} {\centering \includegraphics[width=0.07\textwidth]{../assets/images/find.png}} & {\normalsize Transparent} & \pbox{7cm}{Mathematically verifiable by anyone. \\ All relevant logic is on-chain with every step \\ of a process transparently defined in code.} \\ [1cm]}
-			\uncover<4->{\pbox{0.7cm}{\includegraphics[width=0.07\textwidth]{../assets/images/construction.png}} & {\normalsize Composable} & \pbox{7cm}{Interoperable lego pieces. Protocols do not discriminate between human or other smart contracts as users. Thus, they can be combined to new services or made accessible via different applications.} \\ [1cm]}
-			\uncover<5->{\pbox{0.68cm}{\includegraphics[width=0.07\textwidth]{../assets/images/non-custodial.png}} & {\normalsize Non-Custodial} & \pbox{7cm}{No trust requirements. Due to the full-transparency of the smart contract logic in combination with a public blockchain as settlement layer.} \\[1cm]}
+			\uncover<4->{\pbox{0.7cm}{\includegraphics[width=0.07\textwidth]{../assets/images/construction.png}} & {\normalsize Composable} & \pbox{7cm}{Interoperable lego pieces. Protocols can be used by humans (EOA) and external smart contracts (CA). They can be combined to new services.} \\ [1cm]}
+			\uncover<5->{\pbox{0.68cm}{\includegraphics[width=0.07\textwidth]{../assets/images/non-custodial.png}} & {\normalsize Non-Custodial} & \pbox{7cm}{No trust requirements, due to the full-transparency of the smart contract logic in combination with a public blockchain as settlement layer.} \\[1cm]}
 
 		\end{tabular}
 		\label{tbl:simpletable}
@@ -62,18 +62,20 @@ What it is \textbf{NOT}:
 
 %%%
 \begin{frame}{DeFi Building Blocks}
+	\begin{figure}
 	\scalebox{0.7}{
 	\begin{tikzpicture}
 	\input{../assets/figures/defi_stack}
 	\end{tikzpicture}
-	\caption{The DeFi Stack \cite{FS:21}}
 	}
+	\caption{The DeFi Stack \cite{FS:21}}
+\end{figure}
 \end{frame}
 
 %%%
 
 %%%
-\begin{frame}{Why take Finance to the Blockchain?}
+\begin{frame}{Why DeFi?}
 	
 	\scalebox{0.85}{
 	\begin{tikzpicture}
