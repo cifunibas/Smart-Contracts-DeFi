@@ -1,0 +1,205 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Sealed Bidding}
+\author{Prof. Dr. Fabian Sch\"ar}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Submitting a bid}
+\uncover<1->{
+	Input:
+	\begin{itemize}
+		\item A hashed sealed bid
+	\end{itemize}
+\vspace{.3cm}
+}
+\uncover<2->{
+	Tasks:
+	\begin{itemize}
+		\item Create a new Bid object
+		\item Add the new bid to the sender's list of bids
+	\end{itemize}
+}
+\vspace{.3cm}
+\uncover<3->{
+	\begin{samplecode}{bid()}
+		\input{../assets/solidity_code/bid-function.tex}
+	\end{samplecode}
+}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Data Location}
+	\begin{itemize}
+		\item Notice when creating a new Bid object we need to specify a location for the object.
+		\item<2-> All structs and arrays (including strings) can exist in three different locations:
+			\begin{itemize}
+			\item<3-> \texttt{memory}: The object is neither written nor read from the blockchain and only exists in the current scope.
+			\item<4-> \texttt{calldata}: Similar to memory, but can only be used for function arguments in external calls and it is non-modifiable.
+			\item<5-> \texttt{storage}: Loaded from or written onto the blockchain. These are expensive operations, avoid whenever possible.
+			\end{itemize}
+
+		\item<6-> Good heuristic: Use \texttt{storage} if you want to load or modify a state variable. Use \texttt{memory} otherwise (\texttt{calldata} for gas optimization).
+		\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{The reveal mechanic}
+	Let's think about what the reveal function needs to do:
+	\begin{enumerate}
+		\item<2-> Accept a list of unencrypted bids to reveal.
+		\item<3-> Validate that the length of this list corresponds to the number of committed bids.
+		\item<4-> Check if the reveal period is active.
+		\item<5-> Compute hash values and compare them to commit
+		\item<6-> Ignore fake bids.
+		\item<7-> Update the highest bid and highest bidder if applicable.
+		\item<8-> Handle refunds related to reveal mechanism.
+	\end{enumerate}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Split the function}
+For better readability, we split the logic into two parts:
+	\begin{itemize}
+		\item<2-> \texttt{updateBid()} handles the bid related checks and refunds.
+		\item<3-> \texttt{reveal()} handles all the reveal related checks and refunds.
+	\end{itemize}
+\end{frame}
+%%%
+
+%%
+\begin{frame}{Update Bid}
+\texttt{updateBids()} is similar to the simple auction's bid function:
+	\begin{itemize}
+		\item<2-> The function is internal, meaning it can only be called from the contract itself.
+		\item<3-> It returns \texttt{true} if the new bid is accepted as the highest bid and \texttt{false} otherwise.
+	\end{itemize} 	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Update Bid - Sample code}
+	\begin{samplecode}{updateBid()}
+		\input{../assets/solidity_code/updateBid_function.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Simple Reveal}
+Start with a simple version: Only one bid exists:
+\vspace{.3cm}
+	\begin{samplecode}{reveal() - Part I}
+		\input{../assets/solidity_code/simpleReveal_function.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Simple Reveal}
+\vspace{.3cm}
+	\begin{samplecode}{reveal() - Part II}
+		\input{../assets/solidity_code/simpleReveal_function2.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Loops}
+	\begin{itemize}
+		\item<1->We need to iterate over all bids of a user
+		\item<2->Solidity supports most of the control structures known from similar languages such as JavaScript with the usual semantics.
+		\item<3->\texttt{for}-loops are typically used to iterate over arrays
+		\item<5->\texttt{continue} will jump to the beginning of the next iteration. \texttt{break} will end the loop.
+		\item<6->In addition to \texttt{for}-loops, \texttt{do} and \texttt{while} loops are also available.
+	\end{itemize}
+
+	\uncover<4->{
+		\begin{samplecode}{for()}
+			\input{../assets/solidity_code/for_loop.tex}
+		\end{samplecode}
+	}
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Custom Modifiers}
+	\begin{itemize}
+		\item<1-> The only thing remaining is to end the auction and to implement time constraints.
+		\item<2-> We could do the time constraints similar to the simple auction contract.
+		\item<3-> However, if we have the same repeated \texttt{require} checks at the start (or end) of functions we can make use of custom modifiers.
+		\item<4-> Custom modifiers are a convenient, reusable way to validate inputs to functions.
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Custom Modifiers - Code Samples}
+	\uncover<1->{
+	\begin{samplecode}{Only Before}
+		\input{../assets/solidity_code/onlyBefore.tex}
+	\end{samplecode}
+	}
+	\uncover<2->{
+	\begin{samplecode}{Only After}
+		\input{../assets/solidity_code/onlyAfter.tex}
+	\end{samplecode}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Finish the Contract}
+	\uncover<1->{Add a function to end the auction with the modifier onlyAfter:}
+		\vspace{.5cm}
+	\uncover<2->{
+		\begin{samplecode}{Only After}
+			\input{../assets/solidity_code/auctionEnd.tex}
+		\end{samplecode}
+	}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Exercise: Update Your SealedBidAuction Contract}
+		\begin{exercise}{Exercise 1}
+			\textbf{a) Only one bid exists}
+			\begin{itemize}
+				\item Add a function to submit a new bid to your \texttt{SealedBidAuction} contract
+				\item Implement a reveal function in your \texttt{SealedBidAuction} contract
+				\item Add time constraints to the \texttt{bid()}, \texttt{reveal()} and \texttt{auctionEnd()} functions
+			\end{itemize}
+			\vspace{0.5cm}
+			\textbf{b) Extended version: allow for multiple bids}
+			\begin{itemize}
+				\item Extend your contract to handle multiple bids
+			\end{itemize}
+			\vspace{0.5cm}
+			\textbf{Hint:} You can find all the code components needed for Exercise 1. a) on the previous slides. For Exercise 1. b) you need to extend your contract using a loop. \\
+		\end{exercise}
+\end{frame}
+%%%
+
+\end{document}

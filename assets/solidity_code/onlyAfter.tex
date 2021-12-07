@@ -1,0 +1,6 @@
+\begin{lstlisting}[language=Solidity]
+modifier onlyAfter(uint time) {
+	require(block.timestamp > time, 'too early');
+	_;
+}
+\end{lstlisting}

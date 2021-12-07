@@ -1,0 +1,14 @@
+\begin{lstlisting}[language=Solidity]
+function updateBid(address _bidder, uint _bidAmount) internal returns (bool success) {
+	if (_bidAmount <= highestBid) {
+		return false;
+	}
+	if (highestBidder != address(0)) {
+		// Refund the previously highest bidder.
+		pendingReturns[highestBidder] += highestBid;
+	}
+	highestBid = _bidAmount;
+	highestBidder = _bidder;
+	return true;
+}
+\end{lstlisting}
