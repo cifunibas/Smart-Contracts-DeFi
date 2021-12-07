@@ -1,20 +1,27 @@
 \begin{tikzpicture}[]
+
+	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\small{$x$-tokens in liquidity pool}} ;
+	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\small{$y$-tokens in liquidity pool}};
+		
+	% Before liquidity provision
 	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$};    
-
-	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=2.025:4.55, smooth, variable=\x] plot ({\x}, {9/\x}) node[right,color=blue] {$k'$};   
-
-	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$x$-tokens} ;%{\small{$x$-tokens in liquidity pool}};
-	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$y$-tokens};%{\small{$y$-tokens in liquidity pool}};
-
-    \draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
-    \draw[dotted, thick] (3,3)--(0,3) node[left]{\scriptsize $y+\Delta(y)$};
-
     \draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
-    \draw[dotted, thick] (3,3)--(3,0) node[below]{\scriptsize $x+\Delta(x)$};   
-
-	\draw[color=blue] (0.5,4.5) node[rotate= -75,above right]{};
+	\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
 	\draw[fill=black] (2,2) circle(2pt);
-	\draw[fill=black] (3,3) circle(2pt);
-	\draw[->,dashed] (0,0)--(4.1,4.1);
-	
+
+	% After liquidity provision
+	\uncover<2->{
+		\draw[->,dashed] (0,0)--(4.1,4.1);
+	}
+	\uncover<3->{
+	    \draw[dotted, thick] (3,3)--(3,0) node[below]{\scriptsize $x'$};   
+
+	}
+	\uncover<4->{
+    	\draw[dotted, thick] (3,3)--(0,3) node[left]{\scriptsize $y'$};
+		\draw[fill=black] (3,3) circle(2pt);	
+	}
+	\uncover<5->{
+			\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=2.025:4.55, smooth, variable=\x] plot ({\x}, {9/\x}) node[right,color=blue] {$k'$};  	
+	}
 \end{tikzpicture}

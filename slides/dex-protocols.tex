@@ -20,32 +20,6 @@
 	\titlepage
 \end{frame}
 
-%%% TODO
-\begin{frame}{Centralized Exchanges}
-	Problems of CeXes: Trust towards exchange operator, forfeit direct access, central point of attack
-\end{frame}
-%%%
-
-%%% TODO
-\begin{frame}{From Shapeshift to EtherDelta to CFMM}
-Shapeshift V1:
-\begin{itemize}
-	\item Quote valid for 15 minutes
-	\item Send token A to exchange address
-	\item Get back token B immediately
-	\item Faced regulatory pressure
-\end{itemize}
-
-Etherdelta:
-\begin{itemize}
-	\item Onchain orderbook exchange
-	\item During ICO hype
-	\item High fees
-	\item hacked
-\end{itemize}
-\end{frame}
-%%%
-
 %%%
 \begin{frame}{Overview}
 	\begin{figure}[h!]
@@ -82,13 +56,27 @@ Etherdelta:
 \end{frame}
 %%%
 
-
 %%%
-\begin{frame}{Decentralized Exchange Protocols}
+\begin{frame}{The Emergence of Decentralized Exchanges}
+Shapeshift V1:
+\begin{itemize}
+	\item Quote valid for 15 minutes
+	\item Send token A to exchange address
+	\item Get back token B immediately
+	\item Not really decentralized
+	\item Faced regulatory pressure
+\end{itemize}
+\vspace{0.5cm}
 
+Etherdelta:
+\begin{itemize}
+	\item Onchain orderbook exchange %offchain orderbook?
+	\item During ICO hype
+	\item High fees
+	\item Hacked
+\end{itemize}
 \end{frame}
 %%%
-
 
 %%%
 \begin{frame}{Constant Function Market Maker}
@@ -124,85 +112,147 @@ Etherdelta:
 
 
 %%%
-\begin{frame}{Constant Product Formula}
-	\only<1-4>{
-		\begin{align*}
-			k &= x \cdot y
-		\end{align*}
-	}
-	\only<1>{
-		\begin{itemize}
-			\item k: constant
-			\item x: number of x-tokens in the pool
-			\item y: number of y-tokens in the pool
-		\end{itemize}
-		\vspace{0.5cm}
-	}
+\begin{frame}{Constant Product Market Maker}
+Constant Product Formula:
+	\begin{align*}
+		x \cdot y &= k
+	\end{align*}
 
-	\only<2-4>{\textbf{Properties:}}
 	\begin{itemize}
-		\item<3-4> Convexity of the indifference set
-		\item<4> Dynamic endogenous pricing model
+		\item[] x: amount of x-tokens in the pool
+		\item[] y: amount of y-tokens in the pool
+		\item[] k: constant
 	\end{itemize}
-	
-	\only<5>{
-		\begin{figure}[h!]
-			\begin{center}
-				\input{../assets/figures/constant_product_function.tex}
-			\end{center}
-		\end{figure}
+	\vspace{1cm}
+	\uncover<2->{
+		Relative Prices are given by the first derivative of k:
+		\vspace{0.2cm}
+		\begin{itemize}
+			\item[] $P_x = \frac{y}{x}$
+			\item[] $P_y = \frac{x}{y}$
+		\end{itemize}
 	}
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{AMM Functions}
+\begin{frame}{Constant Product Market Maker}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_function.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Product Market Maker}
+Constant Product Formula:
+	\begin{align*}
+		x \cdot y &= k
+	\end{align*}
+	
+	\textbf{Properties:}
 	\begin{itemize}
-		\item<1-> swap():
-		\item<2-> mint():
-		\item<3-> burn(): 
+		\item<1-> Convexity of the indifference set
+		\item<2-> Dynamic endogenous pricing model
+		\item<3-> The pool will never be depleted and always be able to quote relative prices
 	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap (without fees)}
+	Let's assume a constant product market maker with no fees. Suppose an agent wants to exchange $\Delta x$ of x-tokens into y-tokens
+	\vspace{0.5cm}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/swap_without_fees.tex}
+		\end{center}
+	\end{figure}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap (without fees)}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_swap_no_fees.tex}
+		\end{center}
+	\end{figure}
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{Swap (without fees)}
-	\only<1>{
-		\begin{figure}[h!]
-			\begin{center}
-				\input{../assets/figures/constant_product_swap_no_fees.tex}
-			\end{center}
-		\end{figure}
-	}
-
-	\only<2>{
+	\vspace{0.5cm}
 		\begin{align*}
-			k &= (x + \Delta x) \cdot (y - \Delta y) \\
-			\Delta y &= y - \biggl( \frac{k}{x + \Delta x} \biggr)
-		\end{align*}
-		
-		\begin{itemize}
-			\item TODO: Explain slippage and relation to trade size / pool size
-		\end{itemize}
-	}
-
+			\onslide<1->{ y' &= \biggl( \frac{k}{x + \Delta x} \biggr) }\\
+			\onslide<2->{ \Delta y &= y - \biggl( \frac{k}{x + \Delta x} \biggr) }\\
+			\onslide<3->{ k' &= (x + \Delta x) \cdot (y - \Delta y) = k }
+		\end{align*}	
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{Swap (with fees)}
-	% TODO: Introduce PR = Pool Ratio
-	\input{../assets/figures/constant_product_swap_with_fees.tex}
+	Let us now assume a fee $\rho \in [0,1)$ with $\gamma = 1 - \rho$. The fee is charged on every trade and added to the liquidity pool and therefore leads to an increase in $k$. 
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap (with fees)}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_swap_with_fees.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap (with fees)}
+	\vspace{0.5cm}
+		\begin{align*}
+			\onslide<1->{ y'_\rho &= \biggl( \frac{k}{x + \gamma \cdot \Delta x} \biggr) }\\
+			\onslide<2->{ \Delta y_\rho &= y - \biggl( \frac{k}{x + \gamma \cdot \Delta x} \biggr) }\\
+			\onslide<3->{ k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) > k }
+		\end{align*}	
 \end{frame}
 %%%
 
 
 %%%
 \begin{frame}{Liquidity Provision}
-	\input{../assets/figures/constant_product_liquidity_provision.tex}
+Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n \cdot \frac{y}{x}$ $y$-tokens to the smart contract.\\
+	
+	\begin{itemize}
+		\item<2-> The liquidity provision only changes the token amounts and the constant $k$
+		\item<3-> The ratio between the two tokens remains unchanged
+		\item<4-> Both reserves are increased by the factor $\varphi = \frac{\Delta(x)}{x} = \frac{\Delta(y)}{y}$
+	\end{itemize}
+
+	\begin{align*}
+		\onslide<5->{ x' &= x +\Delta x = (1+\varphi) x }\\
+		\onslide<6->{ y' &= y +\Delta y = (1+\varphi) y}\\
+		\onslide<7->{ k' &= (1+\varphi)^2 k	}
+	\end{align*}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Liquidity Provision}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_liquidity_provision.tex}
+		\end{center}
+	\end{figure}
 \end{frame}
 %%%
 
