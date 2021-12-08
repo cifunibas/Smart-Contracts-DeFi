@@ -75,6 +75,12 @@ Etherdelta:
 	\item High fees
 	\item Hacked
 \end{itemize}
+
+Constant Function Market Makers:
+\begin{itemize}
+	\item Currently highest volume
+	\item Uniswap introduced in November 2018
+\end{itemize}
 \end{frame}
 %%%
 
@@ -398,7 +404,34 @@ Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n 
 
 %%%
 \begin{frame}{Concentrated Liquidity}
+	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}:
+	\begin{itemize}
+		\item<2-> Liquidity providers can add liquidity within a certain price range $[p_a, p_b]$.
+		\item<3-> The position is active, if the price is within the given range.
+		\item<4-> If the price is out of range, the liquidity provider only holds one asset and does not collect fees.
+	\end{itemize}
+	\vspace{0.5cm}
+	\uncover<5->{
+	\begin{keytakeaway}{Implications of Concentrated Liquidity}
+		\begin{itemize}
+			\item<5-> Higher capital efficiency
+			\item<6-> Liquidity providers with concentrated liquidity earn more fees
+			\item<7-> But: higher divergence loss risk
+		\end{itemize}
+	\end{keytakeaway}
 
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Concentrated Liquidity}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/concentrated_liquidity.tex}
+		\end{center}
+	\end{figure}	
 \end{frame}
 %%%
 
@@ -466,7 +499,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n 
 %%%
 \begin{frame}{Exercise}
 	\begin{exercise}{Exercise 1}
-	For this exercise we use the ERC20 Token created in one of the previous videos (select Ropsten). Go two UniSwap Frontend Link to complete the following tasks:
+	For this exercise we use the ERC20 Token created in one of the previous videos (select Ropsten). Go to UniSwap Frontend Link to complete the following tasks:
 	
 		\begin{enumerate}
 			\item Swap ETH to CIF
