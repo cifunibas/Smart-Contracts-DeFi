@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -21,28 +21,144 @@
 \end{frame}
 
 %%%
-\begin{frame}{Introduction PO}
+\begin{frame}{Introduction}
+Besides exchanging assets, \textbf{borrowing} and \textbf{lending} are the most fundamental needs in a financial system. \\
 
+\vspace{1em}
+Due to openness and pseudonymity, DeFi loans are always \textbf{collateralized loans} (exception: flash loans).\\
+
+\vspace{1em}
+There are two main lending protocol archetypes in DeFi: 
+\vspace{1em}
+\begin{itemize}
+  \item \textbf{Collateral Debt Protocols}
+  \item \textbf{Collateral Debt Markets}
+\end{itemize}
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Some Terminology around Lending in DeFi PO}
+\begin{frame}{Some Terminology around Lending in DeFi}
 
-probably two slides
+\vspace{1em}
 
-Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
+		
+			\uncover<2-> {\textbf{Position}: Entirety of collateral and debt an address has within a protocol.}
+			
+\vspace{1em}
 
-However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
-	\begin{align}
-		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
-		y &= x^2-5 \label{eq:secondstep}
-	\end{align}
-	
+			
+			\uncover<3->  {\textbf{Loan-to-Value} (\textit{LTV}): Percentage at which the value of a collateral asset is counted towards the borrowing capacity by a protocol.}
+			
+			\uncover<3->{ 	\begin{equation}
+	  LTV \in [0,1] \label{eq:LTV} 
+	\end{equation}}
+
+
+
 \end{frame}
 %%%	
+
+
+%%%
+\begin{frame}{Some Terminology around Lending in DeFi}
+
+\vspace{1em}
+
+
+	\uncover<4->{ \textbf{Borrowing capacity} (BC): Total amount a position may borrow via the protocol, given the value of the assets provided as collateral (c) and their respective LTVs}
+	
+	\uncover<4->{\begin{equation}
+	  BC = \sum c_i LTV_i  \label{eq:BC} 
+	\end{equation}}
+		
+$	\rightarrow$ New debt for a position can only be drawn as long as its outstanding debt (d) across all assets is below borrowing capacity, i.e.
+\begin{equation}
+	  BC > \sum d_i\label{eq:BC_restriction} 
+	\end{equation}
+
+	\vspace{1em}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Terminology around Lending in DeFi}
+
+\vspace{1em}
+
+	\uncover<4->{{\normalsize \textbf{Liquidation threshold } (LT)}: Threshold value of debt in percentage of collateral value at which a position starts to become unhealthy and thus available for liquidation}
+	
+	\uncover<4-> {\begin{equation}
+	  LTV \in [0,1] while LT \geq LTV   \label{eq:LT} 
+	\end{equation}}
+	
+
+
+	\uncover<4->{\textbf{Health Factor } (HF): Relative value of collateral, adjusted for LT, to outstanding debt (d) of a position}
+
+\begin{equation}
+	  HF = \frac{\sum c_i LT_i}{\sum d_i} \label{eq:HF} 
+\end{equation}
+
+	\vspace{1em}
+
+ $	\rightarrow$ A position with $HF \geq 1$ it is considered \textit{healthy}
+ 
+ \vspace{1em}
+
+ $	\rightarrow$ Collateral of \textit{unhealthy} positions is up for liquidation against repayment of (parts) of the position’s debt.  
+
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Some Terminology around Lending in DeFi}
+
+\vspace{1em}
+
+	\uncover<4->{{\normalsize \textbf{Liquidation threshold } (LT)}: Threshold value of debt in percentage of collateral value at which a position starts to become unhealthy and thus available for liquidation}
+	
+	\uncover<4-> {\begin{equation}
+	  BC = \sum c_i LTV_i  \label{eq:BC} 
+	\end{equation}}
+	
+$	\Rightarrow$ New debt for a position can only be drawn as long as its outstanding debt (d) across all assets is below borrowing capacity, i.e.
+\begin{equation}
+	  BC > \sum d_i\label{eq:BC_restriction} 
+	\end{equation}
+
+	\vspace{1em}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Terminology around Lending in DeFi}
+
+\vspace{1em}
+
+	\uncover<4->{{\normalsize \textbf{Liquidation threshold } (LT)}: Threshold value of debt in percentage of collateral value at which a position starts to become unhealthy and thus available for liquidation}
+	
+	\uncover<4-> {\begin{equation}
+	  BC = \sum c_i LTV_i  \label{eq:BC} 
+	\end{equation}}
+	
+$	\Rightarrow$ New debt for a position can only be drawn as long as its outstanding debt (d) across all assets is below borrowing capacity, i.e.
+\begin{equation}
+	  BC > \sum d_i\label{eq:BC_restriction} 
+	\end{equation}
+	
+	\vspace{1em}
+
+\end{frame}
+%%%
+
+
 
 
 %%%
@@ -62,11 +178,38 @@ However, in many cases it makes sense to use numbered equations. The $\&$-sign c
 
 
 %%%
-\begin{frame}{Lender's Perspective PO}
+\begin{frame}{Lender's Perspective}
+Transfers assets to the protocol that then can be borrowed against interest $\rightarrow$  Only required in CDM protocols.
 
-	
+\vspace{1em}
+
+Commonly receives a liquidity token for the assets made available, that
+
+\vspace{1em}
+
+\begin{itemize}
+  \item Represents a transferable claim for the assets provided
+  \item Is used by the protocol to account for interest earned by the lender.
+  \item Is burnt against the provided assets plus interest, when the assets are withdrawn from the protocol
+\end{itemize}
+
+
 \end{frame}
 %%%	
+
+
+%%%
+\begin{frame}{Lender's Perspective}
+
+Interest received depends on the utilization of the respective asset by borrowers and the proportion kept by the protocol.
+
+
+$\rightarrow $ Interest earned is NOT risk free: While commonly a reserve mechanism is in place to protect lenders in case of malfunctions or tail-events, they may not suffice, leaving lenders with liquidity tokens, that can not or only partially be reimbursed.
+
+
+\end{frame}
+%%%	
+
 
 
 %%%
@@ -88,7 +231,15 @@ However, in many cases it makes sense to use numbered equations. The $\&$-sign c
 %%%
 \begin{frame}{CDM: Utilization Depending Interest }
 
-PO: Please prepare equations
+$if \;L_t > 0 : \; U_t = \dfrac{D_t}{L_t}$
+
+\vspace{1em}
+
+$if \;  U_t < U_{opt} : \; R_t = R_0 + \dfrac{U_t} {U_{opt}}  \, S_1$
+
+\vspace{1em}
+
+$if \; U_t \leq U_{opt} : \; R_t = R_0 + S_1 + \dfrac{U_t - U_{opt}}{U_{exc}}\, S_2$
 	
 \end{frame}
 %%%	
@@ -103,16 +254,90 @@ PO: Please prepare equations
 
 
 %%%
-\begin{frame}{Liquidations: Two approaches PO}
+\begin{frame}{Liquidations: Two approaches }
 
-probably two slides...
+As smart contracts, protocols cannot become active by themselves. They rely on arbitrageurs to spot and liquidate unhealthy positions via offering them a liquidation incentive. Two  liquidation approaches can be observed here:
+
+\vspace{1em}
+
+\textbf{Discount Sale} (Aave, Compound)
+
+\begin{itemize}
+\item Any unhealthy position’s collateral is offered at a discount from the current on-chain oracle price.
+\item Liquidator repays (part of the) position’s debt in the respective debt asset and in return receives collateral assets at the discounted price for the repaid amount.
+\item Pro: Atomic transaction, fast.
+\item Con: Requires high on-chain oracle price accuracy at all times. 
+
+\end{itemize}
+
+	
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Liquidations: Two approaches }
+
+\vspace{1em}
+
+\textbf{Tend – Dent Auction} (MakerDAO)
+
+\begin{itemize}
+\item English auction of an unhealthy position’s collateral that can be started by anyone submitting the first bid.
+\item Ends when either the maximum auction length is reached or the grace period since the last valid bid. Winning bidder can then release the collateral bought.
+
+
+\item In the tend phase, bidders compete by offering to pay larger proportions of the outstanding debt in exchange for the collateral.
+\item If a bidder offers to pay the debt in full, the auction enters the dent phase, where bidders can compete further by accepting a lower proportion of the collateral in exchange for repayment of all the debt.
+
+\item Pro: Independent of on-chain oracles
+
+\item Con: Time-consuming, costly process for bidders (multiple transactions), no lower bound in collateral sale price.
+\end{itemize}
+
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Flash Loans Overview PO}
+\begin{frame}{Flash Loans Overview}
+
+Flash loans are a \textbf{concept unique to DeFi} and are the only loans in the ecosystem that \textbf{do not require collateral}.
+
+\vspace{1em}
+
+In a flash loan, the funds are borrowed, used, and paid back \textbf{all in one transaction}.
+
+\vspace{1em}
+
+Instead of collateral, lenders rely on \textbf{transaction atomicity}: If principal plus fee is not paid back in the same transaction, all is reverted as if the funds were never granted.
+
+\vspace{1em}
+
+The transaction is still part of the blockchain but is considered failed and does not lead to any state changes except for nonce update and transaction fees. 
+
+
+
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Flash Loans Overview}
+For a flash loan of $x$ with interest $\rho$ and / or a flat fee $\varphi$ to work,
+
+\vspace{1em}
+\begin{itemize}
+\item If lending protocol is a CDM, it must have x liquid available:  $x \leq LP_{x^{'}}$ (Flash -minting loosens restriction)
+
+
+\item  $ x(1+\rho) + \varphi$ must be returned to the protocol at the end of the transaction.
+
+
+\end{itemize}
 
 	
 \end{frame}
@@ -122,7 +347,7 @@ probably two slides...
 %%%
 \begin{frame}{Example of Arbitrage with Flash Loan}
 
-PO: Please do equation
+$\Pi = max (x^{*}-[x \,(1+\rho) + \varphi ],0) - \epsilon$
 	
 \end{frame}
 %%%	
