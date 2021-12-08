@@ -15,11 +15,12 @@
 	}
 	\uncover<3->{
 	    \draw[dotted, thick] (3,3)--(3,0) node[below]{\scriptsize $x'$};   
-
+		\draw[->, red] (2.1, 0.1) -- (2.9, 0.1) node [midway, above] {\scriptsize{$\Delta x$}};
 	}
 	\uncover<4->{
     	\draw[dotted, thick] (3,3)--(0,3) node[left]{\scriptsize $y'$};
-		\draw[fill=black] (3,3) circle(2pt);	
+		\draw[fill=black] (3,3) circle(2pt);
+		\draw[->, red] (0.1, 2.1) -- (0.1, 2.9) node [midway, right] {\scriptsize{$\Delta y$}};
 	}
 	\uncover<5->{
 			\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=2.025:4.55, smooth, variable=\x] plot ({\x}, {9/\x}) node[right,color=blue] {$k'$};  	
