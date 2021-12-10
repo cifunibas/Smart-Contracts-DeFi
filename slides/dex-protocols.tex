@@ -92,13 +92,6 @@
 
 
 %%%
-\begin{frame}
-	
-\end{frame}
-%%%
-
-
-%%%
 \begin{frame}{Constant Function Market Maker}
 
 	\begin{figure}	
@@ -246,6 +239,8 @@ Constant Product Formula:
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Swap one x-token with 0.03\% fee}
 	%\textbf{Swap one x-token with a fee of 0.3 \%} \\ \vspace{1.5em}
 
 	\begin{minipage}{0.5\textwidth}
@@ -253,6 +248,81 @@ Constant Product Formula:
 			\begin{center}
  				\input{../assets/figures/swap_example.tex}
 			\end{center}
+		\end{figure}
+	\end{minipage}
+\vspace{1em}
+	\begin{minipage}{0.4\textwidth}
+		\vspace{-4em}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1>{
+				\Delta y_{\rho} &= \dfrac{k}{x+ \gamma \cdot \Delta x} - y \\
+			}
+			\only<2>{
+			 	\Delta y_{\rho} &= \tfrac{100}{10+ (1-0.003) \cdot 10} - 10 = -0.9066 \\
+		 		y'_{\rho} &= 10 - 0.9066 = 9.0934 \\
+		 		k'_{\rho} &= 11 \cdot 9.0934 = 100.0274 \\
+		 	}
+		 	\only<3>{
+		 		y'_{\rho} &= 10 - 0.9066 = 9.0934 \\
+		 		k'_{\rho} &= 11 \cdot 9.0934 = 100.0274 \\
+			}
+			\only<4>{
+				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				P_{x, swap} &= \tfrac{\Delta y}{\Delta x} = \tfrac{0.9066}{1} = 0.9066\\
+				P'_{x} &= \tfrac{y'}{x'} = \tfrac{9.0934}{11} =  0.8267 \\
+			}
+			\only<5>{
+				S &= \tfrac{P_{x, swap}}{P_x} - 1 = \tfrac{0.9066}{1} - 1 = -0.0934 \\
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+
+\only<5>{Slippage $S$ is the deviation from the price for a indefinitesimal trade $P_x$ to the price for an actual trade $P_{x,swap}$.}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap one x-token in a bigger pool}
+	%\textbf{Swap one x-token with a fee of 0.3 \%} \\
+
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/swap_example_2.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+\vspace{1em}
+	\begin{minipage}{0.4\textwidth}
+		\vspace{-4em}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1>{
+				P_x &= \tfrac{y}{x} = \tfrac{100}{100} = 1 \\
+				P_{x,swap} &= \tfrac{\Delta y}{\Delta x} = \tfrac{0.9872}{1} = 0.9872\\
+				P'_x &= \tfrac{y'}{x'} = \tfrac{99.0128}{101} =  0.9803 \\
+			}
+			\only<2>{
+				S &= \tfrac{P_{x,swap}}{P_x} - 1 = \tfrac{0.9872}{1} - 1 = -0.0128 \\
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+	
+	\uncover<2>{
+	\begin{keytakeaway}{Impact of Pool Size}
+	In our first example, the trader got 0.9066 y-Tokens, in the second 0.9872. When the trade size is smaller compared to the total pool liquidity, slippage is also reduced. In our example from $\approx$ 9.3\% to $\approx$ 1.3\%.
+	\end{keytakeaway}
+
+	}
+		
+\end{frame}
+%%%
+
+
 
 %%%
 \begin{frame}{Liquidity Provision}
@@ -289,12 +359,13 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 	\textbf{General assumptions:} No fees, no other LPs \\ 
 		\begin{enumerate}
-			\item We provide 10 units both of ETH and CIF, which are equal in value ($1 \tfrac{CIF}{ETH}$).
+			\item We provide 10 units of Token X and Token Y, which are equal in value ($1 \tfrac{Y}{X}$).
 			\begin{align*}
 				10 \cdot 10 = 100	
 			\end{align*}
 			\item Now lets assume the $\tfrac{Y}{X}$ price doubles ($2 \tfrac{Y}{X}$). Therefore, the pool balances adjust to:
 			\begin{align*}
+				x &= \sqrt{k/P_{x}}	 = \sqrt{100/2} = 7.0716 X\\
 				y &= k / x = 100 / 7.0716 = 14.141 Y
 			\end{align*}
 		\end{enumerate}	
@@ -307,7 +378,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 	\begin{enumerate}
 	\setcounter{enumi}{2}
-		\item The total pool value, expressed in units of Token A is: 
+		\item The total pool value, expressed in units of Token Y is: 
 			\begin{align*}
 				V_{pool} = 7.0716 X \cdot 2 \tfrac{Y}{X} + 14.141 Y = 28.1762 Y
 			\end{align*}
@@ -317,7 +388,6 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 			\end{align*}
 		\item The difference between the Pool Value and the Hold Value is called divergence loss.
 		\begin{align*}
-			DL = \tfrac{Pool_V}{Hold_V} -1 = \tfrac{28.284}{30} - 1 = -5.72 \%
 			DL = \tfrac{V_{pool}}{V_{hold}} -1 = \tfrac{28.284 Y}{30 Y} - 1 = -5.72 \%
 			\end{align*}
 	\end{enumerate}	
@@ -330,8 +400,6 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 %%%
 
 
-%%%
-\begin{frame}{Swap one x-token with 0.03\% fee}
 
 
 %%%
@@ -344,11 +412,10 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 	\end{itemize}
 \end{small}
 
-
-\begin{frame}{Other Bonding Curves}
 	\begin{figure}
 		\includegraphics[scale=0.6]{../assets/images/bonding-curves.png}
 	\end{figure}
+	
 \end{frame}
 %%%
 
@@ -409,6 +476,7 @@ $k$: constant
 %%%
 \begin{frame}{Constant Mean Formula}
 \begin{itemize}
+	\item The constant product formula can be further extended by using different weights (constant mean formula)\footnote{\href{https://balancer.fi/whitepaper.pdf}{Balancer Whitepaper \link}}:
 		\begin{align*}
 			\prod_{i=1}^N x_i^{w_i}= k
 		\end{align*}
@@ -428,8 +496,6 @@ $k$: constant
 %%%
 \begin{frame}{Concept of Aggregators}
 
-\begin{figure}[t]
-	\centering	
 \begin{figure}
 	\centering
 	\resizebox{0.8\textwidth}{!}{
