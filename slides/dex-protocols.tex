@@ -58,31 +58,45 @@
 
 %%%
 \begin{frame}{The Emergence of Decentralized Exchanges}
-Shapeshift V1:
-\begin{itemize}
-	\item Quote valid for 15 minutes
-	\item Send token A to exchange address
-	\item Get back token B immediately
-	\item Not really decentralized
-	\item Faced regulatory pressure
-\end{itemize}
-\vspace{0.5cm}
+\only<1>{
+	Shapeshift V1:
+	\begin{itemize}
+		\item Quote valid for 15 minutes
+		\item Send token A to exchange address
+		\item Get back token B immediately
+		\item Not really decentralized
+		\item Faced regulatory pressure
+	\end{itemize}
+}
 
-Etherdelta:
-\begin{itemize}
-	\item Onchain orderbook exchange %offchain orderbook?
-	\item During ICO hype
-	\item High fees
-	\item Hacked
-\end{itemize}
+\only<2>{
+	Etherdelta:
+	\begin{itemize}
+		\item Onchain orderbook exchange %offchain orderbook?
+		\item During ICO hype
+		\item High fees
+		\item Hacked
+	\end{itemize}
+}
 
-Constant Function Market Makers:
-\begin{itemize}
-	\item Currently highest volume
-	\item Uniswap introduced in November 2018
-\end{itemize}
+\only<3>{
+	Constant Function Market Makers:
+	\begin{itemize}
+		\item Currently highest volume
+		\item Uniswap introduced in November 2018
+	\end{itemize}
+}
+
 \end{frame}
 %%%
+
+
+%%%
+\begin{frame}
+	
+\end{frame}
+%%%
+
 
 %%%
 \begin{frame}{Constant Function Market Maker}
@@ -125,8 +139,8 @@ Constant Product Formula:
 	\end{align*}
 
 	\begin{itemize}
-		\item[] x: amount of x-tokens in the pool
-		\item[] y: amount of y-tokens in the pool
+		\item[] x: amount of X-tokens in the pool
+		\item[] y: amount of Y-tokens in the pool
 		\item[] k: constant
 	\end{itemize}
 	\vspace{1cm}
@@ -164,14 +178,14 @@ Constant Product Formula:
 	\begin{itemize}
 		\item<1-> Convexity of the indifference set
 		\item<2-> Dynamic endogenous pricing model
-		\item<3-> The pool will never be depleted and always be able to quote relative prices
+		\item<3-> The pool will never be depleted by a trade and always be able to quote relative prices
 	\end{itemize}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Swap (without fees)}
-	Let's assume a constant product market maker with no fees. Suppose an agent wants to exchange $\Delta x$ of x-tokens into y-tokens
+	Let's assume a constant product market maker with no fees. Suppose a trader wants to exchange $\Delta x$ of X-tokens into Y-tokens
 	\vspace{0.5cm}
 	\begin{figure}[h!]
 		\begin{center}
@@ -225,7 +239,7 @@ Constant Product Formula:
 \begin{frame}{Swap (with fees)}
 	\vspace{0.5cm}
 		\begin{align*}
-			\onslide<1->{ y'_\rho &= \biggl( \frac{k}{x + \gamma \cdot \Delta x} \biggr) }\\
+			\onslide<1->{ y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x} }\\
 			\onslide<2->{ \Delta y_\rho &= y - \biggl( \frac{k}{x + \gamma \cdot \Delta x} \biggr) }\\
 			\onslide<3->{ k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) > k }
 		\end{align*}	
@@ -235,7 +249,7 @@ Constant Product Formula:
 
 %%%
 \begin{frame}{Liquidity Provision}
-Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n \cdot \frac{y}{x}$ $y$-tokens to the smart contract.\\
+Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n \cdot \frac{y}{x}$ $Y$-tokens to the smart contract.\\
 	
 	\begin{itemize}
 		\item<2-> The liquidity provision only changes the token amounts and the constant $k$
@@ -431,6 +445,9 @@ Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n 
 		\begin{center}
 			\input{../assets/figures/concentrated_liquidity.tex}
 		\end{center}
+		\only<1>{\caption*{Liquidity provision on full price range}}
+		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$}}
+		\only<3>{\caption*{Aggregated concentrated liquidity positions}}
 	\end{figure}	
 \end{frame}
 %%%
@@ -438,14 +455,34 @@ Anyone can contribute liquidity to the pool, by providing $n$ $x$-tokens and $n 
 
 %%%
 \begin{frame}{More than two Pool Assets}
-\begin{itemize}
-	\item The constant of UniSwap can also be extended to pools with more than two assets.
-	\item Constant Mean Formula:
+
+The constant product formula as implemented by Uniswap can be extended to pools with more than two assets:
 		\begin{align*}
-			V = \prod_t B^{w_{t}}_{t}
+			\prod_{i=1}^N x_i= k
 		\end{align*}
-	V : constant, w : normalized weight $[0,1]$, B : Balance
-	\item The Constant Product formula is basically just a subset of the Constant Mean formula with two equally weighted assets ($w_t$ = 0.5).
+		
+$N$: number of tokens in the pool\\
+$x_i$: token amount for asset i\\
+$k$: constant
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Mean Formula}
+\begin{itemize}
+	\item The constant product formula can be further extended by using different weights (constant mean formula):
+		\begin{align*}
+			\prod_{i=1}^N x_i^{w_i}= k
+		\end{align*}
+
+		$N$: number of tokens in the pool\\
+		$x_i$: token amount for asset i\\
+		$w_i$: weight of asset $i$\\
+		$k$: constant
+		\vspace{0.5cm}
+	\item The constant product formula is basically just a subset of the constant mean formula with equally weighted assets ($w_i = \tfrac{1}{N}$).
 \end{itemize}
 
 \end{frame}
