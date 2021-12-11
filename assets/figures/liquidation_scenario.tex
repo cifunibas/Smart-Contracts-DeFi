@@ -1,0 +1,42 @@
+
+% Axis with labels
+
+\draw[-] (0,0) -- (1.5,0) node [below]{$t_0$: healthy} -- (5.5,0) node [below]{$t_1$: unhealthy} -- (9.5,0) node [below]{$t_2$: liquidated} -- (11,0);
+
+\filldraw [mint] (9.8,7.4) rectangle ++ (0.5,0.5);
+\node	at (10.3,7.65) [right] {$d$};
+
+\filldraw [brightanthracite] (9.8,6.65) rectangle ++ (0.5,0.5);
+\node	at (10.3,6.9) [right] {$c$};
+
+
+
+% t0
+
+\filldraw[color = mint] (0.4,0) rectangle ++(1,5);
+\filldraw[color = brightanthracite] (1.6,0) rectangle ++(1,8);
+
+\draw [densely dotted, thin] (0.2,6) -- (2.8,6) node [right, text = black]{$LT_{t_0}$};
+
+% t1
+\uncover<2-> {
+	\draw [softred, fill = softred] (2.9,3) -- (4.1,2) -- (2.9,1) -- (2.9,3) node [midway,right, text = black, xshift = -0.1cm] {$c \downarrow$} -- cycle;
+
+	\filldraw[color = mint] (4.4,0) rectangle ++(1,5);
+	\filldraw[softred!50] (4.4,4.5) rectangle ++(1,0.5);
+	\filldraw[color = brightanthracite] (5.6,0) rectangle ++(1,6);
+
+	\draw [densely dotted, thin] (4.2,4.5) -- (6.8,4.5) node [right, text = black]{$LT_{t_1}$};
+}
+
+
+% t2
+
+\uncover<3->{
+	\draw [softred, fill] (6.9,3) -- (8.1,2) -- (6.9,1) -- (6.9,3) node [midway,right, text = black, xshift = -0.1cm] {$-d$}  -- cycle;
+
+	\filldraw[color = brightanthracite] (9.6,0) rectangle ++(1,1);
+
+
+	\draw [densely dotted, thin] (8.2,0.75) -- (10.8,0.75) node [right, text = black]{$LT_{t_2}$};
+}

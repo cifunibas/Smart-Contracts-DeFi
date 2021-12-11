@@ -122,6 +122,37 @@ $	\rightarrow$ New debt for a position can only be drawn as long as its outstand
 %%%
 \begin{frame}{Collateral Debt Protocols (CDP)}
 
+\vspace{-1em}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+		\input{../assets/figures/CDP}
+	\end{tikzpicture}
+\end{figure}
+
+\footnotesize
+\vspace{-1em}
+\begin{columns}[T]
+	\begin{column}{0.49\textwidth}
+	\uncover<2->{
+		\begin{itemize}
+			\item	Stays invested in assets provided as collateral.
+			\item	Can borrow the CDP issued asset within the borrowing capacity.
+			\item	Owes interest for the debt in the CDP asset until repayment.
+		\end{itemize}
+	}
+	\end{column}
+	\begin{column}{0.49\textwidth}
+	\uncover<3->{
+		\begin{itemize}
+			\item	Issues a protocol asset and borrowing terms.
+			\item	Controls the collateral assets as long as there is outstanding debt to cover.
+			\item	Allows liquidation of collateral against protocol asset for unhealthy positions.
+		\end{itemize}
+	}
+	\end{column}
+\end{columns}
 	
 \end{frame}
 %%%	
@@ -130,6 +161,48 @@ $	\rightarrow$ New debt for a position can only be drawn as long as its outstand
 %%%
 \begin{frame}{Collateral Debt Markets (CDM)}
 
+
+\vspace{-1em}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+		\input{../assets/figures/CDM}
+	\end{tikzpicture}
+\end{figure}
+
+\footnotesize
+\vspace{-1em}
+\begin{columns}[T]
+	\begin{column}{0.32\textwidth}
+	\uncover<2->{
+		\begin{itemize}
+			\item	Stays invested in assets provided as collateral (becomes also a lender).
+			\item	Can borrow assets provided by other users within the borrowing capacity.
+			\item	Owes interest on borrowed assets until repayment.
+		\end{itemize}
+	}
+	\end{column}
+	\begin{column}{0.32\textwidth}
+	\uncover<3->{
+		\begin{itemize}
+			\item	Maintains borrowing and lending terms for each asset.
+			\item	Holds assets available for borrowing.
+			\item	Allows liquidation of collateral against debt for unhealthy positions.
+		\end{itemize}
+	}
+	\end{column}
+	\begin{column}{0.32\textwidth}
+	\uncover<4->{
+		\begin{itemize}
+			\item	Provides assets for lending.
+			\item	Earns yield on assets depending on their utilization in borrowing.
+			\item	Can withdraw assets (subject to liquidity constraints).
+		\end{itemize}
+	}
+	\end{column}
+\end{columns}
+	
 	
 \end{frame}
 %%%	
@@ -189,6 +262,13 @@ $\rightarrow $ \textbf{Interest} earned is \textbf{NOT risk free}: While commonl
 %%%
 \begin{frame}{CDM: Utilization Depending Interest }
 
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+		\input{../assets/figures/utilization_interest}
+	\end{tikzpicture}
+\end{figure}
+
 $if \;L_t > 0 : \; U_t = \dfrac{D_t}{L_t}$
 
 \vspace{1em}
@@ -205,6 +285,14 @@ $if \; U_t \geq U_{opt} : \; R_t = R_0 + S_1 + \dfrac{U_t - U_{opt}}{U_{exc}}\; 
 
 %%%
 \begin{frame}{Overcollateralization and Liquidation}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.8}]
+		\input{../assets/figures/liquidation_scenario}
+	\end{tikzpicture}
+	\caption{Liquidation scenario with $LT = 0.75$}
+\end{figure}
 
 	
 \end{frame}
@@ -313,10 +401,14 @@ Conditions for a successful flash loan of $x$ with interest $\rho$  and / or a f
 %%%
 \begin{frame}{Example of Arbitrage with Flash Loan}
 
-$ x\,(1+ \rho) + \varphi $
-\\
-$ x\,(1+ \rho) + \varphi+ \epsilon $ 
-\\
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+		\input{../assets/figures/flashloan_payoff}
+	\end{tikzpicture}
+\end{figure}
+
+
 $\Pi = max (x^{*}-[x \,(1+\rho) + \varphi ],0) - \epsilon$
 	
 \end{frame}

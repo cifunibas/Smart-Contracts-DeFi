@@ -1,0 +1,18 @@
+
+% Figures
+
+\node (borrower) at (-8,0) {\includegraphics[height = 1.7cm]{../assets/images/agents/handing_right}};
+\node [below of = borrower, yshift = -0.4cm] {\textbf{Borrower}};
+
+\node (protocol) at (0,0) {\includegraphics[height = 1.7cm]{../assets/images/smart_contract}};
+\node [below of = protocol, yshift = -0.4cm] {\textbf{Protocol}};
+
+% Arrows with text
+
+\footnotesize
+
+
+\draw[->, ultra thick, anthracite]	([yshift=0.5cm]borrower.east) -- ([yshift=0.5cm]protocol.west) node[midway, fill=white, text width = 3.8cm, text = darkmint, align = center] {\textbf{Collateral \& interest}};
+
+\draw[<-, ultra thick, anthracite]	([yshift=-0.3cm]borrower.east) -- ([yshift=-0.3cm]protocol.west) node[midway, fill=white, text width = 2cm, text = darkmint, align = center] {\textbf{CDP asset}};
+
