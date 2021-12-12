@@ -133,8 +133,8 @@ Any external promises are s.t. counterparty issuer risk. The value of the token 
 
 \begin{itemize}
 	\item<2-> \textbf{Any smart contract} containing these elements can be interpreted as token contract.
-	\item<3-> To facilitate usage by multiple smart contracts, \textbf{token standards} (ERC20, ERC721, etc.) have emerged.
-	\item<4-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that. 
+	\item<3-> \textbf{Token standards} (e.g., ERC20, ERC721) specify basic interfaces and allow third party contracts to use tokens in a standardized way.
+\item<4-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that. 
 \end{itemize}	
 	
 
@@ -145,7 +145,7 @@ Any external promises are s.t. counterparty issuer risk. The value of the token 
 %%%
 \begin{frame}{ERC20 Token Standard: Functions}
 
-A \textbf{standardized function interface} allows correspondingly programmed smart contracts to interact with any ERC20 token:
+A \textbf{standardized function interface} allows smart contracts to interact with any ERC20 token:
 \texttt{
 \begin{itemize}
 	\item	function totalSupply() public view returns (uint256)
@@ -162,7 +162,7 @@ A \textbf{standardized function interface} allows correspondingly programmed sma
 %%%
 \begin{frame}{ERC20 Token Standard: Events and Limitations }
 
-A \textbf{standardized event set} allow off-chain applications to work with a respective listener across multiple ERC20 tokens:
+A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
 \texttt{
 \begin{itemize}
 	\item	event Transfer(address indexed $\_$from, address indexed $\_$to, uint256 $\_$value)
@@ -172,13 +172,16 @@ A \textbf{standardized event set} allow off-chain applications to work with a re
 
 \uncover<2->{
 
-\vspace{2 em}
-As \textbf{interface standard}, ERC20 prescribes:
-\begin{itemize}
-	\item	a set of functions and events but \textbf{not their implementation}.
-	\item	\textbf{a minimum set}. It does not limit other functionalities the contract may have.
-\end{itemize}
+\vspace{1em}
 
+\begin{keytakeaway}{Interface Specification}
+ERC20 is a \textbf{interface standard}.
+\begin{itemize}
+	\item It requires a set of functions and events, as well as the expected behavior. It \textbf{does not specify the implementation} of the contract.
+	\item	The functions and events are \textbf{minimum requirements}. ERC20 does not limit other functionalities the contract may have.
+\end{itemize}
+\end{keytakeaway}
+	
 \vspace{1 em}
 \link \href{https://eips.ethereum.org/EIPS/eip-20}{ERC20 Token Standard Proposal}
 }
@@ -189,7 +192,7 @@ As \textbf{interface standard}, ERC20 prescribes:
 
 
 %%%
-\begin{frame}{Programming the Cryptolectures Coin}
+\begin{frame}{Developing the Cryptolectures Coin}
 
 \textbf{Goal: }Create our own smart contract-based Cryptolectures Coin.
 \vspace{1.5em}
@@ -277,7 +280,7 @@ As \textbf{interface standard}, ERC20 prescribes:
 
 \begin{exercise}{YourCoin Exercise}
 \begin{enumerate}
-	\item	Apply the learnings from this session and program your own token contract
+	\item	Apply the learnings from this session and develop your own token contract
 	\item	Deploy the contract on testnet
 	\item 	Try sending tokens and granting allowances with a classmate or on your own with two different EOAs.
 \end{enumerate}
