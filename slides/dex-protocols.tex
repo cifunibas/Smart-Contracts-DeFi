@@ -27,7 +27,7 @@
 	\textbf{Problems of centralized exchanges (CEX):}
 		\begin{small}
 		\begin{itemize}
-			\item A users' funds must be deposited with the exchange
+			\item A user's funds must be deposited with the exchange
 			\item Access is forfeited and trust towards the exchange operator needed.
 			\item Singe point of attack $\rightarrow$ Constant threat of becoming target of malicious third parties.
 		\end{itemize}
@@ -51,6 +51,7 @@
 %%%
 \begin{frame}{Overview}
 	\begin{figure}[h!]
+		% TODO: cite FED paper
 		\input{../assets/figures/overview_exchanges.tex}
 	\end{figure}
 \end{frame}	
@@ -66,8 +67,8 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item<5-> {The price is determined endogenously via a formula.}
-		\item<6-> The trader pays a fee which is added to the liquidity pool. Since no new pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all liquidity providers.
+		\item<5-> {The price is determined endogenously via a function.}
+		\item<6-> The trader pays a fee which is added to the liquidity pool. Since no new pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all liquidity providers. % TODO: neu formulieren
 	\end{itemize}
 
 
@@ -83,7 +84,7 @@
 		\end{tikzpicture}
 	\end{figure}
 	\begin{itemize}
-		\item If the pool price differs from the market price (e.g on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
+		\item If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
 	\end{itemize}	
 \end{frame}
 %%%
@@ -91,7 +92,7 @@
 
 %%%
 \begin{frame}{Constant Product Market Maker}
-Constant Product Formula:
+Constant Product Function:
 	\begin{align*}
 		x \cdot y &= k
 	\end{align*}
@@ -127,7 +128,7 @@ Constant Product Formula:
 
 %%%
 \begin{frame}{Constant Product Market Maker}
-Constant Product Formula:
+Constant Product Function:
 	\begin{align*}
 		x \cdot y &= k
 	\end{align*}
@@ -143,7 +144,7 @@ Constant Product Formula:
 
 %%%
 \begin{frame}{Swap (without fees)}
-	Let's assume a constant product market maker with no fees. Suppose a trader wants to exchange $\Delta x$ of X-tokens into Y-tokens
+	Let us assume a constant product market maker with no fees. Suppose a trader wants to exchange $\Delta x$ of X-tokens into Y-tokens
 	\vspace{0.5cm}
 	\begin{figure}[h!]
 		\begin{center}
@@ -167,12 +168,18 @@ Constant Product Formula:
 %%%
 \begin{frame}{Swap (without fees)}
 	\vspace{0.5cm}
+	% TODO: Überschriften für die 3 Formeln einfügen
 		\begin{align*}
-			\onslide<1->{ y' &= \frac{k}{x + \Delta x} }\\
-			\vspace{0.1cm}\\
-			\onslide<2->{ \Delta y &= y -\frac{k}{x + \Delta x}  }\\
-			\vspace{0.1cm}\\
-			\onslide<3->{ k' &= (x + \Delta x) \cdot (y - \Delta y) = k }
+			\intertext{	Token Y pool reserves after trade} \\
+			\onslide<1->{y' &= \frac{k}{x + \Delta x}
+			}\\
+			\onslide<2->{ 
+				\intertext{ Token Y pool reserves after trade: }\\
+				\Delta y &= y -\frac{k}{x + \Delta x}  
+			}\\
+			\onslide<3->{
+				k' &= (x + \Delta x) \cdot (y - \Delta y) = k
+			}
 		\end{align*}	
 \end{frame}
 %%%
@@ -187,6 +194,7 @@ Constant Product Formula:
 
 %%%
 \begin{frame}{Swap (with fees)}
+	% TODO replace k' with k'_\rho
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/constant_product_swap_with_fees.tex}
@@ -195,15 +203,6 @@ Constant Product Formula:
 \end{frame}
 %%%
 
-%%% TODO Delete after
-\begin{frame}{Swap (with fees 2)}
-	\begin{figure}[h!]
-		\begin{center}
-			\input{../assets/figures/constant_product_swap_with_fees_Kopie.tex}
-		\end{center}
-	\end{figure}
-\end{frame}
-%%%
 
 %%%
 \begin{frame}{Swap (with fees)}
@@ -264,7 +263,7 @@ Constant Product Formula:
 
 
 %%%
-\begin{frame}{Swap one X-token in a bigger pool}
+\begin{frame}{Swap one X-token in a Bigger pool}
 	%\textbf{Swap one x-token with a fee of 0.3 \%} \\
 
 	\begin{minipage}{0.5\textwidth}
@@ -384,6 +383,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \end{frame}
 %%%
 
+% TODO: Divergence Loss graph
 
 
 
@@ -392,7 +392,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 \begin{small}
 \begin{itemize}
-	\item The concept of CFMMs can be extended to other formulas, with different attributions and trade-offs. 
+	\item The concept of CFMMs can be extended to other functionss, with different attributions and trade-offs. 
 	\item The stableswap invariant, introduced by Curve\footnote{\href{https://curve.fi/files/stableswap-paper.pdf}{Curve Whitepaper \link}}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
 	\end{itemize}
 \end{small}
@@ -410,7 +410,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}:
 	\begin{itemize}
 		\item<2-> Liquidity providers can add liquidity within a certain price range $[p_a, p_b]$.
-		\item<3-> The position is active, if the price is within the given range.
+		\item<3-> The position is active, if the price is within the given range. % 
 		\item<4-> If the price is out of range, the liquidity provider only holds one asset and does not collect fees.
 	\end{itemize}
 	\vspace{0.5cm}
@@ -430,6 +430,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 %%%
 \begin{frame}{Concentrated Liquidity}
+	% Update graphs (different color for concentrated position)
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/concentrated_liquidity.tex}
@@ -445,7 +446,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 %%%
 \begin{frame}{More Than two Pool Assets}
 
-The constant product formula as implemented by Uniswap can be extended to pools with more than two assets:
+The constant product function as implemented by Uniswap can be extended to pools with more than two assets:
 		\begin{align*}
 			\prod_{i=1}^N x_i= k
 		\end{align*}
@@ -459,9 +460,9 @@ $k$: constant
 
 
 %%%
-\begin{frame}{Constant Mean Formula}
+\begin{frame}{Constant Mean Function}
 \begin{itemize}
-	\item The constant product formula can be further extended by using different weights (constant mean formula)\footnote{\href{https://balancer.fi/whitepaper.pdf}{Balancer Whitepaper \link}}:
+	\item The constant product function can be further extended by using different weights (constant mean function)\footnote{\href{https://balancer.fi/whitepaper.pdf}{Balancer Whitepaper \link}}:
 		\begin{align*}
 			\prod_{i=1}^N x_i^{w_i}= k
 		\end{align*}
@@ -471,7 +472,7 @@ $k$: constant
 		$w_i$: weight of asset $i$\\
 		$k$: constant
 		\vspace{0.5cm}
-	\item The constant product formula is basically just a subset of the constant mean formula with equally weighted assets ($w_i = 1$).
+	\item The constant product function is basically just a subset of the constant mean function with equally weighted assets ($w_i = 1$).
 \end{itemize}
 
 \end{frame}
@@ -480,7 +481,7 @@ $k$: constant
 
 %%%
 \begin{frame}{Concept of Aggregators}
-
+% TODO: Aggregator einfärben analog vorherigem Slidedeck
 \begin{figure}
 	\centering
 	\resizebox{0.8\textwidth}{!}{
@@ -500,7 +501,8 @@ $k$: constant
 
 %%%
 \begin{frame}{Frontrunning}
-
+	% Left: actions
+	% right: curve
 \end{frame}
 %%%
 
@@ -526,11 +528,22 @@ $k$: constant
 %%%
 \begin{frame}{Exercise}
 	\begin{exercise}{Exercise 1}
-	For this exercise we use the ERC20 Token created in one of the previous videos (select Ropsten). Go to UniSwap Frontend Link to complete the following tasks:
-	
+	% Create new token and corresponding Uniswap pool	
+			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
 		\begin{enumerate}
+			\item Make sure you are connected to the Ropsten testnet
+			\item List your token on Uniswap
+			\item Trade your own token
+		\end{enumerate}
+	\end{exercise}
+	
+	\begin{exercise}{Exercise 2}
+	% Create new token and corresponding Uniswap pool	
+			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
+		\begin{enumerate}
+			\item Make sure you are connected to the Ropsten testnet
 			\item Swap ETH to CIF
-			\item Provide liquidity to ETH/CIF Pool
+			\item Provide liquidity to the ETH/CIF Pool
 			\item Make another Swap
 			\item Remove your liquidity position and analyze what happened
 		\end{enumerate}
@@ -543,14 +556,16 @@ $k$: constant
 %%%
 \begin{frame}%[allowframebreaks]
 \frametitle{References and Recommended Reading}
+
+		\bibliographystyle{amsplain}
+		\bibliography{../assets/bib/refs}
 	% Uniswap Whitepaper
 	% Vitalik Blogpost AMM https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/
 	% Uniswap V2/V3 Whitepaper
 	% Curve Whitepaper
 	% Balancer Whitepaper
+	% DeFi Overview
 	
-	\bibliographystyle{amsplain}
-	\bibliography{../assets/bib/refs}
 \end{frame}
 %%%
 
