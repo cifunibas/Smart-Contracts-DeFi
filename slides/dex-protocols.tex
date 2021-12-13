@@ -65,12 +65,11 @@
 		\input{../assets/figures/cfmm.tex}
 	\end{figure}
 
-\only<4>{
 	\begin{itemize}
-		\item The price is determined endogenously via a formula.
-		\item The trader pays a fee which is added to the liquidity pool. Since no new Pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all Liquidity Providers.
+		\item<5-> {The price is determined endogenously via a formula.}
+		\item<6-> The trader pays a fee which is added to the liquidity pool. Since no new pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all liquidity providers.
 	\end{itemize}
-}
+
 
 \end{frame}
 %%%
@@ -84,7 +83,7 @@
 		\end{tikzpicture}
 	\end{figure}
 	\begin{itemize}
-		\item When the pool price differs from the market price (e.g on a centralized exchange), there is an arbitrage opportunity. Therefore, the Pool Price should be the same as the Market Price.
+		\item If the pool price differs from the market price (e.g on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
 	\end{itemize}	
 \end{frame}
 %%%
@@ -169,8 +168,10 @@ Constant Product Formula:
 \begin{frame}{Swap (without fees)}
 	\vspace{0.5cm}
 		\begin{align*}
-			\onslide<1->{ y' &= \biggl( \frac{k}{x + \Delta x} \biggr) }\\
-			\onslide<2->{ \Delta y &= y - \biggl( \frac{k}{x + \Delta x} \biggr) }\\
+			\onslide<1->{ y' &= \frac{k}{x + \Delta x} }\\
+			\vspace{0.1cm}\\
+			\onslide<2->{ \Delta y &= y -\frac{k}{x + \Delta x}  }\\
+			\vspace{0.1cm}\\
 			\onslide<3->{ k' &= (x + \Delta x) \cdot (y - \Delta y) = k }
 		\end{align*}	
 \end{frame}
@@ -209,8 +210,10 @@ Constant Product Formula:
 	\vspace{0.5cm}
 		\begin{align*}
 			\onslide<1->{ y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x} }\\
-			\onslide<2->{ \Delta y_\rho &= y - \biggl( \frac{k}{x + \gamma \cdot \Delta x} \biggr) }\\
-			\onslide<3->{ k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) > k }
+			\vspace{0.1cm}\\
+			\onslide<2->{ \Delta y_\rho &= y - \frac{k}{x + \gamma \cdot \Delta x} }\\
+			\vspace{0.1cm}\\
+			\onslide<3->{ k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) \ge k }
 		\end{align*}	
 \end{frame}
 %%%
@@ -232,10 +235,10 @@ Constant Product Formula:
 		\begin{scriptsize}
 			\begin{align*}
 			\only<1>{
-				\Delta y_{\rho} &= \dfrac{k}{x+ \gamma \cdot \Delta x} - y \\
+				\Delta y_{\rho} &= y - \dfrac{k}{x+ \gamma \cdot \Delta x} \\
 			}
 			\only<2>{
-			 	\Delta y_{\rho} &= \tfrac{100}{10+ (1-0.003) \cdot 10} - 10 = -0.9066 \\
+			 	\Delta y_{\rho} &= 10 - \tfrac{100}{10+ (1-0.003) \cdot 10} = 0.9066 \\
 		 		y'_{\rho} &= 10 - 0.9066 = 9.0934 \\
 		 		k'_{\rho} &= 11 \cdot 9.0934 = 100.0274 \\
 		 	}
@@ -255,7 +258,7 @@ Constant Product Formula:
 		\end{scriptsize}
 	\end{minipage}
 
-\only<5>{Slippage $S$ is the deviation from the price for a indefinitesimal trade $P_x$ to the price for an actual trade $P_{x,swap}$.}
+\only<5>{Slippage $S$ is the deviation from the price for an infinitesimal trade $P_x$ to the price for an actual trade $P_{x,swap}$.}
 \end{frame}
 %%%
 
@@ -384,7 +387,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \begin{small}
 \begin{itemize}
 	\item The concept of CFMMs can be extended to other formulas, with different attributions and trade-offs. 
-	\item The stableswap invariant, introduced by Curve\footnote{\href{https://curve.fi/files/stableswap-paper.pdf}{Curve Whitepaper \link}}, is very useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
+	\item The stableswap invariant, introduced by Curve\footnote{\href{https://curve.fi/files/stableswap-paper.pdf}{Curve Whitepaper \link}}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
 	\end{itemize}
 \end{small}
 
