@@ -110,7 +110,7 @@
 
 %%%
 \begin{frame}{Constant Product Market Maker}
-Constant Product Function:
+Constant Product Function \cite{UNIV2}:
 	\begin{align*}
 		x \cdot y &= k
 	\end{align*}
@@ -528,8 +528,51 @@ $k$: constant
 
 %%%
 \begin{frame}{Frontrunning}
-	% Left: actions
-	% right: curve
+	\begin{figure}
+		\begin{minipage}[c]{0.45\textwidth}
+		Execution order:
+			\begin{enumerate}
+				\item Attackers' first transaction (highest fee)
+				\item Users' transaction
+				\item Attackers' second transaction	(lowest fee)	 
+			\end{enumerate}		
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.5\textwidth}
+			\begin{tikzpicture}[]
+    
+	    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
+    
+  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{X-Token}} ;
+    		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{Y-Token}}; 
+    		 
+ \uncover<1>{ 
+	    	\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
+    		\draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+  }
+			
+			\uncover<2,4>{
+			\draw[fill=red] (3,1.35) circle(2pt);
+			\draw[dotted, thick] (3,1.35)--(0,1.35) node[left]{\scriptsize $y$};
+    		\draw[dotted, thick] (3,1.35)--(3,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+			}
+			
+			\uncover<3>{
+			\draw[dotted, thick] (4,1)--(0,1) node[left]{\scriptsize $y$};
+    		\draw[dotted, thick] (4,1)--(4,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+			}
+			
+
+	  	%%%dots
+	  	\only<1>{
+	  	\draw[fill=black] (2,2) circle(2pt);}
+	  	\only<3>{
+	  	\draw[fill=red] (4,1) circle(2pt);}
+	  	\only<2,4>{
+	  	\draw[fill=red] (3,1.35) circle(2pt); }	
+			\end{tikzpicture}
+		\end{minipage}
+	\end{figure}
 \end{frame}
 %%%
 
@@ -549,7 +592,7 @@ $k$: constant
 \begin{frame}{Initial DEX offerings}
 
 	\begin{figure}
-		\begin{minipage}[c]{0.45\textwidth}
+		\begin{minipage}[c]{0.3\textwidth}
 
 			\begin{tikzpicture}[]
     
@@ -558,29 +601,27 @@ $k$: constant
   			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{Token}} ;
     		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{ETH}};  
   
+  \only<2>{
 	    	\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
 
     		\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
   
 			\draw[fill=black] (4.1,1) circle(2pt);
-
-	  		%\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y'$};
-	
-   			%\draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x'$};
-  
-			\draw[fill=black] (4.1,1) circle(2pt);
-	
+}
+	  	
 			\end{tikzpicture}
 	
 		\end{minipage}
 		\hfill
-		\begin{minipage}[c]{0.45\textwidth}
+		\begin{minipage}[c]{0.5\textwidth}
 			\begin{itemize}
 				\item CFMMs can also be used for initial token offerings.
-				\item Example: The offering party can create a pool with its token and a small amount of ETH.
+				\item The offering party can create a pool with its token and a small amount of ETH.
+				\item This mechanism is useful for price discovery of a new asset. \link \href{https://unisocks.exchange/}{Uni\$ocks}
 			\end{itemize}
 		\end{minipage}
 	\end{figure}
+
 \end{frame}
 %%%
 
