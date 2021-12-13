@@ -547,38 +547,39 @@ $k$: constant
 %%%
 \begin{frame}{Initial DEX offerings}
 
-\begin{minipage}[c]{0.25\textwidth}
 	\begin{figure}
-		\begin{tikzpicture}[]
+		\begin{minipage}[c]{0.45\textwidth}
+
+			\begin{tikzpicture}[]
     
-    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
+	    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
     
-  		\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{Token}} ;
-    	\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{ETH}};  
+  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{Token}} ;
+    		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{ETH}};  
   
-    	\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
+	    	\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
 
-    	\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+    		\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
   
-		\draw[fill=black] (4.1,1) circle(2pt);
+			\draw[fill=black] (4.1,1) circle(2pt);
 
-  		%\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y'$};
-
-   		%\draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x'$};
-  
-		\draw[fill=black] (4.1,1) circle(2pt);
+	  		%\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y'$};
 	
-		\end{tikzpicture}
-	\end{figure}	
-\end{minipage}
-
-\begin{minipage}[c]{0.45\textwidth}
-	\begin{itemize}
-		\item CFMMs can also be used for initial token offerings.
-		\item Example: The offering party can create a pool with its token and a small amount of ETH.
-	\end{itemize}
-\end{minipage}
-
+   			%\draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x'$};
+  
+			\draw[fill=black] (4.1,1) circle(2pt);
+	
+			\end{tikzpicture}
+	
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.45\textwidth}
+			\begin{itemize}
+				\item CFMMs can also be used for initial token offerings.
+				\item Example: The offering party can create a pool with its token and a small amount of ETH.
+			\end{itemize}
+		\end{minipage}
+	\end{figure}
 \end{frame}
 %%%
 
