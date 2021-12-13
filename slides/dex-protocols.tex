@@ -81,29 +81,28 @@
 	\begin{figure}
 		\begin{tikzpicture}
 	
-	% Pool
-	\draw [thick] (-1,-1.5) -- (1,-1.5);
-	\draw [thick](-1,-1.5) -- (-1, 0.6);
-	\draw [thick](1,-1.5) -- (1, 0.6);
-	\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
+		% Pool
+		\draw [thick] (-1,-1.5) -- (1,-1.5);
+		\draw [thick](-1,-1.5) -- (-1, 0.6);
+		\draw [thick](1,-1.5) -- (1, 0.6);
+		\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
 	
-	% Balanced Pool
-	\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.0);
-	\draw [fill=strongmint] (0,-1.5) rectangle (1,0.5);
+		% Balanced Pool
+		\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.0);
+		\draw [fill=strongmint] (0,-1.5) rectangle (1,0.5);
 
-	% Token labels
-	\node at (-0.5,-0.7) {\scriptsize{y}};
-	\node at (0.5,-0.7) {\scriptsize{x}};
+		% Token labels
+		\node at (-0.5,-0.7) {\scriptsize{y}};
+		\node at (0.5,-0.7) {\scriptsize{x}};
 	
-	\node at (-4,-0.7) {\includegraphics[scale=0.15]{../assets/images/exchange.png}};
-	\node [below=0.8cm] at (-4,-0.8) {\scriptsize{other exchange}};
+		\node at (-4,-0.7) {\includegraphics[scale=0.15]{../assets/images/exchange.png}};
+		\node [below=0.8cm] at (-4,-0.8) {\scriptsize{other exchange}};
 		
-\end{tikzpicture}
+		\end{tikzpicture}
 
 	\end{figure}
-	\begin{itemize}
-		\item If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
-	\end{itemize}	
+		
+		If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
 \end{frame}
 %%%
 
@@ -214,7 +213,6 @@ Constant Product Function:
 
 %%%
 \begin{frame}{Swap (with fees)}
-	% TODO replace k' with k'_\rho
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/constant_product_swap_with_fees.tex}
