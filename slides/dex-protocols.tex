@@ -420,8 +420,14 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \end{frame}
 %%%
 
-% TODO: Divergence Loss graph
 
+%%%
+\begin{frame}{Divergence Loss}
+	\begin{figure}
+		\includegraphics[scale=0.6]{../assets/images/divergence-loss.pdf}
+	\end{figure}
+\end{frame}
+%%%
 
 
 %%%
@@ -539,7 +545,7 @@ $k$: constant
 %%%
 \begin{frame}{Frontrunning}
 	\begin{figure}
-		\begin{minipage}[c]{0.45\textwidth}
+		\begin{minipage}[c]{0.4\textwidth}
 		Execution order:
 			\begin{enumerate}
 				\item Attackers' first transaction (highest fee)
@@ -548,7 +554,7 @@ $k$: constant
 			\end{enumerate}		
 		\end{minipage}
 		\hfill
-		\begin{minipage}[c]{0.5\textwidth}
+		\begin{minipage}[c]{0.45\textwidth}
 			\begin{tikzpicture}[]
     
 	    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
