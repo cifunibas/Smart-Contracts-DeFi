@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -25,22 +25,27 @@
 Besides exchanging assets, \textbf{borrowing} and \textbf{lending} are the most fundamental needs in a financial system. \\
 
 \vspace{1em}
+
+\uncover<2-> {
 Due to openness and pseudonymity, DeFi loans exist in two formats:
 \vspace{0.5em}
 \begin{enumerate}
   \item \textbf{Collaterallized loans} of undefined duration.
   \item \textbf{Flash loans} that are borrowed and repaid in one transaction. 
 \end{enumerate} 
+}
 
+\uncover<3-> {
 \vspace{1em}
 Currently, we can distinguish two main lending protocol archetypes in DeFi: \textbf{Collateral Debt Protocols} and \textbf{Collateral Debt Markets}.
+}
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Some Terminology around Lending in DeFi}
+\begin{frame}{Some Terminology Around Lending in DeFi}
 
 \vspace{1em}
 
@@ -57,14 +62,12 @@ Currently, we can distinguish two main lending protocol archetypes in DeFi: \tex
 \uncover<3->{ 
 \textbf{Borrowing capacity} (BC): Total amount a position may borrow, given the value of its collateral assets and their respective $LTV$.
 
-\begin{equation}
+\begin{equation*}
 	BC = \sum c_i\, LTV_i 
 	\label{eq:BC} 
-\end{equation}
-}
+\end{equation*}
 
-\uncover<4->{ 
-$\rightarrow$ A position can only take up new debt as long as its existing  debt across all assets is below borrowing capacity, i.e., $BC > \sum d_i$
+$\Rightarrow$ A position can only take up new debt as long as its existing  debt across all assets is below borrowing capacity, i.e., $BC > \sum d_i$
 }
 
 \end{frame}
@@ -72,30 +75,30 @@ $\rightarrow$ A position can only take up new debt as long as its existing  debt
 
 
 %%%
-\begin{frame}{Some Terminology around Lending in DeFi}
+\begin{frame}{Some Terminology Around Lending in DeFi}
 
 \vspace{1em}
 
 \textbf{Liquidation Threshold} (LT): Threshold of debt relative to collateral at which a position becomes unhealthy and thus can be liquidated. $LT_i \in [0,1]$ and $LT_i \geq LTV_i$.
 
-	\begin{equation}
+	\begin{equation*}
 	  		LT =  \frac{\sum c_i \, LT_i}{\sum c_i}
 	  	\label{eq:LT} 
-	\end{equation}
+	\end{equation*}
 	
 
 \vspace{1.0em}
 \uncover<2->{
 \textbf{Health Factor} (HF): Relative value of collateral, adjusted by LT, to outstanding debt of a position.
 
-\begin{equation}
+\begin{equation*}
 	  HF = \frac{\sum c_i \, LT_i}{\sum d_i} \label{eq:HF} 
-\end{equation}
+\end{equation*}
 
 \vspace{1.0em}
-$\rightarrow$ A position with $HF \geq 1$ it is considered \color{focus} \textit{healthy} \color{black} .
+$\Rightarrow$ A position with $HF \geq 1$ it is considered \color{focus} \textit{healthy} \color{black} .
 
-$\rightarrow$ Collateral of \color{focus} \textit{unhealthy}\color{black} positions is available for liquidation.
+$\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} positions is available for liquidation.
 }
 
 \end{frame}
@@ -209,25 +212,37 @@ Commonly receives a \emph{liquidity token} for the assets provided, that:
   \item is \textbf{burnt to withdraw} the assets accrued interest.
 \end{itemize}
 
+\uncover<2-> {
 \vspace{1.0em}
 $\Rightarrow$ Interest earned is \textbf{not risk free}: Protocol malfunctions or tail events that block necessary liquidations may leave lenders with liquidity tokens, that can not or only partially be reimbursed. These situations may be temporary or permanent.
+}
 
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Comparison of two Liquidity Token setups}
+\begin{frame}{Comparison of Two Liquidity Token Setups}
 
-	\begin{table}
-		\begin{tabular}{ll}
-			A & B\\
-			C & D
-		\end{tabular}
-		\caption{This is a table}
-		\label{tbl:simpletable}
-	\end{table}
-	
+\footnotesize
+\begin{table}
+  \center
+  \begin{tabularx}{\textwidth}{rXX}
+    \toprule
+    ~	& \textbf{Aave V2} \emph{aToken} & \textbf{Compound} \emph{cToken}	\\
+    \midrule
+    \textbf{Naming} & a\textit{Reserve} (e.g., aDai) & c\textit{Reserve} (e.g., cDai) \vspace{0.5em}\\
+    \textbf{Reserve Translation} & 1:1 & $cToken \cdot XRate_{reserve}$ \vspace{0.5em}\\
+    \textbf{Interest Logic} & Base rate + two slopes around optimal utilization. & Base rate + one slope \textbf{or} two slopes around optimal utilization. \vspace{0.5em}\\
+    \textbf{Security Reserve} & By reserve asset. Held by treasury as aToken. & By reserve asset. Value stored in each contract. \vspace{0.5em}\\
+    \textbf{Interest Calculation} & Per second. With every tx affecting debt or liquidity balances. & Per block. With every tx affecting debt or liquidity balances. \vspace{0.5em}\\
+    \textbf{Interest Model} & Stable and variable rates. & Variable rates only. \vspace{0.5em}\\
+    \textbf{Liquidator} & Can choose between reserve asset and aToken. & Gets cToken.\\
+    \bottomrule
+  \end{tabularx}
+  \caption{Comparison aToken and cToken \cite{AaveV2,Compound}}
+\end{table}
+
 \end{frame}
 %%%	
 
@@ -235,24 +250,85 @@ $\Rightarrow$ Interest earned is \textbf{not risk free}: Protocol malfunctions o
 %%%
 \begin{frame}{CDM: Utilization Depending Interest }
 
-Interest earned is commonly variable and depends on the actual \textit{utilization} of the assets by borrowers.
-
-\begin{figure}[t]
-	\centering
-	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
-		\input{../assets/figures/utilization_interest}
-	\end{tikzpicture}
-\end{figure}
-
-$if \;L_t > 0 : \; U_t = \dfrac{D_t}{L_t}$
+Interest owed by borrowers $r_b$ in CDMs is \textbf{commonly variable and depends on \textit{utilization}} $u_t$ of the asset, i.e., how much of the liquidity provided by lender's $L_t$ is currently borrowed $D_t$.
 
 \vspace{1em}
 
-$if \;  U_t < U_{opt} : \; R_t = R_0 + \dfrac{U_t} {U_{opt}}  \; S_1$
+\uncover<2-> {
+\begin{minipage}{0.6\textwidth}
+	\begin{figure}[t]
+		\centering
+		\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.8}]
+			\input{../assets/figures/utilization_interest}
+		\end{tikzpicture}
+		\caption{Dual Interest Slope}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.38\textwidth}
+	\vspace{-1em}
+	\begin{equation*}
+		u_t = \dfrac{D_t}{L_t}
+	\end{equation*}
+	
+	\vspace{0.5 em}
+	A \textbf{dual interest slope} incentivizes borrowing when utilization is below optimal $u_{opt}$ and repayment if its above, threatening the lenders' ability to withdraw assets.
+	
+\end{minipage}	
+}
 
-\vspace{1em}
+\end{frame}
+%%%	
 
-$if \; U_t \geq U_{opt} : \; R_t = R_0 + S_1 + \dfrac{U_t - U_{opt}}{U_{exc}}\; S_2$
+
+%%%
+\begin{frame}{CDM: Borrower's Interest and Lender's Yield }
+
+In a CDM applying a dual interest slope for an asset defined by the tuple $(r_0, s_1, s_2, u_{opt})$, current $r_b$ accrued by borrowers can be expressed as follows:
+
+\vspace{0.5em}
+
+\begin{equation*}
+	r_b = 
+		\begin{cases}
+		r_0 + \dfrac{u_t}{u_{opt}}s_1, & \text{if } u_t \leq u_{opt}\\
+		r_0 + \dfrac{u_t}{u_{opt}}s_1 + \dfrac{u_t-u_{opt}}{1-u_{opt}}s_2, & \text{if } u_t > u_{opt}
+		\end{cases}
+\end{equation*}
+
+\vspace{2em}
+
+\uncover<2-> {
+Accounting for a reserve factor $RF \in [0,1]$ deducted as income for the protocol, the $r_b$ collected from borrowers and attributed to the lenders of the asset as yield $r_l$ equals to:
+
+\begin{equation*}
+	r_l = u_t r_b (1-RF) 
+\end{equation*}
+}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{A Borrower's Perspective}
+
+With the transfer of collateral assets, \textbf{a credit line is opened }against which assets can be borrowed along the protocol’s terms.
+
+\vspace{1 em}
+Within CDMs, the collateral becomes part of the assets available for borrowing, i.e., \textbf{a borrower is also a lender.}
+
+\uncover<2-> {
+\vspace{1 em}
+A borrower must continuously \textbf{monitor prices} of collateral and debt assets incl. interest accrued, to avoid their \textbf{position becoming unhealthy}.
+
+\vspace{1 em}
+If liquidated, a position is \textbf{commonly subject to some penalty} funding the incentivation of liquidators.
+}
+
+\uncover<3-> {
+\vspace{1 em}
+\textbf{Risk of the borrower is effectively limited to the difference between collateral locked and debt drawn}, as there is very limited effective recourse to compel repayment of borrowed assets. 
+}
 	
 \end{frame}
 %%%	
@@ -261,24 +337,41 @@ $if \; U_t \geq U_{opt} : \; R_t = R_0 + S_1 + \dfrac{U_t - U_{opt}}{U_{exc}}\; 
 %%%
 \begin{frame}{Overcollateralization and Liquidation}
 
-\begin{figure}[t]
-	\centering
-	\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.8}]
-		\input{../assets/figures/liquidation_scenario}
-	\end{tikzpicture}
-	\caption{Liquidation scenario with $LT = 0.75$}
-\end{figure}
+Protocols require a \textbf{minimum overcollateralization} in the pseudoanonymous DeFi environment, i.e., $d \leq c \cdot LT$.
+\vspace{1em}
 
+\begin{minipage}{0.6\textwidth}
+	\vspace{1.5em}
+	\begin{figure}[t]
+		\centering
+			\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.8}]
+			\input{../assets/figures/liquidation_scenario}
+		\end{tikzpicture}
+		\caption{Scenario with $LT = 0.75$}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.38\textwidth}
+	
+	\uncover<2->{
+	When collateral value relative to the debt falls below this minimum, the risk of borrower default is too high, i.e., the position state is \emph{unhealthy}.
+	}
+	
+	\vspace{1em}
+	\uncover<3->{
+	Collateral can now be liquidated by anyone against repayment of the 		position’s debt.
+	}
+\end{minipage}
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Liquidations: Two approaches (cont.)}
+\begin{frame}{Liquidations: Two Approaches (cont.)}
 
-With protocols unable to become active by themselves, they rely on arbitrageurs to spot and liquidate unhealthy positions.
+With protocols unable to become active by themselves, they \textbf{rely on arbitrageurs} to spot and liquidate unhealthy positions.
 
+\uncover<2->{
 \vspace{1 em}
 Two approaches offering liquidation incentives can be observed: 
 
@@ -294,21 +387,17 @@ Two approaches offering liquidation incentives can be observed:
 \textbf{Pro:} Atomic transaction, fast.
 
 \textbf{Con:} Requires high accuracy of on-chain oracle prices at all times.
+}
 
-
-
-
-
-	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Liquidations: Two approaches }
+\begin{frame}{Liquidations: Two Approaches }
 
 
-\textbf{2. Tend \& Dent Auction} (e.g. MakerDAO)
+\textbf{2. Tend \& Dent Auction} (e.g. MakerDAO) \cite{Gervais21DeFiLiquidations}
 \vspace{0.2em}
 \begin{itemize}
 \item English auction of an unhealthy position’s collateral can be started by anyone submitting the first bid.
@@ -361,17 +450,18 @@ For a successful flash loan of $x$ with interest $\rho$  and / or a flat fee $\v
 
 \vspace{1em}
 \begin{enumerate}
-
-\item Unless procured from a CDP, where $x$ can be \textit{flash-minted}, the lending market must \textbf{have $x$ liquid available.}\\
-$x \leq LP_{x}$
-
-\item The whole principal plus all interest and fees ($ x(1+\rho) + \varphi$) must be \textbf{returned at the end of the transaction.}
-
+	\item The lending market must \textbf{have $x$ liquid available.}\\
+	\begin{equation*}
+		x \leq LP_{x}
+	\end{equation*}
+	(Unless borrowed from a CDP, where $x$ can be \textit{flash-minted})
+	\item The whole principal plus all interest and fees ($ x(1+\rho) + \varphi$) must be \textbf{returned at the end of the transaction.}
 \end{enumerate}
 
+\uncover<2->{
 \vspace{1em}
 $\Rightarrow$ If conditions are not met, the flash loan transaction is still included in the blockchain but is considered failed, i.e., it does not lead to any state changes except for a nonce update and transaction fee $\epsilon$. 
-
+}
 
 	
 \end{frame}
@@ -383,9 +473,9 @@ $\Rightarrow$ If conditions are not met, the flash loan transaction is still inc
 
 With $x$ as the amount borrowed and sold at the high-price exchange and $x^\ast$ the amount bought back at the low-price exchange with the proceeds, the payoff $\Pi$ can be expressed as:
 
-\begin{equation}
+\begin{equation*}
 	\Pi = max (x^{\ast}-[x \,(1+\rho) + \varphi ],0) - \epsilon
-\end{equation}
+\end{equation*}
 
 \vspace{0.5 em}
 
@@ -396,10 +486,11 @@ With $x$ as the amount borrowed and sold at the high-price exchange and $x^\ast$
 		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
 			\input{../assets/figures/flashloan_payoff}
 		\end{tikzpicture}
-		\caption{Flash Loan Payoff Diagram}
+		\caption{Flash Loan Payoff Diagram \cite{FS21FlashLoans}}
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.38 \textwidth}
+\vspace{-1em}
 	Is a corresponding flash loan available when a token pair has a significant price difference on-chain, \textbf{anyone can become an arbitrageur }with the loss potential capped at transaction fee $\epsilon$.
 \end{minipage}
 }
@@ -415,6 +506,7 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 
 \vspace{1em}
 
+\uncover<2->{
 \textbf{Common Use Cases}:
 
 \begin{itemize}
@@ -424,11 +516,13 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 \item Price Manipulation and Wash Trading
 
 \end{itemize}
+}
 
 \vspace{2em}
 
+\uncover<3->{
 $\Rightarrow$ While it arguably can be missused, the unique DeFi tool of flash loans have the potential to make markets more efficient and fair.
-
+}
 
 	
 \end{frame}
@@ -436,18 +530,10 @@ $\Rightarrow$ While it arguably can be missused, the unique DeFi tool of flash l
 
 
 %%%
-\begin{frame}{Bib-References}
-		Read the Bitcoin Whitepaper, \cite{nakamotoBitcoin2008}.
-\end{frame}
-%%%
-
-%%%
 \begin{frame}%[allowframebreaks]
 
-References must include AAVE, Compund and MAKER Docs
-Gervais DeFi Liq Paper, Fabian's Flashloan explainer
-
 \frametitle{References and Recommended Reading}
+
 	\bibliographystyle{amsplain}
 	\bibliography{../assets/bib/refs}
 \end{frame}
