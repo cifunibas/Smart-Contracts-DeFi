@@ -53,6 +53,7 @@
 	\begin{figure}[h!]
 		% TODO: cite FED paper
 		\input{../assets/figures/overview_exchanges.tex}
+		\caption{\cite{FS:21}}
 	\end{figure}
 \end{frame}	
 %%%
@@ -419,7 +420,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \begin{small}
 \begin{itemize}
 	\item The concept of CFMMs can be extended to other functionss, with different attributions and trade-offs. 
-	\item The stableswap invariant, introduced by Curve\footnote{\href{https://curve.fi/files/stableswap-paper.pdf}{Curve Whitepaper \link}}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
+	\item The stableswap invariant, introduced by Curve \cite{CRV}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
 	\end{itemize}
 \end{small}
 
@@ -433,7 +434,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 %%%
 \begin{frame}{Concentrated Liquidity}
-	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}:
+	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021 \cite{UNIV3}:
 	\begin{itemize}
 		\item<2-> Liquidity providers can add liquidity within a certain price range $[p_a, p_b]$.
 		\item<3-> The position is active, if the price is within the given range. % 
@@ -461,9 +462,9 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 		\begin{center}
 			\input{../assets/figures/concentrated_liquidity.tex}
 		\end{center}
-		\only<1>{\caption*{Liquidity provision on full price range\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
-		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
-		\only<3>{\caption*{Aggregated liquidity positions\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
+		\only<1>{\caption*{Liquidity provision on full price range \cite{UNIV3}}}
+		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$ \cite{UNIV3}}}
+		\only<3>{\caption*{Aggregated liquidity positions \cite{UNIV3}}}
 	\end{figure}	
 \end{frame}
 %%%
@@ -472,7 +473,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 %%%
 \begin{frame}{More Than two Pool Assets}
 
-The constant product function as implemented by Uniswap can be extended to pools with more than two assets:
+The constant product function as implemented by Uniswap can be extended to pools with more than two assets \cite{BAL}:
 		\begin{align*}
 			\prod_{i=1}^N x_i= k
 		\end{align*}
@@ -488,7 +489,7 @@ $k$: constant
 %%%
 \begin{frame}{Constant Mean Function}
 \begin{itemize}
-	\item The constant product function can be further extended by using different weights (constant mean function)\footnote{\href{https://balancer.fi/whitepaper.pdf}{Balancer Whitepaper \link}}:
+	\item The constant product function can be further extended by using different weights (constant mean function) \cite{BAL}:
 		\begin{align*}
 			\prod_{i=1}^N x_i^{w_i}= k
 		\end{align*}
@@ -615,7 +616,7 @@ $k$: constant
 %%%
 \begin{frame}%[allowframebreaks]
 \frametitle{References and Recommended Reading}
-
+\nocite{FS:21}
 		\bibliographystyle{amsplain}
 		\bibliography{../assets/bib/refs}
 	% Uniswap Whitepaper
