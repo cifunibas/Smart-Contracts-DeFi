@@ -192,7 +192,7 @@ Constant Product Function:
 			\vspace{0.5cm}
 			\onslide<2->{ 
 				\intertext{ Change in token Y reserve: }
-				\Delta y &= y -\frac{k}{x + \Delta x}\\  
+				\Delta y &= y - y'\\  
 			}
 			\vspace{0.5cm}
 			\onslide<3->{
@@ -232,7 +232,7 @@ Constant Product Function:
 		\vspace{0.5cm}
 		\onslide<2->{ 
 			\intertext{ Change in token Y reserve: }
-			\Delta y_\rho &= y - \frac{k}{x + \gamma \cdot \Delta x}\\  
+			\Delta y_\rho &= y - y'_\rho\\  
 		}
 		\vspace{0.5cm}
 		\onslide<3->{
@@ -246,8 +246,7 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Swap one x-token with 0.03\% fee}
-
+\begin{frame}{Example: Swap }
 	\begin{minipage}{0.5\textwidth}
 		\begin{figure}[h!]
 			\begin{center}
@@ -260,69 +259,80 @@ Constant Product Function:
 		\vspace{-4em}
 		\begin{scriptsize}
 			\begin{align*}
-			\only<1>{
-				\Delta y_{\rho} &= y - \dfrac{k}{x+ \gamma \cdot \Delta x} \\
-			}
-			\only<2>{
-			 	\Delta y_{\rho} &= 10 - \tfrac{100}{10+ (1-0.003) \cdot 10} = 0.9066 \\
-		 		y'_{\rho} &= 10 - 0.9066 = 9.0934 \\
-		 		k'_{\rho} &= 11 \cdot 9.0934 = 100.0274 \\
-		 	}
-		 	\only<3>{
-		 		y'_{\rho} &= 10 - 0.9066 = 9.0934 \\
-		 		k'_{\rho} &= 11 \cdot 9.0934 = 100.0274 \\
+			\only<3>{
+				\intertext{\textbf {Assume a pool with 20\% fees:}}
+				x + \gamma \cdot \Delta x &= 10 + (1 - 0.2) \cdot 5 = 14
 			}
 			\only<4>{
-				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
-				P_{x, swap} &= \tfrac{\Delta y}{\Delta x} = \tfrac{0.9066}{1} = 0.9066\\
-				P'_{x} &= \tfrac{y'}{x'} = \tfrac{9.0934}{11} =  0.8267 \\
+				y'_{\rho} &= 10 - \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
+			 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571
+		 	}
+		 	\only<5>{
+		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435
 			}
-			\only<5>{
-				S &= \tfrac{P_{x, swap}}{P_x} - 1 = \tfrac{0.9066}{1} - 1 = -0.0934 \\
+			\only<6>{
+				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.4762 \\
+			}
+			\only<7>{
+				\intertext{\textbf {Price slippage:}}
+				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{1} - 1 = -0.4286 \\
 			}
 			\end{align*}
 		\end{scriptsize}
 	\end{minipage}
-
-\only<5>{Slippage $S$ is the deviation from the price for an infinitesimal trade $P_x$ to the price for an actual trade $P_{x,swap}$.}
+\only<7>{
+	\begin{keytakeaway}{Price slippage}
+		Price slippage $S$ is the deviation from the price for an infinitesimal trade $P_x$ to the price for the actual trade $\overline{P_{x,s}}$.
+	\end{keytakeaway}
+}
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Swap one X-token in a Bigger pool}
+\begin{frame}{Impact of Pool Size on the Swap Price}
 
-	\begin{minipage}{0.5\textwidth}
-		\begin{figure}[h!]
-			\begin{center}
-				\input{../assets/figures/swap_example_2.tex}
-			\end{center}
-		\end{figure}
-	\end{minipage}
-\vspace{1em}
-	\begin{minipage}{0.4\textwidth}
-		\vspace{-4em}
-		\begin{scriptsize}
-			\begin{align*}
-			\only<1>{
-				P_x &= \tfrac{y}{x} = \tfrac{100}{100} = 1 \\
-				P_{x,swap} &= \tfrac{\Delta y}{\Delta x} = \tfrac{0.9872}{1} = 0.9872\\
-				P'_x &= \tfrac{y'}{x'} = \tfrac{99.0128}{101} =  0.9803 \\
+Let us now assume we make the same trade as before but in a larger pool with 100 X-tokens and 100 Y-tokens:
+
+	\begin{scriptsize}
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{align*}
+			\uncover<1->{
+				y'_{\rho} &= 100 - \tfrac{10000}{100 + (1-0.2) \cdot 5} = 96.1538 \\
+		 	}
+		 	\uncover<2->{
+			 	\Delta y_{\rho} &= 100 - 96.1538 = 3.8462\\
 			}
-			\only<2>{
-				S &= \tfrac{P_{x,swap}}{P_x} - 1 = \tfrac{0.9872}{1} - 1 = -0.0128 \\
+			\uncover<3->{
+		 		k'_{\rho} &= 105 \cdot 96.1538 = 10096.1538\\
+			}
+			\uncover<4->{
+				P_{x} &= \tfrac{y}{x} = \tfrac{100}{100} = 1 \\
+			}
+		\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{align*}
+			\uncover<5->{
+				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.8462}{5} = 0.7692\\
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.9158 \\
+			}
+			\uncover<6->{
+				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.7692}{1} - 1 = -0.2308 \\
 			}
 			\end{align*}
-		\end{scriptsize}
 	\end{minipage}
 	
-	\uncover<2>{
-	\begin{keytakeaway}{Impact of Pool Size}
-	In our first example, the trader got 0.9066 y-Tokens, in the second 0.9872. When the trade size is smaller compared to the total pool liquidity, slippage is also reduced. In our example from $\approx$ 9.3\% to $\approx$ 1.3\%.
-	\end{keytakeaway}
-
+	\end{scriptsize}
+	\uncover<7>{
+		\begin{keytakeaway}{Impact of Pool Size}
+			In our first example, the trader got 2.8571 Y-tokens. In the second one with the larger pool he got 3.8462 Y-tokens. A smaller trade size compared to the total pool liquidity reduces price slippage. In our example from $\approx$ 42.93\% to $\approx$ 23.1\%.
+		\end{keytakeaway}
 	}
-		
+
 \end{frame}
 %%%
 
