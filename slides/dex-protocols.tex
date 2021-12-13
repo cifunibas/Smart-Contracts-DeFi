@@ -285,7 +285,6 @@ Constant Product Formula:
 
 
 %%%
-\begin{frame}{Swap one x-token in a bigger pool}
 \begin{frame}{Swap one X-token in a bigger pool}
 	%\textbf{Swap one x-token with a fee of 0.3 \%} \\
 
@@ -450,9 +449,9 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 		\begin{center}
 			\input{../assets/figures/concentrated_liquidity.tex}
 		\end{center}
-		\only<1>{\caption*{Liquidity provision on full price range}}
-		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$}}
-		\only<3>{\caption*{Aggregated concentrated liquidity positions}}
+		\only<1>{\caption*{Liquidity provision on full price range\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
+		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
+		\only<3>{\caption*{Aggregated concentrated liquidity positions\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
 	\end{figure}	
 \end{frame}
 %%%
@@ -522,8 +521,12 @@ $k$: constant
 
 
 %%%
-\begin{frame}{Add. Liquidity Mining \& Vampire Attack}
-
+\begin{frame}{Liquidity Mining \& Vampire Attack}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/vampire_attack.tex}
+		\end{center}
+	\end{figure}
 \end{frame}
 %%%
 
@@ -556,7 +559,7 @@ $k$: constant
 \begin{frame}%[allowframebreaks]
 \frametitle{References and Recommended Reading}
 	% Uniswap Whitepaper
-	% Vitalik Blogpost AMM
+	% Vitalik Blogpost AMM https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/
 	% Uniswap V2/V3 Whitepaper
 	% Curve Whitepaper
 	% Balancer Whitepaper
