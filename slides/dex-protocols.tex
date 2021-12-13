@@ -167,17 +167,19 @@ Constant Product Function:
 
 %%%
 \begin{frame}{Swap (without fees)}
-	\vspace{0.5cm}
-	% TODO: Überschriften für die 3 Formeln einfügen
 		\begin{align*}
-			\intertext{	Token Y pool reserves after trade} \\
-			\onslide<1->{y' &= \frac{k}{x + \Delta x}
-			}\\
+			\onslide<1->{
+				\intertext{	Token Y pool reserves after trade: }
+				y' &= \frac{k}{x + \Delta x}\\
+			}
+			\vspace{0.5cm}
 			\onslide<2->{ 
-				\intertext{ Token Y pool reserves after trade: }\\
-				\Delta y &= y -\frac{k}{x + \Delta x}  
-			}\\
+				\intertext{ Change in token Y reserve: }
+				\Delta y &= y -\frac{k}{x + \Delta x}\\  
+			}
+			\vspace{0.5cm}
 			\onslide<3->{
+				\intertext{ Constant $k$ after trade: }				
 				k' &= (x + \Delta x) \cdot (y - \Delta y) = k
 			}
 		\end{align*}	
@@ -206,16 +208,26 @@ Constant Product Function:
 
 %%%
 \begin{frame}{Swap (with fees)}
-	\vspace{0.5cm}
-		\begin{align*}
-			\onslide<1->{ y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x} }\\
-			\vspace{0.1cm}\\
-			\onslide<2->{ \Delta y_\rho &= y - \frac{k}{x + \gamma \cdot \Delta x} }\\
-			\vspace{0.1cm}\\
-			\onslide<3->{ k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) \ge k }
-		\end{align*}	
+	\begin{align*}
+		\onslide<1->{
+			\intertext{	Token Y pool reserves after trade: }
+			y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x}\\
+		}
+		\vspace{0.5cm}
+		\onslide<2->{ 
+			\intertext{ Change in token Y reserve: }
+			\Delta y_\rho &= y - \frac{k}{x + \gamma \cdot \Delta x}\\  
+		}
+		\vspace{0.5cm}
+		\onslide<3->{
+			\intertext{ Constant $k$ after trade: }				
+			k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) \ge k
+		}
+	\end{align*}	
+
 \end{frame}
 %%%
+
 
 %%%
 \begin{frame}{Swap one x-token with 0.03\% fee}
@@ -437,7 +449,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 		\end{center}
 		\only<1>{\caption*{Liquidity provision on full price range\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
 		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
-		\only<3>{\caption*{Aggregated concentrated liquidity positions\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
+		\only<3>{\caption*{Aggregated liquidity positions\footnote{\href{https://uniswap.org/whitepaper-v3.pdf}{Uniswap V3 Whitepaper \link}}}}
 	\end{figure}	
 \end{frame}
 %%%
