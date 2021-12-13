@@ -338,15 +338,20 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 	\textbf{General assumptions:} No fees, no other LPs \\ 
 		\begin{enumerate}
-			\item We provide 10 units of Token X and Token Y, which are equal in value ($1 \tfrac{Y}{X}$).
-			\begin{align*}
-				10 \cdot 10 = 100	
-			\end{align*}
-			\item Now lets assume the $\tfrac{Y}{X}$ price doubles ($2 \tfrac{Y}{X}$). Therefore, the pool balances adjust to:
-			\begin{align*}
-				x &= \sqrt{k/P_{x}}	 = \sqrt{100/2} = 7.0716 X\\
-				y &= k / x = 100 / 7.0716 = 14.141 Y
-			\end{align*}
+			\item We provide 10 units of Token X and Token Y, which are equal in value ($P_x = \tfrac{Y}{X} = 1$).
+				\begin{align*}
+					k &= x \cdot y = 10 \cdot 10 = 100	
+				\end{align*}
+			\item Now lets assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
+				\begin{align*}
+					x' &= \sqrt{k/P'_{x}}	 = \sqrt{100/2} = 7.0716\\
+					y' &= k / x' = 100 / 7.0716 = 14.141
+				\end{align*}
+			\item The total pool value, expressed in units of Token Y is: 
+				\begin{align*}
+					V_{pool} &= x' \cdot P_x + y' = 2 \cdot y'\\
+					V_{pool} &= 2 \cdot 14.141 = 28.1762
+				\end{align*}
 		\end{enumerate}	
 \end{frame}
 %%%
@@ -356,23 +361,24 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \begin{frame}{Divergence Loss}
 
 	\begin{enumerate}
-	\setcounter{enumi}{2}
-		\item The total pool value, expressed in units of Token Y is: 
-			\begin{align*}
-				V_{pool} = 7.0716 X \cdot 2 \tfrac{Y}{X} + 14.141 Y = 28.1762 Y
-			\end{align*}
+	\setcounter{enumi}{3}
 		\item If we simply held our initial allocation, we would have:
 			\begin{align*}
-			V_{hold} = 10 X \cdot 2 \tfrac{Y}{X} + 10 Y = 30 Y
+				V_{hold} &= x \cdot P'_x + y\\
+				V_{hold} &= 10 \cdot 2 + 10 = 30
 			\end{align*}
-		\item The difference between the Pool Value and the Hold Value is called divergence loss.
-		\begin{align*}
-			DL = \tfrac{V_{pool}}{V_{hold}} -1 = \tfrac{28.284 Y}{30 Y} - 1 = -5.72 \%
+		\item The difference between the pool value and the hold value is called divergence loss:
+			\begin{align*}
+				DL &= \tfrac{V_{pool}}{V_{hold}} - 1\\
+				DL &= \tfrac{28.284}{30} - 1 = -5.72 \%
 			\end{align*}
 	\end{enumerate}	
 	
 	\begin{keytakeaway}{Note}
-		In order to be profitable, a LP must collect more fees than the Divergence Loss. DL is only realized by selling the LP position (burning LP Tokens). There is no DL if the price ratio between the two pool assets stays equal.
+		\begin{itemize}
+			\item In order to be profitable, a LP must collect more fees than the Divergence Loss.
+			\item DL is only realized by closing the LP position. There is no DL if the price ratio between the two pool assets stays equal or returns to the initial ratio.
+		\end{itemize}
 	\end{keytakeaway}
 	
 \end{frame}
