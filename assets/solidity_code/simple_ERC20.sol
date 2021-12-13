@@ -54,8 +54,8 @@ contract SimpleToken {
         if (allowed[_from][msg.sender] < type(uint256).max) {
             allowed[_from][msg.sender] -= _value;
         }
-        balances[_to] += _value;
         balances[_from] -= _value;
+        balances[_to] += _value;
         emit Transfer(_from, _to, _value);
         return true;
     }
