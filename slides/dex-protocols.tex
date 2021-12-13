@@ -68,8 +68,8 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item<5-> {The price is determined endogenously via a function.}
-		\item<6-> The trader pays a fee which is added to the liquidity pool. Since no new pool tokens are minted, this has the effect of splitting the transaction fee proportionally between all liquidity providers. % TODO: neu formulieren
+		\item<5-> The price is determined endogenously via a function.
+		\item<6-> A fee is charged for each trade, which leads to an increase in pool reserves. This ensures that the fee is distributed proportionally to all liquidity providers.
 	\end{itemize}
 
 
@@ -97,7 +97,7 @@
 		\node at (0.5,-0.7) {\scriptsize{x}};
 	
 		\node at (-4,-0.7) {\includegraphics[scale=0.15]{../assets/images/exchange.png}};
-		\node [below=0.8cm] at (-4,-0.8) {\scriptsize{other exchange}};
+		\node [below=0.8cm] at (-4,-0.8) {\scriptsize{Other exchange}};
 		
 		\end{tikzpicture}
 
@@ -611,13 +611,13 @@ $k$: constant
   			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{Token}} ;
     		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{ETH}};  
   
-  \only<2>{
-	    	\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
+  			\only<2>{
+	    		\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
 
-    		\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+	    		\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
   
-			\draw[fill=black] (4.1,1) circle(2pt);
-}
+				\draw[fill=black] (4.1,1) circle(2pt);
+			}
 	  	
 			\end{tikzpicture}
 	
@@ -625,9 +625,9 @@ $k$: constant
 		\hfill
 		\begin{minipage}[c]{0.5\textwidth}
 			\begin{itemize}
-				\item CFMMs can also be used for initial token offerings.
-				\item The offering party can create a pool with its token and a small amount of ETH.
-				\item This mechanism is useful for price discovery of a new asset. \link \href{https://unisocks.exchange/}{Uni\$ocks}
+				\item CFMMs can be used for initial token offerings.
+				\item They can be useful for initial price discovery of a new token.
+				\item Example: \href{https://unisocks.exchange/}{Uni\$ocks} \link
 			\end{itemize}
 		\end{minipage}
 	\end{figure}
@@ -638,24 +638,25 @@ $k$: constant
 
 %%%
 \begin{frame}{Exercise}
-	\begin{exercise}{Exercise 1}
-	% Create new token and corresponding Uniswap pool	
-			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
+	Go to \href{https://app.uniswap.org/}{Uniswap \link} to complete the following exercises:
+	\vspace{.5cm}
+
+	\begin{exercise}{Exercise 1: Create a Uniswap pool for your own token}
 		\begin{enumerate}
 			\item Make sure you are connected to the Ropsten testnet
-			\item List your token on Uniswap
-			\item Trade your own token
+			\item Create a new pool with your own token
+			\item Make a swap in the newly created pool
 		\end{enumerate}
 	\end{exercise}
-	
-	\begin{exercise}{Exercise 2}
+	\vspace{.5cm}
+	\begin{exercise}{Exercise 2: Provide liquidity to the ETH/CLC pool}
 	% Create new token and corresponding Uniswap pool	
 			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
 		\begin{enumerate}
 			\item Make sure you are connected to the Ropsten testnet
-			\item Swap ETH to CIF
-			\item Provide liquidity to the ETH/CIF Pool
-			\item Make another Swap
+			\item Swap ETH to CLC
+			\item Provide liquidity to the ETH/CLC pool
+			\item Make a few swaps
 			\item Remove your liquidity position and analyze what happened
 		\end{enumerate}
 	\end{exercise}
