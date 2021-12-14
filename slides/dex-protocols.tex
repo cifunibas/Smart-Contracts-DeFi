@@ -179,6 +179,7 @@ Constant Product Function:
 
 %%%
 \begin{frame}{Swap (without fees)}
+	\vspace{-1cm}
 		\begin{align*}
 			\onslide<1->{
 				\intertext{	Token Y pool reserves after trade: }
@@ -193,6 +194,49 @@ Constant Product Function:
 				k' &= (x + \Delta x) \cdot (y - \Delta y) = k
 			}
 		\end{align*}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Slippage (without fees)}
+	\vspace{1cm}
+	\begin{minipage}{0.55\textwidth}
+		\vspace{-0.8cm}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/slippage_no_fees.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.3\textwidth}
+		\vspace{-2.1cm}
+		\begin{scriptsize}
+			\begin{align*}
+			\uncover<3->{
+				\intertext{	\textbf{Pool ratio:} \vspace{-0.2cm}}
+				P_x &= \frac{y}{x}
+			}
+			\uncover<4->{
+				\intertext{ \textbf{Effective swap price:} \vspace{-0.2cm}}
+				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}
+		 	}
+		 	\uncover<5->{
+				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
+				S &= \overline{P_{x}}/P_x - 1
+			}
+			\uncover<6->{
+				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
+				P'_x &= \tfrac{y'}{x'} = \tfrac{y-\Delta y}{x+\Delta x}
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+	\uncover<5->{
+		\begin{keytakeaway}{Price slippage}
+			Price slippage $S$ is the deviation of the price for the actual trade $\overline{P_{x}}$ from the price for an infinitesimal trade $P_x$. A smaller trade size compared to the total pool liquidity reduces price slippage.
+		\end{keytakeaway}
+	}
 \end{frame}
 %%%
 
@@ -217,6 +261,7 @@ Constant Product Function:
 
 %%%
 \begin{frame}{Swap (with fees)}
+	\vspace{-1cm}
 	\begin{align*}
 		\onslide<1->{
 			\intertext{	Token Y pool reserves after trade: }
@@ -235,6 +280,102 @@ Constant Product Function:
 %%%
 
 
+
+%%%
+\begin{frame}{Slippage (with fees)}
+	\vspace{1cm}
+	\begin{minipage}{0.6\textwidth}
+		\vspace{-0.8cm}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/slippage_with_fees.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.35\textwidth}
+		\vspace{-2.1cm}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1>{
+				\intertext{	\textbf{Initial pool ratio:} \vspace{-0.2cm}}
+				P_x &= \frac{y}{x}
+			}
+			\only<1>{
+				\intertext{ \textbf{Swap price (no fees):} \vspace{-0.2cm}}
+				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}
+		 	}
+		 	\only<1>{
+				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
+				S_{price} &= \overline{P_{x}}/P_x - 1
+			}
+			\only<2->{
+				\intertext{ \textbf{Effective swap price:} \vspace{-0.2cm}}
+				\overline{P_{x,\rho}} &= \frac{\Delta y_\rho}{\Delta x}
+			}
+			\only<3->{
+				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
+				P'_{x,\rho} &= \tfrac{y'}{x'} = \tfrac{y-\Delta y}{x+\Delta x}
+			}
+			\only<4->{
+				\intertext{ \textbf{Fee Effect:} \vspace{-0.2cm}}
+				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}} - 1
+			}
+			\only<5->{
+				\intertext{ \textbf{Total Slippage:} \vspace{-0.2cm}}
+				S &= \overline{P_{x,\rho}} / P_x - 1 \\
+				&= 1 - (1+S_{price}) \cdot (1+S_\rho)
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+
+\end{frame}
+%%%
+
+%%%
+
+% TODO: Zeilen ausrichten
+\begin{frame}{Slippage with fees}
+	\footnotesize
+	\begin{minipage}[t]{0.45\textwidth}
+			\begin{align*}
+			\onslide<1->{
+				\intertext{	Price ratio: }
+				P_x &= \frac{y}{x}\\
+			}
+			\onslide<1->{ 
+				\intertext{ Effective swap price (ignoring fees): }
+				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}\\
+			}
+			\onslide<1->{ 
+				\intertext{ Effective swap price (incl. fees): }
+				\overline{P_{x,\rho}} &= \frac{\Delta y_\rho}{\Delta x}\\
+			}
+			\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.45\textwidth}
+	\begin{align*}
+			\onslide<1->{
+				\intertext{ Price Slippage: }				
+				S_{price} &= \overline{P_{x}} / P_x - 1\\
+			}
+			\onslide<1->{
+				\intertext{ Fee Slippage: }				
+				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x,}} - 1\\
+			}
+			\onslide<1->{
+				\intertext{ Total Slippage: }				
+				S &= \overline{P_{x,\rho}} / P_x - 1 \\
+				&= 1 - (1+S_{price}) \cdot (1+S_\rho)\\
+			}
+	\end{align*}
+	\end{minipage}
+\end{frame}
+%%%
+
+
 %%%
 \begin{frame}{Example: Swap }
 	\begin{minipage}{0.5\textwidth}
@@ -244,7 +385,7 @@ Constant Product Function:
 			\end{center}
 		\end{figure}
 	\end{minipage}
-\vspace{1em}
+	\hfill
 	\begin{minipage}{0.4\textwidth}
 		\vspace{-4em}
 		\begin{scriptsize}
@@ -261,13 +402,13 @@ Constant Product Function:
 		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435
 			}
 			\only<6>{
-				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				P_{x} &= \gamma \cdot \tfrac{y}{x} = 0.8 \cdot \tfrac{10}{10} = 0.8 \\
 				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
-				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.4762 \\
+				P'_{x} &= \gamma \cdot \tfrac{y'_\rho}{x'_\rho} = 0.8 \cdot \tfrac{7.1429}{15} = 0.381 \\
 			}
 			\only<7>{
 				\intertext{\textbf {Price slippage:}}
-				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{1} - 1 = -0.4286 \\
+				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{0.8} - 1 = -0.2857 \\
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -279,55 +420,6 @@ Constant Product Function:
 }
 \end{frame}
 %%%
-
-
-%%%
-\begin{frame}{Impact of Pool Size on the Swap Price}
-
-Let us now assume we make the same trade as before but in a larger pool with 100 X-tokens and 100 Y-tokens:
-
-	\begin{scriptsize}
-	\begin{minipage}[t]{0.4\textwidth}
-		\begin{align*}
-			\uncover<1->{
-				y'_{\rho} &= \tfrac{10000}{100 + (1-0.2) \cdot 5} = 96.1538 \\
-		 	}
-		 	\uncover<2->{
-			 	\Delta y_{\rho} &= 100 - 96.1538 = 3.8462\\
-			}
-			\uncover<3->{
-		 		k'_{\rho} &= 105 \cdot 96.1538 = 10096.1538\\
-			}
-			\uncover<4->{
-				P_{x} &= \tfrac{y}{x} = \tfrac{100}{100} = 1 \\
-			}
-		\end{align*}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t]{0.4\textwidth}
-		\begin{align*}
-			\uncover<5->{
-				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.8462}{5} = 0.7692\\
-			}
-			\uncover<6->{
-				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.9158 \\
-			}
-			\uncover<7->{
-				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.7692}{1} - 1 = -0.2308 \\
-			}
-			\end{align*}
-	\end{minipage}
-	
-	\end{scriptsize}
-	\uncover<8>{
-		\begin{keytakeaway}{Impact of Pool Size}
-			In our first example, the trader got 2.8571 Y-tokens. In the second one with the larger pool he got 3.8462 Y-tokens. A smaller trade size compared to the total pool liquidity reduces price slippage. In our example from $\approx$ 42.93\% to $\approx$ 23.1\%.
-		\end{keytakeaway}
-	}
-
-\end{frame}
-%%%
-
 
 
 %%%
