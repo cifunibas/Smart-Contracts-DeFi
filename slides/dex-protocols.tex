@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -233,8 +233,8 @@ Constant Product Function:
 		\end{scriptsize}
 	\end{minipage}
 	\uncover<5->{
-		\begin{keytakeaway}{Price slippage}
-			Price slippage $S$ is the deviation of the price for the actual trade $\overline{P_{x}}$ from the price for an infinitesimal trade $P_x$. A smaller trade size compared to the total pool liquidity reduces price slippage.
+		\begin{keytakeaway}{Price Slippage}
+			Price slippage $S$ is the price deviation from the infinitesimal trade $P_x$ to the actual trade $\overline{P_{x}}$. A smaller trade size relative to the pool liquidity reduces price slippage.
 		\end{keytakeaway}
 	}
 \end{frame}
@@ -549,7 +549,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 \end{small}
 
 	\begin{figure}
-		\includegraphics[scale=0.6]{../assets/images/bonding-curves.png}
+		\includegraphics[scale=0.5]{../assets/images/bonding-curves.png}
 		\caption*{Bonding curve comparison \cite{CRV}}
 	\end{figure}
 	
@@ -652,15 +652,20 @@ $k$: constant
 
 
 %%%
-\begin{frame}{Frontrunning}
+\begin{frame}{Frontrunning, Backrunning and Sandwich Attacks}
+
+\small{The victim wants to swap $X$-tokens for $Y$-tokens. The attacker observes the mempool and issues two transactions with the goal to front- and backrun the victim.}
+
+\uncover<2->{
+
 	\begin{figure}
 		\begin{minipage}[c]{0.38\textwidth}
 		\footnotesize
 		\textbf{Execution order:}
 			\begin{enumerate}
-				\item<1-> First transaction of the attacker shifts the price
-				\item<2-> Victim gets a worse price
-				\item<3-> Attacker's second transaction allows him to buy back the initial tokens at a lower price.
+				\item<2-> First transaction of the attacker shifts the price
+				\item<3-> Victim gets a worse price
+				\item<4-> Attacker's second transaction buys back tokens from the first transaction at a lower price.
 			\end{enumerate}
 		\end{minipage}
 		\hfill
@@ -674,6 +679,7 @@ $k$: constant
 
 		\end{minipage}
 	\end{figure}
+	}
 \end{frame}
 %%%
 
