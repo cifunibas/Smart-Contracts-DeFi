@@ -267,13 +267,13 @@ Constant Product Function:
 		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435
 			}
 			\only<6>{
-				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				P_{x} &= \gamma \cdot \tfrac{y}{x} = 0.8 \cdot \tfrac{10}{10} = 0.8 \\
 				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
-				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.4762 \\
+				P'_{x} &= \gamma \cdot \tfrac{y'_\rho}{x'_\rho} = 0.8 \cdot \tfrac{7.1429}{15} = 0.381 \\
 			}
 			\only<7>{
 				\intertext{\textbf {Price slippage:}}
-				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{1} - 1 = -0.4286 \\
+				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{0.8} - 1 = -0.2857 \\
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -305,7 +305,7 @@ Let us now assume we make the same trade as before but in a larger pool with 100
 		 		k'_{\rho} &= 105 \cdot 96.1538 = 10096.1538\\
 			}
 			\uncover<4->{
-				P_{x} &= \tfrac{y}{x} = \tfrac{100}{100} = 1 \\
+				P_{x} &= \gamma \cdot \tfrac{y}{x} = 0.8 \cdot \tfrac{100}{100} = 0.8 \\
 			}
 		\end{align*}
 	\end{minipage}
@@ -316,10 +316,10 @@ Let us now assume we make the same trade as before but in a larger pool with 100
 				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.8462}{5} = 0.7692\\
 			}
 			\uncover<6->{
-				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.9158 \\
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.7326 \\
 			}
 			\uncover<7->{
-				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.7692}{1} - 1 = -0.2308 \\
+				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.7692}{0.8} - 1 = -0.0385 \\
 			}
 			\end{align*}
 	\end{minipage}
@@ -327,7 +327,7 @@ Let us now assume we make the same trade as before but in a larger pool with 100
 	\end{scriptsize}
 	\uncover<8>{
 		\begin{keytakeaway}{Impact of Pool Size}
-			In our first example, the trader got 2.8571 Y-tokens. In the second one with the larger pool he got 3.8462 Y-tokens. A smaller trade size compared to the total pool liquidity reduces price slippage. In our example from $\approx$ 42.93\% to $\approx$ 23.1\%.
+			In our first example, the trader got 2.8571 Y-tokens. In the second one with the larger pool he got 3.8462 Y-tokens. A smaller trade size compared to the total pool liquidity reduces price slippage. In our example from $\approx$ 28.6\% to $\approx$ 3.9\%.
 		\end{keytakeaway}
 	}
 
