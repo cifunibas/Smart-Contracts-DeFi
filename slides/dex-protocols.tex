@@ -53,7 +53,7 @@
 	\begin{figure}[h!]
 		% TODO: cite FED paper
 		\input{../assets/figures/overview_exchanges.tex}
-		\caption{\cite{FS:21}}
+		\caption*{Exchange Overview \cite{FS:21}}
 	\end{figure}
 \end{frame}	
 %%%
@@ -80,27 +80,7 @@
 %%%
 \begin{frame}{Arbitrage}
 	\begin{figure}
-		\begin{tikzpicture}
-	
-		% Pool
-		\draw [thick] (-1,-1.5) -- (1,-1.5);
-		\draw [thick](-1,-1.5) -- (-1, 0.6);
-		\draw [thick](1,-1.5) -- (1, 0.6);
-		\node [below=0.8cm] at (0,-0.8) {\scriptsize{Liquidity Pool}};
-	
-		% Balanced Pool
-		\draw [fill=highlight] (-1,-1.5) rectangle (-0,0.0);
-		\draw [fill=strongmint] (0,-1.5) rectangle (1,0.5);
-
-		% Token labels
-		\node at (-0.5,-0.7) {\scriptsize{y}};
-		\node at (0.5,-0.7) {\scriptsize{x}};
-	
-		\node at (-4,-0.7) {\includegraphics[scale=0.15]{../assets/images/exchange.png}};
-		\node [below=0.8cm] at (-4,-0.8) {\scriptsize{Other exchange}};
-		
-		\end{tikzpicture}
-
+		\input{../assets/figures/arbitrage.tex}
 	\end{figure}
 		
 		If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
@@ -260,7 +240,7 @@ Constant Product Function:
 				x + \gamma \cdot \Delta x &= 10 + (1 - 0.2) \cdot 5 = 14
 			}
 			\only<4>{
-				y'_{\rho} &= 10 - \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
+				y'_{\rho} &= \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
 			 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571
 		 	}
 		 	\only<5>{
@@ -296,7 +276,7 @@ Let us now assume we make the same trade as before but in a larger pool with 100
 	\begin{minipage}[t]{0.4\textwidth}
 		\begin{align*}
 			\uncover<1->{
-				y'_{\rho} &= 100 - \tfrac{10000}{100 + (1-0.2) \cdot 5} = 96.1538 \\
+				y'_{\rho} &= \tfrac{10000}{100 + (1-0.2) \cdot 5} = 96.1538 \\
 		 	}
 		 	\uncover<2->{
 			 	\Delta y_{\rho} &= 100 - 96.1538 = 3.8462\\
@@ -432,13 +412,14 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 \begin{small}
 \begin{itemize}
-	\item The concept of CFMMs can be extended to other functionss, with different attributions and trade-offs. 
+	\item The concept of CFMMs can be extended to other functions, with different attributions and trade-offs. 
 	\item The stableswap invariant, introduced by Curve \cite{CRV}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
 	\end{itemize}
 \end{small}
 
 	\begin{figure}
 		\includegraphics[scale=0.6]{../assets/images/bonding-curves.png}
+		\caption*{Bonding curve comparison \cite{CRV}}
 	\end{figure}
 	
 \end{frame}
@@ -582,30 +563,12 @@ $k$: constant
 
 	\begin{figure}
 		\begin{minipage}[c]{0.3\textwidth}
-
-			\begin{tikzpicture}[]
-    
-	    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
-    
-  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{Token}} ;
-    		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{ETH}};  
-  
-  			\only<2>{
-	    		\draw[dotted, thick] (4.1,1)--(0,1) node[left]{\scriptsize $y$};
-
-	    		\draw[dotted, thick] (4.1,1)--(4.1,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
-  
-				\draw[fill=black] (4.1,1) circle(2pt);
-			}
-	  	
-			\end{tikzpicture}
-	
+			\input{../assets/figures/initial_dex_offering.tex}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[c]{0.5\textwidth}
 			\begin{itemize}
-				\item CFMMs can be used for initial token offerings.
-				\item They can be useful for initial price discovery of a new token.
+				\item CFMMs are also useful for initial token offerings and price discovery.
 				\item Example: \href{https://unisocks.exchange/}{Uni\$ocks} \link
 			\end{itemize}
 		\end{minipage}
