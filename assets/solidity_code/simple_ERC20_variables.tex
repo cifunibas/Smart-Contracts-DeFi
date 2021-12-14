@@ -1,0 +1,15 @@
+\begin{lstlisting}[language=Solidity]
+pragma solidity ^0.8.9;
+
+contract SimpleToken {
+
+  // 1. Variables
+  mapping (address => uint256) private balances;
+  mapping (address => mapping (address => uint256)) private allowed;
+  uint256 public totalSupply;
+  string public name;
+  uint8 public decimals;
+  string public symbol;
+    
+...}
+\end{lstlisting}
