@@ -190,12 +190,10 @@ Constant Product Function:
 				\intertext{	Token Y pool reserves after trade: }
 				y' &= \frac{k}{x + \Delta x}\\
 			}
-			\vspace{0.5cm}
 			\onslide<2->{ 
 				\intertext{ Change in token Y reserve: }
 				\Delta y &= y - y'\\  
 			}
-			\vspace{0.5cm}
 			\onslide<3->{
 				\intertext{ Constant $k$ after trade: }				
 				k' &= (x + \Delta x) \cdot (y - \Delta y) = k
@@ -230,18 +228,15 @@ Constant Product Function:
 			\intertext{	Token Y pool reserves after trade: }
 			y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x}\\
 		}
-		\vspace{0.5cm}
 		\onslide<2->{ 
 			\intertext{ Change in token Y reserve: }
 			\Delta y_\rho &= y - y'_\rho\\  
 		}
-		\vspace{0.5cm}
 		\onslide<3->{
 			\intertext{ Constant $k$ after trade: }				
 			k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) \ge k
 		}
 	\end{align*}	
-
 \end{frame}
 %%%
 
@@ -319,16 +314,18 @@ Let us now assume we make the same trade as before but in a larger pool with 100
 		\begin{align*}
 			\uncover<5->{
 				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.8462}{5} = 0.7692\\
-				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.9158 \\
 			}
 			\uncover<6->{
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{96.1538}{105} = 0.9158 \\
+			}
+			\uncover<7->{
 				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.7692}{1} - 1 = -0.2308 \\
 			}
 			\end{align*}
 	\end{minipage}
 	
 	\end{scriptsize}
-	\uncover<7>{
+	\uncover<8>{
 		\begin{keytakeaway}{Impact of Pool Size}
 			In our first example, the trader got 2.8571 Y-tokens. In the second one with the larger pool he got 3.8462 Y-tokens. A smaller trade size compared to the total pool liquidity reduces price slippage. In our example from $\approx$ 42.93\% to $\approx$ 23.1\%.
 		\end{keytakeaway}
@@ -545,48 +542,24 @@ $k$: constant
 %%%
 \begin{frame}{Frontrunning}
 	\begin{figure}
-		\begin{minipage}[c]{0.4\textwidth}
-		Execution order:
+		\begin{minipage}[c]{0.38\textwidth}
+		\footnotesize
+		\textbf{Execution order:}
 			\begin{enumerate}
-				\item Attackers' first transaction (highest fee)
-				\item Users' transaction
-				\item Attackers' second transaction	(lowest fee)	 
-			\end{enumerate}		
+				\item<1-> First transaction of the attacker shifts the price
+				\item<2-> Victim gets a worse price
+				\item<3-> Attacker's second transaction allows him to buy back the initial tokens at a lower price.
+			\end{enumerate}
 		\end{minipage}
 		\hfill
-		\begin{minipage}[c]{0.45\textwidth}
-			\begin{tikzpicture}[]
-    
-	    	\draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
-    
-  			\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {\scriptsize{X-Token}} ;
-    		\draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\scriptsize{Y-Token}}; 
-    		 
- \uncover<1>{ 
-	    	\draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
-    		\draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
-  }
-			
-			\uncover<2,4>{
-			\draw[fill=red] (3,1.35) circle(2pt);
-			\draw[dotted, thick] (3,1.35)--(0,1.35) node[left]{\scriptsize $y$};
-    		\draw[dotted, thick] (3,1.35)--(3,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
-			}
-			
-			\uncover<3>{
-			\draw[dotted, thick] (4,1)--(0,1) node[left]{\scriptsize $y$};
-    		\draw[dotted, thick] (4,1)--(4,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
-			}
-			
+		\begin{minipage}[c]{0.6\textwidth}
+			\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/frontrunning.tex}
+		\end{center}
+	\end{figure}
+	
 
-	  	%%%dots
-	  	\only<1>{
-	  	\draw[fill=black] (2,2) circle(2pt);}
-	  	\only<3>{
-	  	\draw[fill=red] (4,1) circle(2pt);}
-	  	\only<2,4>{
-	  	\draw[fill=red] (3,1.35) circle(2pt); }	
-			\end{tikzpicture}
 		\end{minipage}
 	\end{figure}
 \end{frame}
