@@ -363,7 +363,7 @@ Constant Product Function:
 			}
 			\onslide<1->{
 				\intertext{ Fee Slippage: }				
-				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x,}} - 1\\
+				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}} - 1\\
 			}
 			\onslide<1->{
 				\intertext{ Total Slippage: }				
@@ -377,50 +377,72 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Example: Swap }
-	\begin{minipage}{0.5\textwidth}
-		\begin{figure}[h!]
-			\begin{center}
- 				\input{../assets/figures/swap_example.tex}
-			\end{center}
+\begin{frame}{Swap Example}
+	\begin{minipage}{0.2\textwidth}
+		\vspace{1.5cm}
+		\begin{figure}[h!l]
+ 			\input{../assets/figures/swap_example.tex}
 		\end{figure}
 	\end{minipage}
 	\hfill
-	\begin{minipage}{0.4\textwidth}
-		\vspace{-4em}
+	\begin{minipage}{0.45\textwidth}
+		\vspace{-2em}
 		\begin{scriptsize}
 			\begin{align*}
 			\only<3>{
 				\intertext{\textbf {Assume a pool with 20\% fees:}}
-				x + \gamma \cdot \Delta x &= 10 + (1 - 0.2) \cdot 5 = 14
+				x &+ \gamma \cdot \Delta x = 10 + (1 - 0.2) \cdot 5 = 14\\
 			}
 			\only<4>{
+				y' &= \tfrac{100}{10 + 5} = 6.6667 \\
+			 	\Delta y &= 10 - 6.6667 = 3.3333\\
 				y'_{\rho} &= \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
-			 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571
+			 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571\\
 		 	}
 		 	\only<5>{
-		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435
+		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435\\
 			}
 			\only<6>{
-				P_{x} &= \gamma \cdot \tfrac{y}{x} = 0.8 \cdot \tfrac{10}{10} = 0.8 \\
-				\overline{P_{x,s}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
-				P'_{x} &= \gamma \cdot \tfrac{y'_\rho}{x'_\rho} = 0.8 \cdot \tfrac{7.1429}{15} = 0.381 \\
-			}
-			\only<7>{
-				\intertext{\textbf {Price slippage:}}
-				S &= \tfrac{\overline{P_{x,s}}}{P_x} - 1 = \tfrac{0.5714}{0.8} - 1 = -0.2857 \\
+				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\
+				\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
+				S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\
+				S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\
+				S &= \tfrac{0.5714}{1} - 1 = -0.4286\\
 			}
 			\end{align*}
 		\end{scriptsize}
 	\end{minipage}
-\only<7>{
-	\begin{keytakeaway}{Price slippage}
-		Price slippage $S$ is the deviation from the price for an infinitesimal trade $P_x$ to the price for the actual trade $\overline{P_{x,s}}$.
-	\end{keytakeaway}
-}
 \end{frame}
 %%%
 
+\begin{frame}{Swap Example: Summary}
+	\begin{scriptsize}
+	\begin{minipage}{0.2\textwidth}
+	\begin{align*}
+		x + \gamma \cdot \Delta x &= 10 + (1 - 0.2) \cdot 5 = 14\\
+		y' &= \tfrac{100}{10 + 5} = 6.6667 \\
+	 	\Delta y &= 10 - 6.6667 = 3.3333\\
+		y'_{\rho} &= \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
+	 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571\\
+ 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435\\
+ 	\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+	\begin{align*}
+		P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+		\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\
+		\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
+		P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
+		S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\
+		S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\
+		S &= \tfrac{0.5714}{1} - 1 = -0.4286\\
+	\end{align*}	
+	\end{minipage}
+	\end{scriptsize}
+\end{frame}
 
 %%%
 \begin{frame}{Liquidity Provision}
