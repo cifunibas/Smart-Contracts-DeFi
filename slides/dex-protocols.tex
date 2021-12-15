@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
 %\documentclass[]{beamer}
-\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -29,6 +29,7 @@
 	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
 		\input{../assets/figures/defi_stack_protocol_layer.tex}
 	\end{tikzpicture}}	
+	\caption{Source \cite{FS:21}}
 \end{figure}
 \end{frame}
 %%%
@@ -469,16 +470,16 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 	\textbf{Simplified assumptions for our example:} No fees, no other LPs. \\ 
 		\begin{enumerate}
-			\item We provide 10 units of Token X and Token Y, which are equal in value ($P_x = \tfrac{Y}{X} = 1$).
+			\item<2-> We provide 10 units of Token X and Token Y, which are equal in value ($P_x = \tfrac{Y}{X} = 1$).
 				\begin{align*}
 					k &= x \cdot y = 10 \cdot 10 = 100	
 				\end{align*}
-			\item Now let us assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
+			\item<3-> Now let us assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
 				\begin{align*}
 					x' &= \sqrt{k/P'_{x}}	 = \sqrt{100/2} = 7.0716\\
 					y' &= k / x' = 100 / 7.0716 = 14.141
 				\end{align*}
-			\item The total pool value, expressed in units of Token Y is: 
+			\item<4-> The total pool value, expressed in units of Token Y is: 
 				\begin{align*}
 					V_{pool} &= x' \cdot P_x + y' = 2 \cdot y'\\
 					V_{pool} &= 2 \cdot 14.141 = 28.1762
@@ -493,24 +494,26 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 	\begin{enumerate}
 	\setcounter{enumi}{3}
-		\item If we simply held our initial allocation, we would have:
+		\item<1-> If we simply held our initial allocation, we would have:
 			\begin{align*}
 				V_{hold} &= x \cdot P'_x + y\\
 				V_{hold} &= 10 \cdot 2 + 10 = 30
 			\end{align*}
-		\item The difference between the pool value and the hold value is called divergence loss:
+		\item<2-> The difference between the pool value and the hold value is called divergence loss:
 			\begin{align*}
 				DL &= \tfrac{V_{pool}}{V_{hold}} - 1\\
 				DL &= \tfrac{28.284}{30} - 1 = -5.72 \%
 			\end{align*}
 	\end{enumerate}	
 	
+	\uncover<3->{
 	\begin{keytakeaway}{Note}
 		\begin{itemize}
 			\item To be profitable, a LP must overcompensate any Divergence Loss (DL) with the accumulation of fees.
 			\item DL is only realized by closing the LP position. There is no DL if the price ratio between the two pool assets remains constant or returns to the initial ratio (at point of investment).
 		\end{itemize}
 	\end{keytakeaway}
+	}
 	
 \end{frame}
 %%%
@@ -630,6 +633,7 @@ $k$: constant
 	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
 			\input{../assets/figures/defi_stack.tex}
 	\end{tikzpicture}}
+	\caption{Source \cite{FS:21}}
 \end{figure}
 	
 \begin{itemize}
