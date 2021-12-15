@@ -640,6 +640,38 @@ $k$: constant
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Frontrunning, Backrunning and Sandwich Attacks}
+
+\small{The victim wants to swap $X$-tokens for $Y$-tokens. The attacker observes the mempool and issues two transactions with the goal to front- and backrun the victim.}
+
+\uncover<2->{
+
+	\begin{figure}
+		\begin{minipage}[c]{0.38\textwidth}
+		\footnotesize
+		\textbf{Execution order:}
+			\begin{enumerate}
+				\item<2-> First transaction of the attacker shifts the price
+				\item<3-> Victim gets a worse price
+				\item<4-> Attacker's second transaction buys back tokens from the first transaction at a lower price.
+			\end{enumerate}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.6\textwidth}
+			\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/frontrunning.tex}
+		\end{center}
+	\end{figure}
+
+
+		\end{minipage}
+	\end{figure}
+	}
+\end{frame}
+%%%
+
 
 %%%
 \begin{frame}{Liquidity Mining \& Vampire Attacks}
@@ -685,15 +717,12 @@ $k$: constant
 		\end{enumerate}
 	\end{exercise}
 	\vspace{.5cm}
-	\begin{exercise}{Exercise 2: Swap and provide liquidity to the ETH/CLC pool}
-	% Create new token and corresponding Uniswap pool	
-			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
+	
+	
+	\begin{exercise}{Exercise 2 (optional): Interact with the Crypto Lecture Coin (CLC) pool}
 		\begin{enumerate}
-			\item Make sure you are connected to the Ropsten testnet
-			\item Swap ETH to CLC
-			\item Provide liquidity to the ETH/CLC pool
-			\item Make a few swaps
-			\item Remove your liquidity position and analyze what happened
+			\item Again, make sure you are connected to the Ropsten testnet
+			\item Make swaps and provide/remove liquidity to/from the ETH/CLC pool.\\ (CLC token address: \texttt{0x59f7999334c76C3a59195111B5242C8cC71AF273})
 		\end{enumerate}
 	\end{exercise}
 \end{frame}
