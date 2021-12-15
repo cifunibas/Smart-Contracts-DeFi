@@ -1,0 +1,69 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Miner Extractable Value}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Frontrunning, Backrunning and Sandwich Attacks}
+
+\small{The victim wants to swap $X$-tokens for $Y$-tokens. The attacker observes the mempool and issues two transactions with the goal to front- and backrun the victim.}
+
+\uncover<2->{
+
+	\begin{figure}
+		\begin{minipage}[c]{0.38\textwidth}
+		\footnotesize
+		\textbf{Execution order:}
+			\begin{enumerate}
+				\item<2-> First transaction of the attacker shifts the price
+				\item<3-> Victim gets a worse price
+				\item<4-> Attacker's second transaction buys back tokens from the first transaction at a lower price.
+			\end{enumerate}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.6\textwidth}
+			\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/frontrunning.tex}
+		\end{center}
+	\end{figure}
+	
+
+		\end{minipage}
+	\end{figure}
+	}
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
