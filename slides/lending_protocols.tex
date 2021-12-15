@@ -303,13 +303,12 @@ Interest owed by borrowers $r_b$ in CDMs is \textbf{commonly variable and depend
 
 In a CDM applying two interest slopes for an asset defined by the tuple $(r_{min}, r_{opt}, r_{max}, u_{opt})$, current $r_b$ accrued by borrowers can be expressed as follows:
 
-\vspace{-0.5em}
 
 \begin{equation*}
 	r_b = 
 		\begin{cases}
-		r_{min} + \frac{u_t}{u_{opt}}(r_{opt}-r_{min}), & \text{if } u_t \leq u_{opt}\\
-		r_{min} + \frac{u_t}{u_{opt}}(r_{opt}-r_{min}) + \frac{u_t-u_{opt}}{1-u_{opt}}(r_{max}-r_{opt}), & \text{if } u_t > u_{opt}
+		r_{min} + \dfrac{u_t}{u_{opt}}(r_{opt}-r_{min}), & \text{if } u_t \leq u_{opt} \vspace{1em}\\
+		r_{opt} + \dfrac{u_t-u_{opt}}{1-u_{opt}}(r_{max}-r_{opt}), & \text{if } u_t > u_{opt}
 		\end{cases}
 \end{equation*}
 
