@@ -65,7 +65,6 @@
 %%%
 \begin{frame}{Overview}
 	\begin{figure}[h!]
-		% TODO: cite FED paper
 		\input{../assets/figures/overview_exchanges.tex}
 		\caption*{Exchange Overview \cite{FS:21}}
 	\end{figure}
@@ -334,8 +333,6 @@ Constant Product Function:
 %%%
 
 %%%
-
-% TODO: Zeilen ausrichten
 \begin{frame}{Slippage with fees}
 	\footnotesize
 	\begin{minipage}[t]{0.45\textwidth}
@@ -617,7 +614,6 @@ $k$: constant
 
 %%%
 \begin{frame}{Concept of Aggregators}
-% TODO: Aggregator einfärben analog vorherigem Slidedeck
 \begin{figure}
 	\centering
 	\resizebox{0.8\textwidth}{!}{
@@ -631,39 +627,6 @@ $k$: constant
 	\item They allow a user to compare different swap prices and to choose on which DEX their trade is performed.
 \end{itemize}
 
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Frontrunning, Backrunning and Sandwich Attacks}
-
-\small{The victim wants to swap $X$-tokens for $Y$-tokens. The attacker observes the mempool and issues two transactions with the goal to front- and backrun the victim.}
-
-\uncover<2->{
-
-	\begin{figure}
-		\begin{minipage}[c]{0.38\textwidth}
-		\footnotesize
-		\textbf{Execution order:}
-			\begin{enumerate}
-				\item<2-> First transaction of the attacker shifts the price
-				\item<3-> Victim gets a worse price
-				\item<4-> Attacker's second transaction buys back tokens from the first transaction at a lower price.
-			\end{enumerate}
-		\end{minipage}
-		\hfill
-		\begin{minipage}[c]{0.6\textwidth}
-			\begin{figure}[h!]
-		\begin{center}
-			\input{../assets/figures/frontrunning.tex}
-		\end{center}
-	\end{figure}
-	
-
-		\end{minipage}
-	\end{figure}
-	}
 \end{frame}
 %%%
 
