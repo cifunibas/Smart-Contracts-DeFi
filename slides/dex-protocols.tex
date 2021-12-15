@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
 %\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -284,7 +284,7 @@ Constant Product Function:
 %%%
 \begin{frame}{Slippage (with fees)}
 	\vspace{1cm}
-	\begin{minipage}{0.6\textwidth}
+	\begin{minipage}{0.5\textwidth}
 		\vspace{-0.8cm}
 		\begin{figure}[h!]
 			\begin{center}
@@ -293,15 +293,15 @@ Constant Product Function:
 		\end{figure}
 	\end{minipage}
 	\hfill
-	\begin{minipage}{0.35\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\vspace{-2.1cm}
 		\begin{scriptsize}
 			\begin{align*}
-			\only<1>{
+			\only<1 | handout:0>{
 				\intertext{	\textbf{Initial pool ratio:} \vspace{-0.2cm}}
 				P_x &= \frac{y}{x}
 			}
-			\only<1>{
+			\only<1 | handout:0>{
 				\intertext{ \textbf{Swap price (no fees):} \vspace{-0.2cm}}
 				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}
 		 	}
@@ -318,11 +318,11 @@ Constant Product Function:
 				P'_{x,\rho} &= \tfrac{y'}{x'} = \tfrac{y-\Delta y}{x+\Delta x}
 			}
 			\only<4->{
-				\intertext{ \textbf{Fee Effect:} \vspace{-0.2cm}}
+				\intertext{ \textbf{Fee Effect:} \vspace{-0.3cm}}
 				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}} - 1
 			}
 			\only<5->{
-				\intertext{ \textbf{Total Slippage:} \vspace{-0.2cm}}
+				\intertext{ \textbf{Total Slippage:} \vspace{-0.3cm}}
 				S &= \overline{P_{x,\rho}} / P_x - 1 \\
 				&= 1 - (1+S_{price}) \cdot (1+S_\rho)
 			}
@@ -342,17 +342,14 @@ Constant Product Function:
 			\begin{align*}
 			\onslide<1->{
 				\intertext{	Price ratio: }
-				P_x &= \frac{y}{x}\\
 				P_x &= \tfrac{y}{x}\\
 			}
 			\onslide<1->{ 
 				\intertext{ Effective swap price (ignoring fees): }
-				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}\\
 				\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x}\\
 			}
 			\onslide<1->{ 
 				\intertext{ Effective swap price (incl. fees): }
-				\overline{P_{x,\rho}} &= \frac{\Delta y_\rho}{\Delta x}\\
 				\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x}\\
 			}
 			\end{align*}
@@ -389,7 +386,7 @@ Constant Product Function:
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.45\textwidth}
-		\vspace{-2em}
+		\vspace{-4em}
 		\begin{scriptsize}
 			\begin{align*}
 			\only<3>{
@@ -405,11 +402,13 @@ Constant Product Function:
 		 	\only<5>{
 		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435\\
 			}
-			\only<6>{
+			\only<6| handout:0>{
 				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
 				\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\
 				\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
 				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
+			}
+			\only<7|handout:0>{
 				S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\
 				S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\
 				S &= \tfrac{0.5714}{1} - 1 = -0.4286\\
@@ -420,31 +419,16 @@ Constant Product Function:
 \end{frame}
 %%%
 
-\begin{frame}{Swap Example: Summary}
-	\begin{scriptsize}
-	\begin{minipage}{0.2\textwidth}
+\begin{frame}<beamer:0>{Swap Example: Prices and Slippage}
 	\begin{align*}
-		x + \gamma \cdot \Delta x &= 10 + (1 - 0.2) \cdot 5 = 14\\
-		y' &= \tfrac{100}{10 + 5} = 6.6667 \\
-	 	\Delta y &= 10 - 6.6667 = 3.3333\\
-		y'_{\rho} &= \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
-	 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571\\
- 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435\\
+		P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\[0.1cm]
+		\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\[0.1cm]
+		\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\[0.1cm]
+		P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\[0.1cm]
+		S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\[0.1cm]
+		S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\[0.1cm]
+		S &= \tfrac{0.5714}{1} - 1 = -0.4286\\[0.1cm]
  	\end{align*}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\textwidth}
-	\begin{align*}
-		P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
-		\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\
-		\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
-		P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
-		S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\
-		S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\
-		S &= \tfrac{0.5714}{1} - 1 = -0.4286\\
-	\end{align*}	
-	\end{minipage}
-	\end{scriptsize}
 \end{frame}
 
 %%%
@@ -587,8 +571,8 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 		\begin{center}
 			\input{../assets/figures/concentrated_liquidity.tex}
 		\end{center}
-		\only<1>{\caption*{Liquidity provision on full price range \cite{UNIV3}}}
-		\only<2>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$ \cite{UNIV3}}}
+		\only<1|handout:0>{\caption*{Liquidity provision on full price range \cite{UNIV3}}}
+		\only<2|handout:0>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$ \cite{UNIV3}}}
 		\only<3>{\caption*{Aggregated liquidity positions \cite{UNIV3}}}
 	\end{figure}	
 \end{frame}

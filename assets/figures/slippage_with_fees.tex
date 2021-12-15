@@ -1,6 +1,6 @@
 \begin{tikzpicture}[]
     
-    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
+    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right, below] {\scriptsize $k$} ;       
     
   	\draw[->] (0,0)--(5,0) node[below,midway]{} node[below, midway, yshift = -0.5cm] {\small{$X$-tokens in LP}} ;
     \draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\small{$Y$-tokens in LP}};  
@@ -11,7 +11,7 @@
 	\draw[fill=black] (1.3,3) circle(2pt);
 	
 	% After Swap
-	\uncover<1>{
+	\uncover<1 | handout:0>{
 		\draw[->, red] (1.4, 0.1) -- (2.9, 0.1) node [midway, above] {\scriptsize{$\Delta x$}};
 	    \draw[dotted, thick] (3,1.333)--(3,0) node[below]{\scriptsize $x+\Delta x$};
 	    \draw[fill=black] (3,1.333) circle(2pt);
@@ -21,11 +21,11 @@
 	}
 	
 	% Prices without fees
-	\uncover<1>{
+	\uncover<1 | handout:0>{
 		% Effective swap price without fees
 		\draw[-, thick] (1.3,3) -- (3,1.333) node[midway, right]{\scriptsize $\overline{P_x}$};
 	}
-	\uncover<1,5>{
+	\uncover<1,4->{
 		% Initial Pool ratio
 		\draw[-, thick, strongmint] (1,3.692) -- (1.6,2.308) node[midway, left, yshift=.2cm]{\scriptsize $P_x$};
 		\draw[fill=black] (1.3,3) circle(2pt);
@@ -55,11 +55,8 @@
 
 	}
 	\uncover<4->{
-	
-	}	
-	\uncover<5->{
 		\draw[-, thick] (1.3,3) -- (3,1.333) node[midway, left, yshift = -.25cm, xshift=-.1cm]{\scriptsize $\overline{P_x}$};
-	}
+	}	
 	
 
 \end{tikzpicture}
