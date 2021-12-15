@@ -115,7 +115,7 @@ Constant Product Function \cite{UNIV2}:
 	\end{itemize}
 	\vspace{1cm}
 	\uncover<2->{
-		Relative Prices are given by the first derivative of k:
+		Relative Prices are given by the ratio of the reserves:
 		\vspace{0.2cm}
 		\begin{itemize}
 			\item[] $P_x = \frac{y}{x}$
@@ -222,7 +222,7 @@ Constant Product Function:
 		 	}
 		 	\uncover<5->{
 				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
-				S &= \overline{P_{x}}/P_x - 1
+				S &= \overline{P_{x}}/P_x
 			}
 			\uncover<6->{
 				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
@@ -306,7 +306,7 @@ Constant Product Function:
 		 	}
 		 	\only<1>{
 				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
-				S_{price} &= \overline{P_{x}}/P_x - 1
+				S_{price} &= \overline{P_{x}}/P_x
 			}
 			\only<2->{
 				\intertext{ \textbf{Effective swap price:} \vspace{-0.2cm}}
@@ -314,16 +314,11 @@ Constant Product Function:
 			}
 			\only<3->{
 				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
-				P'_{x,\rho} &= \tfrac{y'}{x'} = \tfrac{y-\Delta y}{x+\Delta x}
+				P'_{x,\rho} &= \tfrac{y'_\rho}{x'} = \tfrac{y-\Delta y_\rho}{x+\Delta x}
 			}
 			\only<4->{
 				\intertext{ \textbf{Fee Effect:} \vspace{-0.3cm}}
-				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}} - 1
-			}
-			\only<5->{
-				\intertext{ \textbf{Total Slippage:} \vspace{-0.3cm}}
-				S &= \overline{P_{x,\rho}} / P_x - 1 \\
-				&= 1 - (1+S_{price}) \cdot (1+S_\rho)
+				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}}
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -355,17 +350,17 @@ Constant Product Function:
 	\begin{minipage}[t]{0.45\textwidth}
 	\begin{align*}
 			\onslide<1->{
-				\intertext{ Price Slippage: }				
-				S_{price} &= \overline{P_{x}} / P_x - 1\\
+				\intertext{ Price slippage: }				
+				S_{price} &= \overline{P_{x}} / P_x\\
 			}
 			\onslide<1->{
-				\intertext{ Fee Slippage: }				
-				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}} - 1\\
+				\intertext{ Fee effect: }				
+				S_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}}\\
 			}
 			\onslide<1->{
-				\intertext{ Total Slippage: }				
-				S &= \overline{P_{x,\rho}} / P_x - 1 \\
-				&= 1 - (1+S_{price}) \cdot (1+S_\rho)\\
+				\intertext{ Price slippage \& fee effect: }				
+			\overline{P_{x,\rho}} / P_x
+				&= (1+S_{price}) \cdot (1+S_\rho)\\
 			}
 	\end{align*}
 	\end{minipage}
@@ -406,9 +401,9 @@ Constant Product Function:
 				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
 			}
 			\only<7|handout:0>{
-				S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\
-				S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\
-				S &= \tfrac{0.5714}{1} - 1 = -0.4286\\
+				S_{price} &= \tfrac{0.6667}{1} = 0.6667\\
+				S_\rho &= \tfrac{0.5714}{0.6667} = 0.8571\\
+				S &= \tfrac{0.5714}{1} = 0.5714\\
 			}
 			\end{align*}
 		\end{scriptsize}
@@ -422,9 +417,9 @@ Constant Product Function:
 		\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\[0.1cm]
 		\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\[0.1cm]
 		P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\[0.1cm]
-		S_{price} &= \tfrac{0.6667}{1} - 1 = -0.3333\\[0.1cm]
-		S_\rho &= \tfrac{0.5714}{0.6667} - 1 = -0.1429\\[0.1cm]
-		S &= \tfrac{0.5714}{1} - 1 = -0.4286\\[0.1cm]
+		S_{price} &= \tfrac{0.6667}{1} = 0.6667\\[0.1cm]
+		S_\rho &= \tfrac{0.5714}{0.6667} = 0.8571\\[0.1cm]
+		S &= \tfrac{0.5714}{1} = 0.5714\\[0.1cm]
  	\end{align*}
 \end{frame}
 
