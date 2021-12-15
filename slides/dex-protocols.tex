@@ -43,7 +43,7 @@
 		\begin{itemize}
 			\item A user's funds must be deposited with the exchange
 			\item Access is forfeited and trust towards the exchange operator needed.
-			\item Singe point of attack $\rightarrow$ Constant threat of becoming target of malicious third parties.
+			\item Singe point of failure/attack $\rightarrow$ Constant threat of becoming target of malicious third parties.
 		\end{itemize}
 		\end{small}	
 
@@ -81,7 +81,7 @@
 	\end{figure}
 
 	\begin{itemize}
-		\item<5-> The price is determined endogenously via a function.
+		\item<5-> The price is determined endogenously as a function of the contract's token holdings.
 		\item<6-> A fee is charged for each trade, which leads to an increase in pool reserves. This ensures that the fee is distributed proportionally to all liquidity providers.
 	\end{itemize}
 
@@ -146,16 +146,16 @@ Constant Product Function:
 	
 	\textbf{Properties:}
 	\begin{itemize}
-		\item<1-> Convexity of the indifference set
+		\item<1-> Convex pool indifference curve
 		\item<2-> Dynamic endogenous pricing model
-		\item<3-> The pool will never be depleted by a trade and always be able to quote relative prices
+		\item<3-> The pool will never be depleted by a trade and always be able to quote relative prices (s.t. to token decimals)
 	\end{itemize}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Swap (without fees)}
-	Let us assume a constant product market maker with no fees. Suppose a trader wants to exchange $\Delta x$ of X-tokens into Y-tokens
+\begin{frame}{Swap (Without Fees)}
+	Let us assume a constant product market maker with no fees. Suppose a trader wants to exchange (swap) $\Delta x$ of X-tokens into Y-tokens
 	\vspace{0.5cm}
 	\begin{figure}[h!]
 		\begin{center}
@@ -166,7 +166,7 @@ Constant Product Function:
 %%%
 
 %%%
-\begin{frame}{Swap (without fees)}
+\begin{frame}{Swap (Without Fees)}
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/constant_product_swap_no_fees.tex}
@@ -177,7 +177,7 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Swap (without fees)}
+\begin{frame}{Swap (Without Fees)}
 	\vspace{-1cm}
 		\begin{align*}
 			\onslide<1->{
@@ -197,7 +197,7 @@ Constant Product Function:
 %%%
 
 %%%
-\begin{frame}{Slippage (without fees)}
+\begin{frame}{Slippage (Without Fees)}
 	\vspace{1cm}
 	\begin{minipage}{0.55\textwidth}
 		\vspace{-0.8cm}
@@ -241,14 +241,23 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Swap (with fees)}
-	Let us now assume a fee $\rho \in [0,1)$ with $\gamma = 1 - \rho$. The fee is charged on every trade and added to the liquidity pool and therefore leads to an increase in $k$. 
+\begin{frame}{Swap (With Fees)}
+	Let us now introduce a fee $\rho \in [0,1)$ and a corresponding factor $\gamma$, where $\gamma = 1 - \rho$. The fee is charged on every trade and added to the liquidity pool and therefore leads to an increase in $k$. 
+	
+	\vspace{2em}
+
+\uncover<2->{	
+			\begin{keytakeaway}{Protocol Fees $\neq$ Network Fees}
+			Note that the protocol fees are not the network fees we talked about in earlier lectures. This is an additional fee charged by the decentralized exchange protocol. For simplicity we ignore the network fee in our examples.
+		\end{keytakeaway}
+		}
+	
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{Swap (with fees)}
+\begin{frame}{Swap (With Fees)}
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/constant_product_swap_with_fees.tex}
@@ -259,7 +268,7 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Swap (with fees)}
+\begin{frame}{Swap (With Fees)}
 	\vspace{-1cm}
 	\begin{align*}
 		\onslide<1->{
@@ -281,7 +290,7 @@ Constant Product Function:
 
 
 %%%
-\begin{frame}{Slippage (with fees)}
+\begin{frame}{Slippage (With Fees)}
 	\vspace{1cm}
 	\begin{minipage}{0.5\textwidth}
 		\vspace{-0.8cm}
@@ -328,7 +337,7 @@ Constant Product Function:
 %%%
 
 %%%
-\begin{frame}{Slippage with fees}
+\begin{frame}{Slippage With Fees}
 	\footnotesize
 	\begin{minipage}[t]{0.45\textwidth}
 			\begin{align*}
@@ -411,6 +420,7 @@ Constant Product Function:
 \end{frame}
 %%%
 
+%%%
 \begin{frame}<beamer:0>{Swap Example: Prices and Slippage}
 	\begin{align*}
 		P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\[0.1cm]
@@ -422,6 +432,7 @@ Constant Product Function:
 		S &= \tfrac{0.5714}{1} = 0.5714\\[0.1cm]
  	\end{align*}
 \end{frame}
+%%%
 
 %%%
 \begin{frame}{Liquidity Provision}
@@ -456,13 +467,13 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 %%%
 \begin{frame}{Divergence Loss}
 
-	\textbf{General assumptions:} No fees, no other LPs \\ 
+	\textbf{Simplified assumptions for our example:} No fees, no other LPs. \\ 
 		\begin{enumerate}
 			\item We provide 10 units of Token X and Token Y, which are equal in value ($P_x = \tfrac{Y}{X} = 1$).
 				\begin{align*}
 					k &= x \cdot y = 10 \cdot 10 = 100	
 				\end{align*}
-			\item Now lets assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
+			\item Now let us assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
 				\begin{align*}
 					x' &= \sqrt{k/P'_{x}}	 = \sqrt{100/2} = 7.0716\\
 					y' &= k / x' = 100 / 7.0716 = 14.141
@@ -496,8 +507,8 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 	
 	\begin{keytakeaway}{Note}
 		\begin{itemize}
-			\item In order to be profitable, a LP must collect more fees than the Divergence Loss.
-			\item DL is only realized by closing the LP position. There is no DL if the price ratio between the two pool assets stays equal or returns to the initial ratio.
+			\item To be profitable, a LP must overcompensate any Divergence Loss (DL) with the accumulation of fees.
+			\item DL is only realized by closing the LP position. There is no DL if the price ratio between the two pool assets remains constant or returns to the initial ratio (at point of investment).
 		\end{itemize}
 	\end{keytakeaway}
 	
@@ -515,11 +526,11 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 
 %%%
-\begin{frame}{Other Bonding Curves}
+\begin{frame}{Alternative Functions}
 
 \begin{small}
 \begin{itemize}
-	\item The concept of CFMMs can be extended to other functions, with different attributions and trade-offs. 
+	\item The concept of CFMMs can be extended to other functions, with different functional forms, parameters and corresponding trade-offs. 
 	\item The stableswap invariant, introduced by Curve \cite{CRV}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
 	\end{itemize}
 \end{small}
@@ -538,7 +549,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021 \cite{UNIV3}:
 	\begin{itemize}
 		\item<2-> Liquidity providers can add liquidity within a certain price range $[p_a, p_b]$.
-		\item<3-> The position is active, if the price is within the given range. % 
+		\item<3-> The position is active, if the price is within this range. % 
 		\item<4-> If the price is out of range, the liquidity provider only holds one asset and does not collect fees.
 	\end{itemize}
 	\vspace{0.5cm}
@@ -547,7 +558,7 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 		\begin{itemize}
 			\item<5-> Higher capital efficiency
 			\item<6-> Liquidity providers with concentrated liquidity earn more fees
-			\item<7-> But: higher divergence loss risk
+			\item<7-> But: higher divergence loss risk and risk of inactivity
 		\end{itemize}
 	\end{keytakeaway}
 
@@ -572,14 +583,14 @@ Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n 
 
 
 %%%
-\begin{frame}{More Than two Pool Assets}
+\begin{frame}{Pools With 3 or More Assets}
 
 The constant product function as implemented by Uniswap can be extended to pools with more than two assets \cite{BAL}:
 		\begin{align*}
 			\prod_{i=1}^N x_i= k
 		\end{align*}
 		
-$N$: number of tokens in the pool\\
+$N$: number of token types (assets) in the pool\\
 $x_i$: token amount for asset i\\
 $k$: constant
 
@@ -599,9 +610,13 @@ $k$: constant
 		$x_i$: token amount for asset i\\
 		$w_i$: weight of asset $i$\\
 		$k$: constant
-		\vspace{0.5cm}
-	\item The constant product function is basically just a subset of the constant mean function with equally weighted assets ($w_i = 1$).
 \end{itemize}
+
+	\vspace{0.5cm}
+
+	\begin{keytakeaway}{Relationship Between Constant Product and Constant Mean Function}
+	The constant product function corresponds to the constant mean function with equally weighted assets, $w_i = 1, \text{ } \forall i$.
+	\end{keytakeaway}
 
 \end{frame}
 %%%
@@ -627,7 +642,7 @@ $k$: constant
 
 
 %%%
-\begin{frame}{Liquidity Mining \& Vampire Attack}
+\begin{frame}{Liquidity Mining \& Vampire Attacks}
 	\begin{figure}[h!]
 		\begin{center}
 			\input{../assets/figures/vampire_attack.tex}
@@ -638,7 +653,7 @@ $k$: constant
 
 
 %%%
-\begin{frame}{Initial DEX offerings}
+\begin{frame}{Initial DEX Offerings}
 
 	\begin{figure}
 		\begin{minipage}[c]{0.3\textwidth}
@@ -670,7 +685,7 @@ $k$: constant
 		\end{enumerate}
 	\end{exercise}
 	\vspace{.5cm}
-	\begin{exercise}{Exercise 2: Provide liquidity to the ETH/CLC pool}
+	\begin{exercise}{Exercise 2: Swap and provide liquidity to the ETH/CLC pool}
 	% Create new token and corresponding Uniswap pool	
 			%For this exercise we use the ERC20 Token created in one of the previous videos. Go to \href{https://app.uniswap.org/#/swap}{Uniswap \link} to complete the following tasks:
 		\begin{enumerate}
