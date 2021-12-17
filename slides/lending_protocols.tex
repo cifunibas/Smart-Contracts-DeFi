@@ -444,7 +444,7 @@ Collateral price discovery via auctions, avoiding fixed liquidator incentives. E
 
 
 %%%
-\begin{frame}{Flash Loans Overview}
+\begin{frame}{Flash Loans - Intuitively}
 
 \begin{minipage}{0.3\textwidth}
 	\begin{figure}
@@ -452,7 +452,7 @@ Collateral price discovery via auctions, avoiding fixed liquidator incentives. E
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.65\textwidth}
-	Flash loans are a \textbf{concept unique to DeFi}. They are the only loans in the ecosystem that \textbf{do not require collateral}.
+Flash Loans \textbf{do not require collateral} and can be granted in the \textbf{absence of reliable identities}. They rely on some unique properties of the EVM.
 \end{minipage}
 
 \vspace{2em}
@@ -460,10 +460,11 @@ Collateral price discovery via auctions, avoiding fixed liquidator incentives. E
 \uncover<2-> {
 \begin{minipage}{0.6\textwidth}
 
-	Funds are borrowed, used, and repaid \textbf{all in one transaction}.
+	Funds are borrowed, used, and repaid \textbf{within the same transaction}.
 
 	\vspace{1em}
-	Instead of collateral, lenders rely on \textbf{transaction atomicity}: If principal plus fee is not paid back, all is reverted as if the funds were never granted.
+	Lenders rely on \textbf{transaction atomicity}: If principal plus fee cannot be paid back at the end of the transaction, all steps are reverted as if the funds were never granted.
+	
 \end{minipage}
 \begin{minipage}{0.38\textwidth}
 	\begin{figure}
@@ -473,52 +474,55 @@ Collateral price discovery via auctions, avoiding fixed liquidator incentives. E
 	\end{figure}
 \end{minipage}
 }
+\vspace{0.5em}
 
-\end{frame}
-%%%	
-
-
-%%%
-\begin{frame}{Flash Loan Conditions}
-For a successful flash loan of $x$ with interest $\rho$  and / or a flat fee $\varphi$:
-
-\vspace{1em}
-\begin{enumerate}
-	\item The lending market must \textbf{have $x$ liquid available.}\\
-	\begin{equation*}
-		x \leq LP_{x}
-	\end{equation*}
-	(Unless borrowed from a CDP, where $x$ can be \textit{flash-minted})
-	\vspace{1em}
-	\item The whole principal plus all interest and fees ($ x(1+\rho) + \varphi$) must be \textbf{returned at the end of the transaction.}
-\end{enumerate}
-
-\uncover<2->{
-\vspace{1em}
-
-\begin{keytakeaway}{Failing Flash Loans}
-	If conditions are not met, the flash loan transaction is still included in the blockchain but is considered failed, i.e., it does not lead to any state changes except for a nonce update and transaction fee $\epsilon$. 
-\end{keytakeaway}
+\uncover<3->{
+\link \href{https://eips.ethereum.org/EIPS/eip-3156}{EIP-3156: Flash Loans Specification}
 }
 
-	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Example of Arbitrage with Flash Loan}
+\begin{frame}{Flash Loans - Step by Step}
 
-With $x$ as the amount borrowed and sold at the high-price exchange and $x^\ast$ the amount bought back at the low-price exchange with the proceeds, the payoff $\Pi$ can be expressed as:
+\small
 
-\begin{equation*}
-	\Pi = max (x^{\ast}-[x \,(1+\rho) + \varphi ],0) - \epsilon
-\end{equation*}
+Let us assume that Alice wants to use a flash loan to borrow $x$ from a liquidity pool with liquidity $LP_x \geq x$. \\
+
+\begin{enumerate}
+	\item<2->[1.] Alice deploys a logic contract with a \genkey{onFlashLoan()} function that contains the code for the middle part of the sandwich. %The flash loan contract will later call the \texttt{onFlashLoan()} function of this contract. 
+	\item<3->[2a.] Alice calls the \genkey{flashLoan()} function of the flash loan contract. Function arguments include the address of the logic contract, the token type and amount, as well as calldata.
+	\item<4->[2b.] Flash loan contract calls \genkey{onFlashLoan()} function in Alice's logic contract, using the provided calldata.
+	\item<5->[2c.] \genkey{onFlashLoan()} function in Alice's logic contract is executed.
+	\item<6->[2d.] After the execution has \genkey{onFlashLoan()} concluded, the rest of the flash loan contract's \genkey{flashLoan()} function is executed. This includes a \genkey{transferFrom()} to pull $x(1+\rho)+\bar{\rho}$, where $\rho$ is a relative fee and $\bar{\rho}$ is a flat fee.
+	\item<7->[2e.] The entire transaction fails if final amount $x^* < x(1+\rho)+\bar{\rho}$ or if the logic contract did not set the necessary allowance with the flash loan contract as a spender address.
+\end{enumerate}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Flash Loans - Payoff Function}
+
+\begin{keytakeaway}{Failing Flash Loans}
+		Remember: A failed transaction is still included in the blockchain but does not lead to any state changes except for the nonce update and transaction fee $\epsilon$. 
+\end{keytakeaway}
 
 \vspace{0.5 em}
 
+\small{
 \uncover<2->{
-\begin{minipage}{0.60\textwidth}
+The borrower's payoff function can be expressed as:
+}
+\begin{equation*}
+	\Pi = max (x^{\ast}-[x \,(1+\rho) + \bar{\rho} ],0) - \epsilon
+\end{equation*}
+}
+
+\uncover<3->{
 	\begin{figure}[t]
 		\centering
 		\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
@@ -526,11 +530,6 @@ With $x$ as the amount borrowed and sold at the high-price exchange and $x^\ast$
 		\end{tikzpicture}
 		\caption{Flash Loan Payoff Diagram \cite{FS21FlashLoans}}
 	\end{figure}
-\end{minipage}
-\begin{minipage}{0.38 \textwidth}
-\vspace{-1em}
-	Is a corresponding flash loan available when a token pair has a significant price difference on-chain, \textbf{anyone can become an arbitrageur }with the loss potential capped at transaction fee $\epsilon$.
-\end{minipage}
 }
 	
 \end{frame}
@@ -538,9 +537,9 @@ With $x$ as the amount borrowed and sold at the high-price exchange and $x^\ast$
 
 
 %%%
-\begin{frame}{Consequence of Flash Loans}
+\begin{frame}{Flash Loans - Applications}
 
-Flash loans \textbf{effectively remove capital} constraints for any activity that can be performed in one transaction.
+Flash loans \textbf{effectively remove capital} constraints for any activity that can be performed in one blockchain transaction.
 
 \vspace{1em}
 
@@ -548,24 +547,48 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 \textbf{Common Use Cases}:
 
 \begin{itemize}
-\item Collateral swaps (original use case).
-\item Arbitrage.
-\item Portfolio Refactoring.
-\item Price Manipulation and Wash Trading.
+\item Collateral swaps
+\item Arbitrage
+\item Portfolio restructuring
+\item ``Flash Loan Attacks'' (see key takeaway box)
 
 \end{itemize}
 }
 
-\vspace{2em}
+\vspace{1em}
 
 \uncover<3->{
-$\Rightarrow$ While it arguably can be missused, the unique DeFi tool of flash loans have the potential to make markets more efficient and fair.
+\begin{keytakeaway}{Flash Loan Attacks}
+	The term \textbf{Flash Loan Attack} is a misnomer. While it is true that hackers commonly use flash loans, when they are attacking one or several protocols, the same attacks would also be possible without flash loans. \textbf{Flash loans only provide liquidity}. Consequently it could even be argued, that flash loans have the potential to make markets more efficient and fair.
+\end{keytakeaway}
 }
 
-	
 \end{frame}
 %%%	
 
+
+%%%
+\begin{frame}{Flash Minting}
+
+	In some cases, protocols allow flash minting of their native token. \vspace{0.5em}
+	
+	\begin{itemize}
+		\item This loosens the liquidity constraint $LP_x \geq x$. 
+		\item Instead, the amount available to borrowers is given by:\\
+			cap $\leq$ \texttt{type(uint256).max - totalSupply()}.
+	\end{itemize}
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+		But: It may also introduce security challenges.
+		
+		\begin{itemize}
+			\item e.g., if third party protocols rely on the \texttt{totalSupply} of a token as part of their security assumptions.
+		\end{itemize}
+	}
+	
+\end{frame}
 
 %%%
 \begin{frame}%[allowframebreaks]
