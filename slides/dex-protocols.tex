@@ -1,0 +1,757 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Decentralized Exchange Protocols}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+
+%%%	
+\begin{frame}{Protocol Layer}
+\begin{figure}
+	\centering
+	\resizebox{0.8\textwidth}{!}{
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+		\input{../assets/figures/defi_stack_protocol_layer.tex}
+	\end{tikzpicture}}	
+	\caption{Source \cite{FS:21}}
+\end{figure}
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}{Why Decentralized Exchanges?}
+
+	\textbf{Problems of centralized exchanges (CEX):}
+		\begin{small}
+		\begin{itemize}
+			\item A user's funds must be deposited with the exchange
+			\item Access is forfeited and trust towards the exchange operator needed.
+			\item Single point of failure/attack $\rightarrow$ Constant threat of becoming target of malicious third parties.
+		\end{itemize}
+		\end{small}	
+
+\vspace{1.5em}
+
+\uncover<2>{
+	\textbf{Advantages of decentralized exchanges (DEX):}
+		\begin{small}
+		\begin{itemize}
+			\item User remains in exclusive control of assets until trade is executed.
+			\item Atomic trade execution = One indivisible transaction.
+			\item No counterparty risk.
+		\end{itemize}
+		\end{small}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Overview}
+	\begin{figure}[h!]
+		\input{../assets/figures/overview_exchanges.tex}
+		\caption*{Exchange Overview \cite{FS:21}}
+	\end{figure}
+\end{frame}	
+%%%
+
+
+%%%
+\begin{frame}{Constant Function Market Maker}
+
+	\begin{figure}	
+		\centering
+		\input{../assets/figures/cfmm.tex}
+	\end{figure}
+
+	\begin{itemize}
+		\item<5-> The price is determined endogenously as a function of the contract's token holdings.
+		\item<6-> A fee is charged for each trade, which leads to an increase in pool reserves. This ensures that the fee is distributed proportionally to all liquidity providers.
+	\end{itemize}
+
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Arbitrage}
+	\begin{figure}
+		\input{../assets/figures/arbitrage.tex}
+	\end{figure}
+		
+		If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Product Market Maker}
+Constant Product Function \cite{UNIV2}:
+	\begin{align*}
+		x \cdot y &= k
+	\end{align*}
+
+	\begin{itemize}
+		\item[] x: amount of X-tokens in the pool
+		\item[] y: amount of Y-tokens in the pool
+		\item[] k: constant
+	\end{itemize}
+	\vspace{1cm}
+	\uncover<2->{
+		Relative Prices are given by the ratio of the reserves:
+		\vspace{0.2cm}
+		\begin{itemize}
+			\item[] $P_x = \frac{y}{x}$
+			\item[] $P_y = \frac{x}{y}$
+		\end{itemize}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Product Market Maker}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_function.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Product Market Maker}
+Constant Product Function:
+	\begin{align*}
+		x \cdot y &= k
+	\end{align*}
+	
+	\textbf{Properties:}
+	\begin{itemize}
+		\item<1-> Convex pool indifference curve
+		\item<2-> Dynamic endogenous pricing model
+		\item<3-> The pool will never be depleted by a trade and always be able to quote relative prices (s.t. token decimals)
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap (Without Fees)}
+	Let us assume a constant product market maker with no fees. Suppose a trader wants to exchange (swap) $\Delta x$ of X-tokens into Y-tokens
+	\vspace{0.5cm}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/swap_without_fees.tex}
+		\end{center}
+	\end{figure}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Swap (Without Fees)}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_swap_no_fees.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap (Without Fees)}
+	\vspace{-1cm}
+		\begin{align*}
+			\onslide<1->{
+				\intertext{	Token Y pool reserves after trade: }
+				y' &= \frac{k}{x + \Delta x}\\
+			}
+			\onslide<2->{ 
+				\intertext{ Change in token Y reserve: }
+				\Delta y &= y - y'\\  
+			}
+			\onslide<3->{
+				\intertext{ Constant $k$ after trade: }				
+				k' &= (x + \Delta x) \cdot (y - \Delta y) = k
+			}
+		\end{align*}	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Slippage (Without Fees)}
+	\vspace{1cm}
+	\begin{minipage}{0.55\textwidth}
+		\vspace{-0.8cm}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/slippage_no_fees.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.3\textwidth}
+		\vspace{-2.1cm}
+		\begin{scriptsize}
+			\begin{align*}
+			\uncover<3->{
+				\intertext{	\textbf{Pool ratio:} \vspace{-0.2cm}}
+				P_x &= \frac{y}{x}
+			}
+			\uncover<4->{
+				\intertext{ \textbf{Effective swap price:} \vspace{-0.2cm}}
+				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}
+		 	}
+		 	\uncover<5->{
+				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
+				S &= \overline{P_{x}}/P_x
+			}
+			\uncover<6->{
+				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
+				P'_x &= \tfrac{y'}{x'} = \tfrac{y-\Delta y}{x+\Delta x}
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+	\uncover<5->{
+		\begin{keytakeaway}{Price Slippage}
+			Price slippage $S$ is the price deviation from the infinitesimal trade $P_x$ to the actual trade $\overline{P_{x}}$. A smaller trade size relative to the pool liquidity reduces price slippage.
+		\end{keytakeaway}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap (With Fees)}
+	Let us now introduce a fee $\rho \in [0,1)$ and a corresponding factor $\gamma$, where $\gamma = 1 - \rho$. The fee is charged on every trade and added to the liquidity pool and therefore leads to an increase in $k$. 
+	
+	\vspace{2em}
+
+\uncover<2->{	
+			\begin{keytakeaway}{Protocol Fees $\neq$ Network Fees}
+			Note that the protocol fees are not the network fees we talked about in earlier lectures. This is an additional fee charged by the decentralized exchange protocol. For simplicity we ignore the network fee in our examples.
+		\end{keytakeaway}
+		}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap (With Fees)}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_swap_with_fees.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap (With Fees)}
+	\vspace{-1cm}
+	\begin{align*}
+		\onslide<1->{
+			\intertext{	Token Y pool reserves after trade: }
+			y'_\rho &= \frac{k}{x + \gamma \cdot \Delta x}\\
+		}
+		\onslide<2->{ 
+			\intertext{ Change in token Y reserve: }
+			\Delta y_\rho &= y - y'_\rho\\  
+		}
+		\onslide<3->{
+			\intertext{ Constant $k$ after trade: }				
+			k'_\rho &= (x + \Delta x) \cdot (y - \Delta y_\rho) \ge k
+		}
+	\end{align*}	
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}{Slippage (With Fees)}
+	\vspace{1cm}
+	\begin{minipage}{0.5\textwidth}
+		\vspace{-0.8cm}
+		\begin{figure}[h!]
+			\begin{center}
+				\input{../assets/figures/slippage_with_fees.tex}
+			\end{center}
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.4\textwidth}
+		\vspace{-2.1cm}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<1 | handout:0>{
+				\intertext{	\textbf{Initial pool ratio:} \vspace{-0.2cm}}
+				P_x &= \frac{y}{x}
+			}
+			\only<1 | handout:0>{
+				\intertext{ \textbf{Swap price (no fees):} \vspace{-0.2cm}}
+				\overline{P_{x}} &= \frac{\Delta y}{\Delta x}
+		 	}
+		 	\only<1>{
+				\intertext{ \textbf{Price Slippage:} \vspace{-0.2cm}}				
+				S_{price} &= \overline{P_{x}}/P_x
+			}
+			\only<2->{
+				\intertext{ \textbf{Effective swap price:} \vspace{-0.2cm}}
+				\overline{P_{x,\rho}} &= \frac{\Delta y_\rho}{\Delta x}
+			}
+			\only<3->{
+				\intertext{ \textbf{Pool ratio after trade:} \vspace{-0.2cm}}				
+				P'_{x,\rho} &= \tfrac{y'_\rho}{x'} = \tfrac{y-\Delta y_\rho}{x+\Delta x}
+			}
+			\only<4->{
+				\intertext{ \textbf{Fee Effect:} \vspace{-0.3cm}}
+				C_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}}
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Slippage With Fees}
+	\footnotesize
+	\begin{minipage}[t]{0.45\textwidth}
+			\begin{align*}
+			\onslide<1->{
+				\intertext{	Price ratio: }
+				P_x &= \tfrac{y}{x}\\
+			}
+			\onslide<1->{ 
+				\intertext{ Effective swap price (ignoring fees): }
+				\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x}\\
+			}
+			\onslide<1->{ 
+				\intertext{ Effective swap price (incl. fees): }
+				\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x}\\
+			}
+			\end{align*}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.45\textwidth}
+	\begin{align*}
+			\onslide<1->{
+				\intertext{ Price slippage: }				
+				S_{price} &= \overline{P_{x}} / P_x\\
+			}
+			\onslide<1->{
+				\intertext{ Fee effect: }				
+				C_\rho &= \overline{P_{x,\rho}} / \overline{P_{x}}\\
+			}
+			\onslide<1->{
+				\intertext{ Price slippage \& fee effect: }				
+			\overline{P_{x,\rho}} / P_x
+				&= S_{price} \cdot C_\rho\\
+			}
+	\end{align*}
+	\end{minipage}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Swap Example}
+	\begin{minipage}{0.2\textwidth}
+		\vspace{1.5cm}
+		\begin{figure}[h!l]
+ 			\input{../assets/figures/swap_example.tex}
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		\vspace{-4em}
+		\begin{scriptsize}
+			\begin{align*}
+			\only<3>{
+				\intertext{\textbf {Assume a pool with 20\% fees:}}
+				x &+ \gamma \cdot \Delta x = 10 + (1 - 0.2) \cdot 5 = 14\\
+			}
+			\only<4>{
+				y' &= \tfrac{100}{10 + 5} = 6.6667 \\
+			 	\Delta y &= 10 - 6.6667 = 3.3333\\
+				y'_{\rho} &= \tfrac{100}{10 + (1-0.2) \cdot 5} = 7.1429 \\
+			 	\Delta y_{\rho} &= 10 - 7.1429 = 2.8571\\
+		 	}
+		 	\only<5>{
+		 		k'_{\rho} &= 15 \cdot 7.1429 = 107.1435\\
+			}
+			\only<6| handout:0>{
+				P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\
+				\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\
+				\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\
+				P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\
+			}
+			\only<7|handout:0>{
+				S_{price} &= \tfrac{0.6667}{1} = 0.6667\\
+				C_\rho &= \tfrac{0.5714}{0.6667} = 0.8571\\
+				S_{price} \cdot C_\rho &= \tfrac{0.5714}{1} = 0.5714\\
+			}
+			\end{align*}
+		\end{scriptsize}
+	\end{minipage}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}<beamer:0>{Swap Example: Prices and Slippage}
+	\begin{align*}
+		P_{x} &= \tfrac{y}{x} = \tfrac{10}{10} = 1 \\[0.1cm]
+		\overline{P_{x}} &= \tfrac{\Delta y}{\Delta x} = \tfrac{3.3333}{5} = 0.6667\\[0.1cm]
+		\overline{P_{x,\rho}} &= \tfrac{\Delta y_\rho}{\Delta x} = \tfrac{2.8571}{5} = 0.5714\\[0.1cm]
+		P'_{x} &= \tfrac{y'_\rho}{x'_\rho} = \tfrac{7.1429}{15} = 0.381 \\[0.1cm]
+		S_{price} &= \tfrac{0.6667}{1} = 0.6667\\[0.1cm]
+		C_\rho &= \tfrac{0.5714}{0.6667} = 0.8571\\[0.1cm]
+		S_{price} \cdot C_\rho &= \tfrac{0.5714}{1} = 0.5714\\[0.1cm]
+ 	\end{align*}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Liquidity Provision}
+Anyone can contribute liquidity to the pool, by providing $n$ $X$-tokens and $n \cdot \frac{y}{x}$ $Y$-tokens to the smart contract.\\
+	
+	\begin{itemize}
+		\item<2-> The liquidity provision only changes the token amounts and the constant $k$
+		\item<3-> The ratio between the two tokens remains unchanged
+		\item<4-> Both reserves are increased by the factor $\varphi = \frac{\Delta(x)}{x} = \frac{\Delta(y)}{y}$
+	\end{itemize}
+
+	\begin{align*}
+		\onslide<5->{ x' &= x +\Delta x = (1+\varphi) x }\\
+		\onslide<6->{ y' &= y +\Delta y = (1+\varphi) y}\\
+		\onslide<7->{ k' &= (1+\varphi)^2 k	}
+	\end{align*}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Liquidity Provision}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/constant_product_liquidity_provision.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divergence Loss}
+
+	\textbf{Simplified assumptions for our example:} No fees, no other LPs. \\ 
+		\begin{enumerate}
+			\item<2-> We provide 10 units of Token X and Token Y, which are equal in value ($P_x = \tfrac{Y}{X} = 1$).
+				\begin{align*}
+					k &= x \cdot y = 10 \cdot 10 = 100	
+				\end{align*}
+			\item<3-> Now let us assume the price of X doubles ($P'_x = 2$). Therefore, the pool balances adjust to:
+				\begin{align*}
+					x' &= \sqrt{k/P'_{x}}	 = \sqrt{100/2} = 7.0716\\
+					y' &= k / x' = 100 / 7.0716 = 14.141
+				\end{align*}
+			\item<4-> The total pool value, expressed in units of Token Y is: 
+				\begin{align*}
+					V_{pool} &= x' \cdot P_x + y' = 2 \cdot y'\\
+					V_{pool} &= 2 \cdot 14.141 = 28.1762
+				\end{align*}
+		\end{enumerate}	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divergence Loss}
+
+	\begin{enumerate}
+	\setcounter{enumi}{3}
+		\item<1-> If we simply held our initial allocation, we would have:
+			\begin{align*}
+				V_{hold} &= x \cdot P'_x + y\\
+				V_{hold} &= 10 \cdot 2 + 10 = 30
+			\end{align*}
+		\item<2-> The difference between the pool value and the hold value is called divergence loss:
+			\begin{align*}
+				DL &= \tfrac{V_{pool}}{V_{hold}} - 1\\
+				DL &= \tfrac{28.284}{30} - 1 = -5.72 \%
+			\end{align*}
+	\end{enumerate}	
+	
+	\uncover<3->{
+	\begin{keytakeaway}{Note}
+		\begin{itemize}
+			\item To be profitable, a LP must overcompensate any Divergence Loss (DL) with the accumulation of fees.
+			\item DL is only realized by closing the LP position. There is no DL if the price ratio between the two pool assets remains constant or returns to the initial ratio (at point of investment).
+		\end{itemize}
+	\end{keytakeaway}
+	}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divergence Loss}
+	\begin{figure}
+		\includegraphics[scale=0.6]{../assets/images/divergence-loss.pdf}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Alternative Functions}
+
+\begin{small}
+\begin{itemize}
+	\item The concept of CFMMs can be extended to other functions, with different functional forms, parameters and corresponding trade-offs. 
+	\item The stableswap invariant, introduced by Curve \cite{CRV}, is useful for swapping tokens which are pegged to the same underlying asset, e.g. stablecoins.
+	\end{itemize}
+\end{small}
+
+	\begin{figure}
+		\includegraphics[scale=0.5]{../assets/images/bonding-curves.png}
+		\caption*{Bonding curve comparison \cite{CRV}}
+	\end{figure}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Concentrated Liquidity}
+	Concept of concentrated liquidity was first introduced in Uniswap V3 in March 2021 \cite{UNIV3}:
+	\begin{itemize}
+		\item<2-> Liquidity providers can add liquidity within a certain price range $[p_a, p_b]$.
+		\item<3-> The position is active, if the price is within this range. % 
+		\item<4-> If the price is out of range, the liquidity provider only holds one asset and does not collect fees.
+	\end{itemize}
+	\vspace{0.5cm}
+	\uncover<5->{
+	\begin{keytakeaway}{Implications of Concentrated Liquidity}
+		\begin{itemize}
+			\item<5-> Higher capital efficiency
+			\item<6-> Liquidity providers with concentrated liquidity earn more fees
+			\item<7-> But: higher divergence loss risk and risk of inactivity
+		\end{itemize}
+	\end{keytakeaway}
+
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Concentrated Liquidity}
+	% Update graphs (different color for concentrated position)
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/concentrated_liquidity.tex}
+		\end{center}
+		\only<1|handout:0>{\caption*{Liquidity provision on full price range \cite{UNIV3}}}
+		\only<2|handout:0>{\caption*{Concentrated liquidity position on range $[P_a, P_b]$ \cite{UNIV3}}}
+		\only<3>{\caption*{Aggregated liquidity positions \cite{UNIV3}}}
+	\end{figure}	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Pools With 3 or More Assets}
+
+The constant product function as implemented by Uniswap can be extended to pools with more than two assets \cite{BAL}:
+		\begin{align*}
+			\prod_{i=1}^N x_i= k
+		\end{align*}
+		
+$N$: number of token types (assets) in the pool\\
+$x_i$: token amount for asset i\\
+$k$: constant
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Constant Mean Function}
+\begin{itemize}
+	\item The constant product function can be further extended by using different weights (constant mean function) \cite{BAL}:
+		\begin{align*}
+			\prod_{i=1}^N x_i^{w_i}= k
+		\end{align*}
+
+		$N$: number of tokens in the pool\\
+		$x_i$: token amount for asset i\\
+		$w_i$: weight of asset $i$\\
+		$k$: constant
+\end{itemize}
+
+	\vspace{0.5cm}
+
+	\begin{keytakeaway}{Relationship Between Constant Product and Constant Mean Function}
+	The constant product function corresponds to the constant mean function with equally weighted assets, $w_i = 1, \text{ } \forall i$.
+	\end{keytakeaway}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Concept of Aggregators}
+\begin{figure}
+	\centering
+	\resizebox{0.8\textwidth}{!}{
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/defi_stack.tex}
+	\end{tikzpicture}}
+	\caption{Source \cite{FS:21}}
+\end{figure}
+	
+\begin{itemize}
+	\item DEX Aggregators source liquidity from different DEXs.
+	\item They allow a user to compare different swap prices and to choose on which DEX their trade is performed.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Frontrunning, Backrunning and Sandwich Attacks}
+
+\small{The victim wants to swap $X$-tokens for $Y$-tokens. The attacker observes the mempool and issues two transactions with the goal to front- and backrun the victim.}
+
+\uncover<2->{
+
+	\begin{figure}
+		\begin{minipage}[c]{0.38\textwidth}
+		\footnotesize
+		\textbf{Execution order:}
+			\begin{enumerate}
+				\item<2-> First transaction of the attacker shifts the price
+				\item<3-> Victim gets a worse price
+				\item<4-> Attacker's second transaction buys back tokens from the first transaction at a lower price.
+			\end{enumerate}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.6\textwidth}
+			\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/frontrunning.tex}
+		\end{center}
+	\end{figure}
+
+
+		\end{minipage}
+	\end{figure}
+	}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Liquidity Mining \& Vampire Attacks}
+	\begin{figure}[h!]
+		\begin{center}
+			\input{../assets/figures/vampire_attack.tex}
+		\end{center}
+	\end{figure}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Initial DEX Offerings}
+
+	\begin{figure}
+		\begin{minipage}[c]{0.3\textwidth}
+			\input{../assets/figures/initial_dex_offering.tex}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[c]{0.5\textwidth}
+			\begin{itemize}
+				\item CFMMs are also useful for initial token offerings and price discovery.
+				\item Example: \href{https://unisocks.exchange/}{Uni\$ocks} \link
+			\end{itemize}
+		\end{minipage}
+	\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Exercise}
+	Go to \href{https://app.uniswap.org/}{Uniswap \link} to complete the following exercises:
+	\vspace{.5cm}
+
+	\begin{exercise}{Exercise 1: Create a Uniswap pool for your own token}
+		\begin{enumerate}
+			\item Make sure you are connected to the Ropsten testnet
+			\item Create a new pool with your own token
+			\item Make a swap in the newly created pool
+		\end{enumerate}
+	\end{exercise}
+	\vspace{.5cm}
+	
+	
+	\begin{exercise}{Exercise 2 (optional): Interact with the Crypto Lecture Coin (CLC) pool}
+		\begin{enumerate}
+			\item Again, make sure you are connected to the Ropsten testnet
+			\item Make swaps and provide/remove liquidity to/from the ETH/CLC pool.\\ (CLC token address: \texttt{0x59f7999334c76C3a59195111B5242C8cC71AF273})
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+\nocite{FS:21}
+		\bibliographystyle{amsplain}
+		\bibliography{../assets/bib/refs}
+	% Uniswap Whitepaper
+	% Vitalik Blogpost AMM https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/
+	% Uniswap V2/V3 Whitepaper
+	% Curve Whitepaper
+	% Balancer Whitepaper
+	% DeFi Overview
+	
+\end{frame}
+%%%
+
+
+
+
+
+\end{document}

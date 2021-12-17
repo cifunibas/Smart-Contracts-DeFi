@@ -1,0 +1,14 @@
+\begin{tikzpicture}[]
+    
+    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
+    
+  	\draw[->] (0,0)--(5,0) node[below,midway]{} node[right] {$X$-tokens in liquidity pool} ;
+    \draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {$Y$-tokens in liquidity pool};  
+  
+    \draw[dotted, thick] (2,2)--(0,2) node[left]{\scriptsize $y$};
+
+    \draw[dotted, thick] (2,2)--(2,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+  
+	\draw[fill=black] (2,2) circle(2pt);
+
+\end{tikzpicture}

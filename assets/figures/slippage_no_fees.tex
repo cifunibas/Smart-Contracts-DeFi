@@ -1,0 +1,38 @@
+\begin{tikzpicture}[]
+    
+    \draw[samples = 200, color=blue, scale=1, xshift = 0cm, yshift = 0cm, domain=0.9:4.55, smooth, variable=\x] plot ({\x}, {4/\x}) node[right,color=blue] {$k$} ;       
+    
+  	\draw[->] (0,0)--(5,0) node[below,midway]{} node[below, midway, yshift = -0.5cm] {\small{$X$-tokens in LP}} ;
+    \draw[->] (0,0)--(0,5) node[above,midway,rotate=90]{} node[above] {\small{$Y$-tokens in LP}};  
+  
+  	% Before Swap
+    \draw[dotted, thick] (1.3,3)--(0,3) node[left]{\scriptsize $y$};
+    \draw[dotted, thick] (1.3,3)--(1.3,0) node[below, yshift = -0.08cm]{\scriptsize $x$};
+	\draw[fill=black] (1.3,3) circle(2pt);
+	
+	% After Swap
+	\uncover<2->{
+		\draw[->, red] (1.4, 0.1) -- (2.9, 0.1) node [midway, above] {\scriptsize{$\Delta x$}};
+	    \draw[dotted, thick] (3,1.333)--(3,0) node[below]{\scriptsize $x+\Delta x$};
+	    \draw[fill=black] (3,1.333) circle(2pt);
+		\draw[->, red] (0.1, 2.9) -- (0.1, 1.4) node [midway, right] {\scriptsize{$\Delta y$}};
+	    \draw[dotted, thick] (3,1.333)--(0,1.333) node[left]{\scriptsize $y' = y-\Delta y$};	
+
+	}
+	% Initial Pool ratio
+	\uncover<3->{
+		\draw[-, thick, strongmint] (1,3.692) -- (1.6,2.308) node[midway, right]{\scriptsize -
+		$P_x$};
+		\draw[fill=black] (1.3,3) circle(2pt);
+	}
+	% Effective swap price
+	\uncover<4->{
+		\draw[-, thick] (1.3,3) -- (3,1.333) node[midway, right]{\scriptsize -$\overline{P_x}$};
+	}
+	% Pool ratio after trade
+	\uncover<6->{
+		\draw[-, thick, softanthracite] (2.4,1.5996) -- (3.6,1.0664) node[midway, right, yshift=0.15cm]{\scriptsize -$P'_x$};
+	    \draw[fill=black] (3,1.333) circle(2pt);
+	}
+
+\end{tikzpicture}
