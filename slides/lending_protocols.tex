@@ -43,7 +43,7 @@ Besides exchanging assets, \textbf{borrowing} and \textbf{lending} are the most 
 \vspace{1em}
 
 \uncover<2-> {
-Due to openness and pseudonymity, DeFi loans exist in two formats:
+Two distinct types of DeFi loans:
 \vspace{0.5em}
 \begin{enumerate}
   \item \textbf{Collaterallized loans} of undefined duration.
@@ -56,6 +56,12 @@ Due to openness and pseudonymity, DeFi loans exist in two formats:
 Currently, we can distinguish two main lending protocol archetypes in DeFi: \textbf{Collateral Debt Protocols} and \textbf{Collateral Debt Markets}.
 }
 	
+\uncover<4->{
+\begin{keytakeaway}{Unsecured Loans}
+	Unsecured loans that can be used outside of a single transaction context require reliable identities. 
+\end{keytakeaway}
+}	
+	
 \end{frame}
 %%%	
 
@@ -65,7 +71,7 @@ Currently, we can distinguish two main lending protocol archetypes in DeFi: \tex
 
 \vspace{1em}
 
-\textbf{Position}: Entirety of an address' collateral $c$ and debt $d$ with a protocol.
+\textbf{Position}: Entirety of an address' collateral $c$ and debt $d$ with a given lending protocol.
 			
 \vspace{1.0em}
 			
@@ -76,14 +82,14 @@ Currently, we can distinguish two main lending protocol archetypes in DeFi: \tex
 \vspace{1.0em}
 
 \uncover<3->{ 
-\textbf{Borrowing capacity} (BC): Total amount a position may borrow, given the value of its collateral assets and their respective $LTV$.
+\textbf{Borrowing capacity} ($BC$): Sum of $LTV$ adjusted values of all collateral types in a given position. Determines the maximum value that can be borrowed for the respective position.
 
 \begin{equation*}
 	BC = \sum c_i\, LTV_i 
 	\label{eq:BC} 
 \end{equation*}
 
-$\Rightarrow$ A position can only take up new debt as long as its existing  debt across all assets is below borrowing capacity, i.e., $BC > \sum d_i$
+$\Rightarrow$ A position can only take up new debt as long as its existing  debt across all assets is below borrowing capacity, i.e., $\sum d_i < BC$.
 }
 
 \end{frame}
@@ -114,7 +120,7 @@ $\Rightarrow$ A position can only take up new debt as long as its existing  debt
 \vspace{1.0em}
 $\Rightarrow$ A position with $HF \geq 1$ it is considered \color{focus} \textit{healthy}\color{black}.
 
-$\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} positions is available for liquidation.
+$\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} positions can be liquidated.
 }
 
 \end{frame}
@@ -142,18 +148,18 @@ $\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} posit
 	\begin{column}{0.49\textwidth}
 	\uncover<2->{
 		\begin{itemize}
-			\item	Stays invested in assets provided as collateral.
-			\item	Can borrow the CDP issued asset within the borrowing capacity.
-			\item	Owes interest for the debt in the CDP asset until repayment.
+			\item {Stays invested in assets provided as collateral.}
+			\item {Can borrow liquid (CDP minted) assets within the borrowing capacity.}
+			\item {Owes interest for the debt in the CDP asset until repayment.}
 		\end{itemize}
 	}
 	\end{column}
 	\begin{column}{0.49\textwidth}
 	\uncover<3->{
 		\begin{itemize}
-			\item	Issues a protocol asset and sets borrowing terms.
-			\item	Controls the collateral assets as long as there is outstanding debt to cover.
-			\item	Allows liquidation of collateral against protocol asset for unhealthy positions.
+			\item {Controls the collateral assets as long as there is outstanding debt to cover.}
+			\item {Mints liquid assets and transfers them to borrower.}
+			\item {Allows redemption and liquidation in case of unhealthy positions.}
 		\end{itemize}
 	}
 	\end{column}
