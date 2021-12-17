@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -38,24 +38,28 @@
 
 %%%
 \begin{frame}{Introduction}
-Besides exchanging assets, \textbf{borrowing} and \textbf{lending} are the most fundamental needs in a financial system. \\
+\textbf{Borrowing} and \textbf{lending} are basic needs in any financial system. \\
 
 \vspace{1em}
 
 \uncover<2-> {
-Two distinct types of DeFi loans:
+Loans exist in various forms, but they usually require at least one of the two following properties:
 \vspace{0.5em}
 \begin{enumerate}
-  \item \textbf{Collaterallized loans} of undefined duration.
-  \item \textbf{Flash loans} that are borrowed and repaid in one transaction. 
+  \item \textbf{Collateral:} Loan is secured with specific assets.
+  \item \textbf{Verifiable Identities:} Legal recourse allows 
 \end{enumerate} 
 }
+
+In DeFi, loans are mostly collateralized.
 
 \uncover<3-> {
 \vspace{1em}
 Currently, we can distinguish two main lending protocol archetypes in DeFi: \textbf{Collateral Debt Protocols} and \textbf{Collateral Debt Markets}.
 }
 	
+\vspace{1em}
+
 \uncover<4->{
 \begin{keytakeaway}{Unsecured Loans}
 	Unsecured loans that can be used outside of a single transaction context require reliable identities. 
@@ -76,13 +80,13 @@ Currently, we can distinguish two main lending protocol archetypes in DeFi: \tex
 \vspace{1.0em}
 			
 \uncover<2-> {
-\textbf{Loan-to-Value} (\textit{LTV}): Percentage at which the value of a collateral asset $i$ counts towards borrowing capacity. $LTV_i \in [0,1]$
+\textbf{Loan-to-Value} (\textit{LTV}): Factor at which the value of a collateral asset $i$ counts towards borrowing capacity. $LTV_i \in [0,1]$
 }
 
 \vspace{1.0em}
 
 \uncover<3->{ 
-\textbf{Borrowing capacity} ($BC$): Sum of $LTV$ adjusted values of all collateral types in a given position. Determines the maximum value that can be borrowed for the respective position.
+\textbf{Borrowing capacity} ($BC$): Sum of $LTV$-adjusted values across all collateral types in a given position. Determines the maximum value that can be borrowed for the respective position.
 
 \begin{equation*}
 	BC = \sum c_i\, LTV_i 
@@ -226,18 +230,18 @@ Transfers assets to the protocol (CDM only) that then can be borrowed against in
 
 \vspace{1.0em}
 
-Commonly receives a \emph{liquidity token} for the assets provided, that:
+In CDMs, participants receive \emph{liquidity tokens} for the assets provided. The tokens...
 \vspace{0.5em}
 \begin{itemize}
-  \item Represents a \textbf{transferable claim} to the assets,
-  \item \textbf{accounts for interest} earned, and
-  \item is \textbf{burnt to withdraw} the assets incl. accrued interest.
+  \item ...represent \textbf{transferable claims} to the collateral,
+  \item ...\textbf{account for interest} earned
+  \item ...are \textbf{burnt to redeem and withdraw} the assets incl. accrued interest.
 \end{itemize}
 
 \uncover<2-> {
 \vspace{1.0em}
 \begin{keytakeaway}{Interest Earned is Not Risk Free}
-	Protocol malfunctions or tail events that block necessary liquidations may leave lenders with liquidity tokens, that can not or only partially be reimbursed. These situations may be temporary or permanent.
+	Protocol malfunctions or tail events that block necessary liquidations may leave lenders with liquidity tokens, that cannot be (fully) redeemed. These situations may be temporary or permanent.
 \end{keytakeaway}
 }
 
@@ -257,7 +261,7 @@ Commonly receives a \emph{liquidity token} for the assets provided, that:
     \midrule
     \textbf{Naming} & a\textit{Reserve} (e.g., aDai) & c\textit{Reserve} (e.g., cDai) \vspace{0.5em}\\
     \textbf{Reserve Translation} & 1:1 & $cToken \cdot XRate_{reserve}$ \vspace{0.5em}\\
-    \textbf{Interest Logic} & Base rate + two slopes around optimal utilization. & Base rate + one slope \textbf{or} two slopes around optimal utilization. \vspace{0.5em}\\
+    \textbf{Interest Logic} & Base rate + two slopes split by optimal utilization. & Base rate + one slope \textbf{or} two slopes split by optimal utilization. \vspace{0.5em}\\
     \textbf{Security Reserve} & By reserve asset. Held by treasury as aToken. & By reserve asset. Value stored in each contract. \vspace{0.5em}\\
     \textbf{Interest Calculation} & Per second. With every tx affecting debt or liquidity balances. & Per block. With every tx affecting debt or liquidity balances. \vspace{0.5em}\\
     \textbf{Interest Model} & Stable and variable rates. & Variable rates only. \vspace{0.5em}\\
