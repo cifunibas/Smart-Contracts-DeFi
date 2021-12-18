@@ -51,8 +51,11 @@ Loans exist in various forms, but they usually require at least one of the two f
 \end{enumerate} 
 }
 
-In DeFi, verifiable identities are the exception. Loans are therefore mostly (over-)collateralized.
-	
+\vspace{1em}
+\uncover<3->{
+	In DeFi, verifiable identities are the exception. Loans are therefore mostly (over-)collateralized.
+}
+
 \end{frame}
 %%%	
 
@@ -67,20 +70,18 @@ In DeFi, verifiable identities are the exception. Loans are therefore mostly (ov
 \vspace{1.0em}
 			
 \uncover<2-> {
-\textbf{Loan-to-Value} (\textit{LTV}): Factor at which the value of a collateral asset $i$ counts towards borrowing capacity. $LTV_i \in [0,1]$
+\textbf{Loan-to-Value} (\textit{$LTV_i$}): $LTV_i \in [0,1]$ is a protocol parameter that determines the fraction of asset $i$ that counts towards the liquidity provider's borrowing capacity.
 }
 
 \vspace{1.0em}
 
 \uncover<3->{ 
-\textbf{Borrowing capacity} ($BC$): Sum of $LTV$-adjusted values across all collateral types in a given position. Determines the maximum value that can be borrowed for the respective position.
-
+\textbf{Borrowing Capacity} ($BC$): $BC \geq 0$ is the sum of $LTV$-adjusted values across all collateral types in a given position. It determines the maximum value that can be borrowed against the position's collateral.
+%
 \begin{equation*}
 	BC = \sum c_i\, LTV_i 
 	\label{eq:BC} 
 \end{equation*}
-
-$\Rightarrow$ A position can only take up new debt as long as its existing  debt across all assets is below borrowing capacity, i.e., $\sum d_i < BC$.
 }
 
 \end{frame}
@@ -92,39 +93,57 @@ $\Rightarrow$ A position can only take up new debt as long as its existing  debt
 
 \vspace{1em}
 
-\textbf{Liquidation Threshold} (LT): Threshold of debt relative to collateral at which a position becomes unhealthy and thus can be liquidated. $LT_i \in [0,1]$ and $LT_i \geq LTV_i$.
+\textbf{Relative Liquidation Threshold} ($rLT_i$): $rLT_i \in [0,1]$ is a protocol parameter that determines the fraction of asset $i$ that counts towards the liquidity provider's liquidation threshold. \vspace{1em}
 
-	\begin{equation*}
-	  		LT =  \frac{\sum c_i \, LT_i}{\sum c_i}
-	  	\label{eq:LT} 
-	\end{equation*}
-	
-
-\vspace{1.0em}
 \uncover<2->{
-\textbf{Health Factor} (HF): Relative value of collateral, adjusted by LT, to outstanding debt of a position.
-
+\textbf{Absolute Liquidation Threshold} ($aLT$): $aLT \geq 0$ is the sum of $rLT$-adjusted values across all collateral types in a given position. It determines the maximum debt of a position may accumulate against its collateral, before being open for liquidation.
+%
 \begin{equation*}
-	  HF = \frac{\sum c_i \, LT_i}{\sum d_i} \label{eq:HF} 
+	aLT = \sum c_i\, rLT_i 
+	\label{eq:LT} 
 \end{equation*}
+}
 
-\vspace{1.0em}
-$\Rightarrow$ A position with $HF \geq 1$ it is considered \color{focus} \textit{healthy}\color{black}.
-
-$\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} positions can be liquidated.
+\uncover<3->{
+\begin{keytakeaway}{Relationship Between $BC$ and $aLT$ / $LTV_i$ and $rLT_i$}
+	Note, that $BC$ and $aLT$ are closely related. The former determines the maximum debt that can be borrowed with a specific collateral mix, while the latter determines the debt value threshold at which the position can be liquidated. The difference between $BC$ and $aLT$ is a safety cushion for borrowers. Similarly, $LTV_i$ and $rLT_i$ are the corresponding collateral factors for a given collateral type $i$.
+\end{keytakeaway}
 }
 
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Some Terminology Around Lending in DeFi}
+\textbf{Health Factor} (HF): Relative value of collateral, adjusted by LT, to outstanding debt of a position.
+
+\begin{equation*}
+	  HF = \frac{\sum c_i \, rLT_i}{\sum d_i} =  \frac{aLT}{\sum d_i} 
+	  \label{eq:HF} 
+\end{equation*}
+
+\vspace{1.0em}
+\begin{keytakeaway}{Health Factor and Liquidations}
+\begin{itemize}
+	\item A position with $HF \geq 1$ is considered \textbf{healthy}.
+	\item A position with $HF < 1$ is considered \textbf{unhealthy} and can be liquidated by anyone.
+\end{itemize}
+\end{keytakeaway}
+
+
+
+\end{frame}
 
 %%%
 \begin{frame}{Two Approaches to Collateralized Loans}
 	\vspace{1em}
 	There are two collateralized lending protocol archetypes in DeFi: \textbf{Collateralized Debt Positions} (CDP) and \textbf{Collateralized Debt Markets} (CDM).\\ \vspace{1em}
 
-	\textbf{CDPs} allow borrowers to lock collateral and thereby mint new liquid assets on demand.\\ \vspace{1em}
-	\textbf{CDMs} are used to match the borrowers' and lenders' demands in an aggregated pool. There are no new assets are created.
+	\begin{itemize}
+		\item \textbf{CDPs} allow borrowers to lock collateral and thereby mint new liquid assets on demand.
+		\item \textbf{CDMs} are used to match the borrowers' and lenders' demands in an aggregated pool. There are no new assets created.
+	\end{itemize}
+	
 \end{frame}
 
 
@@ -220,7 +239,7 @@ In CDMs, participants receive \emph{interest bearing tokens} for the assets prov
     ~	& \textbf{Aave V2} \emph{aToken} & \textbf{Compound} \emph{cToken}	\\
     \midrule
     \textbf{Naming} & a\textit{Reserve} (e.g., aDai) & c\textit{Reserve} (e.g., cDai) \vspace{0.5em}\\
-    \textbf{Reserve Translation} & 1:1 & $cToken \cdot XRate_{reserve}$ \vspace{0.5em}\\
+    \textbf{Redemption} & 1:1 & $cToken \cdot XRate_{reserve}$ \vspace{0.5em}\\
     \textbf{Interest Logic} & Base rate + two slopes split by optimal utilization. & Base rate + one slope \textbf{or} two slopes split by optimal utilization. \vspace{0.5em}\\
     \textbf{Security Reserve} & By reserve asset. Held by treasury as aToken. & By reserve asset. Value stored in each contract. \vspace{0.5em}\\
     \textbf{Interest Calculation} & Per second. With every tx affecting debt or liquidity balances. & Per block. With every tx affecting debt or liquidity balances. \vspace{0.5em}\\
@@ -238,7 +257,7 @@ In CDMs, participants receive \emph{interest bearing tokens} for the assets prov
 %%%
 \begin{frame}{CDM: Interest as a Function of Utilization }
 
-Interest owed by borrowers $r_b$ in CDMs is \textbf{commonly variable and depends on \textit{utilization}} $u_t$ of the asset, i.e., how much of the liquidity provided by lender's $L_t$ is currently borrowed $D_t$.
+Most CDM protocols have a variable borrower interest rate $r_b$. It is usually a \textbf{function of the utilization ratio} $u_t$, i.e., the ratio between borrowed liquidity $D_t$ and provided liquidity $L_t$.
 
 \vspace{1.5em}
 
@@ -259,7 +278,7 @@ Interest owed by borrowers $r_b$ in CDMs is \textbf{commonly variable and depend
 	\end{equation*}
 	
 	\vspace{0.5 em}
-	Two interest slopes set incentives for borrowing when utilization is below optimal $u_{opt}$ and repayment if its above, threatening the lenders' ability to withdraw assets.
+	Most interest functions are defined by logical cases, that allow for varying slopes. 
 	
 \end{minipage}	
 }
@@ -285,11 +304,13 @@ In a CDM applying two interest slopes for an asset defined by the tuple $(r_{min
 \vspace{1em}
 
 \uncover<2-> {
-Accounting for a reserve factor $RF \in [0,1]$ deducted as income for the protocol, the $r_b$ collected from borrowers and attributed to the lenders of the asset as yield $r_l$ equals to:
-
+The lenders' interest rate can be expressed as:
+%
 \begin{equation*}
-	r_l = u_t r_b (1-RF) 
+	r_l = u_t r_b (1-\rho) 
 \end{equation*}
+%
+Where $\rho \in [0,1)$ corresponds to an implicit protocol fee.
 }
 
 \end{frame}
@@ -309,13 +330,13 @@ Within CDMs, the collateral commonly becomes part of the assets available for bo
 The borrower must continuously \textbf{monitor prices} of collateral and debt assets incl. interest accrued, to avoid their \textbf{position becoming unhealthy} and getting liquidated.
 
 \vspace{0.8 em}
-If liquidated, a position is \textbf{commonly subject to some penalty}. This acts as an incentive to the liquidators.
+If liquidated, a position is \textbf{commonly subject to a penalty}. This acts as an incentive to the liquidators.
 }
 
 \uncover<3-> {
 \vspace{0.8 em}
 \begin{keytakeaway}{Limited Risk for Borrowers}
-	Risk of the borrower is effectively limited to the difference between collateral locked and debt drawn, as there is very limited effective recourse to compel repayment of borrowed assets. 
+	The borrowers always have the option to abandon their positions. This is effectively limiting the borrowers' risk to the difference between collateral locked and debt drawn.
 \end{keytakeaway}
 }
 	
@@ -326,7 +347,7 @@ If liquidated, a position is \textbf{commonly subject to some penalty}. This act
 %%%
 \begin{frame}{Overcollateralization and Liquidation}
 
-Protocols require a \textbf{minimum overcollateralization} in the pseudoanonymous DeFi environment, i.e., $d \leq c \cdot LT$.
+CDP and CDM protocols require a \textbf{minimum (over-) collateralization} $\sum d_i \leq aLT$.
 \vspace{1em}
 
 \begin{minipage}{0.6\textwidth}
@@ -336,13 +357,13 @@ Protocols require a \textbf{minimum overcollateralization} in the pseudoanonymou
 		\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.8}]
 			\input{../assets/figures/liquidation_scenario}
 		\end{tikzpicture}
-		\caption{Scenario with $LT = 0.75$}
+		\caption{Scenario with $rLT_i = 0.75,$ $\forall i$.}
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.38\textwidth}
 	
 	\uncover<2->{
-	If collateral value relative to the debt falls below $LT$, the risk of borrower default is too high, i.e., the position state is \emph{unhealthy}.
+	If collateral value relative to the debt falls below $aLT$, the risk of borrower default is too high, i.e., the position state is \emph{unhealthy}.
 	}
 	
 	\vspace{1em}
@@ -358,18 +379,18 @@ Protocols require a \textbf{minimum overcollateralization} in the pseudoanonymou
 %%%
 \begin{frame}{Liquidations: Two Approaches}
 
-With protocols unable to become active by themselves, they \textbf{rely on arbitrageurs} to spot and liquidate unhealthy positions.
+Recall that protocols are unable to initiate a transaction. Instead, they have to \textbf{rely on arbitrageurs} to spot and liquidate unhealthy positions. Hence, liquidators must be incentivized. 
 
 \uncover<2->{
 \vspace{1 em}
-Two approaches offering liquidation incentives can be observed: 
+Lending protocols use two distinct incentivization schemes.
 
 \vspace{1 em}
 \textbf{1. Discount Sale} (e.g. Aave or Compound)
 \vspace{0.2em}
 \begin{itemize}
 \item Any unhealthy position’s collateral is offered at a discount from the current on-chain oracle price.
-\item Liquidator repays (part of the) position’s debt in the respective debt asset and in return receives collateral assets at the discounted price for the repaid amount.
+\item Liquidator repays (part of the) position’s debt in the respective debt asset and receives collateral assets at the discounted price in return.
 \end{itemize}
 
 \vspace{0.5em}
@@ -399,10 +420,8 @@ Collateral price discovery via auctions, avoiding fixed liquidator incentives. E
 
 \textbf{Pro:} Potentially leaving borrowers with a better collateral price.\\
 \vspace{0.5em}
-\textbf{Con:} Heavily depending on auction format. Considerations must be given to duration, lower-bound for  prices, oracle role, and resilience during network congestions driving cost of timely transactions.
+\textbf{Con:} Heavily depending on auction format and competition. Considerations must be given to duration, lower-bound for  prices, oracle role, and resilience during network congestions.
 
-
-	
 \end{frame}
 %%%	
 
@@ -522,7 +541,7 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 
 \uncover<3->{
 \begin{keytakeaway}{Flash Loan Attacks}
-	The term \textbf{Flash Loan Attack} is a misnomer. While it is true that hackers commonly use flash loans, when they are attacking one or several protocols, the same attacks would also be possible without flash loans. \textbf{Flash loans only provide liquidity}. Consequently it could even be argued, that flash loans have the potential to make markets more efficient and fair.
+	The term \textbf{Flash Loan Attack} is a misnomer. While it is true that hackers commonly use flash loans when they are attacking one or several protocols, the same attacks would also be possible without flash loans. \textbf{Flash loans only provide liquidity}. Consequently it could be argued, that flash loans have the potential to make markets more efficient and fair.
 \end{keytakeaway}
 }
 
