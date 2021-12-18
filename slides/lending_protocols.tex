@@ -533,12 +533,12 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 %%%
 \begin{frame}{Flash Minting}
 
-	In some cases, protocols allow flash minting of their native token up to a certain \texttt{cap}. \vspace{0.5em}
+	In some cases, protocols allow flash minting of their native token up to a certain \texttt{cap}. These tokens are \textbf{minted and burned within the same transaction}. \vspace{0.5em}
 	
 	\begin{itemize}
-		\item This loosens the liquidity constraint $LP_x \geq x$. 
+		\item This loosens the liquidity constraint $x \leq LP_x$. 
 		\item Instead, the amount available to borrowers is given by:\\
-			\texttt{cap} $\leq$ \texttt{type(uint256).max - totalSupply()}.
+			$x \leq$ \texttt{cap} $\leq$ \texttt{type(uint256).max - totalSupply()}.
 	\end{itemize}
 	
 	\vspace{1em}
