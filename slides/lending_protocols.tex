@@ -456,7 +456,7 @@ Flash Loans \textbf{do not require collateral} and can be granted in the \textbf
 Let us assume that Alice wants to use a flash loan to borrow $x$ from a liquidity pool with liquidity $LP_x \geq x$. \\
 
 \begin{enumerate}
-	\item<2->[1.] Alice deploys a logic contract with a \genkey{onFlashLoan()} function that contains the code for the middle part of the sandwich. %The flash loan contract will later call the \texttt{onFlashLoan()} function of this contract. 
+	\item<2->[1.] Alice deploys a logic contract with an \genkey{onFlashLoan()} function that contains the code for the middle part of the sandwich. %The flash loan contract will later call the \texttt{onFlashLoan()} function of this contract. 
 	\item<3->[2a.] Alice calls the \genkey{flashLoan()} function of the flash loan contract. Function arguments include the address of the logic contract, the token type and amount, as well as calldata.
 	\item<4->[2b.] Flash loan contract sends $x$ to logic contract and calls \genkey{onFlashLoan()} function in Alice's logic contract, using the provided calldata.
 	\item<5->[2c.] After the execution of \genkey{onFlashLoan()} has concluded, the rest of the flash loan contract's \genkey{flashLoan()} function is executed. This includes a \genkey{transferFrom()} to pull $x(1+\rho)+\bar{\rho}$, where $\rho$ is a relative fee and $\bar{\rho}$ is a flat fee. The entire transaction fails if final amount $x^* < x(1+\rho)+\bar{\rho}$ or if the logic contract did not set the necessary allowance with the flash loan contract as a spender address.
