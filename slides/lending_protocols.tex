@@ -115,7 +115,7 @@ Loans exist in various forms, but they usually require at least one of the two f
 
 %%%
 \begin{frame}{Some Terminology Around Lending in DeFi}
-\textbf{Health Factor} (HF): Relative value of collateral, adjusted by LT, to outstanding debt of a position.
+\textbf{Health Factor} (HF): HF is the ratio between a position's $aLT$ and the sum of any outstanding debt. It can only be computed for positions with $\sum d_i > 0$; otherwise irrelevant.
 
 \begin{equation*}
 	  HF = \frac{\sum c_i \, rLT_i}{\sum d_i} =  \frac{aLT}{\sum d_i} 
@@ -322,18 +322,20 @@ Where $\rho \in [0,1)$ corresponds to an implicit protocol fee.
 
 With the transfer of collateral assets, \textbf{a credit line is opened }against which assets can be borrowed along the protocol’s terms.
 
-\vspace{0.8 em}
-Within CDMs, the collateral commonly becomes part of the assets available for borrowing, i.e., \textbf{a borrower is also a lender.}
-
 \uncover<2-> {
 \vspace{0.8 em}
+Within CDMs, the collateral commonly becomes part of the assets available for borrowing, i.e., \textbf{a borrower is also a lender.}
+}
+\uncover<3-> {
+\vspace{0.8 em}
 The borrower must continuously \textbf{monitor prices} of collateral and debt assets incl. interest accrued, to avoid their \textbf{position becoming unhealthy} and getting liquidated.
-
+}
+\uncover<4-> {
 \vspace{0.8 em}
 If liquidated, a position is \textbf{commonly subject to a penalty}. This acts as an incentive to the liquidators.
 }
 
-\uncover<3-> {
+\uncover<5-> {
 \vspace{0.8 em}
 \begin{keytakeaway}{Limited Risk for Borrowers}
 	The borrowers always have the option to abandon their positions. This is effectively limiting the borrowers' risk to the difference between collateral locked and debt drawn.
@@ -363,7 +365,7 @@ CDP and CDM protocols require a \textbf{minimum (over-) collateralization} $\sum
 \begin{minipage}{0.38\textwidth}
 	
 	\uncover<2->{
-	If collateral value relative to the debt falls below $aLT$, the risk of borrower default is too high, i.e., the position state is \emph{unhealthy}.
+	The position is open for liquidation if $aLT < \sum d_i$, i.e., if the position state is \emph{unhealthy}.
 	}
 	
 	\vspace{1em}
@@ -384,7 +386,9 @@ Recall that protocols are unable to initiate a transaction. Instead, they have t
 \uncover<2->{
 \vspace{1 em}
 Lending protocols use two distinct incentivization schemes.
+}
 
+\uncover<3->{
 \vspace{1 em}
 \textbf{1. Discount Sale} (e.g. Aave or Compound)
 \vspace{0.2em}
@@ -497,10 +501,10 @@ Let us assume that Alice wants to use a flash loan to borrow $x$ from a liquidit
 \small{
 \uncover<2->{
 The borrower's payoff function can be expressed as:
-}
 \begin{equation*}
 	\Pi = max (x^{\ast}-[x \,(1+\rho) + \bar{\rho} ],0) - \epsilon
 \end{equation*}
+}
 }
 
 \uncover<3->{
@@ -555,14 +559,14 @@ Flash loans \textbf{effectively remove capital} constraints for any activity tha
 	In some cases, protocols allow flash minting of their native token up to a certain \texttt{cap}. These tokens are \textbf{minted and burned within the same transaction}. \vspace{0.5em}
 	
 	\begin{itemize}
-		\item This loosens the liquidity constraint $x \leq LP_x$. 
-		\item Instead, the amount available to borrowers is given by:\\
+		\item<2-> This loosens the liquidity constraint $x \leq LP_x$. 
+		\item<3-> Instead, the amount available to borrowers is given by:\\
 			$x \leq$ \texttt{cap} $\leq$ \texttt{type(uint256).max - totalSupply()}.
 	\end{itemize}
 	
 	\vspace{1em}
 	
-	\uncover<2->{
+	\uncover<4->{
 		But: Flash Minting may also introduce security challenges.
 		
 		\begin{itemize}
