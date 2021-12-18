@@ -47,21 +47,11 @@ Loans exist in various forms, but they usually require at least one of the two f
 \vspace{0.5em}
 \begin{enumerate}
   \item \textbf{Collateral:} Loan is secured with specific assets.
-  \item \textbf{Verifiable Identities:} Legal recourse allows 
+  \item \textbf{Verifiable Identities:} Option to take legal action.
 \end{enumerate} 
 }
 
-In DeFi, loans are mostly collateralized.
-
-\uncover<3-> {
-\vspace{1em}
-There are two main lending protocol archetypes in DeFi: \textbf{Collateralized Debt Positions} (CDP) and \textbf{Collateralized Debt Markets} (CDM).\\ \vspace{1em}
-
-\uncover<4->{
-\begin{keytakeaway}{Unsecured Loans}
-	Unsecured loans that can be used outside of a single transaction context require reliable identities. 
-\end{keytakeaway}
-}	
+In DeFi, verifiable identities are the exception. Loans are therefore mostly (over-)collateralized.
 	
 \end{frame}
 %%%	
@@ -128,7 +118,14 @@ $\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} posit
 %%%
 
 
+%%%
+\begin{frame}{Two Approaches to Collateralized Loans}
+	\vspace{1em}
+	There are two collateralized lending protocol archetypes in DeFi: \textbf{Collateralized Debt Positions} (CDP) and \textbf{Collateralized Debt Markets} (CDM).\\ \vspace{1em}
 
+	\textbf{CDPs} allow borrowers to lock collateral and thereby mint new liquid assets on demand.\\ \vspace{1em}
+	\textbf{CDMs} are used to match the borrowers' and lenders' demands in an aggregated pool. There are no new assets are created.
+\end{frame}
 
 
 %%%
@@ -143,28 +140,17 @@ $\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} posit
 	\end{tikzpicture}
 \end{figure}
 
+
 \small
-\vspace{-1em}
-\begin{columns}[T]
-	\begin{column}{0.49\textwidth}
-	\uncover<2->{
-		\begin{itemize}
-			\item {Stays invested in assets provided as collateral.}
-			\item {Can borrow liquid (CDP minted) assets within the borrowing capacity.}
-			\item {Owes interest for the debt in the CDP asset until repayment.}
-		\end{itemize}
-	}
-	\end{column}
-	\begin{column}{0.49\textwidth}
-	\uncover<3->{
-		\begin{itemize}
-			\item {Controls the collateral assets as long as there is outstanding debt to cover.}
-			\item {Mints liquid assets and transfers them to borrower.}
-			\item {Allows redemption and liquidation in case of unhealthy positions.}
-		\end{itemize}
-	}
-	\end{column}
-\end{columns}
+
+\begin{enumerate}
+	\item<2-> {Alice provides assets (collateral) of type $X$ to CDP.}
+	\item<3-> {Alice may call function in CDP to mint and borrow $Y$-tokens. Her $X$-tokens on the CDP are used as collateral.}
+\end{enumerate}
+
+\uncover<4->{
+Alice pays interest (sometimes referred to as stability fee) for the outstanding debt in $Y$. She still participates in any price movements of $X$, while getting a liquid asset $Y$ for consumption or further investments (leverage).
+}
 	
 \end{frame}
 %%%	
@@ -183,51 +169,28 @@ $\Rightarrow$ Collateral of \color{focus} \textit{unhealthy} \color{black} posit
 	\end{tikzpicture}
 \end{figure}
 
-\small
 \vspace{-1em}
-\begin{columns}[T]
-	\begin{column}{0.33\textwidth}
-	\uncover<2->{
-		\begin{itemize}
-			\item	Stays invested in assets provided as collateral (also becomes lender).
-			\item	Borrows assets provided by lenders subject to BC.
-			\item	Owes interest on borrowed assets until repayment.
-		\end{itemize}
-	}
-	\end{column}
-	\begin{column}{0.34\textwidth}
-	\uncover<3->{
-		\begin{itemize}
-			\item	Sets borrowing and lending terms for each asset.
-			\item	Holds assets available for borrowing.
-			\item	Allows liquidation of collateral against debt for unhealthy positions.
-		\end{itemize}
-	}
-	\end{column}
-	\begin{column}{0.32\textwidth}
-	\uncover<4->{
-		\begin{itemize}
-			\item	Provides assets for lending.
-			\item	Earns yield on assets depending on their utilization in borrowing.
-			\item	Can withdraw assets (subject to liquidity constraints).
-		\end{itemize}
-	}
-	\end{column}
-\end{columns}
-	
+
+\small
+
+\begin{enumerate}
+	\item<2-> {Alice provides assets (collateral) of type $X$ to CDM and receives interest bearing tokens ($IBT_X$) in return.}
+	\item<3-> {Bob provides assets (collateral) of type $Y$ to CDM and receives interest bearing tokens ($IBT_Y$) in return.}
+	\item<4-> {Alice borrows tokens of type $Y$. Her $X$-tokens on the CDM are used as collateral.}
+\end{enumerate}
+
+\uncover<5->{
+Alice pays interest for the outstanding debt in $Y$ and receives interest for her $X$-collateral. Bob receives interest for the provision of $Y$. Interest rates are determined as a function of the pool utilization for the respective asset. 
+}
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Lender's Perspective}
+\begin{frame}{Interest Bearing Tokens}
 
-Transfers assets to the protocol (CDM only) that then can be borrowed against interest.
-
-\vspace{1.0em}
-
-In CDMs, participants receive \emph{liquidity tokens} for the assets provided. The tokens...
+In CDMs, participants receive \emph{interest bearing tokens} for the assets provided. The tokens...
 \vspace{0.5em}
 \begin{itemize}
   \item ...represent \textbf{transferable claims} to the collateral,
@@ -238,7 +201,7 @@ In CDMs, participants receive \emph{liquidity tokens} for the assets provided. T
 \uncover<2-> {
 \vspace{1.0em}
 \begin{keytakeaway}{Interest Earned is Not Risk Free}
-	Protocol malfunctions or tail events that block necessary liquidations may leave lenders with liquidity tokens, that cannot be (fully) redeemed. These situations may be temporary or permanent.
+	Protocol malfunctions or tail events that block necessary liquidations may leave lenders with interest bearing tokens, that cannot be (fully) redeemed. These situations may be temporary or permanent.
 \end{keytakeaway}
 }
 
@@ -247,7 +210,7 @@ In CDMs, participants receive \emph{liquidity tokens} for the assets provided. T
 
 
 %%%
-\begin{frame}{Comparison of Two Liquidity Token Setups}
+\begin{frame}{Comparison of Two Interest Bearing Token Models}
 
 \footnotesize
 \begin{table}
@@ -334,7 +297,7 @@ Accounting for a reserve factor $RF \in [0,1]$ deducted as income for the protoc
 
 
 %%%
-\begin{frame}{A Borrower's Perspective}
+\begin{frame}{Borrowers Have to be Vigilant}
 
 With the transfer of collateral assets, \textbf{a credit line is opened }against which assets can be borrowed along the protocol’s terms.
 
@@ -343,10 +306,10 @@ Within CDMs, the collateral commonly becomes part of the assets available for bo
 
 \uncover<2-> {
 \vspace{0.8 em}
-A borrower must continuously \textbf{monitor prices} of collateral and debt assets incl. interest accrued, to avoid their \textbf{position becoming unhealthy}.
+The borrower must continuously \textbf{monitor prices} of collateral and debt assets incl. interest accrued, to avoid their \textbf{position becoming unhealthy} and getting liquidated.
 
 \vspace{0.8 em}
-If liquidated, a position is \textbf{commonly subject to some penalty} funding the incentivation of liquidators.
+If liquidated, a position is \textbf{commonly subject to some penalty}. This acts as an incentive to the liquidators.
 }
 
 \uncover<3-> {
@@ -393,7 +356,7 @@ Protocols require a \textbf{minimum overcollateralization} in the pseudoanonymou
 
 
 %%%
-\begin{frame}{Liquidations: Two Approaches (cont.)}
+\begin{frame}{Liquidations: Two Approaches}
 
 With protocols unable to become active by themselves, they \textbf{rely on arbitrageurs} to spot and liquidate unhealthy positions.
 

@@ -2,28 +2,33 @@
 % Figures
 
 \node (borrower) at (-4.6,0) {\includegraphics[height = 1.7cm]{../assets/images/agents/handing_right}};
-\node [below of = borrower, yshift = -0.4cm] {\textbf{Borrower}};
+\node [below of = borrower, yshift = -0.4cm] {\textbf{Alice}};
 
 \node (protocol) at (0,0) {\includegraphics[height = 1.7cm]{../assets/images/smart_contract}};
-\node [below of = protocol, yshift = -0.4cm] {\textbf{Protocol}};
+\node [below of = protocol, yshift = -0.4cm] {\textbf{CDM}};
 
 \node (lender) at (4.6,0) {\includegraphics[height = 1.7cm]{../assets/images/agents/handing_left}};
-\node [below of = lender, yshift = -0.4cm] {\textbf{Lender}};
+\node [below of = lender, yshift = -0.4cm] {\textbf{Bob}};
 
 
 % Arrows with text
 
 \footnotesize
 
+\uncover<2->{
+\draw[->, black]	([yshift=0.6cm]borrower.east) -- ([yshift=0.6cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{Asset $X$}};
 
-\draw[->, black]	([yshift=0.5cm]borrower.east) -- ([yshift=0.5cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{Collateral \& interest}};
+\draw[<-, black]	([yshift=0.2cm]borrower.east) -- ([yshift=0.2cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{$IBT_X$}};
+}
 
-\draw[<-, black]	([yshift=-0.3cm]borrower.east) -- ([yshift=-0.3cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{Loan}};
+\uncover<4->{
+\draw[<-, black]	([yshift=-0.4cm]borrower.east) -- ([yshift=-0.4cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{Loan in $Y$}};
 
-\draw[->, black]	([yshift=0.5cm]lender.west) -- ([yshift=0.5cm]protocol.east) node[midway, fill=white, text width = 1.2cm, text = darkmint, align = center] {\textbf{Assets}};
+%\draw[->, black]	([yshift=-0.7cm]borrower.east) -- ([yshift=-0.7cm]protocol.west) node[midway, fill=white, text width = 1.6cm, text = darkmint, align = center] {\textbf{Interest $Y$}};
+}
 
-\draw[<-, black]	([yshift=-0.3cm]lender.west) -- ([yshift=-0.3cm]protocol.east) node[midway, fill=white, text width = 1.2cm, text = darkmint, align = center] {\textbf{Yield}};
+\uncover<3->{
+\draw[->, black]	([yshift=0.25cm]lender.west) -- ([yshift=0.25cm]protocol.east) node[midway, fill=white, text width = 1.2cm, text = darkmint, align = center] {\textbf{Asset $Y$}};
 
-
-
-
+\draw[<-, black]	([yshift=-0.15cm]lender.west) -- ([yshift=-0.15cm]protocol.east) node[midway, fill=white, text width = 1.2cm, text = darkmint, align = center] {\textbf{$IBT_Y$}};
+}
