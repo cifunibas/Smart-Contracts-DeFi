@@ -241,7 +241,7 @@ In CDMs, participants receive \emph{interest bearing tokens} for the assets prov
     \textbf{Naming} & a\textit{Reserve} (e.g., aDai) & c\textit{Reserve} (e.g., cDai) \vspace{0.5em}\\
     \textbf{Redemption} & 1:1 & $cToken \cdot XRate_{reserve}$ \vspace{0.5em}\\
     \textbf{Interest Logic} & Base rate + two slopes split by optimal utilization. & Base rate + one slope \textbf{or} two slopes split by optimal utilization. \vspace{0.5em}\\
-    \textbf{Security Reserve} & By reserve asset. Held by treasury as aToken. & By reserve asset. Value stored in each contract. \vspace{0.5em}\\
+    %\textbf{Security Reserve} & By reserve asset. Held by treasury as aToken. & By reserve asset. Value stored in each contract. \vspace{0.5em}\\
     \textbf{Interest Calculation} & Per second. With every tx affecting debt or liquidity balances. & Per block. With every tx affecting debt or liquidity balances. \vspace{0.5em}\\
     \textbf{Interest Model} & Stable and variable rates. & Variable rates only. \vspace{0.5em}\\
     \textbf{Liquidator} & Can choose between reserve asset and aToken. & Gets cToken.\\
@@ -290,8 +290,7 @@ Most CDM protocols have a variable borrower interest rate $r_b$. It is usually a
 %%%
 \begin{frame}{CDM: Borrower's Interest and Lender's Yield }
 
-In a CDM applying two interest slopes for an asset defined by the tuple $(r_{min}, r_{opt}, r_{max}, u_{opt})$, current $r_b$ accrued by borrowers can be expressed as follows:
-
+In a CDM with two distinct slope intervals, the borrower's interest rate $r_b$ is a two-case function of $u_t$, with the protocol parameters $r_{min}, r_{opt}, r_{max}$ and $u_{opt}$:
 
 \begin{equation*}
 	r_b = 
@@ -304,7 +303,7 @@ In a CDM applying two interest slopes for an asset defined by the tuple $(r_{min
 \vspace{1em}
 
 \uncover<2-> {
-The lenders' interest rate can be expressed as:
+The lenders' interest rate $r_l$ can be expressed as:
 %
 \begin{equation*}
 	r_l = u_t r_b (1-\rho) 
