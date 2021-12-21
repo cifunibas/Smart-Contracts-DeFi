@@ -1,0 +1,302 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Introduction to Tokenization and ERC20}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Recap: Asset Layer}
+
+\vspace{2 em}
+
+\begin{figure}[t]
+	\centering
+	
+	\resizebox{0.9\textwidth}{!}{
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/defi_stack_ALhighlight.tex}
+	\end{tikzpicture}}
+	\caption{The DeFi Stack \cite{FS:21}}
+\end{figure}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Cryptoasset Technical Categories}
+	\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=2em]{../assets/images/ethertoken}
+				\includegraphics[height=2em]{../assets/images/bitcointoken}
+			\end{center}
+		\end{minipage}
+		\begin{minipage}{0.75\textwidth}
+			\textbf{Native Protocol Asset (e.g. Bitcoin or Ether):} \\
+			Are usually used as block reward and for the transaction fees of the corresponding Blockchain.
+		\end{minipage}
+	
+		\pause
+		\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=2em]{../assets/images/green_coin}
+				\includegraphics[height=2em]{../assets/images/blue_coin}
+				\includegraphics[height=2em]{../assets/images/grey_coin}
+			\end{center}
+		\end{minipage}
+		\begin{minipage}{0.75\textwidth}
+			\textbf{Colored Coins (UTXO-based Standards):} \\
+			Add data to transaction outputs and thereby marks them as having a purpose in addition to the original (Bitcoin) unit.
+		\end{minipage}
+	
+		\pause
+		\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=4em]{../assets/images/CA}
+			\end{center}
+		\end{minipage}
+		\begin{minipage}{0.75\textwidth}
+			\textbf{Smart Contract-based Token Standards:} \\
+			Use smart contracts to create and manage a new token class. Functions allow interactions and balances are reflected in the contract state.
+		\end{minipage}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Asset Tokenization}
+	\begin{figure} [h]
+ 		\center
+			\input{../assets/figures/tokenizable-assets.tex}
+ 	\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Examples}
+Some examples of token applications (non-exhaustive list):
+	\begin{itemize}
+		\item<2-> Governance tokens
+		\item<3-> Utility tokens
+		\item<4-> Basket / Wrapper tokens
+		\item<5-> Security tokens
+		\item<6-> Synthetic tokens
+		\item<7-> Stablecoins
+		\begin{itemize}
+			\item<8-> Off-chain collateralized
+			\item<9-> On-chain collateralized
+			\item<10-> Pure algorithmic (no collateral)
+			\item<11-> Rebase tokens
+		\end{itemize}
+		\item<12-> ...
+ 	\end{itemize}
+ 	
+ 	\uncover<13->{
+ 	\begin{keytakeaway}{External promises and Counterparty Risk}
+Any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
+\end{keytakeaway}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Token Contracts}
+
+\begin{minipage}{0.35\textwidth}
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/token_contract.tex}
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.6\textwidth}
+			In essence, a smart contract-based token is \color{focus}a mapping \color{black}of accounts with token balances and a \color{focus} set of functions \color{black} that define how these balances can be changed.  
+\end{minipage}
+
+\vspace{2 em}
+
+\begin{itemize}
+	\item<2-> \textbf{Any smart contract} containing these elements can be interpreted as token contract.
+	\item<3-> \textbf{Token standards} (e.g., ERC20, ERC721) specify basic interfaces and allow third party contracts to use tokens in a standardized way.
+\item<4-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that. 
+\end{itemize}	
+	
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{ERC20 Token Standard: Functions}
+
+A \textbf{standardized function interface} allows smart contracts to interact with any ERC20 token:
+\texttt{
+\begin{itemize}
+	\item	function totalSupply() public view returns (uint256)
+	\item	function balanceOf(address $\_$owner) public view returns (uint256 balance)
+	\item	function transfer(address $\_$to, uint256 $\_$value) public returns (bool success)
+	\item	function transferFrom(address $\_$from, address $\_$to, uint256 $\_$value) public returns (bool success)
+	\item	function approve(address $\_$spender, uint256 $\_$value) public returns (bool success)
+	\item	function allowance(address $\_$owner, address $\_$spender) public view returns (uint256 remaining)
+\end{itemize}
+}
+
+\end{frame}
+%%%
+%%%
+\begin{frame}{ERC20 Token Standard: Events and Limitations }
+
+A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
+\texttt{
+\begin{itemize}
+	\item	event Transfer(address indexed $\_$from, address indexed $\_$to, uint256 $\_$value)
+	\item	event Approval(address indexed $\_$owner, address indexed $\_$spender, uint256 $\_$value)
+\end{itemize}
+}
+
+\uncover<2->{
+
+\vspace{1em}
+
+\begin{keytakeaway}{Interface Specification}
+ERC20 is a \textbf{interface standard}.
+\begin{itemize}
+	\item It requires a set of functions and events, as well as the expected behavior. It \textbf{does not specify the implementation} of the contract.
+	\item	The functions and events are \textbf{minimum requirements}. ERC20 does not limit other functionalities the contract may have.
+\end{itemize}
+\end{keytakeaway}
+	
+\vspace{1 em}
+\link \href{https://eips.ethereum.org/EIPS/eip-20}{ERC20 Token Standard Proposal}
+}
+
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}{Developing the Cryptolectures Coin}
+
+\textbf{Goal: }Create our own smart contract-based Cryptolectures Coin.
+\vspace{1.5em}
+
+\centering
+	\begin{tikzpicture}[scale=1.5, every node/.style={scale=1.5}]
+			\input{../assets/figures/CLC_token.tex}
+	\end{tikzpicture}
+
+\vspace{1em}
+\begin{itemize}
+	\item Simple token in line with ERC20 standard.
+	\item A few nice-to-have features, such as setting a token symbol.
+	\item Using a constructor to define the key variables at contract deployment.
+\end{itemize}
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{CLC: Defining the Variables}
+
+	\begin{samplecode}{Simple ERC20: Variables}
+		\input{../assets/solidity_code/simple_ERC20_variables.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{CLC: Setting Up Events}
+
+	\begin{samplecode}{Simple ERC20: Events}
+		\input{../assets/solidity_code/simple_ERC20_events.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{CLC: The Constructor}
+
+	\begin{samplecode}{Simple ERC20: Constructor}
+		\input{../assets/solidity_code/simple_ERC20_constructor.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{CLC: Transfer Own Tokens}
+
+	\begin{samplecode}{Simple ERC20: Functions 1/3}
+		\input{../assets/solidity_code/simple_ERC20_transfer.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{CLC: Transfer Tokens from Allowance}
+
+	\begin{samplecode}{Simple ERC20: Functions 2/3}
+		\input{../assets/solidity_code/simple_ERC20_transferAllowance.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{CLC: Granting Allowance and Checking Balance}
+
+	\begin{samplecode}{Simple ERC20: Functions 3/3}
+		\input{../assets/solidity_code/simple_ERC20_balances.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Exercise}
+
+\begin{exercise}{YourCoin Exercise}
+\begin{enumerate}
+	\item	Apply the learnings from this session and develop your own token contract
+	\item	Deploy the contract on testnet
+	\item 	Try sending tokens and granting allowances with a classmate or on your own with two different EOAs.
+\end{enumerate}
+\end{exercise}					
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+\end{document}
