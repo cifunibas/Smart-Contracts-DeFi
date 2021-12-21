@@ -1,0 +1,20 @@
+
+% Figures
+
+\node (borrower) at (-8,0) {\includegraphics[height = 1.7cm]{../assets/images/agents/handing_right}};
+\node [below of = borrower, yshift = -0.4cm] {\textbf{Alice}};
+
+\node (protocol) at (0,0) {\includegraphics[height = 1.7cm]{../assets/images/smart_contract}};
+\node [below of = protocol, yshift = -0.4cm] {\textbf{CDP}};
+
+% Arrows with text
+
+\footnotesize
+
+\uncover<2->{
+\draw[->, black]	([yshift=0.2cm]borrower.east) -- ([yshift=0.2cm]protocol.west) node[midway, fill=white, text = darkmint, align = center] {\textbf{Asset $X$}};
+}
+
+\uncover<3->{
+\draw[<-, black]	([yshift=-0.2cm]borrower.east) -- ([yshift=-0.2cm]protocol.west) node[midway, fill=white, text = darkmint, align = center] {\textbf{Loan in newly minted $Y$}};
+}

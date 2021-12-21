@@ -1,0 +1,26 @@
+
+% Axis
+
+\draw[->] (0,0) -- (0,5) node [above ]{$\Pi(x^\ast)$};
+\draw[->] (0,0) -- (8,0) node [right] {$x^\ast$};
+
+
+% Slope
+
+\draw [darkmint, very thick](0,1) node [left, xshift = -0.1cm, black]{$-\epsilon$} -- (2,1) -- (8,4);
+
+
+% Lines and Labels
+
+\draw [densely dotted, thin] (-0.1,2.5)node [left, black] {$0$} -- (8,2.5);
+
+\draw [densely dotted, thin] (2,-0.1) node [below, black]{$x(1 + \rho) + \bar{\rho}$} -- (2,5);
+
+\draw [densely dotted, thin] (5,-0.1) node [below, black]{$x(1 + \rho) + \bar{\rho} + \epsilon$} -- (5,5);
+
+\footnotesize
+
+\node at (1,4.5) {\textit{Reversion}};
+
+\node at (3.5,4.5) {\textit{Execution with Loss}};
+\node at (6.7,4.5) {\textit{Execution with Profit}};

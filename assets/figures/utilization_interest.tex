@@ -1,0 +1,27 @@
+
+% Axis
+
+\draw[->] (0,0) -- (0,6) node [above ]{$r_b(u_t)$};
+\draw[->] (0,0) -- (8,0) node [right] {$u_t$};
+
+
+% Slopes and lines
+
+\draw [darkmint, very thick](0,0.2) -- (6.4,1) -- (8,5.6);
+
+\draw [densely dotted, thin] (-0.2,5.6) node [left] {$r_{max}$} -- (8,5.6);
+\draw [densely dotted, thin] (-0.2,1) node [left] {$r_{opt}$} -- (8,1);
+\draw [densely dotted, thin] (-0.2,0.2) node [left] {$r_{min}$} -- (8,0.2);
+
+
+% Labels and Braces
+
+\draw [thick] (6.4,0.1) -- (6.4,-0.1) node [below, align = center, text = black] {$u_{opt}$};
+
+%\draw [thick,] (-0.2,0.2) -- (0.1,0.2) node [xshift = -3pt, left, align = right, text = black] {$r_0$};
+
+%\draw [decorate,decoration={brace,amplitude=2pt},xshift=-2pt,yshift=0pt](0,0) -- (0.0,0.12) node [black,midway,xshift=-0.3cm] {$r_0$};
+
+%\draw [decorate,decoration={brace,amplitude=4pt},xshift=-2pt,yshift=0pt, lightred, thick](0,0.25) -- (0.0,0.95) node [black,midway,xshift=-0.35cm] {$s_1$};
+
+%\draw [decorate,decoration={brace,amplitude=4pt},xshift=-2pt,yshift=0pt, lightred, thick](0,1.05) -- (0,5.9) node [black,midway,xshift=-0.35cm] {$s_2$};
