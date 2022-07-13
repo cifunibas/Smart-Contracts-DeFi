@@ -1,0 +1,153 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Non-Fungible Tokens \& ERC-721}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{(Non-) Fungibility}
+
+So far, we have only considered fungible tokens. However, tokens can also represent ownership of non-fungible assets.\\
+
+\vspace{1em}
+
+\uncover<2->{
+	\textbf{Fungibility:} Assets that are \textit{interchangeable}, e.g., a \$1 USD bill or shares in a company.\\
+}
+
+\vspace{0.5em}
+
+\uncover<3->{
+	\textbf{Non-fungibility:} Assets that are \textit{distinct}, e.g., real estate or art.
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Examples}
+
+Some examples of non-fungible token applications (non-exhaustive list):
+
+\begin{itemize}
+	\item<2-> Art
+	\item<3-> Collectibles
+	\item<4-> Domain names
+	\item<5-> Land parcels
+	\item<6-> In-game assets
+	\item<7-> Tickets
+	\item<7-> ...
+\end{itemize}
+
+\uncover<7->{
+\begin{keytakeaway}{External promises and counterparty risk}
+	Once again: any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
+\end{keytakeaway}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: Functions}
+	A \textbf{standardized function interface} allows smart contracts to interact with any ERC721 token:
+\texttt{\scriptsize
+\vspace{0.5em}
+\begin{itemize}
+	\item<2->	function balanceOf(address $\_$owner) \textcolor{red}{external} view returns (uint256)
+	\item<3->	\textcolor{red}{function ownerOf(uint256 $\_$tokenId) external view returns (address)}
+	\item<4->	\textcolor{red}{function safeTransferFrom(address $\_$from, address $\_$to, uint256 $\_$tokenId, bytes data) external payable}
+	\item<5->	\textcolor{red}{function safeTransferFrom(address $\_$from, address $\_$to, uint256 $\_$tokenId) external payable}
+	\item<6->	function transferFrom(address $\_$from, address $\_$to, uint256 \textcolor{red}{$\_$tokenId}) \textcolor{red}{external payable}
+	\item<7->	function approve(address $\_$approved, uint256 \textcolor{red}{$\_$tokenId}) \textcolor{red}{external payable}
+	\item<8->	\textcolor{red}{function setApprovalForAll(address $\_$operator, bool $\_$approved) external}
+	\item<9->	\textcolor{red}{function getApproved(uint256 $\_$tokenId) external view returns (address)}
+	\item<10->	\textcolor{red}{function isApprovedForAll(address $\_$owner, address $\_$operator) external view returns (bool)}
+\end{itemize}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: Events}
+\vspace{0.5em}
+A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
+\texttt{\scriptsize
+\vspace{0.5em}
+\begin{itemize}
+	\item<2->	event Transfer(address indexed $\_$from, address indexed $\_$to, uint256 \textcolor{red}{indexed $\_$tokenId})
+	\item<3->	event Approval(address indexed $\_$owner, address indexed $\_$approved, uint256 \textcolor{red}{indexed $\_$tokenId})
+	\item<4->	\textcolor{red}{event ApprovalForAll(address indexed $\_$owner, address indexed $\_$operator, bool $\_$approved)}
+\end{itemize}
+}
+\end{frame}
+%%%
+
+\begin{frame}{ERC721 Token Standard: Wallet Interface}
+A wallet/broker/auction application \textbf{MUST} implement the wallet interface if it will accept safe transfers:
+\begin{samplecode}{Wallet Interface}
+		\input{../assets/solidity_code/erc721-wallet-interface.tex}
+\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata Extension (Optional)}
+\begin{samplecode}{Metadata Extension}
+		\input{../assets/solidity_code/erc721-metadata-extension.tex}
+\end{samplecode}
+
+\vspace{0.5em}
+
+\uncover<2->{
+	\begin{keytakeaway}{Mutability of the URI}
+		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an interesting case.}
+	\end{keytakeaway}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata JSON Schema Example}
+\begin{samplecode}{ERC721 Metadata JSON Schema}
+		\input{../assets/other_code/erc721-metadata-json-schema.tex}
+\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Enumeration Extension}
+\begin{samplecode}{Enumeration Extension}
+		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
+\end{samplecode}
+
+\vspace{1 em}
+\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
