@@ -98,6 +98,23 @@ A \textbf{standardized event set} allows frontends and (off-chain) applications 
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{ERC165 Interface}
+	\begin{samplecode}{Query if a contract implements an interface}
+		\input{../assets/solidity_code/erc165.tex}	
+	\end{samplecode}
+
+\uncover<2->{
+\textbf{Example:} The identifier for this interface is \texttt{0x01ffc9a7}. You can check this by running \texttt{bytes4(keccak256('supportsInterface(bytes4)'));}.\\
+\vspace{0.5em}
+}
+\uncover<3->{
+\texttt{supportsInterface} returns \texttt{true} if the \texttt{interfaceID} is \texttt{0x01ffc9a7} or for any other \texttt{interfaceID} the contract implements. It returns \texttt{false} if \texttt{interfaceID} is \texttt{0xffffffff} or for any other \texttt{interfaceID} that is not implemented in the contract.
+}
+\end{frame}
+%%%
+
+%%%
 \begin{frame}{ERC721 Token Standard: Wallet Interface}
 A wallet/broker/auction application \textbf{MUST} implement the wallet interface if it will accept safe transfers:
 \begin{samplecode}{Wallet Interface}
@@ -116,7 +133,7 @@ A wallet/broker/auction application \textbf{MUST} implement the wallet interface
 
 \uncover<2->{
 	\begin{keytakeaway}{Mutability of the URI}
-		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an interesting case.}
+		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative case in practice.}
 	\end{keytakeaway}
 }
 \end{frame}
@@ -133,15 +150,14 @@ A wallet/broker/auction application \textbf{MUST} implement the wallet interface
 %%%
 \begin{frame}{On-chain vs. Off-chain Data}
 
-The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Here are a few examples:\\
+The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Examples:\\
 
 	\begin{itemize}
-		\item<2-> On-chain generated art, e.g., Autoglyphs % On-chain generated via draw function. When users createGlyph, the _mint function is called which checks if PRICE is paid, etc. If all requirements are met, the contract draws the glyph and returns the URI. If the tokenURI is called, the contract simply returns the output of the draw function.
-		\item<3-> On-chain verifiable hash, e.g., Cryptopunks % Off-chain picture (https://www.larvalabs.com/public/images/cryptopunks/punks.png) which hashes to (ac39af4793119ee46bbff351d8cb6b5f23da60222126add4268e261199a2921b) which can be verified in the smart contract. Also, Cryptopunks are now fully on-chain: https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2. Saving 24x24 pixel pictures is do-able on-chain.
-		\item<4-> Off-chain stored metadata on decentralized file system, e.g., Bored Apes Yacht Club % Metadata in JSON format on IPFS (ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1) incl. link to image (ipfs://QmPbxeGcXhYQQNgsC6a36dDyYUcHgMLnGKnF8pVFmGsvqi). baseURI can be updated via setBaseURI, but requires the user to be the smart contract owner (onlyOwner). owner address is zero address.
-		\item<5-> Off-chain stored metadata on centralized file system, e.g., Cryptokitties % JSON and image centralized on Dapper Labs website, e.g., (https://api.cryptokitties.co/kitties/2252) and (https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg)
+		\item<2-> On-chain generated %, e.g., Autoglyphs % On-chain generated via draw function. When users createGlyph, the _mint function is called which checks if PRICE is paid, etc. If all requirements are met, the contract draws the glyph and returns the URI. If the tokenURI is called, the contract simply returns the output of the draw function.
+		\item<3-> On-chain verifiable hash %, e.g., Cryptopunks % Off-chain picture (https://www.larvalabs.com/public/images/cryptopunks/punks.png) which hashes to ac39af4793119ee46bbff351d8cb6b5f23da60222126add4268e261199a2921b can be verified in the smart contract. Also, Cryptopunks are now fully on-chain: https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2. Saving 24x24 pixel pictures is do-able on-chain.
+		\item<4-> Off-chain stored metadata on a decentralized file system %, e.g., Bored Apes Yacht Club % Metadata in JSON format on IPFS (ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1) incl. link to image (ipfs://QmPbxeGcXhYQQNgsC6a36dDyYUcHgMLnGKnF8pVFmGsvqi). baseURI can be updated via setBaseURI, but requires the user to be the smart contract owner (onlyOwner). owner address is zero address.
+		\item<5-> Off-chain stored metadata on a centralized file system %, e.g., Cryptokitties % JSON and image centralized on Dapper Labs website, e.g., (https://api.cryptokitties.co/kitties/2252) and (https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg)
 	\end{itemize}
-
 \end{frame}
 %%%
 
