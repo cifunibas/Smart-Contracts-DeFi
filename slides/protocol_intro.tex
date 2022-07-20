@@ -1,0 +1,83 @@
+% Choose one to switch between slides and handout
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Protocol Introduction \& Composability}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{DeFi Stack}
+	\begin{figure}
+	\scalebox{0.7}{
+	\begin{tikzpicture}
+	\input{../assets/figures/defi_stack_highlight_protocol_layer}
+	\end{tikzpicture}
+	}
+	\caption{The DeFi Stack \cite{FS:21}}
+\end{figure}
+\end{frame}
+
+%%%
+
+%%%
+\begin{frame}{A Very Simple Token Basket}
+
+\textbf{Goal:} Let us create a simple protocol, that emulates a mutual fund with a 50/50 allocation in red and blue tokens and mints redeemable fund share tokens that represent partial ownership. \\ \vspace{1em}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Composability}
+
+\textbf{Starting Point:} Bob owns only red rokens but would like to buy mutual fund share tokens from the red \& blue token basket contract. \\ \vspace{1em}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Composability ctd.}
+
+\textbf{Goal:} Create a token basket that uses a decentralized lending pool to generate yield. \\ \vspace{1em}
+	
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Code Sample}
+	\begin{samplecode}{Minimum viable token}
+		\input{../assets/solidity_code/minimum-viable-token.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
