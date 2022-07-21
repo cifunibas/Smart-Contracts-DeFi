@@ -1,0 +1,321 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Title of Video Lecture}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+
+%%%
+\begin{frame}{Crypto Asset Management}
+
+Concepts in Crypto Asset Management: \\ \vspace{1em}
+	
+	\begin{itemize}
+		\item<1-> Token Basket 
+		\item<2-> Yield Farming
+		\item<3-> Distribution concepts
+		\item<4-> Airdrops
+	\end{itemize}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Token Basket}
+
+Simillar to currency baskets, a token basket is a tokenized collection of crypto assets.\\ \vspace{1em}
+
+
+	\begin{itemize}
+		\item<1-> The crypto assets reside within a smart contract.
+		\item<2-> The token basket is fractionally represented by its own token.
+		\item<3-> Token are minted/burned upon investing / liquidating.
+		\item<3-> The underlying assets are bought / sold automatically  through the smart contract accordingly.
+	\end{itemize}
+	
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Token Basket}
+
+Advantages and Use Cases of Token Baskets:\\ \vspace{1em}
+
+	\begin{enumerate}
+		\item<1-> Diversification of Assets and Risks
+		\item<2-> Reduction of Gas and Transaction Fees
+		\item<3-> Management of Assets
+	\end{enumerate}
+	
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Token Basket}
+\vspace{1em}
+
+There are two types of Token Baskets: \vspace{1em}
+	
+	\begin{itemize}
+		\item<1-> actively managed
+		\begin{itemize}
+			\item<1->Example: Enzyme / Melon Protocol
+		\end{itemize}
+		\vspace{1em}
+		\item<2-> passively managed
+		\begin{itemize}
+			\item<2->Example: Set Protocol
+		\end{itemize}
+	\end{itemize}
+	
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Enzyme / Melon Protocol}
+
+Entyme/Melon is a ERC-20 based fund management protocol.
+\vspace{1em}
+
+	\begin{itemize}
+		\item<1-> A fund can be opened by anyone.
+		\item<2-> Each fund is operated by an administrator that
+	\begin{itemize}	
+		\item<1-> manages asset allocation,
+		\item<2-> may charge for a comission fee,
+		\item<3-> and adjusts other parameters.
+		
+	\end{itemize}	
+		\item<3-> Investors choose the fund they would like to invest in.
+		\item<4-> When the administrator readjusts the allocation, assets are sold / bought accordingly by the smart contract.
+	\end{itemize}
+	
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Token Basket}
+
+Reasons for Token Baskets: \\ \vspace{1em}
+
+	\begin{enumerate}
+		\item<1-> Diversification of Assets and Risks
+		\item<2-> Reduction of Gas and Transaction Fees
+		\item<3-> Management of Assets
+	\end{enumerate}
+	
+\vspace{1em}
+
+There are two types of Token baskets: \vspace{1em}
+	
+	\begin{itemize}
+		\item<4-> actively managed
+		\item<5-> passively managed
+	\end{itemize}
+	
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Tt}
+
+Concepts in Crypto Asset Management: \\ \vspace{1em}
+	
+	\begin{itemize}
+		\item<1-> Token Basket 
+		\item<2-> Yield Farming
+		\item<3-> Distribution concepts
+		\item<4-> Airdrops
+	\end{itemize}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Asset Management}
+
+This is how lists can be used in the template. \\ \vspace{1em}
+
+Some of the main features of this template:
+	
+	\begin{itemize}
+		\item<1-> stay focused
+		\item<2-> save ink
+		\item<3-> do not get distracted
+	\end{itemize}
+
+	\vspace{1em}	
+	\uncover<4->{The same works for Enumerate environments:}
+
+	\begin{enumerate}
+		\item<5-> This is the first point
+		\item<6-> and the second one
+		\item<7-> Last but not least, the third one
+	\end{enumerate}
+	
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Tables}
+	\begin{table}
+		\begin{tabular}{ll}
+			A & B\\
+			C & D
+		\end{tabular}
+		\caption{This is a table}
+		\label{tbl:simpletable}
+	\end{table}
+\end{frame}
+
+%%%
+
+
+%%%
+\begin{frame}{Box Conventions}
+	
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1em}
+			\begin{samplecode}{Basic Contract Structure (Solidity)}
+				Pragma solidity  \textasciicircum 0.4.19; \
+				contract HelloWorld \{ \\
+				\color{softanthracite} /* This is where you write your code */
+			\end{samplecode}			
+		\end{column} %\hfill
+
+		\begin{column}{0.5\textwidth}
+			\textbf{Sample Code Box}\\
+			Contains code snippets in Solidity or pseudo code.
+		\end{column}
+	\end{columns}
+
+\vspace{2.5em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-0.8em}
+			\begin{keytakeaway}{Transaction Definitions}
+				A transaction is a message send by an externally owned account.
+			\end{keytakeaway}			
+		\end{column}
+		
+		\begin{column}{0.5\textwidth}
+			\textbf{Key Take-Away}\\
+			Highlights important concepts and definitions.
+		\end{column}
+	\end{columns}
+
+\vspace{2.5em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-0.9em}
+			\begin{exercise}{Exercise 1}
+				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
+			\end{exercise}					
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\textbf{Exercises}\\
+			Things for you to try out.
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+%%%
+
+
+%%%
+\begin{frame}{Code Sample}
+	\begin{samplecode}{Minimum viable token}
+		\input{../assets/solidity_code/minimum-viable-token.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Equations}
+
+Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
+
+However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
+	\begin{align}
+		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
+		y &= x^2-5 \label{eq:secondstep}
+	\end{align}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Figures}
+	\begin{figure}
+		\center
+		\includegraphics[width=0.8\textwidth]{../config/logo_cif}	
+		\caption{Center for Innovative Finance Logo}
+		\label{fig:logo}
+	\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Links}
+		Links are signaled with the respective icon, which is set up in the config file and can be called with the respective command.\\
+		
+		\link \href{https://github.com/cifunibas}{Repository: CIF on GitHub}.
+		
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Labels and (Non-Bib) References}
+	In some cases in can make sense to reference to a figure, table or equation on a different slide. Use \texttt{$\backslash$pageref\{$<$label$>$\}} if you want to highlight, that there is a related resource on slide \pageref{fig:logo}.\\ \vspace{1em}
+	
+	Do - under no circumstances - hardcode references.	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Bib-References}
+		Read the Bitcoin Whitepaper, \cite{nakamotoBitcoin2008}.
+\end{frame}
+%%%
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
