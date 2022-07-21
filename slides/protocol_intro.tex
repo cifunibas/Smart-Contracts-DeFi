@@ -39,14 +39,95 @@
 
 \textbf{Goal:} Let us create a simple protocol, that emulates a mutual fund with a 50/50 allocation in red and blue tokens and mints redeemable fund share tokens that represent partial ownership. \\ \vspace{1em}
 	
+\begin{figure}
+	\begin{tikzpicture}
+	
+		%icons
+		\uncover<1->{
+		\node(alice) at (-4.5,0) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (-4.5,-1) {Alice};
+		\node(SC) at (4.7,0) {\includegraphics[scale=0.12]{../assets/images/smart_contract.png}}; 
+		\node at (4.7,-1) {Token Basket};
+	
+		%arrows
+		\draw [->, ultra thick] (-3,0) -- (3,0) node [midway,above] {red token};
+		\draw [->, ultra thick] (-3,0.75) -- (3,0.75) node [midway,above] {blue token};
+		}
+		\uncover<2->{
+		\draw [<-, ultra thick] (-3,-0.75) -- (3,-0.75) node [midway,above] {yellow basket token};
+		}
+		%circles
+		\uncover<1->{
+		\draw[fill=blue, draw=black, thick] (-3,0) circle (6pt);
+		\draw[fill=red, draw=black, thick] (-3,0.75) circle (6pt);
+		}
+		\uncover<2->{
+		\draw[fill=yellow, draw=black, thick] (3,-0.75) circle (6pt);
+		}
+
+		%rectangle
+		\uncover<3->{
+		\draw [dashed,thick] ( -3.5 , 1.5) rectangle (3.5 ,-1.5);
+		\node at (0,-2) {One inseparable transaction};
+		}
+		
+	\end{tikzpicture}
+\end{figure}
+
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Composability}
+\begin{frame}{Composability ctd.}
 
 \textbf{Starting Point:} Bob owns only red rokens but would like to buy mutual fund share tokens from the red \& blue token basket contract. \\ \vspace{1em}
+
+\begin{figure}
+	\begin{tikzpicture}
+	
+		%icons
+		\uncover<1->{
+		\node(alice) at (-4.75,0) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};
+		\node at (-4.75,-1) {Bob};
+		\node at (0,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node at (0,-1) {Token Basket};
+		}
+		\uncover<2->{
+		\node(SC) at (4.75,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node at (4.75,-1) {DEX};
+		}
+		%arrows
+		\uncover<3->{
+		\draw [->, ultra thick] (-4,0.5) -- (-0.75,0.5) node [midway,above] {\scriptsize{2x red token}};
+		}
+		\uncover<4->{
+		\draw [->, ultra thick] (0.75,0.5) -- (4,0.5) node [midway,above] {\scriptsize{red token}};
+		\draw [<-, ultra thick] (0.75,-0.25) -- (4,-0.25) node [midway,above] {\scriptsize{blue token}};
+		}
+		\uncover<5->{
+		\draw [<-, ultra thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{yellow basket token}};
+		}
+		%circles
+		\uncover<1->{
+		\draw[fill=red, draw=black, thick] (-4,0.6) circle (6pt);
+		\draw[fill=red, draw=black, thick] (-3.9,0.4) circle (6pt);
+		}
+		\uncover<4->{
+		\draw[fill=red, draw=black, thick] (0.9,0.5) circle (6pt);
+		\draw[fill=blue, draw=black, thick] (3.8,-0.25) circle (6pt);
+		}
+		\uncover<5->{
+		\draw[fill=yellow, draw=black, thick] (-0.9,-0.25) circle (6pt);
+		}
+		\uncover<6->{
+		%rectangle
+		\draw [dashed,thick] ( -5.5 , 1.5) rectangle (5.5 ,-1.5);
+		\node at (0,-2) {One inseparable transaction};
+		}
+		
+	\end{tikzpicture}
+\end{figure}
 	
 \end{frame}
 %%%
@@ -55,8 +136,62 @@
 %%%
 \begin{frame}{Composability ctd.}
 
-\textbf{Goal:} Create a token basket that uses a decentralized lending pool to generate yield. \\ \vspace{1em}
+\textbf{Goal:} Create a token basket that uses a decentralized lending pool to generate yield. \\ \vspace{0.5em}
 	
+	\begin{figure}
+	\begin{tikzpicture}
+\uncover<1->{
+		%icons
+		\node at (-4.75,0) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};
+		\node at (-4.75,-1) {\scriptsize{Bob}};
+		\node at (0,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node at (0,-1) {\scriptsize{Token Basket}};
+		\node at (4.75,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node at (4.75,-1) {\scriptsize{DEX}};
+		}
+\uncover<2->{	
+		\node at (4.75,-2) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node at (4.75,-3) {\scriptsize{DLP}};
+		}
+\uncover<1->{
+		%arrows	
+		\draw [->, thick] (-4,0.5) -- (-0.75,0.5) node [midway,above] {\scriptsize{2x red token}};
+		\draw [->, thick] (0.75,0.6) -- (4,0.6) node [midway,above] {\scriptsize{red token}};
+		\draw [<-, thick] (0.75,0.1) -- (4,0.1) node [midway,above] {\scriptsize{blue token}};
+		\draw [<-, thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{yellow basket token}};
+		}
+\uncover<3->{
+		\draw [->, thick] (0.75, -0.3) -- (1.75,-0.3) -- (1.75,-1.75) -- (4,-1.75) node [midway, above] {\scriptsize{red \& blue token}};
+		\draw [<-, thick] (0.75, -0.7) -- (1.5,-0.7) -- (1.5,-2.25) -- (4,-2.25) node [midway, above] {\scriptsize{LP tokens}};
+}
+		%circles
+\uncover<1->{
+		\draw[fill=red, draw=black, thick] (-4,0.6) circle (6pt);
+		\draw[fill=red, draw=black, thick] (-3.9,0.4) circle (6pt);
+
+		\draw[fill=red, draw=black, thick] (0.9,0.6) circle (6pt);
+		\draw[fill=blue, draw=black, thick] (3.8,0.1) circle (6pt);
+
+		\draw[fill=yellow, draw=black, thick] (-0.9,-0.25) circle (6pt);
+		}
+\uncover<3->{
+		\draw[fill=blue, draw=black, thick] (0.9,-0.3) circle (4pt);
+		\draw[fill=red, draw=black, thick] (0.95,-0.2) circle (4pt);
+
+		\draw[fill=mint, draw=black, thick, dotted] (3.8,-2.15) circle (6pt);
+		\draw[fill=red, draw=black, thick] (3.8,-2.15) circle (4pt);
+		\draw[fill=mint, draw=black, thick, dotted] (3.7,-2.35) circle (6pt);
+		\draw[fill=blue, draw=black, thick] (3.7,-2.35) circle (4pt);		
+}
+\uncover<4->{
+		%rectangle
+		\draw [dashed,thick] ( -5.5 , 1.5) rectangle (5.5 ,-3.5);
+		\node at (0,-4) {One inseparable transaction};
+}
+		
+	\end{tikzpicture}
+\end{figure}
+
 \end{frame}
 %%%
 
