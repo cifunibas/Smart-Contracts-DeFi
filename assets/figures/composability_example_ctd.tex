@@ -5,11 +5,11 @@
 		\node at (0,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
 		\node at (0,-1) {\scriptsize{Token Basket}};
 		\node at (4.75,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
-		\node at (4.75,-1) {\scriptsize{DEX}};
+		\node[text width=7em, align=center] at (4.75,-1) {\scriptsize{Decentralized \\[0mm]Exchange}};
 	}
 	\uncover<2->{	
-		\node at (4.75,-2) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
-		\node at (4.75,-3) {\scriptsize{DLP}};
+		\node at (4.75,-2.5) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node[text width=7em, align=center] at (4.75,-3.5) {\scriptsize{Decentralized \\[0mm]Lending Platform}};
 	}
 %arrows	
 	\uncover<1->{
@@ -19,8 +19,8 @@
 		\draw [<-, thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{yellow basket token}};
 	}
 	\uncover<3->{
-		\draw [->, thick] (0.75, -0.3) -- (1.75,-0.3) -- (1.75,-1.75) -- (4,-1.75) node [midway, above] {\scriptsize{red \& blue token}};
-		\draw [<-, thick] (0.75, -0.7) -- (1.5,-0.7) -- (1.5,-2.25) -- (4,-2.25) node [midway, above] {\scriptsize{LP tokens}};
+		\draw [->, thick] (0.75, -0.3) -- (1.75,-0.3) -- (1.75,-2.25) -- (4,-2.25) node [midway, above] {\scriptsize{red \& blue token}};
+		\draw [<-, thick] (0.75, -0.7) -- (1.5,-0.7) -- (1.5,-2.75) -- (4,-2.75) node [midway, above] {\scriptsize{LP tokens}};
 	}
 %circles
 	\uncover<1->{
@@ -35,13 +35,13 @@
 	\uncover<3->{
 		\draw[fill=blue, draw=black, thick] (0.9,-0.3) circle (4pt);
 		\draw[fill=red, draw=black, thick] (0.95,-0.2) circle (4pt);
-		\draw[fill=mint, draw=black, thick, dotted] (3.8,-2.15) circle (6pt);
-		\draw[fill=red, draw=black, thick] (3.8,-2.15) circle (4pt);
-		\draw[fill=mint, draw=black, thick, dotted] (3.7,-2.35) circle (6pt);
-		\draw[fill=blue, draw=black, thick] (3.7,-2.35) circle (4pt);		
+		\draw[fill=mint, draw=black, thick, dotted] (3.8,-2.65) circle (6pt);
+		\draw[fill=red, draw=black, thick] (3.8,-2.65) circle (4pt);
+		\draw[fill=mint, draw=black, thick, dotted] (3.7,-2.85) circle (6pt);
+		\draw[fill=blue, draw=black, thick] (3.7,-2.85) circle (4pt);		
 	}
 %rectangle
 	\uncover<4->{
-		\draw [dashed,thick] ( -5.5 , 1.5) rectangle (5.5 ,-3.5);
-		\node at (0,-4) {One inseparable transaction};
+		\draw [dashed,thick] ( -5.5 , 1.5) rectangle (5.9 ,-4);
+		\node at (0,-4.5) {One inseparable transaction};
 	}
