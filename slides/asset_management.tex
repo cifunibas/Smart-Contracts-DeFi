@@ -24,6 +24,22 @@
 %%%
 \begin{frame}{Crypto Asset Management}
 
+
+\scalebox{0.7}{
+
+\begin{tikzpicture}
+  \input{../assets/figures/defi_stack_protocol_layer_asset_management.tex}
+\end{tikzpicture}
+
+}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Crypto Asset Management}
+
+
 Concepts in Crypto Asset Management: \\ \vspace{1em}
 	
 	\begin{itemize}
@@ -36,6 +52,7 @@ Concepts in Crypto Asset Management: \\ \vspace{1em}
 \end{frame}
 %%%	
 
+
 %%%
 \begin{frame}{Token Basket}
 
@@ -43,10 +60,15 @@ Simillar to currency baskets, a token basket is a tokenized collection of crypto
 
 
 	\begin{itemize}
-		\item<1-> The crypto assets reside within a smart contract.
-		\item<2-> The token basket is fractionally represented by its own token.
-		\item<3-> Token are minted/burned upon investing / liquidating.
-		\item<3-> The underlying assets are bought / sold automatically  through the smart contract accordingly.
+		\item<1-> Crypto assets reside within a smart contract.
+		\item<2-> Token basket is fractionally represented by its own token.
+		\item<3-> Token are minted/burned upon investing/liquidation.
+		\begin{itemize}
+			\item<4-> Investing: Funds sent to the smart contract will be automatically converted via DEX according to set allocation.
+			\item<5-> Liquidation: Underlying funds are sold via DEX according to allocation set. Proceeds are forwarded to the investor. 
+		\end{itemize}
+		
+		\item<6-> Besides gas fees for entering/exiting a token basket, there can be additional protocol and/or administration fees.
 	\end{itemize}
 	
 \end{frame}
@@ -56,12 +78,12 @@ Simillar to currency baskets, a token basket is a tokenized collection of crypto
 %%%
 \begin{frame}{Token Basket}
 
-Advantages and Use Cases of Token Baskets:\\ \vspace{1em}
+Advantages of token baskets:\\ \vspace{1em}
 
 	\begin{enumerate}
 		\item<1-> Diversification of Assets and Risks
 		\item<2-> Reduction of Gas and Transaction Fees
-		\item<3-> Management of Assets
+		\item<3-> For some: Assets under Management
 	\end{enumerate}
 	
 \end{frame}
@@ -73,17 +95,17 @@ Advantages and Use Cases of Token Baskets:\\ \vspace{1em}
 \begin{frame}{Token Basket}
 \vspace{1em}
 
-There are two types of Token Baskets: \vspace{1em}
+There are two types of token askets: \vspace{1em}
 	
 	\begin{itemize}
 		\item<1-> actively managed
 		\begin{itemize}
-			\item<1->Example: Enzyme / Melon Protocol
+			\item<1->Example: Enzyme / Melon Protocol \cite{enzyme}
 		\end{itemize}
 		\vspace{1em}
 		\item<2-> passively managed
 		\begin{itemize}
-			\item<2->Example: Set Protocol
+			\item<2->Example: Set Protocol \cite{set}
 		\end{itemize}
 	\end{itemize}
 	
@@ -106,7 +128,7 @@ Entyme/Melon is a ERC-20 based fund management protocol.
 		
 	\end{itemize}	
 		\item<3-> Investors choose the fund they would like to invest in.
-		\item<4-> When the administrator readjusts the allocation, assets are sold / bought accordingly by the smart contract.
+		\item<4-> When the administrator readjusts the allocation, assets are sold/bought accordingly via DEX by the smart contract.
 	\end{itemize}
 	
 \end{frame}
@@ -115,9 +137,9 @@ Entyme/Melon is a ERC-20 based fund management protocol.
 
 
 %%%
-\begin{frame}{Token Basket}
+\begin{frame}{Yield Farming}
 
-Reasons for Token Baskets: \\ \vspace{1em}
+ \vspace{1em}
 
 	\begin{enumerate}
 		\item<1-> Diversification of Assets and Risks
