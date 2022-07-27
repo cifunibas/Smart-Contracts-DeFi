@@ -6,19 +6,19 @@
 		\node at (4.7,-1) {Token Basket};
 	
 %arrows
-		\draw [->, ultra thick] (-3,0) -- (3,0) node [midway,above] {red token};
-		\draw [->, ultra thick] (-3,0.75) -- (3,0.75) node [midway,above] {blue token};
+		\draw [->, ultra thick] (-3,0) -- (3,0) node [midway,above] {mint token};
+		\draw [->, ultra thick] (-3,0.75) -- (3,0.75) node [midway,above] {red token};
 	}
 	\uncover<2->{
-		\draw [<-, ultra thick] (-3,-0.75) -- (3,-0.75) node [midway,above] {yellow basket token};
+		\draw [<-, ultra thick] (-3,-0.75) -- (3,-0.75) node [midway,above] {grey basket token};
 	}
 %circles
 	\uncover<1->{
-		\draw[fill=blue, draw=black, thick] (-3,0) circle (6pt);
+		\draw[fill=mint, draw=black, thick] (-3,0) circle (6pt);
 		\draw[fill=red, draw=black, thick] (-3,0.75) circle (6pt);
 	}
 	\uncover<2->{
-		\draw[fill=yellow, draw=black, thick] (3,-0.75) circle (6pt);
+		\draw[fill=lightergray, draw=black, thick] (3,-0.75) circle (6pt);
 	}
 
 %rectangle

@@ -15,11 +15,11 @@
 	\uncover<1->{
 		\draw [->, thick] (-4,0.5) -- (-0.75,0.5) node [midway,above] {\scriptsize{2x red token}};
 		\draw [->, thick] (0.75,0.6) -- (4,0.6) node [midway,above] {\scriptsize{red token}};
-		\draw [<-, thick] (0.75,0.1) -- (4,0.1) node [midway,above] {\scriptsize{blue token}};
-		\draw [<-, thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{yellow basket token}};
+		\draw [<-, thick] (0.75,0.1) -- (4,0.1) node [midway,above] {\scriptsize{mint token}};
+		\draw [<-, thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{grey basket token}};
 	}
 	\uncover<3->{
-		\draw [->, thick] (0.75, -0.3) -- (1.75,-0.3) -- (1.75,-2.25) -- (4,-2.25) node [midway, above] {\scriptsize{red \& blue token}};
+		\draw [->, thick] (0.75, -0.3) -- (1.75,-0.3) -- (1.75,-2.25) -- (4,-2.25) node [midway, above] {\scriptsize{red \& mint token}};
 		\draw [<-, thick] (0.75, -0.7) -- (1.5,-0.7) -- (1.5,-2.75) -- (4,-2.75) node [midway, above] {\scriptsize{LP tokens}};
 	}
 %circles
@@ -28,17 +28,17 @@
 		\draw[fill=red, draw=black, thick] (-3.9,0.4) circle (6pt);
 
 		\draw[fill=red, draw=black, thick] (0.9,0.6) circle (6pt);
-		\draw[fill=blue, draw=black, thick] (3.8,0.1) circle (6pt);
+		\draw[fill=mint, draw=black, thick] (3.8,0.1) circle (6pt);
 
-		\draw[fill=yellow, draw=black, thick] (-0.9,-0.25) circle (6pt);
+		\draw[fill=lightergray, draw=black, thick] (-0.9,-0.25) circle (6pt);
 	}
 	\uncover<3->{
-		\draw[fill=blue, draw=black, thick] (0.9,-0.3) circle (4pt);
+		\draw[fill=mint, draw=black, thick] (0.9,-0.3) circle (4pt);
 		\draw[fill=red, draw=black, thick] (0.95,-0.2) circle (4pt);
-		\draw[fill=mint, draw=black, thick, dotted] (3.8,-2.65) circle (6pt);
+		\draw[fill=lightergray, draw=black, thick, dotted] (3.8,-2.65) circle (6pt);
 		\draw[fill=red, draw=black, thick] (3.8,-2.65) circle (4pt);
-		\draw[fill=mint, draw=black, thick, dotted] (3.7,-2.85) circle (6pt);
-		\draw[fill=blue, draw=black, thick] (3.7,-2.85) circle (4pt);		
+		\draw[fill=lightergray, draw=black, thick, dotted] (3.7,-2.85) circle (6pt);
+		\draw[fill=mint, draw=black, thick] (3.7,-2.85) circle (4pt);		
 	}
 %rectangle
 	\uncover<4->{
