@@ -1,0 +1,12 @@
+\begin{lstlisting}[language=Solidity, basicstyle=\scriptsize]
+// The following code generates art.
+
+function draw(uint id) public view returns (string) {
+		...
+		}
+
+function tokenURI(uint256 _tokenId) external view validNFToken(_tokenId) returns (string memory) {
+        return draw(_tokenId);
+    }
+ 
+ \end{lstlisting}
