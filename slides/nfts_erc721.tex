@@ -50,19 +50,13 @@ So far, we have only considered fungible tokens. However, tokens can also repres
 \begin{frame}{Some Examples}
 
 Some examples of non-fungible token applications (non-exhaustive list):
+	\begin{figure}
+		\begin{tikzpicture}[scale = 0.8]
+			\input{../assets/figures/nft_examples.tex}
+		\end{tikzpicture}
+	\end{figure}
 
-\begin{itemize}
-	\item<2-> Art
-	\item<3-> Collectibles
-	\item<4-> Domain names
-	\item<5-> Land parcels
-	\item<6-> Financial assets, e.g., positions in liquidity pools
-	\item<7-> In-game assets
-	\item<8-> Tickets
-	\item<8-> ...
-\end{itemize}
-
-\uncover<8->{
+\uncover<2->{
 \begin{keytakeaway}{External promises and counterparty risk}
 	Once again: any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
 \end{keytakeaway}
@@ -72,11 +66,10 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{Distinction between ERC-20 and ERC-721}
-	While ERC20 tracks the balances that belong to each address, ERC721 tracks the owner of a specific tokenID.
+	While ERC-20 tracks the balances that belong to each address, ERC-721 tracks the owner of a specific tokenID.
 \begin{columns}
-\column{0.4\textwidth}
+\column{0.5\textwidth}
 	\vspace{1em} \\
-		\textbf{ERC-20:} mapping from owner to balance, with address of the owner being the primary key of the mapping.
 		\begin{table}
 			\begin{tabular}{l|c}
 			Address & Amount \\
@@ -86,8 +79,9 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\end{tabular}
 			%\caption*{ERC-20}
 		\end{table}
-\column{0.4\textwidth}
-		\textbf{ERC-721:} mapping from tokenID to owner, with tokenID being the primary key of the mapping.
+		\textbf{ERC-20:} Mapping from owner to balance, with address of the owner being the primary key of the mapping.
+\column{0.5\textwidth}
+	\vspace{1em} \\
 		\begin{table}
 			\begin{tabular}{c|l}
 			tokenID & Address \\
@@ -97,22 +91,23 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\end{tabular}
 			%\caption*{\textbf{ERC-721}}
 		\end{table}
+		\textbf{ERC-721:} Mapping from tokenID to owner, with tokenID being the primary key of the mapping.
 \end{columns}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: Functions}
+\begin{frame}{ERC-721 Token Standard: Functions}
 	A \textbf{standardized function interface} allows smart contracts to interact with any ERC721 token:
 	\vspace{0.5em}
-	\begin{samplecode}{Functions known from ERC20}
+	\begin{samplecode}{Functions known from ERC-20}
 		\input{../assets/solidity_code/erc721-functions-1.tex}
 	\end{samplecode}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: Functions}
+\begin{frame}{ERC-721 Token Standard: Functions}
 	\begin{samplecode}{Additional functions}
 		\input{../assets/solidity_code/erc721-functions-2.tex}
 	\end{samplecode}
@@ -120,7 +115,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: safeTransfer}
+\begin{frame}{ERC-721 Token Standard: safeTransfer}
 	\begin{samplecode}{safeTransfer}
 		\input{../assets/solidity_code/erc721-functions-3.tex}
 	\end{samplecode}
@@ -149,7 +144,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: Events}
+\begin{frame}{ERC-721 Token Standard: Events}
 \vspace{0.5em}
 	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
 \vspace{1em}
@@ -160,7 +155,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{ERC165 Interface}
+\begin{frame}{ERC-165 Interface}
 	\begin{samplecode}{Query if a contract implements an interface}
 		\input{../assets/solidity_code/erc165.tex}	
 	\end{samplecode}
@@ -175,7 +170,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: Wallet Interface}
+\begin{frame}{ERC-721 Token Standard: Wallet Interface}
 \vspace{0.5em}
 	Any smart contract \textbf{MUST} implement the wallet interface if it will accept safe transfers:
 \vspace{1em}
@@ -214,7 +209,8 @@ Some examples of non-fungible token applications (non-exhaustive list):
 	\begin{samplecode}{Enumerable Extension}
 		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
 	\end{samplecode}
-\vspace{0.5em}
+	\center
+	\vspace{-0.5em}
 	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
 \end{frame}
 %%%
@@ -250,6 +246,10 @@ Some examples of non-fungible token applications (non-exhaustive list):
 	\begin{samplecode}{Autoglyphs: Draw \& Token URI Function}
 		\input{../assets/solidity_code/draw_autoglyphs.tex}
 	\end{samplecode}
+	\vspace{-0.5em}
+	\begin{center}
+		\link \href{https://etherscan.io/address/0xd4e4078ca3495de5b1d4db434bebc5a986197782}{Autoglyphs Contract}
+	\end{center}
 \end{frame}
 %%%
 
@@ -270,8 +270,12 @@ Some examples of non-fungible token applications (non-exhaustive list):
  				* ...
 			\end{samplecode}
 		\column{0.4\textwidth}
-			\centering
-			\includegraphics[scale=0.2]{../assets/images/glyph1.png}
+			\begin{figure}
+				\center
+				\vspace{-0.5em}
+				\includegraphics[scale=0.2]{../assets/images/glyph1.png}
+				\caption*{Source: \link \href{https://larvalabs.com/autoglyphs/glyph?index=1}{Larva Labs}}	
+			\end{figure}
 	\end{columns}
 \end{frame}
 %%%
@@ -286,8 +290,10 @@ Some examples of non-fungible token applications (non-exhaustive list):
 	\begin{samplecode}{Cryptopunks Code Snippet}
 		\input{../assets/solidity_code/cryptopunks.tex}
 	\end{samplecode}
-\vspace{0.5em}
-%\link \href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb#code}{Etherscan}
+\vspace{-1em}
+\begin{center}
+	\link \href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb}{CryptoPunks Contract}
+\end{center}
 \end{frame}
 %%%s
 
@@ -306,8 +312,12 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\end{samplecode}		
 		\end{column} %\hfill
 		\begin{column}{0.35\textwidth}
-			\centering
-			\includegraphics[scale=0.18]{../assets/images/ape_0.png}
+			\begin{figure}
+				\vspace{-1em}
+				\centering
+				\includegraphics[scale=0.18]{../assets/images/ape_0.png}
+				\caption*{Source: \link \href{https://bafybeibnzhc7vp4hnfcocw7s2jej2tj5xqpwseyz3ifylismh47cr45rhm.ipfs.dweb.link/}{IPFS}}	
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
