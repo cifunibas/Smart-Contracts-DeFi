@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Non-Fungible Tokens \& ERC-721}
+\subtitle{Non-Fungible Tokens \& ERC721}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -65,11 +65,12 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{Distinction between ERC-20 and ERC-721}
-	While ERC-20 tracks the balances that belong to each address, ERC-721 tracks the owner of a specific tokenID.
+\begin{frame}{Distinction between ERC20 and ERC721}
+	While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenID}.
 \begin{columns}
 \column{0.5\textwidth}
-	\vspace{1em} \\
+	\vspace{1em}
+	\center{ERC20}
 		\begin{table}
 			\begin{tabular}{l|c}
 			Address & Amount \\
@@ -77,11 +78,12 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			0x061F... & 10\\
 			0x25ed... & 5
 			\end{tabular}
-			%\caption*{ERC-20}
+			%\caption*{ERC20}
 		\end{table}
-		\textbf{ERC-20:} Mapping from owner to balance, with address of the owner being the primary key of the mapping.
+		Mapping from owner to balance, with address of the owner being the primary key of the mapping.
 \column{0.5\textwidth}
-	\vspace{1em} \\
+	\vspace{1em}
+	\center{\textbf{ERC721}}
 		\begin{table}
 			\begin{tabular}{c|l}
 			tokenID & Address \\
@@ -89,35 +91,60 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			0 & 0x0901...\\
 			1 & 0x7A25...
 			\end{tabular}
-			%\caption*{\textbf{ERC-721}}
+			%\caption*{\textbf{ERC721}}
 		\end{table}
-		\textbf{ERC-721:} Mapping from tokenID to owner, with tokenID being the primary key of the mapping.
+		Mapping from tokenID to owner, with tokenID being the primary key of the mapping.
 \end{columns}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{ERC-721 Token Standard: Functions}
-	A \textbf{standardized function interface} allows smart contracts to interact with any ERC721 token:
+\begin{frame}{ERC721 Token Standard: Functions I}
+\begin{itemize}
+	\item \textbf{Token standards} specify basic interfaces and allow third party contracts to use tokens in a standardized way.
+	\item Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
+	\item Some functions are very similar to the functions we know from the ERC20 token standard:
+\end{itemize}
 	\vspace{0.5em}
-	\begin{samplecode}{Functions known from ERC-20}
+	\begin{samplecode}{ERC721: Functions known from ERC20}
 		\input{../assets/solidity_code/erc721-functions-1.tex}
 	\end{samplecode}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{ERC-721 Token Standard: Functions}
-	\begin{samplecode}{Additional functions}
+\begin{frame}{ERC721 Token Standard: Functions II}
+\begin{itemize}
+	\item \texttt{ownerOf} gets the owner of a specified token ID
+	\item \texttt{setApprovalForAll} sets or unsets the approval of a given operator. \texttt{getApproved} returns the approved addres for a token ID.
+\end{itemize}
+	\begin{samplecode}{ERC721: Functions II}
 		\input{../assets/solidity_code/erc721-functions-2.tex}
 	\end{samplecode}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{ERC-721 Token Standard: safeTransfer}
+\begin{frame}{ERC721 Token Standard: safeTransfer}
+\begin{itemize}
+	\item When using \texttt{safeTransferFrom}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
+	\item Include this interface when writing a contract that needs to receive ERC721 tokens.
+\end{itemize}
+\vspace{1em}
 	\begin{samplecode}{safeTransfer}
 		\input{../assets/solidity_code/erc721-functions-3.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{ERC721 Token Standard: Wallet Interface}
+\vspace{0.5em}
+	Any smart contract \textbf{MUST} implement the wallet interface if it will accept safe transfers:
+\vspace{1em}
+	\begin{samplecode}{Wallet Interface}
+		\input{../assets/solidity_code/erc721-wallet-interface.tex}
 	\end{samplecode}
 \end{frame}
 %%%
@@ -144,7 +171,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
-\begin{frame}{ERC-721 Token Standard: Events}
+\begin{frame}{ERC721 Token Standard: Events}
 \vspace{0.5em}
 	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
 \vspace{1em}
@@ -159,10 +186,10 @@ Some examples of non-fungible token applications (non-exhaustive list):
 \begin{frame}{Interfaces}
 %Interfaces define the smart contract's functionalities and how to trigger them
 \begin{itemize}
-	\item Interfaces define the smart contract's functionalities and how to trigger them.
-	\item This way, other smart contracts can know how to interact with any smart contract implementing a specific interface
-	\item A contract interface is a list of function definitions without implementation
-	\item Each function definition includes the function name, parameter types and return value types.
+	\item Interfaces \textbf{define the smart contract's functionalities} and how to trigger them.
+	\item This way, other smart contracts can know how to interact with any smart contract implementing a specific interface.
+	\item A contract interface is a list of function definitions without implementation.
+	\item Each function definition includes the \textbf{function name, parameter types} and \textbf{return value types}.
 	\item An interface leads to two main pieces of information: The \textbf{bytes4 function selector} and the \textbf{interface ID}.
 \end{itemize}
 \end{frame}
@@ -170,7 +197,8 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{ERC-165 Interface}
-ERC-165 provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165}
+Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165}
+\vspace{1em}
 	\begin{samplecode}{Query if a contract implements an interface}
 		\input{../assets/solidity_code/erc165.tex}	
 	\end{samplecode}
@@ -179,20 +207,10 @@ ERC-165 provides a standard method to publish and detect what interfaces a smart
 \textbf{Example:} The identifier for this interface is \texttt{0x01ffc9a7}. You can check this by running \texttt{bytes4(keccak256('supportsInterface(bytes4)'));}.}}\\
 \vspace{0.5em}
 }
+\vspace{1em}
 \uncover<3->{
 \texttt{supportsInterface} returns \texttt{true} if the \texttt{interfaceID} is \texttt{0x01ffc9a7} or for any other \texttt{interfaceID} the contract implements. It returns \texttt{false} if \texttt{interfaceID} is \texttt{0xffffffff} or for any other \texttt{interfaceID} that is not implemented in the contract.
 }
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{ERC-721 Token Standard: Wallet Interface}
-\vspace{0.5em}
-	Any smart contract \textbf{MUST} implement the wallet interface if it will accept safe transfers:
-\vspace{1em}
-	\begin{samplecode}{Wallet Interface}
-		\input{../assets/solidity_code/erc721-wallet-interface.tex}
-	\end{samplecode}
 \end{frame}
 %%%
 
@@ -257,7 +275,8 @@ ERC-165 provides a standard method to publish and detect what interfaces a smart
 \begin{frame}{On-chain generated}
 	\begin{itemize}
 		\item E.g., Autoglyphs
-		\item On-chain generated via draw function. When users createGlyph, the \texttt{\_mint} function is called which checks if PRICE is paid, etc. If all requirements are met, the contract draws the glyph and returns the URI. If the tokenURI is called, the contract simply returns the output of the draw function.
+		\item On-chain generated via draw function. When users createGlyph, the \texttt{\_mint} function is called. If all requirements are met, the contract draws the glyph and returns the URI.
+		\item If \texttt{tokenURI} is called, the contract simply returns the output of the draw function.
 	\end{itemize}
 	\begin{samplecode}{Autoglyphs: Draw \& Token URI Function}
 		\input{../assets/solidity_code/draw_autoglyphs.tex}
@@ -277,13 +296,13 @@ ERC-165 provides a standard method to publish and detect what interfaces a smart
 	\end{itemize}
 	\begin{columns}
 		\column{0.55\textwidth}
-			\begin{samplecode}{Drawing instructions}
- 				* 	.  Draw nothing in the cell.\\
- 				* 	O  Draw a circle bounded by the cell.\\
-				*   |  Draw a centered vertical line the length of the cell.\\
- 				*   -  Draw a centered horizontal line the length of the cell.\\
- 				*   \#  Fill in the cell completely. \\
- 				* ...
+			\begin{samplecode}{Autoglyphs drawing instructions}
+				.  $\rightarrow$ Draw nothing in the cell.\\
+ 				O  $\rightarrow$ Draw a circle bounded by the cell.\\
+				|  $\rightarrow$ Draw a centered vertical line the length of the cell.\\
+ 				- $\rightarrow$  Draw a centered horizontal line the length of the cell.\\
+ 				\# $\rightarrow$ Fill in the cell completely. \\
+ 				 ...
 			\end{samplecode}
 		\column{0.4\textwidth}
 			\begin{figure}
