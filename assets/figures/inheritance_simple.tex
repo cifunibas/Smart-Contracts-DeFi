@@ -1,0 +1,11 @@
+% Contract Boxes
+	
+	\draw[fill = mint!50, thick, draw=strongmint] (0,3) rectangle ++(3,1.2) node [midway, text width = 2.9cm, align = center] {Contract A (base)};
+	
+	\draw[fill = mint!50, thick, draw=strongmint] (0,0) rectangle ++(3,1.2) node [midway, text width = 2.9cm, align = center] {Contract B (derived)};
+
+% Inheritance arrows
+	
+	\draw [->][red, thick] (1.5,3) -- (1.5,1.2) node [midway, left] {\texttt{B is A}};
+
+
