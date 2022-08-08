@@ -83,7 +83,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 		Mapping from owner to balance, with address of the owner being the primary key of the mapping.
 \column{0.5\textwidth}
 	\vspace{1em}
-	\center{\textbf{ERC721}}
+	\center{ERC721}
 		\begin{table}
 			\begin{tabular}{c|l}
 			tokenID & Address \\
@@ -296,14 +296,20 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 	\end{itemize}
 	\begin{columns}
 		\column{0.55\textwidth}
-			\begin{samplecode}{Autoglyphs drawing instructions}
-				.  $\rightarrow$ Draw nothing in the cell.\\
- 				O  $\rightarrow$ Draw a circle bounded by the cell.\\
-				|  $\rightarrow$ Draw a centered vertical line the length of the cell.\\
- 				- $\rightarrow$  Draw a centered horizontal line the length of the cell.\\
- 				\# $\rightarrow$ Fill in the cell completely. \\
- 				 ...
-			\end{samplecode}
+		\begin{table}
+		\scriptsize
+			\begin{tabular}{c|p{4.5cm}} 
+			Sign & Instruction \\
+			\hline
+			\texttt{.} & Draw nothing in the cell\\
+			\texttt{O} & Draw a circle bounded by the cell \\
+			\texttt{|} & Draw a centered vertical line the length of the cell.\\
+			\texttt{-} & Draw a centered horizontal line the length of the cell.\\
+			\texttt{\#} & Fill in the cell completely. \\
+			{} & ... \\
+			\end{tabular}
+			%\caption*{\textbf{ERC721}}
+		\end{table}
 		\column{0.4\textwidth}
 			\begin{figure}
 				\center
@@ -363,9 +369,15 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 \begin{frame}{Off-chain stored metadata on a centralized file system}
 \begin{itemize}
 	\item E.g., Cryptokitties
-	\item \link \href{https://api.cryptokitties.co/kitties/2252}{JSON} and \link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {image} centralized on Dapper Labs website.
+	\item \link \href{https://api.cryptokitties.co/kitties/2252}{JSON} and image centralized on Dapper Labs website.
+	\item Dapper Labs can easily change or even delete the JSON file or the image.
 \end{itemize}
-
+\vspace{1em}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.2]{../assets/images/cryptokitty.png}
+	\caption*{Source: \link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {Dapper Labs}}	
+\end{figure}
 \end{frame}
 %%%
 
