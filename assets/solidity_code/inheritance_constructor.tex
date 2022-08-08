@@ -1,7 +1,7 @@
 \begin{lstlisting}[language=Solidity]
 contract A {
 	uint public a;
-	constructor(uint _a) public {
+	constructor(uint _a){
 		a = _a;
 	}
 }
@@ -10,6 +10,6 @@ contract B is A(3) {
 }
 // Option 2: Pass arguments as part of constructor.
 contract C is A{
-	constructor(uint _b) A(_b * 2)public{}
+	constructor(uint _b) A(_b * 2) {}
 }
 \end{lstlisting}

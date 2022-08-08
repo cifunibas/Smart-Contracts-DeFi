@@ -16,7 +16,7 @@ contract myBidder {
         _;
     }
 
-    event received(address, uint);
+    event Received(address indexed sender, uint amount);
 
     constructor() {
         owner = msg.sender;
@@ -25,7 +25,7 @@ contract myBidder {
 
     // Let's ensure the contract can receive refunds from the auction contracts
     receive () external payable{
-        emit received(msg.sender, msg.value);
+        emit Received(msg.sender, msg.value);
     }
 
 
