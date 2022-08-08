@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -23,7 +23,7 @@
 %%%
 \begin{frame}{Introduction}
 
-Solidity offers various constructs to modularize code and reduce dependency between these modules during development.\\
+Solidity offers various constructs to modularize code and reduce complexity during development.\\
 
 \vspace{1em}
 
@@ -66,7 +66,7 @@ $\Rightarrow$ Importing a file or element thereof is the same as copying the cod
 
 \vspace{0.5em}
 
-\link \href{https://docs.soliditylang.org/en/v0.8.15/layout-of-source-files.html}{Solidity Documentation on Importing Source Files}.
+\link \href{https://docs.soliditylang.org/en/v0.8.15/layout-of-source-files.html\#importing-other-source-files}{Solidity Documentation on Importing Source Files}.
 }
 
 \end{frame}
@@ -102,7 +102,9 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 %%%
 \begin{frame}{Contract Inheritance}
 
-\begin{minipage}{0.45\textwidth}
+\vspace{0.5em}
+
+\begin{minipage}{0.35\textwidth}
 	\begin{figure}[t]
 		\centering
 		\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
@@ -110,12 +112,14 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 		\end{tikzpicture}
 	\end{figure}
 \end{minipage}
-\begin{minipage}{0.5\textwidth}
+\begin{minipage}{0.63\textwidth}
 	Solidity allows the combination of multiple contracts into a single one via \textbf{inheritance}.
 
 	\vspace{0.5em}
 
-	Inheriting creates base - derived relationships (also called parent – child), where the derived contract takes over \textbf{all \genkey{public} and \genkey{internal} variables and functions}.	
+	Inheriting creates base - derived relationships (also called parent – child), where the derived contract takes over \textbf{all \genkey{public} and \genkey{internal} variables and functions}.\\
+	\vspace{0.5em}
+$\Rightarrow$ Private functions and variables cannot be invoked directly from the derived contract.
 
 \end{minipage}
 
@@ -125,7 +129,7 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 
 \vspace{1.5em}
 
-\link \href{https://docs.soliditylang.org/en/latest/contracts.html}{Solidity Documentation on Inheritance}.
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#inheritance}{Solidity Documentation on Inheritance}.
 
 \end{frame}
 %%%	
@@ -245,9 +249,11 @@ Points to be covered in the derived contract:
 \begin{minipage}{0.65\textwidth}
 	\vspace{1em}
 	An \textbf{interface} contract is a collection of \genkey{external} functions including their arguments and (optional) return values \textbf{without implementing them}.
+		\vspace{0.5em}
+$\Rightarrow$ The respective functions in the underlying contract can be \genkey{external} or \genkey{public}.
 \end{minipage}
 
-\vspace{2em}
+\vspace{1.5em}
 
 \uncover<2->{
 Basically limited to what a contract ABI can represent, interfaces are \textbf{unable }to:
@@ -259,9 +265,9 @@ Basically limited to what a contract ABI can represent, interfaces are \textbf{u
 \end{itemize}
 
 
-\vspace{1.5em}
+\vspace{1em}
 
-\link \href{https://docs.soliditylang.org/en/latest/contracts.html}{Solidity Documentation on Interfaces}.
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#interfaces}{Solidity Documentation on Interfaces}.
 }
 
 \end{frame}
@@ -281,9 +287,9 @@ Note that an ERC-20 compliant contract means nothing else but that the IERC-20 i
 \vspace{1.5em}
 \textbf{2. Encoding pattern for use of external contracts.}\\
 \vspace{0.5em}
-Imported interfaces provide a contract with the necessary encoding patterns for external calls to contracts implementing this interface. It is a lightweight, reduced dependency alternative to providing the complete code of the target contract.\\
+Imported interfaces provide a contract with the necessary encoding patterns for external calls to contracts implementing this interface. It is a lightweight alternative to providing the complete code of the target contract.\\
 \vspace{0.5em}
-Note that an interface can also specify only a subset of the external functions the target contracts have implemented.
+Note that an interface can also specify only a subset of the external or public functions the target contracts have implemented.
 }
 
 \end{frame}
@@ -357,6 +363,22 @@ Contract Code subject to review by Matnad
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{EIP-165: Declaring Your Interface}
+
+forthcoming
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EIP-165 Example}
+
+forthcoming
+
+\end{frame}
+%%%
+
 %%
 \begin{frame}{Library Contracts}
 
@@ -384,12 +406,12 @@ Consequently:
 \begin{itemize}
 	\item	Library code is executed in the context of the calling contract.
 	\item	Storage variables need to be explicitly supplied.
-	\item	Only view and virtual library functions can be called directly.
+	\item	Only \genkey{view} and \genkey{pure} library functions can be called directly, i.e., without \genkey{delegatecall}.
 \end{itemize}
 
-\vspace{1em}
+\vspace0.5em}
 
-\link \href{https://docs.soliditylang.org/en/latest/contracts.html}{Solidity documentation on libraries}.
+\link \href{https://docs.soliditylang.org/en/latest/contracts\#libraries.html}{Solidity documentation on libraries}.
 }
 
 \end{frame}
@@ -399,10 +421,10 @@ Consequently:
 %%%
 \begin{frame}{Rationale and Use of Libraries}
 
-Libraries are a tool to reduce gas code by deploying common code across multiple contracts once, such as:
+Libraries are a tool to reduce gas by deploying common code across multiple contracts once, such as:
 \vspace{0.5em}
 \begin{itemize}
-	\item	Specific operations based on inputs and outputs (i.e., \genkey{view} and \genkey{virtual} functions).
+	\item	Specific operations based on inputs and outputs (i.e., \genkey{view} and \genkey{pure} functions).
 	\item	Implementation of data types (\typesunits{structs}, \typesunits{enums}, user defined).
 	\item	Constants.
 \end{itemize}
@@ -440,6 +462,7 @@ The various open source projects that maintain public repositories with a broad 
 \uncover<4->{
 \begin{exercise}{Exercise 1: Do Not Reinvent the Wheel}
 	Spend some time on the website, documentation and GitHub repository of the\\ \link \href{https://www.openzeppelin.com/}{OpenZeppelin} project.\\
+	
 	\vspace{0.5em}
 	Possible questions to explore:
 	\begin{enumerate}
