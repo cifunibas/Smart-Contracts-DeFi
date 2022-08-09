@@ -1,0 +1,13 @@
+\begin{lstlisting}[language=Solidity]
+import "./ISealedBidAuction.sol";
+contract MyBidder {
+  address public owner;
+  modifier onlyOwner() {
+  	require(msg.sender == owner, 'This aint your Bidder');
+    _;}
+  event Received(address indexed receiver, uint amount);
+  receive () external payable{
+  	emit Received(msg.sender, msg.value);}
+  constructor() {
+        owner = msg.sender;}
+\end{lstlisting}

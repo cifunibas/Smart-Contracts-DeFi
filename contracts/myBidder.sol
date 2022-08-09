@@ -6,17 +6,17 @@ pragma solidity ^0.8.9;
 
 import "./ISealedBidAuction.sol";
 
-contract myBidder {
+contract MyBidder {
     
     // This bidding contract is tied to an EOA, so let's make it ownable.
-    address private owner;
+    address public owner;
 
     modifier onlyOwner() {
         require(msg.sender == owner, 'This aint your Bidder');
         _;
     }
 
-    event Received(address indexed sender, uint amount);
+    event Received(address indexed receiver, uint amount);
 
     constructor() {
         owner = msg.sender;

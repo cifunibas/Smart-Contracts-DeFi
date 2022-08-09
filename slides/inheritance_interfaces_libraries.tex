@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -117,9 +117,11 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 
 	\vspace{0.5em}
 
-	Inheriting creates base - derived relationships (also called parent – child), where the derived contract takes over \textbf{all \genkey{public} and \genkey{internal} variables and functions}.\\
+	Inheriting creates base - derived relationships (also called parent – child), where the derived contract takes over \textbf{all \genkey{public} and \genkey{internal} variables and functions}.
+	
 	\vspace{0.5em}
-$\Rightarrow$ Private functions and variables cannot be invoked directly from the derived contract.
+
+	$\Rightarrow$ Private functions and variables cannot be invoked directly from the derived contract.
 
 \end{minipage}
 
@@ -154,12 +156,11 @@ $\Rightarrow$ Private functions and variables cannot be invoked directly from th
 
 \vspace{2.0em}
 
-\uncover<-2>{
 $\Rightarrow$ By inheriting B, D is also based on A.\\
 
-\vspace{0.5em}
+\vspace{1.0em}
 $\Rightarrow$ Multiple inheritance is allowed, e.g., D inherits from B and C.\\
-}
+
 
 \end{frame}
 %%%
@@ -212,17 +213,17 @@ For a derived contract to be deployed\footnote{Missing arguments render it abstr
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.65\textwidth}
-	\textbf{Goal:} Modify the sealed bid auction contract, so it can be used as base to be inherited by auction implementations.\\
+	\textbf{Goal:} For a proportion of the proceeds, an auction house wants to implement different auctions for one beneficiary. Let's modify the sealed bid auction contract, so it can be used as base for efficient auction implementation with a fee.\\
 \end{minipage}
 
 \vspace{3em}
 
 \uncover<2->{
-Points to be covered in the derived contract:
+Points to be covered:
 \begin{itemize}
-	\item	Hardcoded beneficiary address.
-	\item	Setting the auction title.
-	\item	Option to introduce an auction house fee deducted at the end of the auction.
+	\item	Introduce auction title, specifying the auction type.
+	\item	Derived contract introducing an auction house fee.
+	\item	Hardcoding the beneficiary in the constructor.
 \end{itemize}
 }
 
@@ -231,11 +232,46 @@ Points to be covered in the derived contract:
 
 
 %%%
-\begin{frame}{Placeholder - Coding Auction Base \& Inheritance}
+\begin{frame}{Preparing the Base Contract}
+
+\begin{samplecode}{Adaptations to SealedBidAuction}
+	\input{../assets/solidity_code/auction_base.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Adding a \texttt{AuctionTitle} variable to indicate auction type.
+	\item	Making \texttt{auctionEnd} \genkey{virtual}, so it can be overridden.
+\end{enumerate}
 
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Derived Contract with a Fee}
+
+\begin{samplecode}{AuctionWithFee: New variable and constructor}
+	\input{../assets/solidity_code/fee_auction1.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Adding \texttt{feeRecipient} for the address the fee is owed to.
+	\item	Passing along the beneficiary hardcoded in the constructor.
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Derived Contract with a Fee (cont.)}
+
+\begin{samplecode}{AuctionWithFee: auctionEnd() override}
+	\input{../assets/solidity_code/fee_auction2.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Marking \texttt{auctionEnd} as overriding the base with \genkey{override}.
+	\item	Changing the function behaviour introducing a fee, without affecting the signature.
+\end{enumerate}
+
+\end{frame}
+%%%
 
 %%%
 \begin{frame}{Interface Contracts}
@@ -316,12 +352,12 @@ Points to be covered:
 \vspace{0.5em}
 \begin{enumerate}
 	\item	The required interface for the auction contract.
-	\item	A bidding contract, that handles
+	\item	A personalized bidding contract, that handles
 	\vspace{0.5em}
 	\begin{itemize}
 		\item sealed bid requests and places them with a specified auction.
 		\item reveal requests and performs reveals with the specified auction.
-		\item reimbursement requests, returning the funds to the caller.
+		\item reimbursement requests, returning the funds to the owner.
 	\end{itemize}
 \end{enumerate}
 
@@ -333,16 +369,28 @@ Points to be covered:
 %%%
 \begin{frame}{MyBidder: Auction Contract Interface}
 
-Contract Code subject to review by Matnad
+\begin{samplecode}{ISealedBidAuction.sol}
+	\input{../assets/solidity_code/auction_interface.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Both getter and declared functions of the target contract can be part of an interface.
+	\item	Even if \genkey{public} in the target contract, in the interface all functions are marked \genkey{external}.
+\end{enumerate}
 
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{MyBidder: Importing Interface and Owner}
+\begin{frame}{MyBidder: Import Interface \& Tie to Owner}
 
-Contract Code subject to review by Matnad
+\begin{samplecode}{Establish Owner and Ability to Receive Funds}
+	\input{../assets/solidity_code/myBidder_1.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Prepare restriction of functionalities to a specified owner.
+	\item	Ensure the contract can handle funds with \texttt{\genkey{receive}()}.
+\end{enumerate}
 
 \end{frame}
 %%%
@@ -350,7 +398,13 @@ Contract Code subject to review by Matnad
 %%%
 \begin{frame}{MyBidder: Bidding and Revealing}
 
-Contract Code subject to review by Matnad
+\begin{samplecode}{Bidding and Revealing for the Owner}
+	\input{../assets/solidity_code/myBidder_2.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Invoking interface to formulate calls to targeted auction.
+	\item	Place and reveal bids along provided arguments \& funds.
+\end{enumerate}
 
 \end{frame}
 %%%
@@ -358,23 +412,43 @@ Contract Code subject to review by Matnad
 %%%
 \begin{frame}{MyBidder: Retrieving Funds}
 
-Contract Code subject to review by Matnad
+\begin{samplecode}{Recover Unused ufnds}
+	\input{../assets/solidity_code/myBidder_3.tex}
+\end{samplecode}
+
+\vspace{1em}
+Let bidding contract withdraw funds from auction contracts and the owner retrieve them.
 
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{EIP-165: Declaring Your Interface}
+\begin{frame}{EIP-165: Communicate Your Interfaces}
 
-forthcoming
+\link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165} describes the standard method for communicating the interfaces implemented by a contract. 
+
+\begin{samplecode}{ERC165 Interface}
+	\input{../assets/solidity_code/erc165.tex}	
+\end{samplecode}
+
+\begin{enumerate}
+	\item	The ERC-165 compliant contract \textbf{implements IERC165}, covering all interfaces it wants to communicate\footnote{Note that there is no technical check, that these interfaces are indeed implemented!}.
+	\item	\textbf{Pre-interaction-checks} for IERC165 and other interfaces are now possible for contracts with a call for $\leq 30'000$ gas.
+	\item	\textbf{interfaceIDs} derive from the \texttt{XOR} across function signatures:\\
+			\color{darkmint} \texttt{interfaceID = f1.sig $\oplus$ f2.sig ... $\oplus$ fn.sig}
+\end{enumerate}
 
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{EIP-165 Example}
+\begin{frame}{Example: ERC-165 compliant Sealed Bid Auction}
 
-forthcoming
+\begin{samplecode}{Implementation of IERC165 in SealedBidAuctionBase}
+	\input{../assets/solidity_code/ierc165_sealed_bidding.tex}	
+\end{samplecode}
+
+\footnotesize{With the global expression \texttt{\genkey{type}(InterfaceName).interfaceID} in Solidity, the example implements IERC165 with a \genkey{pure} function. Note that IERC-165 implementations differ, some declaring a mapping in the contract state. }
 
 \end{frame}
 %%%
@@ -409,9 +483,9 @@ Consequently:
 	\item	Only \genkey{view} and \genkey{pure} library functions can be called directly, i.e., without \genkey{delegatecall}.
 \end{itemize}
 
-\vspace0.5em}
+\vspace{0.5em}
 
-\link \href{https://docs.soliditylang.org/en/latest/contracts\#libraries.html}{Solidity documentation on libraries}.
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#libraries}{Solidity documentation on libraries}.
 }
 
 \end{frame}
