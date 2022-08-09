@@ -12,7 +12,7 @@ contract MyBidder {
     address public owner;
 
     modifier onlyOwner() {
-        require(msg.sender == owner, 'This aint your Bidder');
+        require(msg.sender == owner, 'You Shall Not Pass!');
         _;
     }
 

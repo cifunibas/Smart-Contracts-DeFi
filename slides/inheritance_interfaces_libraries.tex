@@ -23,7 +23,7 @@
 %%%
 \begin{frame}{Introduction}
 
-Solidity offers various constructs to modularize code and reduce complexity during development.\\
+Solidity offers various approaches to modularize code and reduce complexity during development.\\
 
 \vspace{1em}
 
@@ -35,7 +35,7 @@ Understanding the basic concepts is essential for analyzing most of the smart co
 This video outlines:
 \begin{itemize}
 	\item	\textbf{Import} for making code modules available across files.
-	\item	\textbf{Inheritance} as a way combining multiple contracts to one.
+	\item	\textbf{Inheritance} to pass properties from base to derived contracts.
 	\item	\textbf{Interface contracts} to create standardized interfaces.
 	\item	\textbf{Library contracts} to reuse code across multiple contracts.
 \end{itemize}
@@ -62,7 +62,7 @@ Keep modules (base contracts, interfaces etc.) in separate files and use \genkey
 	\input{../assets/solidity_code/import_statement.tex}
 \end{samplecode}
 
-$\Rightarrow$ Importing a file or element thereof is the same as copying the code into the applying contract.\\
+$\Rightarrow$ Importing a file is the same as copying the code into the applying contract.\\
 
 \vspace{0.5em}
 
@@ -113,7 +113,7 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.63\textwidth}
-	Solidity allows the combination of multiple contracts into a single one via \textbf{inheritance}.
+	Solidity allows the passing down of properties via \textbf{inheritance}.
 
 	\vspace{0.5em}
 
@@ -285,7 +285,8 @@ Points to be covered:
 \begin{minipage}{0.65\textwidth}
 	\vspace{1em}
 	An \textbf{interface} contract is a collection of \genkey{external} functions including their arguments and (optional) return values \textbf{without implementing them}.
-		\vspace{0.5em}
+	
+\vspace{0.5em}
 $\Rightarrow$ The respective functions in the underlying contract can be \genkey{external} or \genkey{public}.
 \end{minipage}
 
@@ -507,7 +508,7 @@ Libraries are a tool to reduce gas by deploying common code across multiple cont
 \uncover<2->{
 \textbf{Library Use}\\
 \vspace{0.5em}
-Applying contract can call libraries analogue to base contracts, i.e., \texttt{libraryName.f()}.\\
+Applying contracts can call libraries with  \texttt{libraryName.f()}.\\
 
 \vspace{0.5em}
 Attaching library functions to a type within the contract with the directive \texttt{libraryName for} \typesunits{type}. Called on an object of that type, the functions will receive the object as first parameter.
@@ -530,7 +531,7 @@ This lecture only touches some key aspects of the topic. For application in your
 
 \vspace{0.5em}
 \uncover<3->{
-The various open source projects that maintain public repositories with a broad range of mainnet tested smart contract modules may prove a invaluable resource.
+The various open source projects that maintain public repositories with a broad range of Mainnet tested smart contract modules may prove an invaluable resource.
 }
 
 \uncover<4->{
