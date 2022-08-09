@@ -3,7 +3,7 @@ import "./ISealedBidAuction.sol";
 contract MyBidder {
   address public owner;
   modifier onlyOwner() {
-  	require(msg.sender == owner, 'This aint your Bidder');
+  	require(msg.sender == owner, 'You Shall Not pass!');
     _;}
   event Received(address indexed receiver, uint amount);
   receive () external payable{
