@@ -1,0 +1,9 @@
+\begin{lstlisting}[language=Solidity]
+  function placeBid(address _target, bytes32 _sealedBid) external payable onlyOwner {
+   ISealedBidAuction auction = ISealedBidAuction(_target);
+   uint deposit = msg.value;
+   auction.bid{value: deposit}(_sealedBid);}
+  function revealBids(address _target, uint[] calldata _bidAmounts, bool[] calldata _areLegit, string[] calldata _secrets) external onlyOwner {
+   ISealedBidAuction auction = ISealedBidAuction(_target);
+   auction.reveal(_bidAmounts, _areLegit, _secrets);}
+\end{lstlisting}

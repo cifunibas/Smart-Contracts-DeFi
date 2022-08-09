@@ -1,0 +1,10 @@
+\begin{lstlisting}[language=Solidity]
+import "./SealedBidAuctionBase.sol";
+
+contract AuctionWithFee is SealedBidAuction{
+  address payable public feeRecipient;  
+  constructor (address payable _feeRecipient, uint _durationBiddingMinutes, uint _durationRevealMinutes) SealedBidAuction(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, _durationBiddingMinutes, _durationRevealMinutes) {
+    auctionTitle = "Auction with a fee";
+    feeRecipient = _feeRecipient;
+  }
+\end{lstlisting}

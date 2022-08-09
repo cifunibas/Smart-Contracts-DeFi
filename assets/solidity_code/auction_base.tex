@@ -1,0 +1,13 @@
+\begin{lstlisting}[language=Solidity]
+contract SealedBidAuction {
+  // Auction parameters
+  string public auctionTitle = "Sealed Bid Auction";
+  ... 
+  
+  function auctionEnd() external virtual onlyAfter(revealEnd) {
+    require(!hasEnded, 'Auction already ended');
+    emit AuctionEnded(highestBidder, highestBid);
+    hasEnded = true;
+    payable(beneficiary).transfer(highestBid);
+  }
+\end{lstlisting}

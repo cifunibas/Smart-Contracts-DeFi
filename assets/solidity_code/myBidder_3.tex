@@ -1,0 +1,9 @@
+\begin{lstlisting}[language=Solidity]
+  function retrieveFunds(address _target) external {
+	ISealedBidAuction auction = ISealedBidAuction(_target);
+	auction.withdraw();
+  }
+  function cashOut(uint _amount) external onlyOwner{
+    payable(owner).transfer(_amount);
+  }
+\end{lstlisting}
