@@ -1,0 +1,88 @@
+%Airdrop based on
+	\uncover<1->{ 
+		\node(airdrop) at (-9,6) {\includegraphics[scale=0.1]{../assets/images/airdrop.png}};
+	}
+	\uncover<2->{	
+		\node at (-7.,5.5) {based on:};
+		\node(airdrop) at (-5,6) {\includegraphics[scale=0.13]{../assets/images/question-mark .png}};
+
+	}
+
+%Agent
+	\uncover<3->{ 
+		\node at (0,4.5) {\includegraphics[scale=0.2]{../assets/images/fraud.png}};	
+	}
+	\uncover<3->{ 
+		\node at (3.2,4.2) {Airdrop Farming};
+	}
+
+
+%Arrows
+
+	\uncover<3->{
+
+		\draw [-, ultra thick] (-1,3.2) -- (-2.8,1.2) node [midway,left] {} ;
+		
+	}
+	
+	\uncover<4->{
+		\draw [-, ultra thick] (1,3.2) -- (2.8,1.2) node [, midway,right] {};
+	
+	}
+
+
+		
+%Multiple Accounts		
+		
+	\uncover<3->{
+		\node at (-4.5,1) {\includegraphics[scale=0.08]{../assets/images/suspect.png}};
+		\node at (-4.5,0) {\tiny 0x4423...EE55};
+		
+		\node at (-3,-0.5) {\includegraphics[scale=0.08]{../assets/images/suspect.png}};
+		\node at (-3,-1.5) {\tiny 0xA823...CE3B};
+				
+		\node at (-5,-1) {\includegraphics[scale=0.08]{../assets/images/suspect.png}};
+		\node at (-5,-2) {\tiny 0x610A...6d63};
+	}
+	
+	\uncover<3->{
+			\node at (-3.8,-3) {Sybil Attack};
+	}
+		
+%% Transactions
+	\uncover<4->{
+\node at (4.5,1) {
+	\scalebox{0.3}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+\node at (2.65,0) {
+	\scalebox{0.3}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+
+\node at (4.8,-1.2) {
+	\scalebox{0.3}{
+		\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+			\input{../assets/figures/transactions}
+		\end{tikzpicture}
+		}
+};
+}
+\uncover<4->{
+		\node at (4,-3) {Multiple Transactions};
+}
+
+
+%% Transactions Text
+\uncover<4->{
+\node at (4.5,0.2) {\tiny Transactions};
+\node at (2.65,-0.8) {\tiny Transactions};
+\node at (4.8,-2) {\tiny Transactions};
+}

@@ -4,7 +4,7 @@
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
-\subtitle{Title of Video Lecture}
+\subtitle{Asset Management}
 \author{Prof. Dr. Fabian Schär}
 \institute{University of Basel}
 
@@ -22,7 +22,7 @@
 
 
 %%%
-\begin{frame}{Crypto Asset Management}
+\begin{frame}{Protocol Layer}
 
 
 \scalebox{0.7}{
@@ -37,54 +37,191 @@
 %%%	
 
 %%%
-\begin{frame}{Crypto Asset Management}
+\begin{frame}{Introduction}
 
-
-Concepts in Crypto Asset Management: \\ \vspace{1em}
+Asset Management in the traditional financial system: \\ \vspace{1em}
 	
 	\begin{itemize}
-		\item<1-> Token Basket 
-		\item<2-> Yield Farming
-		\item<3-> Distribution concepts
+		\item<1-> Requires trust in a third party 
+		\item<2-> Often intransparent with incentives to use information asymmetry to own advantage
+		\item<3-> Gambling for redemption (hidden actions)
 		\item<4-> Airdrops
 	\end{itemize}
+	
+\vspace{1em}	
 
-\end{frame}
-%%%	
-
-
-%%%
-\begin{frame}{Token Basket}
-
-Simillar to currency baskets, a token basket is a tokenized collection of crypto assets.\\ \vspace{1em}
-
+DeFi Asset Management: \\ \vspace{1em}
 
 	\begin{itemize}
-		\item<1-> Crypto assets reside within a smart contract.
-		\item<2-> Token basket is fractionally represented by its own token.
-		\item<3-> Token are minted/burned upon investing/liquidation.
-		\begin{itemize}
-			\item<4-> Investing: Funds sent to the smart contract will be automatically converted via DEX according to set allocation.
-			\item<5-> Liquidation: Underlying funds are sold via DEX according to allocation set. Proceeds are forwarded to the investor. 
-		\end{itemize}
-		
-		\item<6-> Besides gas fees for entering/exiting a token basket, there can be additional protocol and/or administration fees.
+		\item<1-> Non-custodial
+		\item<2-> Transparent
+		\item<3-> No discrimination
 	\end{itemize}
+
+\end{frame}
+
+%%%	
+
+%%%
+\begin{frame}{Token Basket}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/simpleTokenBasket_without rectangle.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Vault Active vs Passive Rebalancing}
+	\begin{minipage}{0.4\textwidth}
+		\begin{center}
+			\includegraphics[scale=0.18]{../assets/images/manager.png}
+		\end{center}
+		\begin{center}
+		Actively \\ \vspace{1em}
+		Manager trades according to predefined rule set
+\vspace{0.5em}		
+			\begin{scriptsize}
+				\begin{itemize}
+					\item<1-> Diversification
+					\item<2-> Max. Exposure
+					\item<3-> Whitelist for Exchanges / Platforms
+					\item<4->  Asset universe
+					\item<5->  ...
+				\end{itemize}		
+			\end{scriptsize}
+		\vspace{0.5em}Change of rule set requires investor approval \\
+		\end{center}
+		
+
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.4\textwidth}
+		\begin{center}
+			\includegraphics[scale=0.107]{../assets/images/document.png}
+		\end{center}
+		\begin{center}
+		Passively 	\\ \vspace{1em}
+		Rebalancing according to fixed rule set \vspace{0.5em}		
+			\begin{scriptsize}
+				\begin{itemize}
+					\item<1-> Fixed ratio on \$ ratio
+					\item<2-> Index investing
+					\item<3-> Flexible weights (e.g. according to marketcap)
+					\item<4->  Advanced strategies
+					\item<4->  ...
+				\end{itemize}
+			\end{scriptsize}
+	 	\vspace{0.5em}Problem: Often requires Oracles (on- or off-chain)
+		\end{center}
+	\end{minipage}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Divisibility and F-NFT}
+
+	
+	\vspace{2em}
+	\begin{tikzpicture}
+		\input{../assets/figures/fungible_NFT.tex}
+	\end{tikzpicture}	
+
+\end{frame}
+%%%	
+
+%%%	
+\begin{frame}{Divisibility and F-NFT}
+
+	
+	\vspace{2em}
+	\begin{tikzpicture}
+		\input{../assets/figures/divisibility_token_basket.tex}
+	\end{tikzpicture}	
+
+\end{frame}
+%%%	
+
+
+%%%	
+\begin{frame}{Benefits of F-NFTs}
+
+\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/unlocked_padlock.png}
+				
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+			Accessible to more investors / \\ Lower cost of entry)
+
+		\end{minipage}
+	
+		\pause
+		\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/faucet.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+			Higher liquidity \\
+
+		\end{minipage}
+	
+		\pause
+		\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/exchange.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Better price discovery for the underlying asset 
+		\end{minipage}
+
+
+\end{frame}
+%%%	
+
+
+
+
+
+
+%%%
+\begin{frame}{Redemption Schemes}
+
 	
 \end{frame}
 %%%	
 
 
 %%%
-\begin{frame}{Token Basket}
+\begin{frame}{Yield Farming}
 
-Advantages of token baskets:\\ \vspace{1em}
+Yieldfarming Strategies \\ \vspace{1em}
 
-	\begin{enumerate}
-		\item<1-> Diversification of Assets and Risks
-		\item<2-> Reduction of Gas and Transaction Fees
-		\item<3-> For some: Assets under Management
-	\end{enumerate}
+	\begin{itemize}
+	
+
+		\item<1-> Providing liquidity on DEX
+		\item<2-> Lending / providing assets on lending platform
+		\item<3-> Arbitrage opportunities between protocols
+		\item<4-> Exploting bonuses (e.g. liquidity / usage incentives)
+		\item<4->...
+	\end{itemize}
+
+
 	
 \end{frame}
 %%%	
@@ -92,49 +229,206 @@ Advantages of token baskets:\\ \vspace{1em}
 
 
 %%%
-\begin{frame}{Token Basket}
+\begin{frame}{Yield Farming}
+
+
+\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/strategy.png}
+				
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+			Use leverage and / or combine multiple strategies \\ ... to increase yield
+
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+		
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/exchange.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+			APY / APR increase
+		\end{minipage}
+	
+		\pause
+		\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/warning.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Higher exposure and liquidity risk 
+		\end{minipage}
+		
+		
+		
+		
+\end{frame}
+%%%	
+
+
+
+\begin{frame}{Yield Farming Agregators}
+
+
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/diversification.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Protocol combining multiple strategies / assets 
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/warning.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Increase in wrapping complexity. 
+		\end{minipage}
+		\pause
+		\vspace{3 em}			
+		
+		
+			\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler, 2020}
+
+\end{frame}
+
+
+%%%
+\begin{frame}{Generation of Rewards}
 \vspace{1em}
 
-There are two types of token askets: \vspace{1em}
-	
-	\begin{itemize}
-		\item<1-> actively managed
-		\begin{itemize}
-			\item<1->Example: Enzyme / Melon Protocol \cite{enzyme}
-		\end{itemize}
-		\vspace{1em}
-		\item<2-> passively managed
-		\begin{itemize}
-			\item<2->Example: Set Protocol \cite{set}
-		\end{itemize}
-	\end{itemize}
+
+\begin{figure}[H]
+  \begin{minipage}[t]{.25\textwidth}
+  	\center 
+    \includegraphics[width=0.7\textwidth]{../assets/images/database-usage.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Protocol Usage $\&$ Fees
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}
+  \center 
+    \includegraphics[width=0.7\textwidth]{../assets/images/reserved.png}
+	\vspace{0.8em}\vspace{0.8em}    
+    Predetermined allocation at token creation
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}
+  \center 
+    \includegraphics[width=0.7\textwidth]{../assets/images/inflation.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Extension of Token Supply
+  \end{minipage}  
+\end{figure}
+
+
+
+
 	
 \end{frame}
 %%%	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 
 %%%
-\begin{frame}{Enzyme / Melon Protocol}
+\begin{frame}{Airdrop Motivation}
+	\vspace{3em}
 
-Entyme/Melon is a ERC-20 based fund management protocol.
-\vspace{1em}
+\hspace*{1cm}
+\begin{minipage}[c]{1\textwidth}
+  \center
+	\begin{tikzpicture}
 
-	\begin{itemize}
-		\item<1-> A fund can be opened by anyone.
-		\item<2-> Each fund is operated by an administrator that
-	\begin{itemize}	
-		\item<1-> manages asset allocation,
-		\item<2-> may charge for a comission fee,
-		\item<3-> and adjusts other parameters.
+%Gossip + Airdrop + Crowd 
+
+		\node(gossip) at (-2,1.2) {\includegraphics[scale=0.1]{../assets/images/gossip_bubble.png}};
+
+		\node(airdrop) at (-1.37,1.83) {\includegraphics[scale=0.05]{../assets/images/airdrop.png}};
 		
-	\end{itemize}	
-		\item<3-> Investors choose the fund they would like to invest in.
-		\item<4-> When the administrator readjusts the allocation, assets are sold/bought accordingly via DEX by the smart contract.
-	\end{itemize}
+		\scalebox{0.7}{
+			\begin{tikzpicture}
+  \input{../assets/figures/3people.tex}
+			\end{tikzpicture}
+		}
+	\end{tikzpicture}
+  \end{minipage}
+  \vspace{-2em}
+  \begin{figure}[H]
+  \begin{minipage}[t]{.25\textwidth}
+  	\center 
+    \includegraphics[width=0.5\textwidth]{../assets/images/attention.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Attention
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}
+  \center 
+    \scalebox{0.4}{
+			\begin{tikzpicture}
+  \input{../assets/figures/crowd.tex}
+			\end{tikzpicture}
+		}
+	\vspace{0.8em}\vspace{0.8em}    
+    User acquisition
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}
+  \center 
+    \includegraphics[width=0.5\textwidth]{../assets/images/usage.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Protocol usage
+  \end{minipage}  
+\end{figure}
+		
 	
 \end{frame}
 %%%	
 
 
+%%%
+\begin{frame}{Airdrop Problems}
+	\vspace{1.5em}
+	\scalebox{0.66}{
+	
+		\begin{tikzpicture}
+			\input{../assets/figures/airdrop_problems.tex}
+		\end{tikzpicture}
+	}	
+	
+\end{frame}
+%%%	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%
 \begin{frame}{Yield Farming}
@@ -149,6 +443,7 @@ Entyme/Melon is a ERC-20 based fund management protocol.
 	
 \vspace{1em}
 
+
 There are two types of Token baskets: \vspace{1em}
 	
 	\begin{itemize}
@@ -159,6 +454,7 @@ There are two types of Token baskets: \vspace{1em}
 
 \end{frame}
 %%%	
+
 
 
 %%%
