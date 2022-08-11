@@ -66,7 +66,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{Distinction between ERC20 and ERC721}
-	While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenID}.
+	While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenID}. \\	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}	
 \begin{columns}
 \column{0.5\textwidth}
 	\vspace{1em}
@@ -114,11 +114,8 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{ERC721 Token Standard: Functions II}
-Because of the differences in the way ERC721 Tokens work, there is additionally a \texttt{setApprovalForAll} function which allows an owner to set or unset the approval for \textbf{all} of his tokens in the SC. 
+ERC721 tokens have an additional \texttt{setApprovalForAll} function which allows an owner to set or revoke the approval for \textbf{all} of his tokens in the smart contract. 
 \vspace{1em}
-%\begin{itemize}
-%	\item \texttt{setApprovalForAll} sets or unsets the approval of a given operator. \texttt{getApproved} returns the approved address for a token ID.
-%\end{itemize}
 	\begin{samplecode}{ERC721: Functions II}
 		\input{../assets/solidity_code/erc721-functions-2.tex}
 	\end{samplecode}
@@ -137,9 +134,9 @@ Because of the differences in the way ERC721 Tokens work, there is additionally 
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: safeTransfer}
+\begin{frame}{ERC721 Token Standard: \texttt{safeTransfer}}
 \begin{itemize}
-	\item Problem:
+	\item Problem: sending ERC721 tokens to a smart contract which does not know how to handle them results in lost assets.
 	\item When using \texttt{safeTransferFrom}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
 	%\item Include this interface when writing a contract that needs to receive ERC721 tokens.
 \end{itemize}
@@ -162,28 +159,6 @@ Because of the differences in the way ERC721 Tokens work, there is additionally 
 \end{frame}
 %%%
 
-
-%%%
-%\begin{frame}{ERC721 Token Standard: Functions}
-%	A \textbf{standardized function interface} allows smart contracts to interact with any ERC721 token:
-%\texttt{\scriptsize
-%\vspace{0.5em}
-%\begin{itemize}
-%	\item<2->	function balanceOf(address $\_$owner) \textcolor{red}{external} view returns (uint256)
-%	\item<3->	\textcolor{red}{function ownerOf(uint256 $\_$tokenId) external view returns (address)}
-%	\item<4->	\textcolor{red}{function safeTransferFrom(address $\_$from, address $\_$to, uint256 $\_$tokenId, bytes data) external payable}
-%	\item<5->	\textcolor{red}{function safeTransferFrom(address $\_$from, address $\_$to, uint256 $\_$tokenId) external payable}
-%	\item<6->	function transferFrom(address $\_$from, address $\_$to, uint256 \textcolor{red}{$\_$tokenId}) \textcolor{red}{external payable}
-%	\item<7->	function approve(address $\_$approved, uint256 \textcolor{red}{$\_$tokenId}) \textcolor{red}{external payable}
-%	\item<8->	\textcolor{red}{function setApprovalForAll(address $\_$operator, bool $\_$approved) external}
-%	\item<9->	\textcolor{red}{function getApproved(uint256 $\_$tokenId) external view returns (address)}
-%	\item<10->	\textcolor{red}{function isApprovedForAll(address $\_$owner, address $\_$operator) external view returns (bool)}
-%\end{itemize}
-%}
-%\end{frame}
-%%%
-
-
 %%%
 %\begin{frame}{Interfaces}
 %%Interfaces define the smart contract's functionalities and how to trigger them
@@ -198,52 +173,51 @@ Because of the differences in the way ERC721 Tokens work, there is additionally 
 %%%
 
 %%%
-\begin{frame}{ERC-165 Interface}
+\begin{frame}{ERC165 Interface}
 Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165}
 \vspace{1em}
 	\begin{samplecode}{Query if a contract implements an interface}
 		\input{../assets/solidity_code/erc165.tex}	
 	\end{samplecode}
-\uncover<2->{
-{\footnotesize{
-\textbf{Example:} The identifier for this interface is \texttt{0x01ffc9a7}. You can check this by running \texttt{bytes4(keccak256('supportsInterface(bytes4)'));}.}}\\
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC165 Example}
+The identifier for the ERC721 interface is \texttt{0x80ac58cd}.\\
 \vspace{0.5em}
-}
-\vspace{1em}
-\uncover<3->{
-\texttt{supportsInterface} returns \texttt{true} if the \texttt{interfaceID} is \texttt{0x01ffc9a7} or for any other \texttt{interfaceID} the contract implements. It returns \texttt{false} if \texttt{interfaceID} is \texttt{0xffffffff} or for any other \texttt{interfaceID} that is not implemented in the contract.
+\begin{scriptsize}
+\texttt{bytes4(keccak256(‘balanceOf(address)’)) == 0x70a08231
+bytes4(keccak256(‘ownerOf(uint256)’)) == 0x6352211e
+bytes4(keccak256(‘approve(address,uint256)’)) == 0x095ea7b3
+bytes4(keccak256(‘getApproved(uint256)’)) == 0x081812fc
+bytes4(keccak256(‘setApprovalForAll(address,bool)’)) == 0xa22cb465
+bytes4(keccak256(‘isApprovedForAll(address,address)’)) == 0xe985e9c5
+bytes4(keccak256(‘transferFrom(address,address,uint256)’)) == 0x23b872dd
+bytes4(keccak256(‘safeTransferFrom(address,address,uint256)’)) == 0x42842e0e
+bytes4(keccak256(‘safeTransferFrom(address,address,uint256,bytes)’)) == 0xb88d4fde}
+\vspace{0.5em} \\
+\texttt{= 0x70a08231\textasciicircum 0x6352211e\textasciicircum 0x095ea7b3\textasciicircum 0x081812fc\textasciicircum 0xa22cb465\textasciicircum 0xe985e9c5\textasciicircum 0x23b872dd \textasciicircum 0x42842e0e\textasciicircum 0xb88d4fde == 0x80ac58cd}
+\end{scriptsize}
+\vspace{0.5em} \\
+\uncover<2->{
+\texttt{supportsInterface} returns \texttt{true} if the \texttt{interfaceID} is \texttt{0x80ac58cd} or for any other \texttt{interfaceID} the contract implements. It returns \texttt{false} if \texttt{interfaceID} is \texttt{0xffffffff} or for any other \texttt{interfaceID} that is not implemented in the contract.
 }
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Enumerable Extension}
-	%The enumerable extension allows enumerating the tokens on chain. 
-	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the token ID owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
-
-	%\includegraphics[scale=0.02]{../assets/images/minus_circle.png}
-	 %Requires large gas overhead. \vspace{1em}
- 
-	\begin{samplecode}{Enumerable Extension}
-		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
-	\end{samplecode}
-	\center
-	\vspace{-0.5em}
-	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Enumerable Extension ctd.}
 The enumerable extension circumvents the problem that the mapping only works from tokenID to address. Otherwise, there would be no way to get all the tokens of a specific address.
 \vspace{0.5em}
 		\begin{table}
 			\begin{tabular}{c|l|c}
 			tokenID & Address & IndexByOwner\\
 			\hline
-			0 & 0x0901... & 0 \\
+			0 & \color{focus}{0x0901}... & \color{focus}{0} \\
 			1 & 0x7A25... & 0 \\
-			2 & 0x0901... & 1
+			2 & \color{focus}{0x0901}... & \color{focus}{1}
 			\end{tabular}
 			%\caption*{\textbf{ERC721}}
 		\end{table}
@@ -251,8 +225,20 @@ The enumerable extension circumvents the problem that the mapping only works fro
 %%%
 
 %%%
-\begin{frame}{Metadata Extension ctd.}
-	This extension adds name, symbol, and token URI and is almost always included.
+\begin{frame}{Enumerable Extension ctd.}
+	%The enumerable extension allows enumerating the tokens on chain. 
+	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the token ID owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
+ 
+	\begin{samplecode}{Enumerable Extension}
+		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
+	\end{samplecode}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata Extension}
+	This extension adds the \texttt{name}, \texttt{symbol}, and \texttt{tokenURI} functions and is almost always included.
 \vspace{0.5em}
 	\begin{samplecode}{Metadata Extension}
 		\input{../assets/solidity_code/erc721-metadata-extension.tex}
@@ -265,7 +251,6 @@ The enumerable extension circumvents the problem that the mapping only works fro
 }
 \end{frame}
 %%%
-
 
 %%%
 \begin{frame}{Metadata JSON Schema Example}
@@ -280,10 +265,10 @@ The enumerable extension circumvents the problem that the mapping only works fro
 	The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Examples:\\
 
 	\begin{itemize}
-		\item<2-> On-chain generated %, e.g., Autoglyphs % On-chain generated via draw function. When users createGlyph, the _mint function is called which checks if PRICE is paid, etc. If all requirements are met, the contract draws the glyph and returns the URI. If the tokenURI is called, the contract simply returns the output of the draw function.
-		\item<3-> On-chain verifiable hash %, e.g., Cryptopunks % Off-chain picture (https://www.larvalabs.com/public/images/cryptopunks/punks.png) which hashes to ac39af4793119ee46bbff351d8cb6b5f23da60222126add4268e261199a2921b can be verified in the smart contract. Also, Cryptopunks are now fully on-chain: https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2. Saving 24x24 pixel pictures is do-able on-chain.
-		\item<4-> Off-chain stored metadata on a decentralized file system %, e.g., Bored Apes Yacht Club % Metadata in JSON format on IPFS (ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1) incl. link to image (ipfs://QmPbxeGcXhYQQNgsC6a36dDyYUcHgMLnGKnF8pVFmGsvqi). baseURI can be updated via setBaseURI, but requires the user to be the smart contract owner (onlyOwner). owner address is zero address.
-		\item<5-> Off-chain stored metadata on a centralized file system %, e.g., Cryptokitties % JSON and image centralized on Dapper Labs website, e.g., (https://api.cryptokitties.co/kitties/2252) and (https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg)
+		\item<2-> On-chain generated
+		\item<3-> On-chain verifiable hash
+		\item<4-> Off-chain stored metadata on a decentralized file system
+		\item<5-> Off-chain stored metadata on a centralized file system
 	\end{itemize}
 \end{frame}
 %%%
@@ -291,61 +276,30 @@ The enumerable extension circumvents the problem that the mapping only works fro
 %%%
 \begin{frame}{On-chain generated}
 	\begin{itemize}
-		\item E.g., Autoglyphs
-		\item On-chain generated via draw function. When users createGlyph, the \texttt{\_mint} function is called. If all requirements are met, the contract draws the glyph and returns the URI.
-		\item If \texttt{tokenURI} is called, the contract simply returns the output of the draw function.
+		\item E.g., Loot
+		\item Something about mint function?
+		\item Calling the \texttt{tokenURI} function with a valid tokenID, e.g. 1, the contract returns a the base64 encoded JSON.
+		\item In the JSON file we can find the svg, again encoded in base64.
+		\item We can decode (https://www.base64decode.org/) the base64 .svg, which allows us to interpret it with an svg viewer (https://www.svgviewer.dev/).
 	\end{itemize}
-	\begin{samplecode}{Autoglyphs: Draw \& Token URI Function}
-		\input{../assets/solidity_code/draw_autoglyphs.tex}
+\begin{samplecode}{Loot TokenID 1 JSON}
+		\input{../assets/other_code/loot_json.tex}
 	\end{samplecode}
 	\vspace{-0.5em}
 	\begin{center}
-		\link \href{https://etherscan.io/address/0xd4e4078ca3495de5b1d4db434bebc5a986197782}{Autoglyphs Contract}
+		\link \href{}{Loot Contract}
 	\end{center}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Autoglyphs}
-	\begin{itemize}
-		\item Calling the \texttt{tokenURI} function with \texttt{\_tokenID = 0}, the following string output (first 64 symbols) is generated: {\scriptsize \texttt{.|.|.O..-.-.-.-.-.|.|.|.O.O.O.O..O.O.O.O.|.|.|.-.-.-.-.-..O.|.|.}}
-		\item Each symbol corresponds to a cell in a 64x64 square grid and represents an instruction to make the drawing.
-	\end{itemize}
-	\begin{columns}
-		\column{0.55\textwidth}
-		\begin{table}
-		\scriptsize
-			\begin{tabular}{c|p{4.5cm}} 
-			Sign & Instruction \\
-			\hline
-			\texttt{.} & Draw nothing in the cell\\
-			\texttt{O} & Draw a circle bounded by the cell \\
-			\texttt{|} & Draw a centered vertical line the length of the cell.\\
-			\texttt{-} & Draw a centered horizontal line the length of the cell.\\
-			\texttt{\#} & Fill in the cell completely. \\
-			{} & ... \\
-			\end{tabular}
-			%\caption*{\textbf{ERC721}}
-		\end{table}
-		\column{0.4\textwidth}
-			\begin{figure}
-				\center
-				\vspace{-0.5em}
-				\includegraphics[scale=0.2]{../assets/images/glyph1.png}
-				\caption*{Source: \link \href{https://larvalabs.com/autoglyphs/glyph?index=1}{Larva Labs}}	
-			\end{figure}
-	\end{columns}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{On-chain verifiable hash}
 	\begin{itemize}
-		\item E.g., Cryptopunks
+		\item E.g., CryptoPunks
 		\item Off-chain picture \link \href{https://www.larvalabs.com/public/images/cryptopunks/punks.png}{larvalabs.com} which hashes to \texttt{\scriptsize ac39a\dots 921b} can be verified in the smart contract.
-		\item Also, Cryptopunks are now fully on-chain: \link \href{https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2}{Etherscan}  %Saving 24x24 pixel pictures is do-able on-chain.
+		\item Also, CryptoPunks are now fully on-chain: \link \href{https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2}{Etherscan}  %Saving 24x24 pixel pictures is do-able on-chain.
 	\end{itemize}
-	\begin{samplecode}{Cryptopunks Code Snippet}
+	\begin{samplecode}{CryptoPunks Code Snippet}
 		\input{../assets/solidity_code/cryptopunks.tex}
 	\end{samplecode}
 \vspace{-1em}
@@ -396,15 +350,6 @@ The enumerable extension circumvents the problem that the mapping only works fro
 	\caption*{Source: \link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {\tiny https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg}	}
 \end{figure}
 \end{frame}
-%%%
-
-
-%%%
-%\begin{frame}%[allowframebreaks]
-%\frametitle{References and Recommended Reading}
-%	\bibliographystyle{amsplain}
-%	\bibliography{../assets/bib/refs}
-%\end{frame}
 %%%
 
 \end{document}
