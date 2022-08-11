@@ -58,7 +58,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 \uncover<2->{
 \begin{keytakeaway}{External promises and counterparty risk}
-	Once again: any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
+	Like with ERC20, any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
 \end{keytakeaway}
 }
 \end{frame}
@@ -80,7 +80,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\end{tabular}
 			%\caption*{ERC20}
 		\end{table}
-		Mapping from owner to balance, with address of the owner being the primary key of the mapping.
+		Mapping from owner to balance, with address of the owner being the key of the mapping.
 \column{0.5\textwidth}
 	\vspace{1em}
 	\center{ERC721}
@@ -93,7 +93,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\end{tabular}
 			%\caption*{\textbf{ERC721}}
 		\end{table}
-		Mapping from tokenID to owner, with tokenID being the primary key of the mapping.
+		Mapping from tokenID to owner, with tokenID being the key of the mapping.
 \end{columns}
 \end{frame}
 %%%
@@ -114,10 +114,11 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{ERC721 Token Standard: Functions II}
-\begin{itemize}
-	\item \texttt{ownerOf} gets the owner of a specified token ID
-	\item \texttt{setApprovalForAll} sets or unsets the approval of a given operator. \texttt{getApproved} returns the approved addres for a token ID.
-\end{itemize}
+Because of the differences in the way ERC721 Tokens work, there is additionally a \texttt{setApprovalForAll} function which allows an owner to set or unset the approval for \textbf{all} of his tokens in the SC. 
+\vspace{1em}
+%\begin{itemize}
+%	\item \texttt{setApprovalForAll} sets or unsets the approval of a given operator. \texttt{getApproved} returns the approved address for a token ID.
+%\end{itemize}
 	\begin{samplecode}{ERC721: Functions II}
 		\input{../assets/solidity_code/erc721-functions-2.tex}
 	\end{samplecode}
@@ -125,10 +126,22 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 
 %%%
+\begin{frame}{ERC721 Token Standard: Events}
+\vspace{0.5em}
+	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
+\vspace{1em}
+	\begin{samplecode}{Events}
+		\input{../assets/solidity_code/erc721-events.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
 \begin{frame}{ERC721 Token Standard: safeTransfer}
 \begin{itemize}
+	\item Problem:
 	\item When using \texttt{safeTransferFrom}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
-	\item Include this interface when writing a contract that needs to receive ERC721 tokens.
+	%\item Include this interface when writing a contract that needs to receive ERC721 tokens.
 \end{itemize}
 \vspace{1em}
 	\begin{samplecode}{safeTransfer}
@@ -139,7 +152,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 
 %%%
-\begin{frame}{ERC721 Token Standard: Wallet Interface}
+\begin{frame}{ERC721 Token Standard: Contract Interface}
 \vspace{0.5em}
 	Any smart contract \textbf{MUST} implement the wallet interface if it will accept safe transfers:
 \vspace{1em}
@@ -170,29 +183,18 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %\end{frame}
 %%%
 
-%%%
-\begin{frame}{ERC721 Token Standard: Events}
-\vspace{0.5em}
-	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
-\vspace{1em}
-	\begin{samplecode}{Events}
-		\input{../assets/solidity_code/erc721-events.tex}
-	\end{samplecode}
-\end{frame}
-%%%
-
 
 %%%
-\begin{frame}{Interfaces}
-%Interfaces define the smart contract's functionalities and how to trigger them
-\begin{itemize}
-	\item Interfaces \textbf{define the smart contract's functionalities} and how to trigger them.
-	\item This way, other smart contracts can know how to interact with any smart contract implementing a specific interface.
-	\item A contract interface is a list of function definitions without implementation.
-	\item Each function definition includes the \textbf{function name, parameter types} and \textbf{return value types}.
-	\item An interface leads to two main pieces of information: The \textbf{bytes4 function selector} and the \textbf{interface ID}.
-\end{itemize}
-\end{frame}
+%\begin{frame}{Interfaces}
+%%Interfaces define the smart contract's functionalities and how to trigger them
+%\begin{itemize}
+%	\item Interfaces \textbf{define the smart contract's functionalities} and how to trigger them.
+%	\item This way, other smart contracts can know how to interact with any smart contract implementing a specific interface.
+%	\item A contract interface is a list of function definitions without implementation.
+%	\item Each function definition includes the \textbf{function name, parameter types} and \textbf{return value types}.
+%	\item An interface leads to two main pieces of information: The \textbf{bytes4 function selector} and the \textbf{interface ID}.
+%\end{itemize}
+%\end{frame}
 %%%
 
 %%%
@@ -215,7 +217,41 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 %%%
 
 %%%
-\begin{frame}{Metadata Extension (Optional)}
+\begin{frame}{Enumerable Extension}
+	%The enumerable extension allows enumerating the tokens on chain. 
+	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the token ID owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
+
+	%\includegraphics[scale=0.02]{../assets/images/minus_circle.png}
+	 %Requires large gas overhead. \vspace{1em}
+ 
+	\begin{samplecode}{Enumerable Extension}
+		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
+	\end{samplecode}
+	\center
+	\vspace{-0.5em}
+	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Enumerable Extension ctd.}
+The enumerable extension circumvents the problem that the mapping only works from tokenID to address. Otherwise, there would be no way to get all the tokens of a specific address.
+\vspace{0.5em}
+		\begin{table}
+			\begin{tabular}{c|l|c}
+			tokenID & Address & IndexByOwner\\
+			\hline
+			0 & 0x0901... & 0 \\
+			1 & 0x7A25... & 0 \\
+			2 & 0x0901... & 1
+			\end{tabular}
+			%\caption*{\textbf{ERC721}}
+		\end{table}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata Extension ctd.}
 	This extension adds name, symbol, and token URI and is almost always included.
 \vspace{0.5em}
 	\begin{samplecode}{Metadata Extension}
@@ -227,25 +263,6 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative case in practice.}
 	\end{keytakeaway}
 }
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Enumerable Extension (Optional)}
-	%The enumerable extension allows enumerating the tokens on chain. 
-	\includegraphics[scale=0.02]{../assets/images/plus_circle.png}
-	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the token ID owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
-
-	\includegraphics[scale=0.02]{../assets/images/minus_circle.png}
-	 Requires large gas overhead. \vspace{1em}
- 
-	\begin{samplecode}{Enumerable Extension}
-		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
-	\end{samplecode}
-	\center
-	\vspace{-0.5em}
-	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
 \end{frame}
 %%%
 
@@ -348,7 +365,7 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 	\begin{columns}[T]
 		\begin{column}{0.67\textwidth}
 		\vspace{-1em}
-			\begin{samplecode}{Metadata of Ape with TokenID 0}
+			\begin{samplecode}{JSON Metadata of Ape with TokenID 0}
 				\input{../assets/other_code/bayc_metadata.tex}
 			\end{samplecode}		
 		\end{column} %\hfill
@@ -369,14 +386,14 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 \begin{frame}{Off-chain stored metadata on a centralized file system}
 \begin{itemize}
 	\item E.g., Cryptokitties
-	\item \link \href{https://api.cryptokitties.co/kitties/2252}{JSON} and image centralized on Dapper Labs website.
-	\item Dapper Labs can easily change or even delete the JSON file or the image.
+	\item JSON file \link \href{https://api.cryptokitties.co/kitties/2252}{https://api.cryptokitties.co/kitties/2252} and image centralized on Dapper Labs website.
+	\item The operator of the website and the servers has full control over the Metadata and can easily mutate/delete it.
 \end{itemize}
 \vspace{1em}
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.2]{../assets/images/cryptokitty.png}
-	\caption*{Source: \link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {Dapper Labs}}	
+	\caption*{Source: \link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {\tiny https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg}	}
 \end{figure}
 \end{frame}
 %%%
