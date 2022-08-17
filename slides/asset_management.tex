@@ -39,7 +39,7 @@
 %%%
 \begin{frame}{Introduction}
 
-Asset Management in the traditional financial system: \\ \vspace{1em}
+Asset management in the traditional financial system: \\ \vspace{1em}
 	
 	\begin{itemize}
 		\item<1-> Requires trust in a third party 
@@ -50,7 +50,7 @@ Asset Management in the traditional financial system: \\ \vspace{1em}
 	
 \vspace{1em}	
 
-DeFi Asset Management: \\ \vspace{1em}
+DeFi asset management: \\ \vspace{1em}
 
 	\begin{itemize}
 		\item<1-> Non-custodial
@@ -61,6 +61,7 @@ DeFi Asset Management: \\ \vspace{1em}
 \end{frame}
 
 %%%	
+
 
 %%%
 \begin{frame}{Token Basket}
@@ -74,6 +75,119 @@ DeFi Asset Management: \\ \vspace{1em}
 \end{frame}
 %%%	
 
+%%%
+\begin{frame}{Benefits of Token Baskets}
+\vspace{2 em}
+
+\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=4em]{../assets/images/pos.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Single point of service $\rightarrow$ lower effort
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=4em]{../assets/images/money-loss.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Cost reduction
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+		
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=4
+				em]{../assets/images/assets.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Asset diversity
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+
+
+
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Token Basket Issuance}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/simpleTokenBasket_w_ratio.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Token Basket Withdrawal}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/simpleTokenBasket_w_ratio_withdraw.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Token Basket Exchange Issuance}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/simpleTokenBasket_w_ratio_exchange_issuance.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Token Basket Redemption}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/simpleTokenBasket_w_ratio_withdraw.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Token Basket DEX Issuance}
+
+\begin{figure}
+	\begin{tikzpicture}
+		\input{../assets/figures/composability_example.tex}
+	\end{tikzpicture}	
+\end{figure}
+
+\end{frame}
+%%%	
+	
 
 %%%
 \begin{frame}{Vault Active vs Passive Rebalancing}
@@ -83,21 +197,17 @@ DeFi Asset Management: \\ \vspace{1em}
 		\end{center}
 		\begin{center}
 		Actively \\ \vspace{1em}
-		Manager trades according to predefined rule set
+		Management according to predefined rule set \\ {\footnotesize (change of rule set requires investor approval)}
 \vspace{0.5em}		
 			\begin{scriptsize}
 				\begin{itemize}
 					\item<1-> Diversification
-					\item<2-> Max. Exposure
-					\item<3-> Whitelist for Exchanges / Platforms
-					\item<4->  Asset universe
-					\item<5->  ...
+					\item<2-> Asset universe
+					\item<3-> Whitelist for Protocols
+					\item<4-> ...
 				\end{itemize}		
 			\end{scriptsize}
-		\vspace{0.5em}Change of rule set requires investor approval \\
-		\end{center}
-		
-
+		\end{center}		
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.4\textwidth}
@@ -109,17 +219,18 @@ DeFi Asset Management: \\ \vspace{1em}
 		Rebalancing according to fixed rule set \vspace{0.5em}		
 			\begin{scriptsize}
 				\begin{itemize}
-					\item<1-> Fixed ratio on \$ ratio
+					\item<1-> Oracle dependant
 					\item<2-> Index investing
 					\item<3-> Flexible weights (e.g. according to marketcap)
 					\item<4->  Advanced strategies
 					\item<4->  ...
 				\end{itemize}
 			\end{scriptsize}
-	 	\vspace{0.5em}Problem: Often requires Oracles (on- or off-chain)
 		\end{center}
 	\end{minipage}
-
+	
+\vspace{1.5em}\center
+Problem: Onchain enforcement is very expensive
 \end{frame}
 %%%
 
@@ -160,7 +271,7 @@ DeFi Asset Management: \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-			Accessible to more investors / \\ Lower cost of entry)
+			Accessible to more investors / \\ lower cost of entry
 
 		\end{minipage}
 	
@@ -186,7 +297,7 @@ DeFi Asset Management: \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Better price discovery for the underlying asset 
+		Better price discovery for underlying asset 
 		\end{minipage}
 
 
@@ -209,7 +320,7 @@ DeFi Asset Management: \\ \vspace{1em}
 %%%
 \begin{frame}{Yield Farming}
 
-Yieldfarming Strategies \\ \vspace{1em}
+Strategies: \\ \vspace{1em}
 
 	\begin{itemize}
 	
@@ -217,7 +328,7 @@ Yieldfarming Strategies \\ \vspace{1em}
 		\item<1-> Providing liquidity on DEX
 		\item<2-> Lending / providing assets on lending platform
 		\item<3-> Arbitrage opportunities between protocols
-		\item<4-> Exploting bonuses (e.g. liquidity / usage incentives)
+		\item<4-> Bonuses (e.g. liquidity / usage incentives)
 		\item<4->...
 	\end{itemize}
 
@@ -240,7 +351,7 @@ Yieldfarming Strategies \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-			Use leverage and / or combine multiple strategies \\ ... to increase yield
+			Leverage and / or combining multiple strategies
 
 		\end{minipage}
 		\pause
@@ -255,7 +366,7 @@ Yieldfarming Strategies \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-			APY / APR increase
+			Goal to increase yield
 		\end{minipage}
 	
 		\pause
@@ -267,7 +378,7 @@ Yieldfarming Strategies \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Higher exposure and liquidity risk 
+		Higher exposure to risk 
 		\end{minipage}
 		
 		
@@ -284,15 +395,29 @@ Yieldfarming Strategies \\ \vspace{1em}
 
 		\begin{minipage}{0.2\textwidth}
 			\begin{center}
-				\includegraphics[height=3em]{../assets/images/diversification.png}
+				\includegraphics[height=3em]{../assets/images/car.png}
 			\end{center}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Protocol combining multiple strategies / assets 
+		Sharing of gas costs allows more frequent compounding
 		\end{minipage}
 		\pause
 		\vspace{2 em}
+		
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/fee.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Protocol charges performance fee
+		\end{minipage}
+		\pause
+		\vspace{2 em}		
+		
 		
 		\begin{minipage}{0.2\textwidth}
 			\begin{center}
@@ -304,11 +429,6 @@ Yieldfarming Strategies \\ \vspace{1em}
 		Increase in wrapping complexity. 
 		\end{minipage}
 		\pause
-		\vspace{3 em}			
-		
-		
-			\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler, 2020}
-
 \end{frame}
 
 
@@ -322,7 +442,7 @@ Yieldfarming Strategies \\ \vspace{1em}
   	\center 
     \includegraphics[width=0.7\textwidth]{../assets/images/database-usage.png}
     \vspace{0.8em}\vspace{0.8em}
-    Protocol Usage $\&$ Fees
+    Protocol revenue
   \end{minipage}
   \hfill
   \begin{minipage}[t]{.25\textwidth}
@@ -336,7 +456,7 @@ Yieldfarming Strategies \\ \vspace{1em}
   \center 
     \includegraphics[width=0.7\textwidth]{../assets/images/inflation.png}
     \vspace{0.8em}\vspace{0.8em}
-    Extension of Token Supply
+    Extension of token supply
   \end{minipage}  
 \end{figure}
 
@@ -348,13 +468,18 @@ Yieldfarming Strategies \\ \vspace{1em}
 %%%	
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+\begin{frame}{Airdrop}
+\begin{figure}
+\scalebox{0.7}{
+	\begin{tikzpicture}
+		\input{../assets/figures/airdrop.tex}
+	\end{tikzpicture}	
+}
+\end{figure}
 
-
-
+\end{frame}
+%%%	
 
 
 %%%
@@ -425,35 +550,81 @@ Yieldfarming Strategies \\ \vspace{1em}
 \end{frame}
 %%%	
 
+
+%%%
+\begin{frame}{Airdrop Motivation}
+
+\vspace{20pt}%
+
+
+  \begin{figure}[H]
+  \hspace{-15pt}
+  \begin{minipage}[t]{.35\textwidth}
+  	\center 
+	\scalebox{0.8}{
+		\begin{tikzpicture}
+  			\input{../assets/figures/decentralized_asset_decission_maker.tex}
+		\end{tikzpicture}
+	}
+    Decentralized governance
+  \end{minipage}
+  \hspace{16pt}
+  \begin{minipage}[t]{.25\textwidth}\vspace{-88pt}% 
+  \center
+    \includegraphics[width=0.9\textwidth]{../assets/images/healthy_distribution.png}
+	\vspace{0.8em}\vspace{3.2em}    
+    Healthy asset ownership / distribution
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}\vspace{-77pt}%
+  \center 
+    \includegraphics[width=0.5\textwidth]{../assets/images/legislation.png}
+    \vspace{0.8em}\vspace{2.7em}
+    Delegation of responsibility
+  \end{minipage}  
+\end{figure}
+\end{frame}
+%%%	
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%
-\begin{frame}{Yield Farming}
+\begin{frame}{Airdrop Motivation}
+  \begin{figure}[H]
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/sharing.png}
+	\vspace{0.8em}\vspace{0.8em}   
+    Creating a market
+  \end{minipage}
+    \hfill
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/trading.png}
+	\vspace{0.8em}\vspace{0.8em}    
+    Implicit fundraising (for future protocol developement)
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/liquidity.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Early stakeholder Incentive
+  \end{minipage}  
+\end{figure}
 
- \vspace{1em}
 
-	\begin{enumerate}
-		\item<1-> Diversification of Assets and Risks
-		\item<2-> Reduction of Gas and Transaction Fees
-		\item<3-> Management of Assets
-	\end{enumerate}
-	
-\vspace{1em}
-
-
-There are two types of Token baskets: \vspace{1em}
-	
-	\begin{itemize}
-		\item<4-> actively managed
-		\item<5-> passively managed
-	\end{itemize}
-	
 
 \end{frame}
-%%%	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
