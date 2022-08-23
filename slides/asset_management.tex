@@ -45,7 +45,7 @@ Asset management in the traditional financial system: \\ \vspace{1em}
 		\item<1-> Requires trust in a third party 
 		\item<2-> Often intransparent with incentives to use information asymmetry to own advantage
 		\item<3-> Gambling for redemption (hidden actions)
-		\item<4-> Airdrops
+		\item<4-> High/hidden fees
 	\end{itemize}
 	
 \vspace{1em}	
@@ -168,26 +168,12 @@ DeFi asset management: \\ \vspace{1em}
 
 \begin{figure}
 	\begin{tikzpicture}
-		\input{../assets/figures/simpleTokenBasket_w_ratio_withdraw.tex}
+		\input{../assets/figures/simpleTokenBasket_w_ratio_redemption.tex}
 	\end{tikzpicture}	
 \end{figure}
 
 \end{frame}
 %%%
-
-
-%%%
-\begin{frame}{Token Basket DEX Issuance}
-
-\begin{figure}
-	\begin{tikzpicture}
-		\input{../assets/figures/composability_example.tex}
-	\end{tikzpicture}	
-\end{figure}
-
-\end{frame}
-%%%	
-	
 
 %%%
 \begin{frame}{Vault Active vs Passive Rebalancing}
@@ -233,6 +219,29 @@ DeFi asset management: \\ \vspace{1em}
 Problem: Onchain enforcement is very expensive
 \end{frame}
 %%%
+
+
+%%%
+\begin{frame}{Auto Rebalancing: Position in a CFMM}
+
+	\begin{figure}	
+		\centering
+		\input{../assets/figures/cfmm.tex}
+	\end{figure}
+
+	\begin{itemize}
+		\item<5-> The price is determined endogenously as a function of the contract's token holdings.
+	\end{itemize}
+	
+	\vspace{1em}
+	
+	If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
+
+
+\end{frame}
+%%%
+	
+
 
 
 %%%
@@ -307,15 +316,101 @@ Problem: Onchain enforcement is very expensive
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%
-\begin{frame}{Redemption Schemes}
+\begin{frame}{Redemption Problem $\&$ Redemption Schemes}
 
-	
+\vspace{3em}
+\hspace{1 em}		
+		\begin{minipage}{0.9\textwidth}
+		
+			\begin{center}
+				
+								\scalebox{0.75}{
+\begin{tikzpicture}
+
+\uncover<1->{
+
+\draw [thick] ( -3 , -0.5) rectangle (2.2 ,0.5);
+\draw [thick] ( 2.2 , -0.5) rectangle (3 ,0.5);
+
+
+\node [align=center] at (-0,0){99$\%$};
+\node [align=center] at (-0,-1){Alice};
+
+
+\node [align=center] at (2.6,0){1$\%$};
+\node [align=center] at (2.6,-1){Bob};
+}
+
+\uncover<2->{
+\draw [->,thick] (4,0) -- (5.5,0);
+
+
+\node at (8,0){no F-NFT redemption};
+
+}
+
+\end{tikzpicture}
+}
+				
+			\end{center}
+		\end{minipage}
+
+		\pause
+		\vspace{3 em}
+		
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/predefined-answer.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Predefined terms such as: time, auction type etc.
+		\end{minipage}
+		\pause
+		\vspace{1 em}		
+		
+		
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\scalebox{0.75}{
+					\begin{tikzpicture}
+						\input{../assets/figures/DAO_Figure.tex}					
+					\end{tikzpicture}
+				}		
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Decission by DAO, e.g. voting for buyout reserve price or dutch auction parameters etc
+		\end{minipage}
+		\pause
+
+
+
+
+
+
+
+
+
+
+
+
 \end{frame}
 %%%	
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%
 \begin{frame}{Yield Farming}
@@ -467,6 +562,85 @@ Strategies: \\ \vspace{1em}
 \end{frame}
 %%%	
 
+%%%
+\begin{frame}{Wrapping Complexity}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/wrapping_complexity.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Yield farming increases the wrapping complexity of assets in the ecosystem
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/solution.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		Wrapping complexity is an indicator of how integrated certain assets are into the ecosystem
+		\end{minipage}
+		\pause
+		\vspace{2 em}		
+		
+		
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/warning.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		But high wrapping complexity is also an indicator for complexity and may introduce additional risks
+		\end{minipage}
+		\pause
+\end{frame}
+%%%
+
+
+
+%%%
+\begin{frame}{Economic Beneficiaries}
+\vspace{2 em}
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/unknown.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		It is very challenging to map token ownership to their economic beneficiaries
+		\end{minipage}
+		\pause
+		\vspace{2 em}
+		
+
+		\begin{minipage}{0.2\textwidth}
+			\begin{center}
+				\includegraphics[height=3em]{../assets/images/code-review.png}
+			\end{center}
+		\end{minipage}
+		\hspace{1 em}
+		\begin{minipage}{0.72\textwidth}
+		By just looking at token holder tables, the centralization of the ecosystem is significantly overestimated
+		\end{minipage}
+		\pause
+		\vspace{3em}		
+		
+		\pause
+		
+		
+		\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler, 2020}
+\end{frame}
+%%%
+
+
 
 %%%
 \begin{frame}{Airdrop}
@@ -480,6 +654,80 @@ Strategies: \\ \vspace{1em}
 
 \end{frame}
 %%%	
+
+%%%
+\begin{frame}{Merkledrops}
+
+\end{frame}
+%%%	
+
+
+
+%%%
+\begin{frame}{Airdrop Motivation}
+
+\vspace{20pt}%
+
+
+  \begin{figure}[H]
+  \hspace{-15pt}
+  \begin{minipage}[t]{.35\textwidth}
+  	\center 
+	\scalebox{0.8}{
+		\begin{tikzpicture}
+  			\input{../assets/figures/decentralized_asset_decission_maker.tex}
+		\end{tikzpicture}
+	}
+    Decentralized governance
+  \end{minipage}
+  \hspace{16pt}
+  \begin{minipage}[t]{.25\textwidth}\vspace{-88pt}% 
+  \center
+    \includegraphics[width=0.9\textwidth]{../assets/images/healthy_distribution.png}
+	\vspace{0.8em}\vspace{3.2em}    
+    Healthy asset ownership / distribution
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.25\textwidth}\vspace{-77pt}%
+  \center 
+    \includegraphics[width=0.5\textwidth]{../assets/images/legislation.png}
+    \vspace{0.8em}\vspace{2.7em}
+    Delegation of responsibility
+  \end{minipage}  
+\end{figure}
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Airdrop Motivation}
+  \begin{figure}[H]
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/sharing.png}
+	\vspace{0.8em}\vspace{0.8em}   
+    Creating a market
+  \end{minipage}
+    \hfill
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/trading.png}
+	\vspace{0.8em}\vspace{0.8em}    
+    Implicit fundraising (for future protocol developement)
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
+  	\center 
+	\includegraphics[width=0.8\textwidth]{../assets/images/liquidity.png}
+    \vspace{0.8em}\vspace{0.8em}
+    Early stakeholder Incentive
+  \end{minipage}  
+\end{figure}
+
+
+
+\end{frame}
+%%%
 
 
 %%%
@@ -537,6 +785,8 @@ Strategies: \\ \vspace{1em}
 %%%	
 
 
+
+
 %%%
 \begin{frame}{Airdrop Problems}
 	\vspace{1.5em}
@@ -552,235 +802,26 @@ Strategies: \\ \vspace{1em}
 
 
 %%%
-\begin{frame}{Airdrop Motivation}
-
-\vspace{20pt}%
-
-
-  \begin{figure}[H]
-  \hspace{-15pt}
-  \begin{minipage}[t]{.35\textwidth}
-  	\center 
-	\scalebox{0.8}{
-		\begin{tikzpicture}
-  			\input{../assets/figures/decentralized_asset_decission_maker.tex}
-		\end{tikzpicture}
-	}
-    Decentralized governance
-  \end{minipage}
-  \hspace{16pt}
-  \begin{minipage}[t]{.25\textwidth}\vspace{-88pt}% 
-  \center
-    \includegraphics[width=0.9\textwidth]{../assets/images/healthy_distribution.png}
-	\vspace{0.8em}\vspace{3.2em}    
-    Healthy asset ownership / distribution
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{.25\textwidth}\vspace{-77pt}%
-  \center 
-    \includegraphics[width=0.5\textwidth]{../assets/images/legislation.png}
-    \vspace{0.8em}\vspace{2.7em}
-    Delegation of responsibility
-  \end{minipage}  
-\end{figure}
-\end{frame}
-%%%	
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%
-\begin{frame}{Airdrop Motivation}
-  \begin{figure}[H]
-  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
-  	\center 
-	\includegraphics[width=0.8\textwidth]{../assets/images/sharing.png}
-	\vspace{0.8em}\vspace{0.8em}   
-    Creating a market
-  \end{minipage}
-    \hfill
-  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
-  	\center 
-	\includegraphics[width=0.8\textwidth]{../assets/images/trading.png}
-	\vspace{0.8em}\vspace{0.8em}    
-    Implicit fundraising (for future protocol developement)
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
-  	\center 
-	\includegraphics[width=0.8\textwidth]{../assets/images/liquidity.png}
-    \vspace{0.8em}\vspace{0.8em}
-    Early stakeholder Incentive
-  \end{minipage}  
-\end{figure}
-
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-%%%
-\begin{frame}{Tt}
-
-Concepts in Crypto Asset Management: \\ \vspace{1em}
-	
-	\begin{itemize}
-		\item<1-> Token Basket 
-		\item<2-> Yield Farming
-		\item<3-> Distribution concepts
-		\item<4-> Airdrops
-	\end{itemize}
+\begin{frame}{Locked Token Problem  Economic Benficiarry Problem}
+\vspace{1em}
+\scalebox{0.65}{
+\begin{tikzpicture}
+  \input{../assets/figures/airdrop_locked_token_problem.tex}
+\end{tikzpicture}
+}
 
 \end{frame}
 %%%	
 
+
+
 %%%
-\begin{frame}{Asset Management}
+\begin{frame}{Exercise}
 
-This is how lists can be used in the template. \\ \vspace{1em}
-
-Some of the main features of this template:
-	
-	\begin{itemize}
-		\item<1-> stay focused
-		\item<2-> save ink
-		\item<3-> do not get distracted
-	\end{itemize}
-
-	\vspace{1em}	
-	\uncover<4->{The same works for Enumerate environments:}
-
-	\begin{enumerate}
-		\item<5-> This is the first point
-		\item<6-> and the second one
-		\item<7-> Last but not least, the third one
-	\end{enumerate}
-	
 \end{frame}
 %%%	
 
 
-
-%%%
-\begin{frame}{Tables}
-	\begin{table}
-		\begin{tabular}{ll}
-			A & B\\
-			C & D
-		\end{tabular}
-		\caption{This is a table}
-		\label{tbl:simpletable}
-	\end{table}
-\end{frame}
-
-%%%
-
-
-%%%
-\begin{frame}{Box Conventions}
-	
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-1em}
-			\begin{samplecode}{Basic Contract Structure (Solidity)}
-				Pragma solidity  \textasciicircum 0.4.19; \
-				contract HelloWorld \{ \\
-				\color{softanthracite} /* This is where you write your code */
-			\end{samplecode}			
-		\end{column} %\hfill
-
-		\begin{column}{0.5\textwidth}
-			\textbf{Sample Code Box}\\
-			Contains code snippets in Solidity or pseudo code.
-		\end{column}
-	\end{columns}
-
-\vspace{2.5em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-0.8em}
-			\begin{keytakeaway}{Transaction Definitions}
-				A transaction is a message send by an externally owned account.
-			\end{keytakeaway}			
-		\end{column}
-		
-		\begin{column}{0.5\textwidth}
-			\textbf{Key Take-Away}\\
-			Highlights important concepts and definitions.
-		\end{column}
-	\end{columns}
-
-\vspace{2.5em}
-
-	\begin{columns}[T]
-		\begin{column}{0.45\textwidth}
-			\vspace{-0.9em}
-			\begin{exercise}{Exercise 1}
-				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
-			\end{exercise}					
-		\end{column}
-		\begin{column}{0.5\textwidth}
-		\textbf{Exercises}\\
-			Things for you to try out.
-		\end{column}
-	\end{columns}
-
-\end{frame}
-
-%%%
-
-
-%%%
-\begin{frame}{Code Sample}
-	\begin{samplecode}{Minimum viable token}
-		\input{../assets/solidity_code/minimum-viable-token.tex}
-	\end{samplecode}
-\end{frame}
-%%%
-
-
-%%%
-\begin{frame}{Equations}
-
-Some in-line math can be used like this $y=x^2+2x-5$. \\ \vspace{1em}
-
-However, in many cases it makes sense to use numbered equations. The $\&$-sign can be used to set anchor points, e.g. around the ``$=$'' for multiple equations. This is shown below in Equation \eqref{eq:firststep} and Equation \eqref{eq:secondstep}.
-	\begin{align}
-		y + 2x &= x^2+2x-5 \label{eq:firststep}\\
-		y &= x^2-5 \label{eq:secondstep}
-	\end{align}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Figures}
-	\begin{figure}
-		\center
-		\includegraphics[width=0.8\textwidth]{../config/logo_cif}	
-		\caption{Center for Innovative Finance Logo}
-		\label{fig:logo}
-	\end{figure}
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Links}
-		Links are signaled with the respective icon, which is set up in the config file and can be called with the respective command.\\
-		
-		\link \href{https://github.com/cifunibas}{Repository: CIF on GitHub}.
-		
-\end{frame}
-%%%
 
 
 %%%

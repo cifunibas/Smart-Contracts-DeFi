@@ -1,0 +1,121 @@
+	% Layers
+
+	\filldraw[color = brightanthracite!50, thick, draw=black] (0,0) rectangle ++(15,1.5);
+	\node [right, xshift = 0.2cm, text = anthracite] at (0,0.75) {\textbf{Settlement Layer}};
+
+	\filldraw[color = brightanthracite!50, thick, draw=black] (0,1.75) rectangle ++(15,1.5);
+	\node [right, xshift = 0.2cm, text = anthracite] at (0,2.5) {\textbf{Asset Layer}};
+
+	\filldraw[color = mint!50, ultra thick, draw=darkmint] (0,3.5) rectangle ++(15,1.5);
+	\node [right, xshift = 0.2cm, text = anthracite] at (0,4.25) {\textbf{Protocol Layer}};
+
+	\filldraw[color = brightanthracite!50, thick, draw=black] (0,5.25) rectangle ++(15,1.5);
+	\node [right, xshift = 0.2cm, text = anthracite] at (0,6) {\textbf{Application Layer}};
+
+	\filldraw[color = brightanthracite!50, thick, draw=black] (0,7) rectangle ++(15,1.5);
+	\node [right, xshift = 0.2cm, text = anthracite] at (0,7.75) {\textbf{Aggregation Layer}};
+
+% Settlement components
+
+	\draw [fill = white, thick ] (4,0.2) rectangle  ++(3,2.85) node [midway, text width = 2.8cm, align = center ] {Native protocol asset (ETH)};
+	\draw [fill = white, thick ] (7.25,0.2) rectangle  ++(7.5,1.1) node [midway, text width = 7.3cm, align = center ] {(Ethereum) Blockchain};
+	
+	
+% Asset components
+	
+	\draw [fill = white, thick ] (7.25,1.95) rectangle  ++(3,1.1) node [midway, text width = 2.8cm, align = center ] {Fungible tokens: ERC-20};
+	\draw [fill = white, thick ] (10.5,1.95) rectangle  ++(3,1.1) node [midway, text width = 2.8cm, align = center ] {Non-fungible tokens: ERC-721};
+	\draw [fill = white, thick ] (13.75,1.95) rectangle  ++(1,1.1) node [midway, text width = 0.8cm, align = center ] {...};	
+	
+	
+% Protocol components
+
+	\draw [fill = white, thick, draw=darkmint ] (4, 3.7) rectangle  ++(2.2,1.1) node [midway, text width = 2cm, align = center ] {Exchange};
+	\draw [fill = white, thick, draw = darkmint ] (6.45, 3.7) rectangle ++(2.15,1.1) node [midway, text width = 2cm, align = center ] {Lending};
+	\draw [fill = white, thick, draw = darkmint] (8.85, 3.7) rectangle  ++(2.2,1.1) node [midway, text width = 2cm, align = center ] {Derivatives};
+	\draw [fill = white, thick, draw = darkmint ] (11.3, 3.7) rectangle  ++(2.2,1.1) node [midway, text width = 2.1cm, align = center ] {Asset Management};
+	\draw [fill = white, thick, draw = darkmint ] (13.75, 3.7) rectangle  ++(1,1.1) node [midway, text width = 0.8cm, align = center ] {...};
+
+
+% Application components
+
+	\coordinate (A) at (4,5.7);
+	\draw [decorate,decoration={brace, mirror, amplitude=0.3cm}](A) -- ($(A) + (2.2,0)$);
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.25cm, minimum width = 		0.45cm, minimum height = 0.25cm] at (A) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) {};
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) (app11) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) (app21){};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (A) {};
+
+
+	\coordinate (B) at ($ (A) + (2.45,0)$);
+	\draw [decorate,decoration={brace, mirror, amplitude=0.3cm}](B) -- ($(B) + (2.2,0)$);
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.25cm, minimum width = 		0.45cm, minimum height = 0.25cm] at (B) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) (app12) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (B) {};
+	
+	
+	\coordinate (C) at ($ (B) + (2.45,0)$);
+	\draw [decorate,decoration={brace, mirror, amplitude=0.3cm}](C) -- ($(C) + (2.2,0)$);
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.25cm, minimum width = 		0.45cm, minimum height = 0.25cm] at (C) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) {};
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) (app13) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (C) (app31){};
+	
+	
+	\coordinate (D) at ($ (C) + (2.45,0)$);
+	\draw [decorate,decoration={brace, mirror, amplitude=0.3cm}](D) -- ($(D) + (2.2,0)$);
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.25cm, minimum width = 		0.45cm, minimum height = 0.25cm] at (D) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.25cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) {};
+
+	\draw node [fill = white, draw = black, thick, xshift = 0.25cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) {};
+	\draw node [fill = white, draw = black, thick, xshift = 0.8cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) (app32) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.35cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) {};
+	\draw node [fill = white, draw = black, thick, xshift = 1.9cm, yshift = 0.6cm, minimum width = 0.45cm, minimum height = 0.25cm] at (D) (app22){};
+	
+
+	
+	
+% Aggregation components
+	
+	% Boxes
+	\draw [fill = white, thick] (4, 7.2) rectangle  ++(3.42,1.1) node [midway, text width = 3.2cm, align = center ] {Aggregator 1};
+	\draw [fill = white, thick] (7.67, 7.2) rectangle  ++(3.42,1.1) node [midway, text width = 3.2cm, align = center ] {Aggregator 2};
+	\draw [fill = white, thick] (11.34, 7.2) rectangle  ++(3.41,1.1) node [midway, text width = 3.2cm, align = center ] {Aggregator 3};
+	
+	%Lines
+	
+	\coordinate (agg1) at (5.71,7.2);
+	\coordinate (agg2) at (9.38,7.2);
+	\coordinate (agg3) at (13.05,7.2);
+	
+	\draw [thick] (agg1) -- (app11.north);
+	\draw [thick] (agg1) -- (app12.north);
+	\draw [thick] (agg1) -- (app13.north);
+	
+	\draw [thick] (agg2) -- (app21.north);
+	\draw [thick] (agg2) -- (app22.north);
+
+	\draw [thick] (agg3) -- (app31.north);
+	\draw [thick] (agg3) -- (app32.north);
