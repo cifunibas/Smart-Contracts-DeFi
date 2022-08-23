@@ -24,7 +24,6 @@
 \begin{frame}{(Non-) Fungibility}
 
 So far, we have only considered fungible tokens. However, tokens can also represent ownership of non-fungible assets.\\
-
 \vspace{1em}
 \uncover<2->{
 \begin{columns}
@@ -66,7 +65,9 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 %%%
 \begin{frame}{Distinction between ERC20 and ERC721}
-	While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenId}. \\	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}	
+
+While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenId}. \\	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
+\uncover<2->{	
 \begin{columns}
 \column{0.5\textwidth}
 	\vspace{1em}
@@ -75,14 +76,13 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\hline \hline
 			\multicolumn{2}{c}{ERC20}\\
 			\hline
-			Address & Amount \\
+			\texttt{Address} & \texttt{Amount} \\
 			\hline
 			0x061F... & 10\\
 			0x25ed... & 5\\
 			0xab3B... & 20\\
 			\hline \hline
 			\end{tabular}
-			%\caption*{ERC20}
 		\end{table}
 		Mapping from owner to balance, with address of the owner being the key of the mapping.
 \column{0.5\textwidth}
@@ -92,36 +92,40 @@ Some examples of non-fungible token applications (non-exhaustive list):
 			\hline \hline
 			\multicolumn{2}{c}{ERC721}\\
 			\hline
-			tokenId & Address \\
+			\texttt{tokenId} & \texttt{Address} \\
 			\hline
 			0 & 0x0901...\\
 			1 & 0x7A25...\\
 			2 & 0x0901...\\
 			\hline \hline
 			\end{tabular}
-			%\caption*{\textbf{ERC721}}
 		\end{table}
-		Mapping from tokenId to owner, with tokenId being the key of the mapping.
+		Mapping from \texttt{tokenId} to owner, with \texttt{tokenId} being the key of the mapping.
 \end{columns}
+}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{ERC721 Token Standard: Functions I}
+
 \begin{itemize}
-	\item \textbf{Token standards} specify basic interfaces and allow third party contracts to use tokens in a standardized way.
-	\item Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
-	\item Some functions are very similar to the functions we know from the ERC20 token standard:
+	\item<1-> \textbf{Token standards} specify basic interfaces and allow third party contracts to use tokens in a standardized way.
+	\item<1-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
+	\item<2-> Some functions are very similar to the functions we know from the ERC20 token standard:
 \end{itemize}
+\uncover<2->{
 	\vspace{0.5em}
 	\begin{samplecode}{ERC721: Functions known from ERC20}
 		\input{../assets/solidity_code/erc721-functions-1.tex}
 	\end{samplecode}
+	}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{ERC721 Token Standard: Functions II}
+
 ERC721 tokens have an additional \texttt{setApprovalForAll} function which allows an owner to set or revoke the approval for \textbf{all} of his tokens in the smart contract (collection). 
 \vspace{1em}
 	\begin{samplecode}{ERC721: Functions II}
@@ -132,6 +136,7 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 
 %%%
 \begin{frame}{ERC721 Token Standard: Events}
+
 \vspace{0.5em}
 	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
 \vspace{1em}
@@ -142,11 +147,11 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 %%%
 
 %%%
-\begin{frame}{ERC721 Token Standard: \texttt{safeTransfer}}
+\begin{frame}{ERC721 Token Standard: \texttt{safeTransferFrom}}
+
 \begin{itemize}
 	\item Problem: sending tokens to a smart contract which does not know how to handle them results in lost assets.
 	\item When using \texttt{safeTransferFrom}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
-	%\item Include this interface when writing a contract that needs to receive ERC721 tokens.
 \end{itemize}
 \vspace{1em}
 	\begin{samplecode}{safeTransfer}
@@ -158,6 +163,7 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 
 %%%
 \begin{frame}{ERC721 Token Standard: Contract Interface}
+
 \vspace{0.5em}
 	Any smart contract \textbf{MUST} implement the contract interface if it will accept safe transfers:
 \vspace{1em}
@@ -169,6 +175,7 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 
 %%%
 \begin{frame}{ERC165 Interface}
+
 Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165}
 \vspace{1em}
 	\begin{samplecode}{Query if a contract implements an interface}
@@ -181,6 +188,7 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 
 %%%
 \begin{frame}{ERC165 Example}
+
 The identifier for the ERC721 interface is calculated as the XOR of all function identifiers.
 For Example:
 \begin{samplecode}{ERC165: Example}
@@ -197,9 +205,6 @@ For Example:
 
 => 0x70a08231 \textasciicircum{} 0x6352211e \textasciicircum{} 0x095ea7b3 \textasciicircum{} 0x081812fc \textasciicircum{} 0xa22cb465 \textasciicircum{} 0xe985e9c5 \textasciicircum{} 0x23b872dd \textasciicircum{} 0x42842e0e \textasciicircum{} 0xb88d4fde == 0x80ac58cd
 \end{samplecode}
-%\uncover<2->{
-%\texttt{supportsInterface} returns \texttt{true} if the \texttt{interfaceID} is \texttt{0x80ac58cd} or for any other \texttt{interfaceID} the contract implements. It returns \texttt{false} if \texttt{interfaceID} is \texttt{0xffffffff} or for any other \texttt{interfaceID} that is not implemented in the contract.
-%}
 \end{frame}
 %%%
 
@@ -208,12 +213,16 @@ For Example:
 The enumerable extension circumvents the problem that the mapping only works from tokenId to address. Otherwise, there would be no way to get all the tokens of a specific address.
 \vspace{0.5em}
 		\begin{table}
-			\begin{tabular}{c|l|c}
-			tokenId & Address & IndexByOwner\\
+			\begin{tabular}{clc}
+			\hline \hline
+			\texttt{tokenId} & \texttt{Address} & \texttt{IndexByOwner}\\
 			\hline
-			0 & \color{focus}{0x0901}... & \color{focus}{0} \\
-			1 & 0x7A25... & 0 \\
-			2 & \color{focus}{0x0901}... & \color{focus}{1}
+			\color{focus}{0} & \color{focus}{0x0901}... & \color{focus}{0} \\
+			\color{mint}{1} & \color{mint}{0x7A25}... & \color{mint}{0} \\
+			\color{focus}{2} & \color{focus}{0x0901}... & \color{focus}{1}\\
+			\color{focus}{3} & \color{focus}{0x0901}... & \color{focus}{2}\\
+			\color{darkmint}{4} & \color{darkmint}{0xce9b}... & \color{darkmint}{0} \\
+			\hline \hline
 			\end{tabular}
 		\end{table}
 \end{frame}
@@ -221,8 +230,8 @@ The enumerable extension circumvents the problem that the mapping only works fro
 
 %%%
 \begin{frame}{Enumerable Extension ctd.}
-	%The enumerable extension allows enumerating the tokens on chain. 
-	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the token ID owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
+
+	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the \texttt{tokenId} owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
  
 	\begin{samplecode}{Enumerable Extension}
 		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
@@ -238,45 +247,40 @@ The enumerable extension circumvents the problem that the mapping only works fro
 	\begin{samplecode}{Metadata Extension}
 		\input{../assets/solidity_code/erc721-metadata-extension.tex}
 	\end{samplecode}
-\vspace{0.5em}
-\uncover<2->{
-%	\begin{keytakeaway}{Mutability of the URI}
-%		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative case in practice.}
-%	\end{keytakeaway}
-}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Metadata JSON Schema Example}
-%	\begin{samplecode}{ERC721 Metadata JSON Schema}
-%		\input{../assets/other_code/erc721-metadata-json-schema.tex}
-%	\end{samplecode}
+%
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{On-chain vs. Off-chain Data}
+
 	The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Examples:\\
 
 	\begin{itemize}
-		\item<2-> On-chain generated
-		\item<3-> On-chain verifiable hash
-		\item<4-> Off-chain stored metadata on a decentralized file system
-		\item<5-> Off-chain stored metadata on a centralized file system
+		\item<2-> On-chain stored or replicable
+		\item<2-> On-chain verifiable hash
+		\item<2-> Off-chain stored metadata on a decentralized file system
+		\item<2-> Off-chain stored metadata on a centralized file system
 	\end{itemize}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{On-chain generated}
+\begin{frame}{On-chain stored or replicable}
+
 	\begin{itemize}
-		\item E.g., Loot (\href{https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7}{Contract} \link )
+		\item E.g., \textbf{Loot} (\href{https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7}{\link smart contract})
 		\item The \texttt{tokenURI} function returns the base64 encoded JSON file of the metadata. 
 	\end{itemize}
 \begin{samplecode}{JSON Metadata for Loot NFT with tokenId {=} 1}
 		\input{../assets/other_code/loot_json.tex}
 	\end{samplecode}
+\uncover<2->{
 	\begin{columns}[T]
 		\begin{column}{0.6\textwidth}
 		\begin{itemize}
@@ -288,38 +292,36 @@ The enumerable extension circumvents the problem that the mapping only works fro
 				\vspace{-1em}
 				\centering
 				\includegraphics[scale=0.16]{../assets/images/loot1.png}
-				\caption*{}	
 		\end{figure}
 		\end{column}
 	\end{columns}
+}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{On-chain verifiable hash}
+
 	\begin{itemize}
-		\item E.g., CryptoPunks (\href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb}{Contract} \link)
-		\item  \href{https://www.larvalabs.com/public/images/cryptopunks/punks.png}{Off-chain picture} \link which hashes to \texttt{\scriptsize ac39a\dots 921b} can be verified in the smart contract.
-%		\item Also, CryptoPunks are now fully on-chain: \link \href{https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2}{Etherscan}  %Saving 24x24 pixel pictures is do-able on-chain.
+		\item E.g., \textbf{CryptoPunks} (\href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb}{\link smart contract} )
+		\item  \href{https://www.larvalabs.com/public/images/cryptopunks/punks.png}{\link Off-chain picture} which hashes to \texttt{\scriptsize ac39a\dots 921b} can be verified in the smart contract.
+		%\item Also, CryptoPunks are now fully on-chain: \link \href{https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2}{Etherscan}  %Saving 24x24 pixel pictures is do-able on-chain.
 	\end{itemize}
 	\begin{samplecode}{CryptoPunks Code Snippet}
 		\input{../assets/solidity_code/cryptopunks.tex}
 	\end{samplecode}
-%\vspace{-1em}
-%\begin{center}
-%	\link \href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb}{CryptoPunks Contract}
-%\end{center}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Off-chain stored metadata on a decentralized file system}
+
 	\begin{itemize}
-		\item E.g., Bored Apes Yacht Club (\href{https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d}{Contract} \link)
-		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{metadata} \link of an NFT which is stored in JSON format on IPFS including link to image.
+		\item E.g., \textbf{Bored Apes Yacht Club} (\href{https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d}{\link smart contract})
+		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{\link metadata}  of an NFT which is stored in JSON format on IPFS including link to image.
 		\item \texttt{baseURI} can be updated via \texttt{setBaseURI}, but requires the user to be the smart contract owner, which is set to the zero address.
 	\end{itemize} 
-	\begin{columns}[T]
+	\begin{columns}0xce9bd
 		\begin{column}{0.67\textwidth}
 		\vspace{-1em}
 			\begin{samplecode}{JSON Metadata of Ape with tokenId 0}
@@ -340,39 +342,91 @@ The enumerable extension circumvents the problem that the mapping only works fro
 
 %%%
 \begin{frame}{Off-chain stored metadata on a centralized file system}
+
 \begin{itemize}
-	\item E.g., Cryptokitties (\href{https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d}{Contract} \link)
-	\item JSON file and image centralized on Dapper Labs website. See: \link \href{https://api.cryptokitties.co/kitties/2252}{https://api.cryptokitties.co/kitties/2252}
-	\item The operator of the website and the servers has full control over the Metadata and can easily mutate/delete it.
+	\item E.g., \textbf{Cryptokitties} (\href{https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d}{\link smart contract} )
+	\item \href{https://api.cryptokitties.co/kitties/2252}{\link  JSON file} and image centralized on Dapper Labs website.
+	\item The operator of the website and the servers has full control over the metadata and can easily mutate/delete it.
 \end{itemize}
 \vspace{1em}
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.2]{../assets/images/cryptokitty.png}
-	\caption*{\link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {\tiny https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg}	}
+	\caption*{\link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {Picture stored on Dapper Labs website}}
 \end{figure}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Mutability of the URI and External Promises}
-		The URI may be mutable, and thus, privileged users may change the referenced metadata of an NFT. Prominent example: 
-		\vspace{0.5em}
-		\begin{figure}
-				\centering
-				\includegraphics[scale=0.2]{../assets/images/rugpull.png}
-				\caption*{\link \href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\tiny https://twitter.com/neitherconfirm/status/1369285946198396928}}	
-			\end{figure}	
-		If external promises, e.g., licenses are attached to the NFT, they become worthless if the counterparty is not able to fulfill it. Example: \href{https://www.pcgamer.com/f1-delta-time-one-of-the-first-major-nft-games-has-shut-down/}{\link F1 Delta Time}
-		%F1 Delta Time, a blockchain-based play-to-earn game, lost its official license. Therefore, tokens representing in-game items became worthless.
+
+The URI may be mutable, and thus, privileged users could change the referenced metadata of an NFT.
+	\vspace{0.5em}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{../assets/images/rugpull.png}
+		\caption*{\href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative example}}	
+		\end{figure}	
+\uncover<2->{	
+If external promises, e.g., licenses, are attached to the NFT, they become worthless if the counterparty is not able or willing to keep them. Another example: \href{https://www.pcgamer.com/f1-delta-time-one-of-the-first-major-nft-games-has-shut-down/}{\link F1 Delta Time}
+%F1 Delta Time, a blockchain-based play-to-earn game, lost its official license. Therefore, tokens representing in-game items became worthless.
+}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{What does Ownership mean?}
+\begin{frame}{NFT Ownership}
 
-ZKM Centre for Art and Media in Karlsruhe, accidentally lost access to two Cryptopunks by sending them to the contract address.
-	\href{https://www.theartnewspaper.com/2022/01/21/a-german-museum-has-accidentally-lost-access-to-two-highly-valuable-nfts}{\link Museum Story}
+\begin{figure}
+     \begin{tikzpicture}[scale = 0.67]
+     	\node at (0,0.5) {\includegraphics[width=0.25\textwidth]{../assets/images/punk2838.png}};
+     	\node[below = 30pt] at (0,0) {\scriptsize{Punk 2838}}; 
+		% Copy-Paste Symbol
+		\draw[rounded corners=5pt, focus, very thick]	(3,2) rectangle (5,1) node [midway, focus] {\footnotesize{\texttt{Ctrl}}};
+		\draw[rounded corners=5pt, focus, very thick]	(6,2) rectangle (7,1) node [midway, focus] {\scriptsize{\texttt{C}}};
+		\draw[rounded corners=5pt, focus, very thick]	(5.5,1.5) node [focus] {\footnotesize{+}};
+	
+		\draw[rounded corners=5pt, focus, very thick]	(3,0) rectangle (5,-1) node [midway, focus] {\footnotesize{\texttt{Ctrl}}};
+		\draw[rounded corners=5pt, focus, very thick]	(6,0) rectangle (7,-1) node [midway, focus] 
+		{\scriptsize{\texttt{V}}};
+		\draw[rounded corners=5pt, focus, very thick]	(5.5,-0.5) node [focus] {\footnotesize{+}};
+	\end{tikzpicture}	
+\end{figure}
+
+\uncover<4->{
+\begin{columns}[T]
+	\column{0.35\textwidth}
+	\begin{keytakeaway}{Token-specific Metadata}
+		The \texttt{tokenId} may point to token-specific metadata, e.g., a set of characteristics and a picture.	
+	\end{keytakeaway}
+}
+\uncover<2->{
+	\column{0.35\textwidth}
+	\vspace{-0.9em}
+		\begin{table}
+			\begin{tabular}{cl}
+			\hline \hline
+			\texttt{tokenId} & \texttt{Address} \\
+			\hline
+			0 & 0x0901...\\
+			1 & 0x7A25...\\
+			2 & 0x0901...\\
+			\hline \hline
+			\end{tabular}
+		\end{table}
+}
+\uncover<3->{
+	\column{0.35\textwidth}
+		\begin{keytakeaway}{Ownership}
+		In most cases, owners have the full control over these entries, i.e, they control approvals and transfers.
+		\end{keytakeaway}				
+}
+\end{columns}
+\vspace{1em}
+\uncover<5->{
+\centering
+\href{https://www.theartnewspaper.com/2022/01/21/a-german-museum-has-accidentally-lost-access-to-two-highly-valuable-nfts}{\link Museum accidentally burning two of their CryptoPunks}
+}
 \end{frame}
 %%%
 
