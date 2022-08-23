@@ -66,7 +66,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 %%%
 \begin{frame}{Distinction between ERC20 and ERC721}
 
-While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenId}. \\	\link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
+While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenId}. \link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
 \uncover<2->{	
 \begin{columns}
 \column{0.5\textwidth}
@@ -176,12 +176,11 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 %%%
 \begin{frame}{ERC165 Interface}
 
-Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165}
+Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165: Standard Interface Detection}
 \vspace{1em}
 	\begin{samplecode}{Query if a contract implements an interface}
 		\input{../assets/solidity_code/erc165.tex}	
 	\end{samplecode}
-
 \end{frame}
 %%%
 
@@ -191,26 +190,16 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 
 The identifier for the ERC721 interface is calculated as the XOR of all function identifiers.
 For Example:
-\begin{samplecode}{ERC165: Example}
- bytes4(keccak256('balanceOf(address)')) == 0x70a08231
- 
-...('ownerOf(uint256)')) == 0x6352211e
-...('approve(address,uint256)')) == 0x095ea7b3
-...('getApproved(uint256)')) == 0x081812fc
-...('setApprovalForAll(address,bool)')) == 0xa22cb465
-...('isApprovedForAll(address,address)')) == 0xe985e9c5
-...('transferFrom(address,address,uint256)')) == 0x23b872dd
-...('safeTransferFrom(address,address,uint256)')) == 0x42842e0e
-...('safeTransferFrom(address,address,uint256,bytes)')) == 0xb88d4fde\\
 
-=> 0x70a08231 \textasciicircum{} 0x6352211e \textasciicircum{} 0x095ea7b3 \textasciicircum{} 0x081812fc \textasciicircum{} 0xa22cb465 \textasciicircum{} 0xe985e9c5 \textasciicircum{} 0x23b872dd \textasciicircum{} 0x42842e0e \textasciicircum{} 0xb88d4fde == 0x80ac58cd
+\begin{samplecode}{ERC165: Example}
+	\input{../assets/other_code/example_erc165.tex}	
 \end{samplecode}
 \end{frame}
 %%%
 
 %%%
 \begin{frame}{Enumerable Extension}
-The enumerable extension circumvents the problem that the mapping only works from tokenId to address. Otherwise, there would be no way to get all the tokens of a specific address.
+The enumerable extension circumvents the problem that the mapping only works from \texttt{tokenId} to \texttt{address}. Otherwise, there would be no way to get all the tokens of a specific address.
 \vspace{0.5em}
 		\begin{table}
 			\begin{tabular}{clc}
@@ -231,12 +220,11 @@ The enumerable extension circumvents the problem that the mapping only works fro
 %%%
 \begin{frame}{Enumerable Extension ctd.}
 
-	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the \texttt{tokenId} owned by \texttt{owner} at a given index of its token list.\vspace{0.5em}
+	Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the \texttt{tokenId} owned by \texttt{owner} at a given \texttt{index} of its token list.\vspace{0.5em}
  
 	\begin{samplecode}{Enumerable Extension}
 		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
 	\end{samplecode}
-
 \end{frame}
 %%%
 
@@ -277,7 +265,7 @@ The enumerable extension circumvents the problem that the mapping only works fro
 		\item E.g., \textbf{Loot} (\href{https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7}{\link smart contract})
 		\item The \texttt{tokenURI} function returns the base64 encoded JSON file of the metadata. 
 	\end{itemize}
-\begin{samplecode}{JSON Metadata for Loot NFT with tokenId {=} 1}
+\begin{samplecode}{JSON Metadata for Loot NFT with \texttt{tokenId} {=} 1}
 		\input{../assets/other_code/loot_json.tex}
 	\end{samplecode}
 \uncover<2->{
@@ -321,10 +309,10 @@ The enumerable extension circumvents the problem that the mapping only works fro
 		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{\link metadata}  of an NFT which is stored in JSON format on IPFS including link to image.
 		\item \texttt{baseURI} can be updated via \texttt{setBaseURI}, but requires the user to be the smart contract owner, which is set to the zero address.
 	\end{itemize} 
-	\begin{columns}0xce9bd
+	\begin{columns}
 		\begin{column}{0.67\textwidth}
 		\vspace{-1em}
-			\begin{samplecode}{JSON Metadata of Ape with tokenId 0}
+			\begin{samplecode}{JSON Metadata of Ape with \texttt{tokenId} 0}
 				\input{../assets/other_code/bayc_metadata.tex}
 			\end{samplecode}		
 		\end{column}
