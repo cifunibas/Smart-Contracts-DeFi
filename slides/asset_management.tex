@@ -86,7 +86,7 @@ DeFi asset management: \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Single point of service $\rightarrow$ lower effort
+		Single point of service
 		\end{minipage}
 		\pause
 		\vspace{2 em}
@@ -125,7 +125,7 @@ DeFi asset management: \\ \vspace{1em}
 
 
 %%%
-\begin{frame}{Token Basket Issuance}
+\begin{frame}{Token Basket Deposit}
 
 \begin{figure}
 	\begin{tikzpicture}
@@ -151,7 +151,7 @@ DeFi asset management: \\ \vspace{1em}
 
 
 %%%
-\begin{frame}{Token Basket Exchange Issuance}
+\begin{frame}{Token Basket Deposit with Exchange}
 
 \begin{figure}
 	\begin{tikzpicture}
@@ -164,7 +164,7 @@ DeFi asset management: \\ \vspace{1em}
 
 
 %%%
-\begin{frame}{Token Basket Redemption}
+\begin{frame}{Token Basket Withdrawal with Exchange}
 
 \begin{figure}
 	\begin{tikzpicture}
@@ -183,13 +183,13 @@ DeFi asset management: \\ \vspace{1em}
 		\end{center}
 		\begin{center}
 		Actively \\ \vspace{1em}
-		Management according to predefined rule set \\ {\footnotesize (change of rule set requires investor approval)}
+		Management within predefined rule set
 \vspace{0.5em}		
 			\begin{scriptsize}
 				\begin{itemize}
 					\item<1-> Diversification
 					\item<2-> Asset universe
-					\item<3-> Whitelist for Protocols
+					\item<3-> Whitelist for protocols
 					\item<4-> ...
 				\end{itemize}		
 			\end{scriptsize}
@@ -207,16 +207,17 @@ DeFi asset management: \\ \vspace{1em}
 				\begin{itemize}
 					\item<1-> Oracle dependant
 					\item<2-> Index investing
-					\item<3-> Flexible weights (e.g. according to marketcap)
+					\item<3-> Flexible weights 
 					\item<4->  Advanced strategies
 					\item<4->  ...
 				\end{itemize}
 			\end{scriptsize}
+			\vspace{-1.5em}	
 		\end{center}
 	\end{minipage}
 	
-\vspace{1.5em}\center
-Problem: Onchain enforcement is very expensive
+\vspace{2.5em}\center
+Problem: Onchain enforcement is expensive
 \end{frame}
 %%%
 
@@ -230,13 +231,10 @@ Problem: Onchain enforcement is very expensive
 	\end{figure}
 
 	\begin{itemize}
-		\item<5-> The price is determined endogenously as a function of the contract's token holdings.
+		\item<1-> The price is determined endogenously as a function of the contract's token holdings.
+	
+		\item<2->If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
 	\end{itemize}
-	
-	\vspace{1em}
-	
-	If the pool price differs from the market price (e.g., on other exchanges), there is an arbitrage opportunity. This opportunity is expected to keep the pool price close to the market price.
-
 
 \end{frame}
 %%%
@@ -245,7 +243,7 @@ Problem: Onchain enforcement is very expensive
 
 
 %%%
-\begin{frame}{Divisibility and F-NFT}
+\begin{frame}{Divisibility and F-NFTs}
 
 	
 	\vspace{2em}
@@ -257,7 +255,7 @@ Problem: Onchain enforcement is very expensive
 %%%	
 
 %%%	
-\begin{frame}{Divisibility and F-NFT}
+\begin{frame}{Divisibility and F-NFTs}
 
 	
 	\vspace{2em}
@@ -330,33 +328,7 @@ Problem: Onchain enforcement is very expensive
 		
 			\begin{center}
 				
-								\scalebox{0.75}{
-\begin{tikzpicture}
-
-\uncover<1->{
-
-\draw [thick] ( -3 , -0.5) rectangle (2.2 ,0.5);
-\draw [thick] ( 2.2 , -0.5) rectangle (3 ,0.5);
-
-
-\node [align=center] at (-0,0){99$\%$};
-\node [align=center] at (-0,-1){Alice};
-
-
-\node [align=center] at (2.6,0){1$\%$};
-\node [align=center] at (2.6,-1){Bob};
-}
-
-\uncover<2->{
-\draw [->,thick] (4,0) -- (5.5,0);
-
-
-\node at (8,0){no F-NFT redemption};
-
-}
-
-\end{tikzpicture}
-}
+NFT redemption usually via buyout or auction but all owners need to agree on redemption terms
 				
 			\end{center}
 		\end{minipage}
@@ -372,7 +344,7 @@ Problem: Onchain enforcement is very expensive
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Predefined terms such as: time, auction type etc.
+		Predefined terms
 		\end{minipage}
 		\pause
 		\vspace{1 em}		
@@ -389,7 +361,7 @@ Problem: Onchain enforcement is very expensive
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		Decission by DAO, e.g. voting for buyout reserve price or dutch auction parameters etc
+		DAO adjusts terms by voting
 		\end{minipage}
 		\pause
 
@@ -597,7 +569,7 @@ Strategies: \\ \vspace{1em}
 		\end{minipage}
 		\hspace{1 em}
 		\begin{minipage}{0.72\textwidth}
-		But high wrapping complexity is also an indicator for complexity and may introduce additional risks
+		High wrapping complexity introduces additional dependencies and risks
 		\end{minipage}
 		\pause
 \end{frame}
@@ -636,7 +608,7 @@ Strategies: \\ \vspace{1em}
 		\pause
 		
 		
-		\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler, 2020}
+		\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler \& Sch{\"a}r, 2020)}
 \end{frame}
 %%%
 
@@ -713,14 +685,14 @@ Strategies: \\ \vspace{1em}
   	\center 
 	\includegraphics[width=0.8\textwidth]{../assets/images/trading.png}
 	\vspace{0.8em}\vspace{0.8em}    
-    Implicit fundraising (for future protocol developement)
+    Implicit fundraising
   \end{minipage}
   \hfill
   \begin{minipage}[t]{.2\textwidth}\vspace{20pt}%
   	\center 
 	\includegraphics[width=0.8\textwidth]{../assets/images/liquidity.png}
     \vspace{0.8em}\vspace{0.8em}
-    Early stakeholder Incentive
+    Early stakeholder incentive
   \end{minipage}  
 \end{figure}
 

@@ -2,7 +2,6 @@
 
 
 \uncover<3->{
-\node at (0,4) {\includegraphics[scale=0.07]{../assets/images/airdrop.png}};
 
 \node at (-0.5,2) {\includegraphics[scale=0.07]{../assets/images/airdrop.png}};
 
@@ -64,9 +63,11 @@
 
 
 
-\node at (7.85,-0.2) {\parbox{\widthof{Functionality to distribute airdrop is necessary,}}{
-    Functionality to distribute airdrop is necessary, \\
-    otherwise airdroped assets are lost}};
+\node at (7.85,-0.2) {\parbox{\widthof{{\large Method to forward airdrop is necessary,}}}{
+    \begin{large}
+    Method to forward airdrop is necessary, \\
+    otherwise airdroped assets are lost
+    \end{large}}};
 
 }
 
@@ -75,18 +76,33 @@
 
   (1.8,0.7) edge [out=90, in=180]  (3.5,2.2);
   
-\node at (6.7,2.2){Airdrop receiver: Contract owner};
+\node (a) at (6.7,2.2){\parbox{\widthof{{\large Airdrop receiver: contract owner}}}{\begin{large}
+
+    Airdrop receiver: contract owner \\
+    Method to claim Airdrop?
+\end{large}}};
+
+
 
 }
 
 
 \uncover<6->{
-\node at (7.5,-5){\parbox{\widthof{Function to distribute airdrop is necessary,}}{
-	Nested Structures, Economic beneficiaries?\\ 
+\node at (7.5,-3.2){\parbox{\widthof{{\large Nested structures, economic beneficiaries?}}}{
+\begin{large}
+	Nested structures, economic beneficiaries?\\ 
 	$\rightarrow$ Wrapping complexity\\
-	\\
-	\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler, 2020}
+\end{large}
 
   	}
   	};
+
+
+\node at (4,-7.){\parbox{\widthof{{\large Decentralized Finance, Centralized Ownership? An Iterative Mapping Processwww}}}{
+\begin{large}
+\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler \& Sch{\"a}r, 2020)}
+\end{large}
+	}
+  	};
+
   	}
