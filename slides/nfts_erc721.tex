@@ -76,7 +76,7 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 			\hline \hline
 			\multicolumn{2}{c}{ERC20}\\
 			\hline
-			\texttt{Address} & \texttt{Amount} \\
+			\texttt{address} & \texttt{Amount} \\
 			\hline
 			0x061F... & 10\\
 			0x25ed... & 5\\
@@ -92,7 +92,7 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 			\hline \hline
 			\multicolumn{2}{c}{ERC721}\\
 			\hline
-			\texttt{tokenId} & \texttt{Address} \\
+			\texttt{tokenId} & \texttt{address} \\
 			\hline
 			0 & 0x0901...\\
 			1 & 0x7A25...\\
@@ -165,7 +165,7 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 \begin{frame}{ERC721 Token Standard: Contract Interface}
 
 \vspace{0.5em}
-	Any smart contract \textbf{MUST} implement the contract interface if it will accept safe transfers:
+	Any smart contract \textbf{MUST} implement the contract interface if it will accept safe transfers.
 \vspace{1em}
 	\begin{samplecode}{ERC721: Contract Interface}
 		\input{../assets/solidity_code/erc721-contract-interface.tex}
@@ -189,8 +189,7 @@ Provides a standard method to publish and detect what interfaces a smart contrac
 \begin{frame}{ERC165 Example}
 
 The identifier for the ERC721 interface is calculated as the XOR of all function identifiers.
-For Example:
-
+\vspace{0.5em}
 \begin{samplecode}{ERC165: Example}
 	\input{../assets/other_code/example_erc165.tex}	
 \end{samplecode}
@@ -204,7 +203,7 @@ The enumerable extension circumvents the problem that the mapping only works fro
 		\begin{table}
 			\begin{tabular}{clc}
 			\hline \hline
-			\texttt{tokenId} & \texttt{Address} & \texttt{IndexByOwner}\\
+			\texttt{tokenId} & \texttt{address} & \texttt{IndexByOwner}\\
 			\hline
 			\color{focus}{0} & \color{focus}{0x0901}... & \color{focus}{0} \\
 			\color{mint}{1} & \color{mint}{0x7A25}... & \color{mint}{0} \\
@@ -367,21 +366,12 @@ If external promises, e.g., licenses, are attached to the NFT, they become worth
 
 \begin{figure}
      \begin{tikzpicture}[scale = 0.67]
-     	\node at (0,0.5) {\includegraphics[width=0.25\textwidth]{../assets/images/punk2838.png}};
-     	\node[below = 30pt] at (0,0) {\scriptsize{Punk 2838}}; 
-		% Copy-Paste Symbol
-		\draw[rounded corners=5pt, focus, very thick]	(3,2) rectangle (5,1) node [midway, focus] {\footnotesize{\texttt{Ctrl}}};
-		\draw[rounded corners=5pt, focus, very thick]	(6,2) rectangle (7,1) node [midway, focus] {\scriptsize{\texttt{C}}};
-		\draw[rounded corners=5pt, focus, very thick]	(5.5,1.5) node [focus] {\footnotesize{+}};
-	
-		\draw[rounded corners=5pt, focus, very thick]	(3,0) rectangle (5,-1) node [midway, focus] {\footnotesize{\texttt{Ctrl}}};
-		\draw[rounded corners=5pt, focus, very thick]	(6,0) rectangle (7,-1) node [midway, focus] 
-		{\scriptsize{\texttt{V}}};
-		\draw[rounded corners=5pt, focus, very thick]	(5.5,-0.5) node [focus] {\footnotesize{+}};
+     	\input{../assets/figures/nft_ownership.tex}		
 	\end{tikzpicture}	
 \end{figure}
 
 \uncover<4->{
+\vspace{-1.5em}
 \begin{columns}[T]
 	\column{0.35\textwidth}
 	\begin{keytakeaway}{Token-specific Metadata}
@@ -394,7 +384,7 @@ If external promises, e.g., licenses, are attached to the NFT, they become worth
 		\begin{table}
 			\begin{tabular}{cl}
 			\hline \hline
-			\texttt{tokenId} & \texttt{Address} \\
+			\texttt{tokenId} & \texttt{address} \\
 			\hline
 			0 & 0x0901...\\
 			1 & 0x7A25...\\
