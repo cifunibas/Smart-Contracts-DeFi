@@ -1,0 +1,532 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Intro: Welcome to the Course}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Content Overview}
+\small
+\begin{enumerate}
+	\item<1-> \textbf{Introduction and Blockchain Fundamentals}\\
+		Recap of basic blockchain building blocks.
+		\vspace{0.2em}
+	\item<2-> \textbf{Ethereum Basics}\\
+		The specifics of the Ethereum as Smart Contract platform.
+		\vspace{0.2em}
+	\item<3-> \textbf{Smart Contract Programming}\\
+		Hands-on introduction to the basics of Smart Contract programming with emphasis on exercises.		
+	\item<4-> \textbf{DeFi Overview}\\
+		A short introduction to Decentralized Finance.
+		\vspace{0.2em}
+	\item<5-> \textbf{DeFi Asset Layer}\\
+		Tokenization from an economics and technological point of view.
+		\vspace{0.2em}
+	\item<6-> \textbf{DeFi Protocol Layer}\\
+			Overview of the DeFi ecosystem, key components and major protocol types.
+	\item<7-> \textbf{Discussion and Outlook}\\
+			Discussion, outlook and some advanced topics.
+\end{enumerate}
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Why Smart Contracts?}
+
+Vending Machines can be seen as predecessors of Smart Contracts \cite{NS:94,NS:97}. Agreements are automated and breach of contract is costly
+
+\vspace{0.5em}
+
+\begin{minipage}{0.4\textwidth}
+	\vspace{0.5em}
+	\centering
+	\includegraphics[width=2.5cm]{../assets/images/vendingmachine.png}
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+	\begin{samplecode}{Simple Vending Machine (Pseudo Code)}
+		if(coin $>=$ price) \{ \\
+			\tab dispenseBeverage(); \\
+			\tab returnChange(coin - price);\\
+		\} else \{ \\
+			\tab print("insufficient funds"); \\
+		\}
+	\end{samplecode}	
+\end{minipage}
+
+\uncover<2->{
+\vspace{1.0em}
+\textbf{But:}\\
+\begin{itemize}
+	\item Trust based! Closed source $\rightarrow$ Contract is not observable.
+	\item Execution environment, i.e., hardware under control of seller.
+\end{itemize}
+}
+
+\uncover<3->{
+\vspace{1.0em}
+\textbf{$\Rightarrow$ Smart Contracts on public Blockchains address this.}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Popular Smart Contract Blockchains}
+
+Blockchains based on the Ethereum Virtual Machine (EVM):
+
+\vspace{0.2em}
+
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+	\input{../assets/figures/blockchainsEVM}
+\end{tikzpicture}
+\end{center}
+
+\vspace{1em}
+
+
+
+Non-EVM-based Blockchains:
+
+\vspace{0.2em}
+
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+	\input{../assets/figures/blockchainsNonEVM}
+\end{tikzpicture}
+\end{center}
+
+\vspace{1em}
+This is a non-exhaustive list that will likely age poorly.
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Why Ethereum / EVM?}
+	All EVM-based blockchains share the same smart contract development languages.
+	
+	\vspace{1 em}
+	
+	Ethereum is currently THE dominant platform:
+	\begin{itemize}
+		\item Market Cap
+		\item Economic Activity
+		\item Developer Activity
+		\item Community
+	\end{itemize}
+	\vspace{1 em}
+	Understanding Ethereum will help you to understand any protocol.
+\end{frame}
+
+%%%
+
+%%%
+\begin{frame}{Electric Capital Developer Report 2020}
+	
+	\begin{figure}
+		\includegraphics[width=\textwidth]{../assets/images/electric_capital}
+		
+		\caption{\footnotesize  \href{https://github.com/electric-capital/developer-reports}{\link Electric Capital Developer Report 2020, p. 46} \cite{EC20}} 
+	\end{figure}
+
+
+\end{frame}
+
+%%%
+
+%%%
+\begin{frame}{Why Decentralized Finance (DeFi)?}
+
+\begin{figure}[t]
+	\centering	
+	\resizebox{0.8\textwidth}{!}{
+	\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/defi_stack.tex}
+	\end{tikzpicture}}
+	\caption{The DeFi Stack \cite{FS:21}}
+\end{figure}
+
+\vspace{-1.0em}
+
+\begin{itemize}
+	\item Most mature and diverse smart contract-based ecosystem.
+	\item Relevancy of applications from an economics perspective.
+\end{itemize}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Interdisciplinaray Approach}
+
+	\uncover<1->{
+		\begin{figure}[h]
+  			\center
+			\input{../assets/figures/interdiciplinarity.tex}
+		\end{figure}
+	}
+	\vspace{1em}
+Public Blockchains can only be fully understood, when they are studied from various perspectives. This is the reason why this course uses an \color{focus} \textbf{interdisciplinary} \color{black} approach.	
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Programming and Computer Science Exposure}
+
+\textbf{Programming Language}
+\vspace{1em}
+
+\begin{minipage}{0.16\textwidth}
+	\begin{figure}[t]
+		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+				\input{../assets/figures/programs.tex}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}
+\vspace{2em}
+
+\textbf{Tools}
+\vspace{1em}
+
+\begin{minipage}{0.95\textwidth}
+	\begin{figure}[t]	
+		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+				\input{../assets/figures/tools.tex}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}
+
+
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Lecture Conventions}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-1em}
+			\begin{samplecode}{Basic Contract Structure (Solidity)}
+				Pragma solidity  \textasciicircum 0.8.7; \
+				contract HelloWorld \{ \\
+				\color{softanthracite} /* Instructions */ \\
+				\color{black} \}
+			\end{samplecode}			
+		\end{column} %\hfill
+
+		\begin{column}{0.5\textwidth}
+			\textbf{Sample Code Box}\\
+			Contains code snippets in Solidity or pseudo code.
+		\end{column}
+	\end{columns}
+
+\vspace{2.5em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-0.8em}
+			\begin{keytakeaway}{Key Takeaway}
+				Transactions can be used to transfer value, interact with an existing smart contract and to deploy new smart contracts.
+			\end{keytakeaway}			
+		\end{column}
+		
+		\begin{column}{0.5\textwidth}
+			\textbf{Key Take-Away}\\
+			Highlights important concepts and definitions.
+		\end{column}
+	\end{columns}
+
+\vspace{2.5em}
+
+	\begin{columns}[T]
+		\begin{column}{0.45\textwidth}
+			\vspace{-0.9em}
+			\begin{exercise}{Exercise 1}
+				Get Ropsten Ether from the faucet and deploy your first smart contract on Ropsten Testnet.
+			\end{exercise}					
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\textbf{Exercises}\\
+			Things for you to try out.
+		\end{column}
+	\end{columns}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Part of Multi-Course Series}
+
+Blockchain courses have been part of the University of Basel's curriculum since 2017.
+
+\vspace{1.5em}
+
+\begin{columns}
+	\begin{column}{0.35 \textwidth}
+		\uncover<1->{
+			\includegraphics[width = 4cm]{../config/logo_cif}
+		}
+	\end{column}
+	\begin{column}{0.6 \textwidth}	
+			\begin{itemize}
+			\item<2-> This is a University graduate-/ master-level course
+			\item<3-> It is part of a series of courses
+			\item<4-> Second course to switch to open lecture format
+		\end{itemize}
+	\end{column}	
+\end{columns}
+
+%\vspace{2em}
+%
+%\uncover<5->{
+%	$\rightarrow$ There will be more open lecture courses.
+%}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Three Options to Take This Course}
+
+The goal of our open lectures is to make teaching resources freely available. There are \color{focus} \textbf{three options} \color{black} for taking this course:\vspace{1em}
+
+\begin{table}\footnotesize
+	\begin{tabular}{lccccc}
+	\hline \hline
+									& Videos 		& Platform 		& Quizzes  		& Group Project	& ECTS 			\\ \cline{2-6}
+		YouTube 	 				& $\checkmark$	& 				& 				& 				&				\\
+		Cryptolectures.io 			& $\checkmark$	& $\checkmark$	& $\checkmark$	&				&				\\
+		University of Basel			& $\checkmark$	& $\checkmark$	& $\checkmark$	& $\checkmark$	&$\checkmark$	\\
+		\hline \hline
+	\end{tabular}
+\end{table} \vspace{2em}
+
+\uncover<2->{
+\link \href{https://www.youtube.com/channel/UCOA52m4BOqtI8cHIx4zJAWg}
+  {YouTube Channel}  \\
+\link \href{https://www.cryptolectures.io}{Cryptolectures.io} \\
+\link \href{https://www.unibas.ch/en/Studies/Application-Admission.html}{University of Basel - General Information}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Welcome to the Frontier...}
+
+The topic is in great demand and will help you to fast track your professional finance career. That being said, there will be \color{focus} some hiccups and moving parts... \color{black} \vspace{1em} 
+	\begin{itemize}
+		\item Ropsten $\rightarrow$ Goerli.
+		\item Potentially frontend changes for the tools we are using. 
+		\item New consensus protocol and switch to EIP-1559.
+	\end{itemize}	
+	
+	\vspace{2em}
+	
+	Our \color{focus} focus is on extensions and new topics \color{black}! Any \color{focus} changes will be implemented as quick fixes\color{black}. If you have any questions, have found a bug or want to support the open lectures project, feel free to approach us at any time. 
+	
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Meet the Open Crypto Lectures Team}
+	\begin{columns}[T]
+		\begin{column}{0.31\textwidth}
+			\center \textbf{Professor}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Fabian Schär\\
+					\href{https://linkedin.com/in/fabian-schaer/}{\faLinkedinSquare}\ \href{https://twitter.com/chainomics}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.31\textwidth}
+			\center \textbf{PhD Candidates}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Tobias Bitterli\\
+					\href{https://linkedin.com/in/tobiasbitterli/}{\faLinkedinSquare}\ \href{https://twitter.com/tobias_bitterli}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Mitchell Goldberg\\
+					\href{https://linkedin.com/in/mitchell-goldberg/}{\faLinkedinSquare}\ \href{https://twitter.com/golmit_crypto}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Matthias Nadler\\
+					\href{https://linkedin.com/in/mat-nadler/}{\faLinkedinSquare}\ \href{https://twitter.com/mat_nadler}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Katrin Schuler\\
+					\href{https://linkedin.com/in/kmschuler/}{\faLinkedinSquare}\ \href{https://twitter.com/Katatcrypt}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.31\textwidth}
+			\center \textbf{Student Assistants}
+			\begin{table}\small
+				\begin{tabular}{c}
+					Pirmin Özdemir\\
+					\href{https://www.linkedin.com/in/pirmin-\%C3\%B6zdemir-539845159/}{\faLinkedinSquare}\ \href{https://twitter.com/Pirmin15}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Jonas Ruchti\\
+					\href{https://linkedin.com/in/jonas-ruchti-a29042221}{\faLinkedinSquare}\ \href{https://twitter.com/jonas_ruchti}{\faTwitterSquare}\\
+					\vspace{0.5em}\\
+					Dario Thürkauf\\
+					\href{https://linkedin.com/in/dario-thuerkauf/}{\faLinkedinSquare} \href{https://twitter.com/dario_thuerkauf}{\faTwitterSquare}\\
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Grading}
+
+\uncover<1->{
+	\textbf{Group Project} (40\% of final grade)
+	\begin{itemize}
+		\item Smart Contract programming project.
+		\item Groups of 2-4 students.
+	\end{itemize}
+}
+
+\vspace{1em}
+
+\uncover<2->{
+\textbf{Exam} (60\% of final grade)
+	\begin{itemize}
+		\item 90 Minutes
+		\item Closed book
+		\item T/F, MC, Numbers and Text/Figure Boxes
+		\item You may use a non-programmable calculator (\link \href{https://wwz.unibas.ch/en/studies/examinations/use-of-materials-and-aids/}{Rules})
+	\end{itemize}
+	}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Important Dates}
+
+\uncover<1->{
+\textbf{Kickoff Event}\\
+18th September 2022, 2:15pm - 4pm
+\begin{itemize}
+	\item General information, expectations, dates.
+\end{itemize}
+}
+\vspace{0.5em}
+
+\uncover<2->{
+\textbf{Deadline for Team Applications}
+2nd October 2022, 23:59:59.
+\begin{itemize}
+	\item Additional information: \hyperlink{TEAM}{\beamergotobutton{How to Form a Team}}
+\end{itemize}
+}
+\vspace{0.5em}
+
+\uncover<3->{
+\textbf{Short Paper \& Slide Submission Deadline}\\
+18th November 2022, 23:59:59.
+\begin{itemize}
+	\item Submission: \url{katrin.schuler@unibas.ch}
+\end{itemize}
+} 
+\vspace{0.5em}
+
+\uncover<4->{
+\textbf{Seminar Day (Group Presentations)}\\
+24th November 2022, 8:15am - 6:00pm
+\begin{itemize}
+	\item Presentation of group projects.
+	\item<5-> Yes, there will be a \color{focus}\textbf{WORLD CUP BREAK}\color{black}! \\ (Switzerland v. Cameroon, 11am - approx. 1pm)
+\end{itemize}
+}
+\vspace{0.5em}
+
+\uncover<6->{
+\textbf{Exam}\\
+Date tbd, will soon be available in course directory.
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Our Expectations for Group Project}
+	\begin{itemize}
+		\item<1-> \color{focus}Design and develop a financial protocol\color{black}, e.g., simple exchange, lending market, token basket, governance/voting system, lottery, NFT fractionalizer...
+		\item<2-> You are \color{focus} allowed to copy code \color{black} snippets, however, there are a few rules.
+		\begin{enumerate}
+			\item<3-> \color{focus} You must disclose \color{black} the \color{focus} extent \color{black} to which and the \color{focus} sources \color{black} from where you have copied code. Non-compliance $\rightarrow$ 1.0 and potentially ``Plagiatsverfahren''. \vspace{0.35em}
+			\item<4-> There must be some \color{focus} creativity and effort \color{black} visible in your submission. A simple copy of another protocol is not sufficient.\vspace{0.35em}
+			\item<5-> \color{focus} It's ok to fail! \color{black} If you are running into issues, show the steps you have taken to mitigate them. If the effort is clearly visible you can get a sufficient grade, even if your protocol is not running.
+		\end{enumerate}
+		\item<6-> Short paper $\leq$ 8 pages. 
+		\item<7-> Presentation $\leq$ 15 minutes, followed by 10 minutes Q\&A.
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{How to Form a Team}
+\label{TEAM}
+	Talk to your colleagues and try to form groups - ideally 3-4 team members. Submit your group by sending an email to 	katrin.schuler@unibas.ch. The email must contain:
+	\begin{itemize}
+		\item<2-> Full name of all group members.
+		\item<3-> Student ID (Matrikelnummer) of all group members).
+		\item<4-> Preliminary topic proposal.
+		\item<5-> All team members must be cc'ed.
+	\end{itemize}
+
+\vspace{1.5em}
+\uncover<6->{
+\color{focus}The deadline for this mail is October 2nd 2022, end of day. \color{black} Anyone who is officially enrolled in the class but did not submit a team application by this deadline, will be randomly matched with other inactive people. 
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Team Issues and Potential Conflicts}
+\begin{itemize}
+	\item<1-> In case of conflicts within your team, please try to find a \color{focus} reasonable solution\color{black}. 
+	\item<2-> If no agreement can be reached, there is \color{focus} the option of a ``fork''\color{black}. Any progress up to that point belongs to all group members. 
+	\item<3-> In any case, keep in mind that doing the work in your group is an \color{focus} excellent preparation for the exam\color{black}. 
+	\item<4-> If a group \color{focus} has 2 or less members, it may merge with another group \color{black}. No group may have more than 5 members (rule applies to mergers). 
+	\item<5-> Any mergers are \color{focus} s.t. the approval \color{black} of all involved parties and the professor. 
+\end{itemize}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
+
+
+\end{document}
