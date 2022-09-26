@@ -1,0 +1,81 @@
+% Set anchor points
+		\coordinate (1) at (-5, 2);
+		\coordinate (2) at (-5, 0);
+		\coordinate (3) at (-1, -2);
+		\coordinate (4) at (-1, 2);
+		\coordinate (5) at (4, 2);
+		\coordinate (6) at (1.5, 0);
+		\coordinate (7) at (4, -2);		
+		\coordinate (8) at (-5, -2);
+		
+% Avatars
+		% tx.origin
+		\node(origin) at (1) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};		
+		\node [yshift = -0.8cm ] at (1) {\scriptsize{\texttt{tx.origin}}};
+
+\uncover<3->{	
+		% beneficiary
+		\node(beneficiary) at (3) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};
+		\node [yshift = -0.8cm ] at (3) {\scriptsize{Beneficiary}};
+}
+\uncover<4->{	
+		% highestBidder
+		\node(highestbidder) at (2) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};
+		\node [yshift = -0.8cm ] at (2) {\scriptsize{\texttt{highestBidder}}};
+}		
+		
+% Contracts	
+		% Auction
+		\node(auction) at (4) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node [yshift = -0.8cm ] at (4) {\scriptsize{Auction Contract}};
+\uncover<2->{
+		% wETH
+		\node(wETH) at (5) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node [yshift = -0.8cm ] at (5) {\scriptsize{wETH Contract}};
+	
+		% DEX
+		\node(DEX) at (6) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node [yshift = -0.8cm ]at (6) {\scriptsize{CLC/wETH Pool}};
+}
+\uncover<3->{		
+		% CLC
+		\node(CLC) at (7) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node [yshift = -0.8cm ] at (7) {\scriptsize{CLC Contract}};
+}
+\uncover<4->{	
+		% NFT
+		\node(NFT) at (8) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node [yshift = -0.8cm ] at (8) {\scriptsize{NFT Contract}};
+}	
+	
+%arrows
+		% call endAuction
+		\draw [->, thick, lightgray] (origin) -- (auction) node [midway,above] {\scriptsize{\texttt{endAuction}}};
+\uncover<2->{
+		% call swap
+		\draw [->, thick, lightgray] (auction) -- node [midway,above] {\scriptsize{\texttt{swapExact..}}} (1.3,2) -- (1.3,0.7) ;
+		% call deposit
+		\draw [->, thick, lightgray] (DEX) -- (1.5,2) -- node [midway,above] {\scriptsize{\texttt{deposit}}} (3,2) -- (wETH) ;
+		% asset ETH to wETH
+		\draw [->, thick] (2.2,0.3) -- node [midway,above] {\scriptsize{ETH}} (3.8,0.3) -- (3.8,0.9) ;
+		% asset ETH to DEX
+		\draw [->, thick] (-0.25,1.6) -- node [midway,above] {\scriptsize{ETH}} (1.1,1.6) -- (1.1,0.7) ;
+		% asset wETH	
+		\draw [<-, thick] (2.2,-0.2) -- node [midway,above] {\scriptsize{wETH}} (4.1,-0.2) -- (4.1,0.9) ;
+}
+\uncover<3->{
+		% call transfer
+		\draw [->, thick, lightgray] (1.6,-1.1) -- (1.6,-2) -- (3.3,-2) node [midway,above] {\scriptsize{\texttt{transfer}}};
+		% transfer CLC
+		\draw [->, thick] (1.3,-1.1) -- (1.3,-2) -- node [midway,above] {\scriptsize{CLC}} (-0.4,-2) ;
+}
+\uncover<4->{
+		% call transferFrom
+		\draw [->, thick, lightgray] (-1.8,1.6) -- (-2.4,1.6) -- (-2.4,-2) --node [midway,above] {\scriptsize{\texttt{transferFrom}}}  (NFT) ;
+		% asset NFT
+		\draw [->, thick] (-1.8,1.8) -- (-3,1.8) -- (-3,0) -- node [midway,above] {\scriptsize{NFT}} (highestbidder) ;
+}
+
+%rectangle
+%		\draw [dashed,thick] ( -5.5 , 1.5) rectangle (5.9 ,-4);
+%		\node at (0,-4.5) {One inseparable transaction};
