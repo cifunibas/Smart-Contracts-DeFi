@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -30,7 +30,7 @@ So far, we have only considered fungible tokens. However, tokens can also repres
 	\column{0.1\textwidth}
 		\includegraphics[scale=0.08]{../assets/images/dollar-bill.png}
 	\column{0.8\textwidth}	
-		\textbf{Fungibility:} Assets that are \textit{interchangeable}, e.g., a \$1 USD bill or shares in a company.
+		\textbf{Fungibility:} Assets that are \textit{interchangeable}, e.g., a \$1 bill or multiple copies of the same virtual item.
 \end{columns}
 }
 \vspace{1.5em}
@@ -57,7 +57,7 @@ Some examples of non-fungible token applications (non-exhaustive list):
 
 \uncover<2->{
 	\begin{keytakeaway}{External promises and counterparty risk}
-		Like with ERC20, any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
+		As with ERC20, any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
 	\end{keytakeaway}
 }
 \end{frame}
@@ -111,10 +111,10 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 
 \begin{itemize}
 	\item<1-> \textbf{Token standards} specify basic interfaces and allow third party contracts to use tokens in a standardized way.
-	\item<1-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
-	\item<2-> Some functions are very similar to the functions we know from the ERC20 token standard:
+	\item<2-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
+	\item<3-> Some functions are very similar to the functions we know from the ERC20 token standard:
 \end{itemize}
-\uncover<2->{
+\uncover<3->{
 	\vspace{0.5em}
 	\begin{samplecode}{ERC721: Functions known from ERC20}
 		\input{../assets/solidity_code/erc721-functions-1.tex}
@@ -129,9 +129,9 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 ERC721 tokens have some \textbf{additional functions}:
 
 \begin{itemize}
-	\item \texttt{ownerOf():} {Get the owner address of a specific token.}
-	\item \texttt{setApprovalForAll():} {Set or revoke the approval for \textbf{all} of your tokens in the smart contract (collection).}
-	\item \texttt{getApproved():} {Get approved address of a specific token.}	
+	\item<2-> \texttt{ownerOf():} {Get the owner address of a specific token.}
+	\item<3-> \texttt{setApprovalForAll():} {Set or revoke the approval for \textbf{all} of your tokens in the smart contract (collection).}
+	\item<4-> \texttt{getApproved():} {Get approved address of a specific token.}	
 \end{itemize}
 
 \vspace{1em}
@@ -259,9 +259,9 @@ The metadata at the \texttt{tokenURI} is in the form of a JSON file, either on- 
 The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Examples:\\
 	\begin{itemize}
 		\item<2-> On-chain stored or replicable
-		\item<2-> On-chain verifiable hash
-		\item<2-> Off-chain stored metadata on a decentralized file system
-		\item<2-> Off-chain stored metadata on a centralized file system
+		\item<3-> On-chain verifiable hash
+		\item<4-> Off-chain stored metadata on a decentralized file system
+		\item<5-> Off-chain stored metadata on a centralized file system
 	\end{itemize}
 \end{frame}
 %%%
@@ -314,7 +314,7 @@ The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is n
 
 	\begin{itemize}
 		\item E.g., \textbf{Bored Apes Yacht Club} (\href{https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d}{\link smart contract})
-		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{\link metadata}  of an NFT which is stored in JSON format on IPFS including link to image.
+		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{\link metadata}  of an NFT which is stored in JSON format on IPFS, including link to image.
 		\item \texttt{baseURI} can be updated via \texttt{setBaseURI}, but requires the user to be the smart contract owner, which is set to the zero address.
 	\end{itemize} 
 	\begin{columns}
@@ -360,7 +360,7 @@ The URI may be mutable, and thus, privileged users could change the referenced m
 \vspace{0.5em}
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.25]{../assets/images/rugpull.png}
+		\includegraphics[scale=0.25,frame]{../assets/images/rugpull.png}
 		\caption*{\href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative example}}	
 	\end{figure}	
 \uncover<2->{	
