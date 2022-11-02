@@ -1,15 +1,15 @@
 {
-  "name": "Cpt. Hasoshi",
-  "description": "The most notorious of hasoshis.",
-  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/harato_green.png?raw=true",
+  "name": "Sir Hasoshi",
+  "description": "The most chivalrous of hasoshis.",
+  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/hanopo_red.png?raw=true",
   "attributes": [
     {
       "trait_type": "Variant",
-      "value": "Cpt. Hasoshi"
+      "value": "Sir Hasoshi"
     },
     {
       "trait_type": "Background",
-      "value": "Green"
+      "value": "Red"
     },
   ]
 }

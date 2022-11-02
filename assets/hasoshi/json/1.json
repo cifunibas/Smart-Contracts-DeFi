@@ -1,7 +1,7 @@
 {
   "name": "Sir Hasoshi",
   "description": "The most chivalrous of hasoshis.",
-  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/hanopo_mint.png?raw=true",
+  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/hanopo_green.png?raw=true",
   "attributes": [
     {
       "trait_type": "Variant",
@@ -9,7 +9,7 @@
     },
     {
       "trait_type": "Background",
-      "value": "Mint"
+      "value": "Green"
     },
   ]
 }
