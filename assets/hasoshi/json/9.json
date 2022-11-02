@@ -1,0 +1,15 @@
+{
+  "name": "0x4861736f736869",
+  "description": "Follow the white rabbit...",
+  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/haneo.png?raw=true",
+  "attributes": [
+    {
+      "trait_type": "Variant",
+      "value": "0x4861736f736869"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Matrix"
+    },
+  ]
+}
