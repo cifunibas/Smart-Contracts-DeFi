@@ -1,0 +1,15 @@
+{
+  "name": "Super Hasoshi",
+  "description": "The most heroic of hasoshis.",
+  "image": "https://github.com/cifunibas/Smart-Contracts-DeFi/blob/main/assets/hasoshi/img/hasupo_mint.png?raw=true",
+  "attributes": [
+    {
+      "trait_type": "Variant",
+      "value": "Super Hasoshi"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Mint"
+    },
+  ]
+}
