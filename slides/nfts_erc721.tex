@@ -126,7 +126,14 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 %%%
 \begin{frame}{ERC721 Token Standard: Functions II}
 
-ERC721 tokens have an additional \texttt{setApprovalForAll} function which allows an owner to set or revoke the approval for \textbf{all} of his tokens in the smart contract (collection). 
+ERC721 tokens have some \textbf{additional functions}:
+
+\begin{itemize}
+	\item \texttt{ownerOf():} {Get the owner address of a specific token.}
+	\item \texttt{setApprovalForAll():} {Set or revoke the approval for \textbf{all} of your tokens in the smart contract (collection).}
+	\item \texttt{getApproved():} {Get approved address of a specific token.}	
+\end{itemize}
+
 \vspace{1em}
 	\begin{samplecode}{ERC721: Functions II}
 		\input{../assets/solidity_code/erc721-functions-2.tex}
@@ -150,7 +157,7 @@ ERC721 tokens have an additional \texttt{setApprovalForAll} function which allow
 
 \begin{itemize}
 	\item Problem: sending tokens to a smart contract which does not know how to handle them results in lost assets.
-	\item When using \texttt{safeTransferFrom}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
+	\item When using \texttt{safeTransferFrom()}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
 \end{itemize}
 \vspace{1em}
 	\begin{samplecode}{safeTransfer}
