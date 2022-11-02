@@ -45,8 +45,10 @@
 
 %Custom Colors
 \definecolor{lightergray}{RGB}{230, 230, 230}
-
-
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
 
 % Beamer Template Options
 \beamertemplatenavigationsymbolsempty
@@ -180,7 +182,7 @@
 	keywords=[3]{block, blockhash, basefee, chainid, coinbase, difficulty, gaslimit, number, timestamp, gasleft, msg, data, sender, sig, value, tx, gasprice, origin},	% environment variables
 	keywordstyle=[3]\color{violet}\bfseries,
 	identifierstyle=\color{black},
-	sensitive=false,
+	sensitive=true,
 	comment=[l]{//},
 	morecomment=[s]{/*}{*/},
 	commentstyle=\color{gray}\ttfamily,
@@ -188,6 +190,15 @@
 	morestring=[b]',
 	morestring=[b]"
 }
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true}
 
 \lstset{
 	language=Solidity,

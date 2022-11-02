@@ -1,0 +1,434 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Non-Fungible Tokens \& ERC721}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{(Non-) Fungibility}
+
+So far, we have only considered fungible tokens. However, tokens can also represent ownership of non-fungible assets.\\
+\vspace{1em}
+\uncover<2->{
+\begin{columns}
+	\column{0.1\textwidth}
+		\includegraphics[scale=0.08]{../assets/images/dollar-bill.png}
+	\column{0.8\textwidth}	
+		\textbf{Fungibility:} Assets that are \textit{interchangeable}, e.g., a \$1 bill or multiple copies of the same virtual item.
+\end{columns}
+}
+\vspace{1.5em}
+\uncover<3->{
+\begin{columns}
+	\column{0.1\textwidth}
+		\includegraphics[scale=0.08]{../assets/images/mona-lisa.png}
+	\column{0.8\textwidth}	
+		\textbf{Non-fungibility:} Assets that are \textit{distinct}, e.g., real estate or art.
+\end{columns}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Some Examples}
+
+Some examples of non-fungible token applications (non-exhaustive list):
+	\begin{figure}
+		\begin{tikzpicture}[scale = 0.8]
+			\input{../assets/figures/nft_examples.tex}
+		\end{tikzpicture}
+	\end{figure}
+
+\uncover<2->{
+	\begin{keytakeaway}{External promises and counterparty risk}
+		As with ERC20, any external promises are s.t. counterparty issuer risk. The value of the token will depend on the market's expectation regarding the issuer's willingness and ability to fulfill their promise.
+	\end{keytakeaway}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Distinction between ERC20 and ERC721}
+
+While ERC20 tracks the balances that belong to each address, \textbf{ERC721 tracks the owner of a specific tokenId}. \link \href{https://eips.ethereum.org/EIPS/eip-721}{EIP-721: Non-Fungible Token Standard}
+\uncover<2->{	
+\begin{columns}
+\column{0.5\textwidth}
+	\vspace{1em}
+		\begin{table}
+			\begin{tabular}{lc}
+			\hline \hline
+			\multicolumn{2}{c}{ERC20}\\
+			\hline
+			\texttt{address} & \texttt{amount} \\
+			\hline
+			0x061F... & 10\\
+			0x25ed... & 5\\
+			0xab3B... & 20\\
+			\hline \hline
+			\end{tabular}
+		\end{table}
+		Mapping from owner to balance, with address of the owner being the key of the mapping.
+\column{0.5\textwidth}
+	\vspace{1em}
+		\begin{table}
+			\begin{tabular}{cl}
+			\hline \hline
+			\multicolumn{2}{c}{ERC721}\\
+			\hline
+			\texttt{tokenId} & \texttt{address} \\
+			\hline
+			0 & 0x0901...\\
+			1 & 0x7A25...\\
+			2 & 0x0901...\\
+			\hline \hline
+			\end{tabular}
+		\end{table}
+		Mapping from \texttt{tokenId} to owner, with \texttt{tokenId} being the key of the mapping.
+\end{columns}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: Functions I}
+
+\begin{itemize}
+	\item<1-> \textbf{Token standards} specify basic interfaces and allow third party contracts to use tokens in a standardized way.
+	\item<2-> Token standards set \textbf{minimum requirements}, but do not restrict the design beyond that.
+	\item<3-> Some functions are very similar to the functions we know from the ERC20 token standard:
+\end{itemize}
+\uncover<3->{
+	\vspace{0.5em}
+	\begin{samplecode}{ERC721: Functions known from ERC20}
+		\input{../assets/solidity_code/erc721-functions-1.tex}
+	\end{samplecode}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: Functions II}
+
+ERC721 tokens have some \textbf{additional functions}:
+
+\begin{itemize}
+	\item<2-> \texttt{ownerOf():} {Get the owner address of a specific token.}
+	\item<3-> \texttt{setApprovalForAll():} {Set or revoke the approval for \textbf{all} of your tokens in the smart contract (collection).}
+	\item<4-> \texttt{getApproved():} {Get approved address of a specific token.}	
+\end{itemize}
+
+\vspace{1em}
+	\begin{samplecode}{ERC721: Functions II}
+		\input{../assets/solidity_code/erc721-functions-2.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: Events}
+
+	A \textbf{standardized event set} allows frontends and (off-chain) applications to be developed in a more generic way:
+\vspace{1em}
+	\begin{samplecode}{ERC721: Events}
+		\input{../assets/solidity_code/erc721-events.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC721 Token Standard: \texttt{safeTransferFrom}}
+
+\begin{itemize}
+	\item Problem: sending tokens to a smart contract which does not know how to handle them results in lost assets.
+	\item When using \texttt{safeTransferFrom()}, the token contract checks if the receiving contract knows how to handle ERC721 tokens. 
+\end{itemize}
+\vspace{1em}
+	\begin{samplecode}{safeTransfer}
+		\input{../assets/solidity_code/erc721-functions-3.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{ERC721 Token Standard: Contract Interface}
+
+Any smart contract \textbf{MUST} implement the contract interface to accept safe transfers.
+\vspace{1em}
+	\begin{samplecode}{ERC721: Contract Interface}
+		\input{../assets/solidity_code/erc721-contract-interface.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{ERC165 Interface}
+
+Provides a standard method to publish and detect what interfaces a smart contract implements. \link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165: Standard Interface Detection}
+\vspace{1em}
+	\begin{samplecode}{Query if a contract implements an interface}
+		\input{../assets/solidity_code/erc165.tex}	
+	\end{samplecode}
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{ERC165 Example}
+
+The identifier for the ERC721 interface is calculated as the XOR of all function identifiers.
+\vspace{0.5em}
+\begin{samplecode}{ERC165: Example}
+	\input{../assets/other_code/example_erc165.tex}	
+\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Enumerable Extension}
+The enumerable extension circumvents the problem that the mapping only works from \texttt{tokenId} to \texttt{address}. Otherwise, there would be no way to get all the tokens of a specific address.
+\vspace{0.5em}
+		\begin{table}
+			\begin{tabular}{clc}
+			\hline \hline
+			\texttt{tokenId} & \texttt{address} & \texttt{IndexByOwner}\\
+			\hline
+			\color{focus}{0} & \color{focus}{0x0901}... & \color{focus}{0} \\
+			\color{mint}{1} & \color{mint}{0x7A25}... & \color{mint}{0} \\
+			\color{focus}{2} & \color{focus}{0x0901}... & \color{focus}{1}\\
+			\color{focus}{3} & \color{focus}{0x0901}... & \color{focus}{2}\\
+			\color{darkmint}{4} & \color{darkmint}{0xce9b}... & \color{darkmint}{0} \\
+			\hline \hline
+			\end{tabular}
+		\end{table}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Enumerable Extension ctd.}
+
+Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the \texttt{tokenId} owned by \texttt{owner} at a given \texttt{index} of its token list.
+\vspace{0.5em}
+	\begin{samplecode}{Enumerable Extension}
+		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata Extension}
+
+This extension adds the \texttt{name}, \texttt{symbol}, and \texttt{tokenURI} functions and is almost always included.
+\vspace{0.5em}
+	\begin{samplecode}{Metadata Extension}
+		\input{../assets/solidity_code/erc721-metadata-extension.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Metadata JSON Schema Example}
+The metadata at the \texttt{tokenURI} is in the form of a JSON file, either on- or off-chain. Which fields of the JSON schema are supported depends on the frontend used to display the information.
+\vspace{0.5em}
+\begin{samplecode}{ERC721 Metadata JSON Schema Example}
+	\input{../assets/other_code/metadata.tex}
+\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{On-chain vs. Off-chain Data}
+
+The \texttt{tokenURI} may point to the metadata of an NFT, but the metadata is not necessarily secured by the blockchain. Examples:\\
+	\begin{itemize}
+		\item<2-> On-chain stored or replicable
+		\item<3-> On-chain verifiable hash
+		\item<4-> Off-chain stored metadata on a decentralized file system
+		\item<5-> Off-chain stored metadata on a centralized file system
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{On-chain stored or replicable}
+
+	\begin{itemize}
+		\item E.g., \textbf{Loot} (\href{https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7}{\link smart contract})
+		\item The \texttt{tokenURI} function returns the base64 encoded JSON file of the metadata. 
+	\end{itemize}
+	\begin{samplecode}{JSON Metadata for Loot NFT with \texttt{tokenId} {=} 1}
+		\input{../assets/other_code/loot_json.tex}
+	\end{samplecode}
+\uncover<2->{
+	\begin{columns}[T]
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item The JSON file contains a base64 encoded SVG file which corresponds to the following image:
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\vspace{-1em}
+				\centering
+				\includegraphics[scale=0.16]{../assets/images/loot1.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{On-chain verifiable hash}
+
+	\begin{itemize}
+		\item E.g., \textbf{CryptoPunks} (\href{https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb}{\link smart contract} )
+		\item  \href{https://www.larvalabs.com/public/images/cryptopunks/punks.png}{\link Off-chain picture} which hashes to \texttt{\scriptsize ac39a\dots 921b} can be verified in the smart contract.
+		%\item Also, CryptoPunks are now fully on-chain: \link \href{https://etherscan.io/address/0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2}{Etherscan}  %Saving 24x24 pixel pictures is do-able on-chain.
+	\end{itemize}
+	\begin{samplecode}{CryptoPunks Code Snippet}
+		\input{../assets/solidity_code/cryptopunks.tex}
+	\end{samplecode}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Off-chain stored metadata on a decentralized file system}
+
+	\begin{itemize}
+		\item E.g., \textbf{Bored Apes Yacht Club} (\href{https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d}{\link smart contract})
+		\item \texttt{tokenURI} points to the \href{ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1}{\link metadata}  of an NFT which is stored in JSON format on IPFS, including link to image.
+		\item \texttt{baseURI} can be updated via \texttt{setBaseURI}, but requires the user to be the smart contract owner, which is set to the zero address.
+	\end{itemize} 
+	\begin{columns}
+		\begin{column}{0.67\textwidth}
+		\vspace{-1em}
+			\begin{samplecode}{JSON Metadata of Ape with \texttt{tokenId} 0}
+				\input{../assets/other_code/bayc_metadata.tex}
+			\end{samplecode}		
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\begin{figure}
+				\vspace{-1em}
+				\centering
+				\includegraphics[scale=0.18]{../assets/images/ape_0.png}
+				\caption*{\link \href{https://bafybeibnzhc7vp4hnfcocw7s2jej2tj5xqpwseyz3ifylismh47cr45rhm.ipfs.dweb.link/}{IPFS directory}}	
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Off-chain stored metadata on a centralized file system}
+
+\begin{itemize}
+	\item E.g., \textbf{Cryptokitties} (\href{https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d}{\link smart contract} )
+	\item \href{https://api.cryptokitties.co/kitties/2252}{\link  JSON file} and image centralized on Dapper Labs website.
+	\item The operator of the website and the servers has full control over the metadata and can easily mutate/delete it.
+\end{itemize}
+\vspace{1em}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.2]{../assets/images/cryptokitty.png}
+	\caption*{\link \href{https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/2252.svg} {Picture stored on Dapper Labs website}}
+\end{figure}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Mutability of the URI and External Promises}
+
+The URI may be mutable, and thus, privileged users could change the referenced metadata of an NFT.
+\vspace{0.5em}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25,frame]{../assets/images/rugpull.png}
+		\caption*{\href{https://twitter.com/neitherconfirm/status/1369285946198396928}{\link Twitter thread about an illustrative example}}	
+	\end{figure}	
+\uncover<2->{	
+If external promises, e.g., licenses, are attached to the NFT, they become worthless if the counterparty is not able or willing to keep them. Another example: \href{https://www.pcgamer.com/f1-delta-time-one-of-the-first-major-nft-games-has-shut-down/}{\link F1 Delta Time}
+%F1 Delta Time, a blockchain-based play-to-earn game, lost its official license. Therefore, tokens representing in-game items became worthless.
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{NFT Ownership}
+
+\begin{figure}
+     \begin{tikzpicture}[scale = 0.67]
+     	\input{../assets/figures/nft_ownership.tex}		
+	\end{tikzpicture}	
+\end{figure}
+\vspace{-1.5em}
+\uncover<4->{
+	\begin{columns}[T]
+		\column{0.35\textwidth}
+			\begin{keytakeaway}{Token-specific Metadata}
+				The \texttt{tokenId} may point to token-specific metadata, e.g., a set of characteristics and a picture.	
+			\end{keytakeaway}
+}
+\uncover<2->{
+		\column{0.35\textwidth}
+			\vspace{-0.9em}
+			\begin{table}
+				\begin{tabular}{cl}
+				\hline \hline
+				\texttt{tokenId} & \texttt{address} \\
+				\hline
+				0 & 0x0901...\\
+				1 & 0x7A25...\\
+				2 & 0x0901...\\
+				\hline \hline
+				\end{tabular}
+			\end{table}
+}
+\uncover<3->{
+		\column{0.35\textwidth}
+			\begin{keytakeaway}{Ownership}
+				In most cases, owners have the full control over these entries, i.e, they control approvals and transfers.
+			\end{keytakeaway}				
+}
+	\end{columns}
+\vspace{1em}
+\uncover<5->{
+	\centering
+	\href{https://www.theartnewspaper.com/2022/01/21/a-german-museum-has-accidentally-lost-access-to-two-highly-valuable-nfts}{\link Museum accidentally burning two of their CryptoPunks}
+}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{NFT Exercise} %Placeholder
+
+	\begin{exercise}{Exercise 1}
+		\begin{enumerate}
+			\item Apply the learnings from this session and develop your own token contract. Make use of OpenZeppelin’s ERC721 reference implementation and adjust x, y, z.
+			\item Deploy the contract on testnet.
+			\item Try minting, sending tokens and granting approvals with a classmate or on your own with two different EOAs.
+			\item Mint one of our Hasoshis on testnet. Can you get the rare gold version?
+		\end{enumerate}
+	\end{exercise}
+	
+\end{frame}
+%%%
+
+\end{document}

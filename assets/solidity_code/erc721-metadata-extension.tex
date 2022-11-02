@@ -1,0 +1,7 @@
+\begin{lstlisting}[language=Solidity]
+interface ERC721Metadata {
+    function name() external view returns (string _name);
+    function symbol() external view returns (string _symbol);
+    function tokenURI(uint256 _tokenId) external view returns (string);
+}
+\end{lstlisting}
