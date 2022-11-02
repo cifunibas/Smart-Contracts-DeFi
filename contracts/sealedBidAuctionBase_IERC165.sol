@@ -53,7 +53,7 @@ contract SealedBidAuction is IERC165, ISealedBidAuction {
     revealEnd = biddingEnd + _durationRevealMinutes * 1 minutes;
   }
 
-  function bid(bytes32 _sealedBid) external payable onlyBefore(biddingEnd) {
+  function bid(bytes32 _sealedBid) public virtual payable onlyBefore(biddingEnd) {
     Bid memory newBid = Bid({
       sealedBid: _sealedBid,
       deposit: msg.value
@@ -63,7 +63,7 @@ contract SealedBidAuction is IERC165, ISealedBidAuction {
   }
 
   function updateBid(address _bidder, uint _bidAmount) internal returns (bool success) {
-    if (_bidAmount <= highestBid) {
+    if (_bidAmount <= highestBid || block.timestamp >= revealEnd) {
       return false;
     }
     if (highestBidder != address(0)) {
@@ -78,7 +78,6 @@ contract SealedBidAuction is IERC165, ISealedBidAuction {
   function reveal(uint[] calldata _bidAmounts, bool[] calldata _areLegit, string[] calldata _secrets)
     external
     onlyAfter(biddingEnd)
-    onlyBefore(revealEnd)
   {
     uint nBids = bids[msg.sender].length;
     require(_bidAmounts.length == nBids, 'invalid number of bid amounts');
@@ -119,7 +118,7 @@ contract SealedBidAuction is IERC165, ISealedBidAuction {
     }
   }
 
-  function auctionEnd() external virtual onlyAfter(revealEnd) {
+  function auctionEnd() public virtual onlyAfter(revealEnd) {
     require(!hasEnded, 'Auction already ended');
     emit AuctionEnded(highestBidder, highestBid);
     hasEnded = true;
