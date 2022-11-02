@@ -23,16 +23,16 @@
 %%%
 \begin{frame}{Introduction}
 
-Solidity offers various approaches to modularize code and reduce complexity during development.\\
+Solidity offers various approaches to \color{focus} modularize code and reduce complexity \color{black} during development.\\
 
 \vspace{1em}
 
-Understanding the basic concepts is essential for analyzing most of the smart contract code deployed on Mainnet.\\
+Understanding the basic concepts is \color{focus}essential for analyzing \color{black} most of the smart contract code deployed on Mainnet.\\
 
 \vspace{1em}
 
 \uncover<2->{
-This video outlines:
+In this lecture we cover:
 \begin{itemize}
 	\item	\textbf{Import} for making code modules available across files.
 	\item	\textbf{Inheritance} to pass properties from base to derived contracts.
@@ -117,7 +117,7 @@ Note that \genkey{import} requires harmonized pragma versions to compile.
 
 	\vspace{0.5em}
 
-	Inheriting creates base - derived relationships (also called parent – child), where the derived contract takes over \textbf{all \genkey{public} and \genkey{internal} variables and functions}.
+	Inheriting creates base – derived relationships (also called parent – child), where the derived contract has access to \textbf{all \genkey{public} and \genkey{internal} variables and functions}.
 	
 	\vspace{0.5em}
 
@@ -169,18 +169,18 @@ $\Rightarrow$ Multiple inheritance is allowed, e.g., D inherits from B and C.\\
 %%%
 \begin{frame}{Inheritance Considerations: Overriding}
 
-Both \textbf{modifiers} and \textbf{functions} can be redefined in a derived contract. For this overriding, keep in mind:
+Both \textbf{functions} and \textbf{modifiers} can be redefined in a derived contract. For this overriding, keep in mind:
 \vspace{0.5em}
 \begin{itemize}
 	\item<2-> Modifiers must have the same name, functions the same signature.
 	\item<3-> Explicitly declare functions or modifiers as \genkey{virtual} (in base) and \genkey{override} (in derived).
-	\item<4->  Overridden functions can still be accessed via \texttt{super.f()} or \texttt{baseName.f()}.	
+	\item<4->  Overridden functions can still be accessed via \texttt{super.f()} or \texttt{baseName.f()}, where \texttt{f} is the function name.	
 \end{itemize}
 
 \vspace{1.5em}
 
 \uncover<5->{
-Note that declaring a \textbf{state variable} that visibly exists already in a base (variable shadowing) or \textbf{double use of a name for different members} (function, modifier, or event) within the inheritance structure will not compile.
+Note that declaring a \textbf{state variable} that is visible (is defined) in base (variable shadowing) or \textbf{double use of a name for different members} (function, modifier, or event) within the inheritance structure will not compile.
 }
 
 \end{frame}
@@ -190,9 +190,7 @@ Note that declaring a \textbf{state variable} that visibly exists already in a b
 %%%
 \begin{frame}{Inheritance Considerations: Constructor}
 
-For a derived contract to be deployed\footnote{Missing arguments render it abstract, i.e., containing functions without implementation. Abstract contracts cannot be deployed on their own.}, it must provide the arguments of its base contracts' constructors.
-
-\vspace{-0.5em}
+For a derived contract to be deployed, it must provide the arguments of its base contracts' constructors.\footnote{Missing arguments render it abstract, i.e., containing functions without implementation. Abstract contracts cannot be deployed on their own.}
 
 \begin{samplecode}{Two Options for Providing Arguments to Base Constructors}
 	\input{../assets/solidity_code/inheritance_constructor.tex}
@@ -209,22 +207,23 @@ For a derived contract to be deployed\footnote{Missing arguments render it abstr
 \begin{minipage}{0.3\textwidth}
 	\begin{figure}
 		\center
-		\includegraphics[width= 2.2cm]{../assets/images/construction.png}	
+		\vspace{-1em}
+		\includegraphics[width= 1.7cm]{../assets/images/construction.png}	
 	\end{figure}
 \end{minipage}
 \begin{minipage}{0.65\textwidth}
-	\textbf{Goal:} For a proportion of the proceeds, an auction house wants to implement different auctions for one beneficiary. Let's modify the sealed bid auction contract, so it can be used as base for efficient auction implementation with a fee.\\
+	On the next few slides, we will modify our \textbf{SealedBidAuction} contract and create a derived contract to apply some of the concepts we have introduced in this lecture. \\
 \end{minipage}
 
-\vspace{3em}
+\vspace{2em}
 
 \uncover<2->{
 Points to be covered:
-\begin{itemize}
-	\item	Introduce auction title, specifying the auction type.
-	\item	Derived contract introducing an auction house fee.
-	\item	Hardcoding the beneficiary in the constructor.
-\end{itemize}
+\begin{enumerate}
+	\item	Introduce auctionTitle in base contract and make auctionEnd() virtual.
+	\item	Create derived contract introducing an auction house fee.
+	\item Deal with constructor (hardcoding beneficiary and chaining other parameters).
+\end{enumerate}
 }
 
 \end{frame}
@@ -266,7 +265,7 @@ Points to be covered:
 	\input{../assets/solidity_code/fee_auction2.tex}
 \end{samplecode}
 \begin{enumerate}
-	\item	Marking \texttt{auctionEnd} as overriding the base with \genkey{override}.
+	\item	Marking \texttt{auctionEnd()} as overriding the base with \genkey{override}.
 	\item	Changing the function behaviour introducing a fee, without affecting the signature.
 \end{enumerate}
 
@@ -290,22 +289,9 @@ Points to be covered:
 $\Rightarrow$ The respective functions in the underlying contract can be \genkey{external} or \genkey{public}.
 \end{minipage}
 
-\vspace{1.5em}
-
-\uncover<2->{
-Basically limited to what a contract ABI can represent, interfaces are \textbf{unable }to:
-\vspace{0.5em}
-\begin{itemize}
-	\item	inherit from other contracts, only other interfaces.
-	\item	declare state variables or modifiers.
-	\item	declare a constructor.
-\end{itemize}
-
-
-\vspace{1em}
+\vspace{2em}
 
 \link \href{https://docs.soliditylang.org/en/latest/contracts.html\#interfaces}{Solidity Documentation on Interfaces}.
-}
 
 \end{frame}
 %%%
@@ -314,19 +300,23 @@ Basically limited to what a contract ABI can represent, interfaces are \textbf{u
 %%%
 \begin{frame}{Rationale for Interfaces}
 
-\textbf{1. Soundness check via inheritance}\\
-\vspace{0.5em}
-Inheriting an interface, a contract will not compile unless all interface functions are implemented.\\
-\vspace{0.5em}
-Note that an ERC-20 compliant contract means nothing else but that the IERC-20 interface is implemented.\\
-
-\uncover<2->{
+\uncover<1->{
 \vspace{1.5em}
-\textbf{2. Encoding pattern for use of external contracts.}\\
+\textbf{1. Encoding pattern for use of external contracts.}\\
 \vspace{0.5em}
 Imported interfaces provide a contract with the necessary encoding patterns for external calls to contracts implementing this interface. It is a lightweight alternative to providing the complete code of the target contract.\\
 \vspace{0.5em}
 Note that an interface can also specify only a subset of the external or public functions the target contracts have implemented.
+}
+
+\vspace{1.5em}
+
+\uncover<2->{
+\textbf{2. Soundness check via inheritance}\\
+\vspace{0.5em}
+Inheriting an interface, a contract will not compile unless all interface functions are implemented.\\
+\vspace{0.5em}
+Note that an ERC-20 compliant contract only means that the IERC-20 interface is implemented.\\
 }
 
 \end{frame}
@@ -424,16 +414,16 @@ Let bidding contract withdraw funds from auction contracts and the owner retriev
 %%%
 
 %%%
-\begin{frame}{EIP-165: Communicate Your Interfaces}
+\begin{frame}{EIP-165: Identify Interfaces}
 
-\link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165} describes the standard method for communicating the interfaces implemented by a contract. 
+\link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165} describes the standard method for publishing the interfaces implemented by a contract. 
 
 \begin{samplecode}{ERC165 Interface}
 	\input{../assets/solidity_code/erc165.tex}	
 \end{samplecode}
 
 \begin{enumerate}
-	\item	The ERC-165 compliant contract \textbf{implements IERC165}, covering all interfaces it wants to communicate\footnote{Note that there is no technical check, that these interfaces are indeed implemented!}.
+	\item	The ERC-165 compliant contract \textbf{implements IERC165}, covering all interfaces it wants to publish.\footnote{Note that there is no technical check, that these interfaces are indeed implemented!}
 	\item	\textbf{Pre-interaction-checks} for IERC165 and other interfaces are now possible for contracts with a call for $\leq 30'000$ gas.
 	\item	\textbf{interfaceIDs} derive from the \texttt{XOR} across function signatures:\\
 			\color{darkmint} \texttt{interfaceID = f1.sig $\oplus$ f2.sig ... $\oplus$ fn.sig}
@@ -500,8 +490,7 @@ Libraries are a tool to reduce gas by deploying common code across multiple cont
 \vspace{0.5em}
 \begin{itemize}
 	\item	Specific operations based on inputs and outputs (i.e., \genkey{view} and \genkey{pure} functions).
-	\item	Implementation of data types (\typesunits{structs}, \typesunits{enums}, user defined).
-	\item	Constants.
+	\item	Implementation of data types (\typesunits{structs}, \typesunits{enums}).
 \end{itemize}
 \vspace{1em}
 
@@ -522,11 +511,11 @@ Attaching library functions to a type within the contract with the directive \te
 %%%
 \begin{frame}{Wrap Up}
 	
-While powerful, modularization and reuse of code comes with its own set of complexities.
+While powerful, modularization and reuse of code comes with its own complexities.
 
 \vspace{0.5em}
 \uncover<2->{
-This lecture only touches some key aspects of the topic. For application in your own projects, consult detailed documentations and the numerous examples out there.
+This lecture only touches some key aspects of the topic. For application in your own projects, consult detailed documentations and the numerous examples.
 }
 
 \vspace{0.5em}
@@ -534,6 +523,7 @@ This lecture only touches some key aspects of the topic. For application in your
 The various open source projects that maintain public repositories with a broad range of Mainnet tested smart contract modules may prove an invaluable resource.
 }
 
+\iffalse
 \uncover<4->{
 \begin{exercise}{Exercise 1: Do Not Reinvent the Wheel}
 	Spend some time on the website, documentation and GitHub repository of the\\ \link \href{https://www.openzeppelin.com/}{OpenZeppelin} project.\\
@@ -546,6 +536,7 @@ The various open source projects that maintain public repositories with a broad 
 	\end{enumerate}
 \end{exercise}
 }
+\fi
 
 \end{frame}
 
