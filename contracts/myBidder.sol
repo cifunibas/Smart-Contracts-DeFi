@@ -7,7 +7,7 @@ pragma solidity ^0.8.9;
 import "./ISealedBidAuction.sol";
 
 contract MyBidder {
-    
+
     // This bidding contract is tied to an EOA, so let's make it ownable.
     address public owner;
 
@@ -24,12 +24,12 @@ contract MyBidder {
 
 
     // Let's ensure the contract can receive refunds from the auction contracts
-    receive () external payable{
+    receive () external payable {
         emit Received(msg.sender, msg.value);
     }
 
 
-    // Now, the bidding and and revealing functions, callable only by the owner
+    // Now, the bidding and revealing functions, callable only by the owner
     function placeBid(address _target, bytes32 _sealedBid) external payable onlyOwner {
         ISealedBidAuction auction = ISealedBidAuction(_target);
         uint deposit = msg.value;
@@ -51,5 +51,5 @@ contract MyBidder {
     function cashOut(uint _amount) external onlyOwner{
         payable(owner).transfer(_amount);
     }
-    
+
 }
