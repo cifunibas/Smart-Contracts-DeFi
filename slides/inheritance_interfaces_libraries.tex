@@ -237,8 +237,8 @@ Points to be covered:
 	\input{../assets/solidity_code/auction_base.tex}
 \end{samplecode}
 \begin{enumerate}
-	\item	Adding a \texttt{AuctionTitle} variable to indicate auction type.
-	\item	Making \texttt{auctionEnd} \genkey{virtual}, so it can be overridden.
+	\item	Add a \texttt{AuctionTitle} variable.
+	\item	Make \texttt{auctionEnd} \genkey{virtual}.
 \end{enumerate}
 
 \end{frame}
@@ -251,8 +251,8 @@ Points to be covered:
 	\input{../assets/solidity_code/fee_auction1.tex}
 \end{samplecode}
 \begin{enumerate}
-	\item	Adding \texttt{feeRecipient} for the address the fee is owed to.
-	\item	Passing along the beneficiary hardcoded in the constructor.
+	\item	Add \texttt{feeRecipient}.
+	\item	Pass along the hardcoded beneficiary in the \genkey{constructor}.
 \end{enumerate}
 
 \end{frame}
@@ -265,9 +265,13 @@ Points to be covered:
 	\input{../assets/solidity_code/fee_auction2.tex}
 \end{samplecode}
 \begin{enumerate}
-	\item	Marking \texttt{auctionEnd()} as overriding the base with \genkey{override}.
-	\item	Changing the function behaviour introducing a fee, without affecting the signature.
+	\item	Let \texttt{auctionEnd()} \genkey{override} the base.
+	\item	Introduce a fee (without affecting the signature).
 \end{enumerate}
+
+\vspace{1em}
+
+\link \href{https://raw.githubusercontent.com/cifunibas/Smart-Contracts-DeFi/main/contracts/sealedBidAuctionWithFee.sol}{\texttt{sealedBidAuctionWithFee.sol} contract code.}
 
 \end{frame}
 %%%
@@ -283,7 +287,7 @@ Points to be covered:
 \end{minipage}
 \begin{minipage}{0.65\textwidth}
 	\vspace{1em}
-	An \textbf{interface} contract is a collection of \genkey{external} functions including their arguments and (optional) return values \textbf{without implementing them}.
+	An \textbf{interface} contract is a set of \genkey{external} functions including their arguments and (optional) return values \textbf{without implementing them}.
 	
 \vspace{0.5em}
 $\Rightarrow$ The respective functions in the underlying contract can be \genkey{external} or \genkey{public}.
@@ -304,9 +308,9 @@ $\Rightarrow$ The respective functions in the underlying contract can be \genkey
 \vspace{1.5em}
 \textbf{1. Encoding pattern for use of external contracts.}\\
 \vspace{0.5em}
-Imported interfaces provide a contract with the necessary encoding patterns for external calls to contracts implementing this interface. It is a lightweight alternative to providing the complete code of the target contract.\\
+Imported interfaces provide a contract with the \color{focus} necessary encoding patterns for external calls \color{black} to contracts implementing this interface. It is a lightweight alternative to providing the complete code of the target contract.\\
 \vspace{0.5em}
-Note that an interface can also specify only a subset of the external or public functions the target contracts have implemented.
+Depending on the use case, an interface \color{focus} can also specify a subset \color{black} of the external or public functions the target contracts have implemented.
 }
 
 \vspace{1.5em}
@@ -363,17 +367,19 @@ Points to be covered:
 \begin{samplecode}{ISealedBidAuction.sol}
 	\input{../assets/solidity_code/auction_interface.tex}
 \end{samplecode}
-\begin{enumerate}
-	\item	Both getter and declared functions of the target contract can be part of an interface.
+
+\textbf{Note:}
+\begin{itemize}
+	\item	Both, getter and declared functions of the target contract, can be part of an interface.
 	\item	Even if \genkey{public} in the target contract, in the interface all functions are marked \genkey{external}.
-\end{enumerate}
+\end{itemize}
 
 \end{frame}
 %%%
 
 
 %%%
-\begin{frame}{MyBidder: Import Interface \& Tie to Owner}
+\begin{frame}{MyBidder: Import Interface and Tie to Owner}
 
 \begin{samplecode}{Establish Owner and Ability to Receive Funds}
 	\input{../assets/solidity_code/myBidder_1.tex}
@@ -393,7 +399,7 @@ Points to be covered:
 	\input{../assets/solidity_code/myBidder_2.tex}
 \end{samplecode}
 \begin{enumerate}
-	\item	Invoking interface to formulate calls to targeted auction.
+	\item	Invoke interface to call target auction.
 	\item	Place and reveal bids along provided arguments \& funds.
 \end{enumerate}
 
@@ -403,12 +409,16 @@ Points to be covered:
 %%%
 \begin{frame}{MyBidder: Retrieving Funds}
 
-\begin{samplecode}{Recover Unused ufnds}
+\begin{samplecode}{Recover Unused Funds}
 	\input{../assets/solidity_code/myBidder_3.tex}
 \end{samplecode}
 
 \vspace{1em}
 Let bidding contract withdraw funds from auction contracts and the owner retrieve them.
+
+\vspace{1em}
+
+\link \href{https://raw.githubusercontent.com/cifunibas/Smart-Contracts-DeFi/main/contracts/myBidder.sol}{\texttt{myBidder.sol} contract code.}
 
 \end{frame}
 %%%
@@ -511,16 +521,16 @@ Attaching library functions to a type within the contract with the directive \te
 %%%
 \begin{frame}{Wrap Up}
 	
-While powerful, modularization and reuse of code comes with its own complexities.
+While powerful, modularization and reuse of code comes with its own \color{focus} complexities and risks\color{black}.
 
 \vspace{0.5em}
 \uncover<2->{
-This lecture only touches some key aspects of the topic. For application in your own projects, consult detailed documentations and the numerous examples.
+This lecture only touches some key aspects of the topic. For application in your own projects, consult \color{focus} detailed documentation and the numerous examples \color{black} (see references).
 }
 
 \vspace{0.5em}
 \uncover<3->{
-The various open source projects that maintain public repositories with a broad range of Mainnet tested smart contract modules may prove an invaluable resource.
+The various open source projects that maintain \color{focus} public repositories \color{black} with a broad range of Mainnet tested smart contract modules can be a \color{focus} valuable resource\color{black}.
 }
 
 \iffalse
