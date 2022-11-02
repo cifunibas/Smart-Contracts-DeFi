@@ -1,0 +1,13 @@
+\begin{lstlisting}[language=Solidity]
+import "https://github.com/OpenZepp.../IERC165.sol";
+import "./ISealedBidAuction.sol";
+
+contract SealedBidAuction is IERC165, ISealedBidAuction{ ...
+
+  function supportsInterface(bytes4 interfaceID) external pure returns (bool) {
+    return
+        interfaceID == type(IERC165).interfaceId ||
+        interfaceID == type(ISealedBidAuction).interfaceId;
+  }
+}
+\end{lstlisting}

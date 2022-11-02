@@ -1,0 +1,572 @@
+% Choose one to switch between slides and handout
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+
+% Video Meta Data
+\title{Smart Contracts and Decentralized Finance}
+\subtitle{Inheritance, Interfaces, and Libraries}
+\author{Prof. Dr. Fabian Schär}
+\institute{University of Basel}
+
+% Config File
+\input{../config/config.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\begin{frame}[noframenumbering]
+	\titlepage
+\end{frame}
+
+%%%
+\begin{frame}{Introduction}
+
+Solidity offers various approaches to \color{focus} modularize code and reduce complexity \color{black} during development.\\
+
+\vspace{1em}
+
+Understanding the basic concepts is \color{focus}essential for analyzing \color{black} most of the smart contract code deployed on Mainnet.\\
+
+\vspace{1em}
+
+\uncover<2->{
+In this lecture we cover:
+\begin{itemize}
+	\item	\textbf{Import} for making code modules available across files.
+	\item	\textbf{Inheritance} to pass properties from base to derived contracts.
+	\item	\textbf{Interface contracts} to create standardized interfaces.
+	\item	\textbf{Library contracts} to reuse code across multiple contracts.
+\end{itemize}
+}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Importing files}
+
+\vspace{0.5em}
+Keep modules (base contracts, interfaces etc.) in separate files and use \genkey{import} at the top of the applying contract file to:
+
+\begin{itemize}
+	\item reflect changes across all applying contracts in development.
+	\item keep the applying contract file concise and easily readable.
+\end{itemize}
+
+\vspace{0.3em}
+
+\uncover<2->{
+\begin{samplecode}{Import Statement Example}
+	\input{../assets/solidity_code/import_statement.tex}
+\end{samplecode}
+
+$\Rightarrow$ Importing a file is the same as copying the code into the applying contract.\\
+
+\vspace{0.5em}
+
+\link \href{https://docs.soliditylang.org/en/v0.8.15/layout-of-source-files.html\#importing-other-source-files}{Solidity Documentation on Importing Source Files}.
+}
+
+\end{frame}
+%%	
+
+%%%
+\begin{frame}{Import paths}
+
+\vspace{0.5em}
+The import statement requires a path specification for the source file, for which two ways are common:
+\vspace{0.5em}
+
+\begin{enumerate}
+	\item	\textbf{Current directory:} \genkey{import} \color{red} \texttt{{"./fileName.sol"}} \color{black} to perform a global import of the code in a file from the same directory.
+	\item	\textbf{External paths:} Compilers in common IDEs often let you import files from HTTP, IPFS or NPM.
+\end{enumerate}
+
+\vspace{0.5em}
+
+\uncover<2->{
+\begin{samplecode}{Example: Import OpenZeppelin ERC-20 Interface Contract in Remix IDE}
+	\input{../assets/solidity_code/import_from_GitHub.tex}
+\end{samplecode}
+
+\vspace{0.5em}
+Note that \genkey{import} requires harmonized pragma versions to compile.
+}
+
+\end{frame}
+%%%	
+
+
+%%%
+\begin{frame}{Contract Inheritance}
+
+\vspace{0.5em}
+
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}[t]
+		\centering
+		\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
+			\input{../assets/figures/inheritance_simple}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.63\textwidth}
+	Solidity allows the passing down of properties via \textbf{inheritance}.
+
+	\vspace{0.5em}
+
+	Inheriting creates base – derived relationships (also called parent – child), where the derived contract has access to \textbf{all \genkey{public} and \genkey{internal} variables and functions}.
+	
+	\vspace{0.5em}
+
+	$\Rightarrow$ Private functions and variables cannot be invoked directly from the derived contract.
+
+\end{minipage}
+
+\vspace{1em}
+
+	The derived contract compiles the code from all bases and is deployed as a single contract on-chain, i.e.,  all functions are accessed via \textbf{internal function calls}. 
+
+\vspace{1.5em}
+
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#inheritance}{Solidity Documentation on Inheritance}.
+
+\end{frame}
+%%%	
+
+%%%
+\begin{frame}{Building and Inheritance Structure}
+
+\vspace{0.5em}	
+\begin{minipage}{0.48\textwidth}
+	\begin{samplecode}{Contract Inheritance}
+		\input{../assets/solidity_code/inheritance.tex}
+	\end{samplecode}
+\end{minipage}	
+\begin{minipage}{0.48\textwidth}
+	\begin{figure}[t]
+		\centering
+		\begin{tikzpicture}[scale=1.0, every node/.style={scale=1.0}]
+			\input{../assets/figures/inheritance_multiple}
+		\end{tikzpicture}
+	\end{figure}
+\end{minipage}	
+
+\vspace{2.0em}
+
+$\Rightarrow$ By inheriting B, D is also based on A.\\
+
+\vspace{1.0em}
+$\Rightarrow$ Multiple inheritance is allowed, e.g., D inherits from B and C.\\
+
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Inheritance Considerations: Overriding}
+
+Both \textbf{functions} and \textbf{modifiers} can be redefined in a derived contract. For this overriding, keep in mind:
+\vspace{0.5em}
+\begin{itemize}
+	\item<2-> Modifiers must have the same name, functions the same signature.
+	\item<3-> Explicitly declare functions or modifiers as \genkey{virtual} (in base) and \genkey{override} (in derived).
+	\item<4->  Overridden functions can still be accessed via \texttt{super.f()} or \texttt{baseName.f()}, where \texttt{f} is the function name.	
+\end{itemize}
+
+\vspace{1.5em}
+
+\uncover<5->{
+Note that declaring a \textbf{state variable} that is visible (is defined) in base (variable shadowing) or \textbf{double use of a name for different members} (function, modifier, or event) within the inheritance structure will not compile.
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Inheritance Considerations: Constructor}
+
+For a derived contract to be deployed, it must provide the arguments of its base contracts' constructors.\footnote{Missing arguments render it abstract, i.e., containing functions without implementation. Abstract contracts cannot be deployed on their own.}
+
+\begin{samplecode}{Two Options for Providing Arguments to Base Constructors}
+	\input{../assets/solidity_code/inheritance_constructor.tex}
+\end{samplecode}
+
+
+\end{frame}
+%%
+
+
+%%%
+\begin{frame}{Applying Inheritance to the Auction Contract}
+
+\begin{minipage}{0.3\textwidth}
+	\begin{figure}
+		\center
+		\vspace{-1em}
+		\includegraphics[width= 1.7cm]{../assets/images/construction.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.65\textwidth}
+	On the next few slides, we will modify our \textbf{SealedBidAuction} contract and create a derived contract to apply some of the concepts we have introduced in this lecture. \\
+\end{minipage}
+
+\vspace{2em}
+
+\uncover<2->{
+Points to be covered:
+\begin{enumerate}
+	\item	Introduce auctionTitle in base contract and make auctionEnd() virtual.
+	\item	Create derived contract introducing an auction house fee.
+	\item Deal with constructor (hardcoding beneficiary and chaining other parameters).
+\end{enumerate}
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Preparing the Base Contract}
+
+\begin{samplecode}{Adaptations to SealedBidAuction}
+	\input{../assets/solidity_code/auction_base.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Add a \texttt{AuctionTitle} variable.
+	\item	Make \texttt{auctionEnd} \genkey{virtual}.
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Derived Contract with a Fee}
+
+\begin{samplecode}{AuctionWithFee: New variable and constructor}
+	\input{../assets/solidity_code/fee_auction1.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Add \texttt{feeRecipient}.
+	\item	Pass along the hardcoded beneficiary in the \genkey{constructor}.
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Derived Contract with a Fee (cont.)}
+
+\begin{samplecode}{AuctionWithFee: auctionEnd() override}
+	\input{../assets/solidity_code/fee_auction2.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Let \texttt{auctionEnd()} \genkey{override} the base.
+	\item	Introduce a fee (without affecting the signature).
+\end{enumerate}
+
+\vspace{1em}
+
+\link \href{https://raw.githubusercontent.com/cifunibas/Smart-Contracts-DeFi/main/contracts/sealedBidAuctionWithFee.sol}{\texttt{sealedBidAuctionWithFee.sol} contract code.}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Interface Contracts}
+
+\begin{minipage}{0.3\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/interface.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.65\textwidth}
+	\vspace{1em}
+	An \textbf{interface} contract is a set of \genkey{external} functions including their arguments and (optional) return values \textbf{without implementing them}.
+	
+\vspace{0.5em}
+$\Rightarrow$ The respective functions in the underlying contract can be \genkey{external} or \genkey{public}.
+\end{minipage}
+
+\vspace{2em}
+
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#interfaces}{Solidity Documentation on Interfaces}.
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Rationale for Interfaces}
+
+\uncover<1->{
+\vspace{1.5em}
+\textbf{1. Encoding pattern for use of external contracts.}\\
+\vspace{0.5em}
+Imported interfaces provide a contract with the \color{focus} necessary encoding patterns for external calls \color{black} to contracts implementing this interface. It is a lightweight alternative to providing the complete code of the target contract.\\
+\vspace{0.5em}
+Depending on the use case, an interface \color{focus} can also specify a subset \color{black} of the external or public functions the target contracts have implemented.
+}
+
+\vspace{1.5em}
+
+\uncover<2->{
+\textbf{2. Soundness check via inheritance}\\
+\vspace{0.5em}
+Inheriting an interface, a contract will not compile unless all interface functions are implemented.\\
+\vspace{0.5em}
+Note that an ERC-20 compliant contract only means that the IERC-20 interface is implemented.\\
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Building a Bidding Contract}
+
+\begin{minipage}{0.3\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/bidder.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.65\textwidth}
+	\vspace{0.5em}
+	\textbf{Goal:} Build a personal bidding contract that can be used to participate in an sealed bid auction, using an interface for the auction contract.\\
+\end{minipage}
+
+\vspace{2em}
+
+Points to be covered:
+\vspace{0.5em}
+\begin{enumerate}
+	\item	The required interface for the auction contract.
+	\item	A personalized bidding contract, that handles
+	\vspace{0.5em}
+	\begin{itemize}
+		\item sealed bid requests and places them with a specified auction.
+		\item reveal requests and performs reveals with the specified auction.
+		\item reimbursement requests, returning the funds to the owner.
+	\end{itemize}
+\end{enumerate}
+
+
+\end{frame}
+%%
+
+
+%%%
+\begin{frame}{MyBidder: Auction Contract Interface}
+
+\begin{samplecode}{ISealedBidAuction.sol}
+	\input{../assets/solidity_code/auction_interface.tex}
+\end{samplecode}
+
+\textbf{Note:}
+\begin{itemize}
+	\item	Both, getter and declared functions of the target contract, can be part of an interface.
+	\item	Even if \genkey{public} in the target contract, in the interface all functions are marked \genkey{external}.
+\end{itemize}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{MyBidder: Import Interface and Tie to Owner}
+
+\begin{samplecode}{Establish Owner and Ability to Receive Funds}
+	\input{../assets/solidity_code/myBidder_1.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Prepare restriction of functionalities to a specified owner.
+	\item	Ensure the contract can handle funds with \texttt{\genkey{receive}()}.
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{MyBidder: Bidding and Revealing}
+
+\begin{samplecode}{Bidding and Revealing for the Owner}
+	\input{../assets/solidity_code/myBidder_2.tex}
+\end{samplecode}
+\begin{enumerate}
+	\item	Invoke interface to call target auction.
+	\item	Place and reveal bids along provided arguments \& funds.
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{MyBidder: Retrieving Funds}
+
+\begin{samplecode}{Recover Unused Funds}
+	\input{../assets/solidity_code/myBidder_3.tex}
+\end{samplecode}
+
+\vspace{1em}
+Let bidding contract withdraw funds from auction contracts and the owner retrieve them.
+
+\vspace{1em}
+
+\link \href{https://raw.githubusercontent.com/cifunibas/Smart-Contracts-DeFi/main/contracts/myBidder.sol}{\texttt{myBidder.sol} contract code.}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{EIP-165: Identify Interfaces}
+
+\link \href{https://eips.ethereum.org/EIPS/eip-165}{EIP-165} describes the standard method for publishing the interfaces implemented by a contract. 
+
+\begin{samplecode}{ERC165 Interface}
+	\input{../assets/solidity_code/erc165.tex}	
+\end{samplecode}
+
+\begin{enumerate}
+	\item	The ERC-165 compliant contract \textbf{implements IERC165}, covering all interfaces it wants to publish.\footnote{Note that there is no technical check, that these interfaces are indeed implemented!}
+	\item	\textbf{Pre-interaction-checks} for IERC165 and other interfaces are now possible for contracts with a call for $\leq 30'000$ gas.
+	\item	\textbf{interfaceIDs} derive from the \texttt{XOR} across function signatures:\\
+			\color{darkmint} \texttt{interfaceID = f1.sig $\oplus$ f2.sig ... $\oplus$ fn.sig}
+\end{enumerate}
+
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Example: ERC-165 compliant Sealed Bid Auction}
+
+\begin{samplecode}{Implementation of IERC165 in SealedBidAuctionBase}
+	\input{../assets/solidity_code/ierc165_sealed_bidding.tex}	
+\end{samplecode}
+
+\footnotesize{With the global expression \texttt{\genkey{type}(InterfaceName).interfaceID} in Solidity, the example implements IERC165 with a \genkey{pure} function. Note that IERC-165 implementations differ, some declaring a mapping in the contract state. }
+
+\end{frame}
+%%%
+
+%%
+\begin{frame}{Library Contracts}
+
+\begin{minipage}{0.25\textwidth}
+	\begin{figure}
+		\center
+		\includegraphics[width= 2.2cm]{../assets/images/library.png}	
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.7\textwidth}
+	\vspace{1em}
+	A \genkey{library} is a \textbf{stateless} contract that is a collection of functions and types that are deployed once at a specific address for their code being \textbf{reused by different contracts} using \genkey{delegatecall}. They are \textbf{unable} to:
+
+	\begin{itemize}
+		\item	Declare state variables.
+		\item	Inherit or be inherited.
+		\item	Receive Ether.
+	\end{itemize}
+\end{minipage}
+
+\vspace{1em}
+
+\uncover<2->{
+Consequently:
+\begin{itemize}
+	\item	Library code is executed in the context of the calling contract.
+	\item	Storage variables need to be explicitly supplied.
+	\item	Only \genkey{view} and \genkey{pure} library functions can be called directly, i.e., without \genkey{delegatecall}.
+\end{itemize}
+
+\vspace{0.5em}
+
+\link \href{https://docs.soliditylang.org/en/latest/contracts.html\#libraries}{Solidity documentation on libraries}.
+}
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Rationale and Use of Libraries}
+
+Libraries are a tool to reduce gas by deploying common code across multiple contracts once, such as:
+\vspace{0.5em}
+\begin{itemize}
+	\item	Specific operations based on inputs and outputs (i.e., \genkey{view} and \genkey{pure} functions).
+	\item	Implementation of data types (\typesunits{structs}, \typesunits{enums}).
+\end{itemize}
+\vspace{1em}
+
+\uncover<2->{
+\textbf{Library Use}\\
+\vspace{0.5em}
+Applying contracts can call libraries with  \texttt{libraryName.f()}.\\
+
+\vspace{0.5em}
+Attaching library functions to a type within the contract with the directive \texttt{libraryName for} \typesunits{type}. Called on an object of that type, the functions will receive the object as first parameter.
+}
+
+
+\end{frame}
+%%%
+
+
+%%%
+\begin{frame}{Wrap Up}
+	
+While powerful, modularization and reuse of code comes with its own \color{focus} complexities and risks\color{black}.
+
+\vspace{0.5em}
+\uncover<2->{
+This lecture only touches some key aspects of the topic. For application in your own projects, consult \color{focus} detailed documentation and the numerous examples \color{black} (see references).
+}
+
+\vspace{0.5em}
+\uncover<3->{
+The various open source projects that maintain \color{focus} public repositories \color{black} with a broad range of Mainnet tested smart contract modules can be a \color{focus} valuable resource\color{black}.
+}
+
+\iffalse
+\uncover<4->{
+\begin{exercise}{Exercise 1: Do Not Reinvent the Wheel}
+	Spend some time on the website, documentation and GitHub repository of the\\ \link \href{https://www.openzeppelin.com/}{OpenZeppelin} project.\\
+	
+	\vspace{0.5em}
+	Possible questions to explore:
+	\begin{enumerate}
+		\item What are the pros and cons for using such libraries?
+		\item May any of these contract modules proof useful for a project you are planning?
+	\end{enumerate}
+\end{exercise}
+}
+\fi
+
+\end{frame}
+
+%%%
+
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+
+ 
+\link \href{https://docs.soliditylang.org/en/latest/index.html}{Latest Solidity Documentation}.
+
+\vspace{1em}
+
+\link \href{https://github.com/OpenZeppelin/openzeppelin-contracts}{OpenZeppelin GitHub Repository}
+
+\end{frame}
+%%%
+
+
+
+\end{document}
