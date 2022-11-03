@@ -129,7 +129,7 @@ While ERC20 tracks the balances that belong to each address, \textbf{ERC721 trac
 ERC721 tokens have some \textbf{additional functions}:
 
 \begin{itemize}
-	\item<2-> \texttt{ownerOf():} {Get the owner address of a specific token.}
+	\item<2-> \texttt{ownerOf():} {Get the owner address of a specific tokenId.}
 	\item<3-> \texttt{setApprovalForAll():} {Set or revoke the approval for \textbf{all} of your tokens in the smart contract (collection).}
 	\item<4-> \texttt{getApproved():} {Get approved address of a specific token.}	
 \end{itemize}
@@ -203,7 +203,7 @@ The identifier for the ERC721 interface is calculated as the XOR of all function
 
 %%%
 \begin{frame}{Enumerable Extension}
-The enumerable extension circumvents the problem that the mapping only works from \texttt{tokenId} to \texttt{address}. Otherwise, there would be no way to get all the tokens of a specific address.
+The enumerable extension circumvents the problem that the mapping only works from \texttt{tokenId} to \texttt{address}. Without the extension, there is no way to get all the tokens of a specific address.
 \vspace{0.5em}
 		\begin{table}
 			\begin{tabular}{clc}
@@ -224,7 +224,11 @@ The enumerable extension circumvents the problem that the mapping only works fro
 %%%
 \begin{frame}{Enumerable Extension ctd.}
 
-Used along with \texttt{balanceOf}, \texttt{tokenOfOwnerByIndex} returns the \texttt{tokenId} owned by \texttt{owner} at a given \texttt{index} of its token list.
+Used along with \texttt{balanceOf()}, \texttt{tokenOfOwnerByIndex()} returns the \texttt{tokenId} owned by an address, at a given \texttt{index} of its token list. 
+
+\vspace{0.5em}
+
+Similarly, the combination of \texttt{totalSupply()} and \texttt{tokenByIndex()} makes all NFTs in the collection discoverable.
 \vspace{0.5em}
 	\begin{samplecode}{Enumerable Extension}
 		\input{../assets/solidity_code/erc721-enumerable-extension.tex}
@@ -245,7 +249,7 @@ This extension adds the \texttt{name}, \texttt{symbol}, and \texttt{tokenURI} fu
 
 %%%
 \begin{frame}{Metadata JSON Schema Example}
-The metadata at the \texttt{tokenURI} is in the form of a JSON file, either on- or off-chain. Which fields of the JSON schema are supported depends on the frontend used to display the information.
+The metadata at the \texttt{tokenURI} is stored in JSON. Which fields of the JSON schema are supported depends on the frontend used to display the information.
 \vspace{0.5em}
 \begin{samplecode}{ERC721 Metadata JSON Schema Example}
 	\input{../assets/other_code/metadata.tex}
