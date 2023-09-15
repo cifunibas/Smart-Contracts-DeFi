@@ -1,6 +1,6 @@
 % Choose one to switch between slides and handout
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 
 % Video Meta Data
 \title{Smart Contracts and Decentralized Finance}
@@ -22,74 +22,321 @@
 
 %%%
 \begin{frame}{Introduction to DeFi Governance}
-
+	In this lecture, we only look at the governance of \textbf{smart contract-based (financial) protocols} on public blockchains, and \textbf{not} the governance of \textbf{centralized service providers and custodians}.\\
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+		\textbf{The main tradeoff:}\\
+	
+		\begin{columns}
+			\begin{column}{0.45\textwidth}
+				\begin{figure}
+					\center
+					\includegraphics[width=0.5\textwidth]{../assets/images/locked_code.png}
+					\caption*{Immutability}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.45\textwidth}
+				\begin{figure}
+					\center
+					\includegraphics[width=0.5\textwidth]{../assets/images/unlocked_code.png}
+					\caption*{Flexibility}
+				\end{figure}
+			\end{column}
+		\end{columns}
+	}
 \end{frame}
 %%%
 
-%%%
-\begin{frame}{Governance Structure}
+%%%%
+%\begin{frame}{Governance Structure}
+%	We will cover:
+%	\begin{itemize}
+%		\item Admin keys
+%		\item Upgradability patterns
+%		\item Account-based and token-based governance
+%		\item External promises
+%	\end{itemize}
+%\end{frame}
+%%%%
 
-\end{frame}
 %%%
-
-%%%
-\begin{frame}{Upgradeability}
-
-\end{frame}
-%%%
-
-%%%
-\begin{frame}{Why Oracles?}
+\begin{frame}{Admin Keys}
+	Protocol developers may create functions that can only be called by privileged addresses (i.e., admin keys). These functions may enable:
 	\begin{itemize}
-		\item Smart contracts only have access to data, that is stored on the same blockchain as the smart contract is deployed.
-		\item If we want a smart contract to depend on data from outside that blockchain we need a way to bridge this data onto the blockchain.
-		\item Examples:
-		\begin{itemize}
-			\item Stock prices
-			\item Sport results
-			\item Weather information
-			\item …
-		\end{itemize}
+		\item \textbf{Blacklisting:} who cannot interact with the protocol/asset
+		\item \textbf{Whitelisting:} who can interact with the protocol/asset
+		\item \textbf{Expropriation:} unilateral balance adjustments or dilution of holders
+		\item \textbf{Emergency stops:} halt protocol's/asset's core functionality
+		\item \textbf{Upgrades:} change the execution logic of the protocol/asset
 	\end{itemize}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{What are Oracles?}
+\begin{frame}{Upgradability Patterns I}
+
+	\textbf{Misconception: smart contracts as a whole are immutable.}\\
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+		\textbf{Correct:} the bytecode of a smart contract, once deployed on-chain, cannot be changed. However, there are different patterns to change a protocol's or an asset's general execution logic.
+	}
+	
+	\vspace{1em}
+
+	\uncover<3->{
+		\textbf{Upgradability patterns} \cite{schulerDefi2023}:
+	
+		\begin{itemize}
+			\item Static contracts
+			\item Parametric upgradability
+			\item Proxy contract patterns	
+		\end{itemize}
+	}
 
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Oracle Use Cases}
+\begin{frame}{Upgradability Patterns II}
 
+	\vspace{1.5em}
+
+	{\small
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{p{1.8cm}p{4cm}p{4.5cm}}
+			\hline
+			\hline
+			\textbf{Pattern} & \textbf{Scope of Changes} & \textbf{Effect on Existing Users} \\
+			\hline
+			\textbf{Static} & None (redeployment only) & Opt-in \\
+			\hline
+			\textbf{Parametric} & Predefined & Opt-out (parameter scope); opt-in (non-parametric) \\
+			\hline
+			\textbf{Proxy} & Unlimited & Opt-out \\
+			\hline
+			\end{tabular}
+			\caption{Upgradability Patterns \cite{schulerDefi2023}}
+		\end{table}
+	}
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Naive Oracle Structure}
+\begin{frame}{Account-based Governance}
+	\textbf{Tradeoff:} efficiency vs. security
+	\begin{itemize}
+		\item Single signature (1-of-1)
+		\item Multi-signature ($M$-of-$N$)
+	\end{itemize}
 
+	\vspace{1.5em}
+
+	\uncover<2->{
+		\textbf{Tradeoff:} anonymous key holders vs. known identities
+
+		\begin{itemize}
+			\item \textbf{Anonymous key holders:} feasibility of legal actions vs. little collusion, blackmailing or honey pot risk
+			\item \textbf{Known identities:} transparency and accountability vs. collusion, blackmailing or honey pots
+		\end{itemize}
+	}
 \end{frame}
 %%%
 
+%%%
+\begin{frame}{Token-based Governance}
+
+	Token-based governance schemes are often employed to allow the community to participate in ``decentralized" decision making.\\
+	
+	\vspace{1em}
+	
+	\uncover<2->{
+	\textbf{Weak identities problem:} since users can create new addresses at very low cost, addresses cannot be mapped 1-to-1 to an identity. Approaches to circumvent the problem:
+	\begin{itemize}
+		\item<3-> Centralized party KYCs and whitelists users (account-based governance)
+		\item<4-> Token-based voting scheme
+	\end{itemize}
+	}
+
+	\uncover<5->{
+		\begin{keytakeaway}{Transparency vs. ``misty mountains"}
+		Token distributions are transparent and can be analyzed, but the analysis is not trivial.
+		\end{keytakeaway}
+	}
+
+	\uncover<6->{
+		\begin{keytakeaway}{Token concentration}
+	High token concentration may lead to wealthy players making unilateral decisions, and the transparent voting process enables strategic voting behavior.
+		\end{keytakeaway}
+	}
+		
+\end{frame}
 
 %%%
-\begin{frame}{More Decentralized Oracle Structure}
-
+\begin{frame}{Wrapping Complexity}
+	
+	\textbf{A complex example:} Uniswap V2 liquidity provision of YFI and wETH.
+	
+	\begin{figure}
+		\input{../assets/figures/wrapping_complexity.tex}
+	\end{figure}
+	
+	\uncover<2->{
+		\textbf{Question:} Who is the economic beneficiary of the YFI and wETH tokens in the liquidity pool?\\
+		\begin{itemize}
+			\item<3-> Token contracts say: the Uniswap V2 liquidity pool
+			\item<4-> But: the EOA can redeem the LP tokens for YFI and wETH at any time.	
+		\end{itemize}
+	}
+	
+	\uncover<5->{
+		\begin{keytakeaway}{Potential risks}
+		Despite the publicly available data it is not always easy to determine the actual token distribution. Complex wrapping structures introduce governance risks, undermine the transparency and create extreme interdependencies among protocols.
+		\end{keytakeaway}
+	}
+	
 \end{frame}
 %%%
 
-
 %%%
-\begin{frame}{Token Allocation}
-
+\begin{frame}{Measuring Token Distributions}
+	
+	\textbf{One approach \cite{nadlerDecentralized2020}:}
+	
+	\input{../assets/iterative_mapping_process.tex}
+	
 \end{frame}
 %%%
 
 %%%
-\begin{frame}{Rug Pull Example}
+\begin{frame}[allowframebreaks]{Voting Behavior}
 
+	The open, transparent voting processes may lead to strategic voting behavior:
+
+	\begin{figure}
+		\center
+		\includegraphics[width=\textwidth]{../assets/figures/governanceHist4.pdf}
+		\caption{Relative Voting Time Distribution (Decentraland DAO) \cite{goldbergMetaverse2023}}
+	\end{figure}
+
+	\framebreak
+	
+	The open, transparent voting processes may lead to strategic voting behavior:
+
+	\begin{figure}
+		\center
+		\includegraphics[width=\textwidth]{../assets/figures/governanceHist5.pdf}
+		\caption{Relative Voting Time Distribution (Decentraland DAO) \cite{goldbergMetaverse2023}}
+	\end{figure}
+
+	\framebreak
+	
+	The open, transparent voting processes may lead to strategic voting behavior:
+
+	\begin{figure}
+		\center
+		\includegraphics[width=\textwidth]{../assets/figures/governanceHist6.pdf}
+		\caption{Relative Voting Time Distribution (Decentraland DAO) \cite{goldbergMetaverse2023}}
+	\end{figure}
+
+	\framebreak
+	
+	The open, transparent voting processes may lead to strategic voting behavior:
+
+	\begin{figure}
+		\center
+		\includegraphics[width=\textwidth]{../assets/figures/lastMinuteSwing.pdf}
+		\caption{Time Series of VP Weighted for and Against a Specific Decentraland DAO Proposal \cite{goldbergMetaverse2023}}
+	\end{figure}
+	
 \end{frame}
 %%%
+
+%%%
+\begin{frame}{On-/Off-Chain Governance}
+	\begin{itemize}
+		\item \textbf{On-chain voting:} votes are signed and submitted to the blockchain (expensive, secured by the blockchain, implementation of changes through smart contract at the end of the voting period)
+		\item \textbf{Off-chain voting:} votes are signed, but submitted to a third party service (cheap, cryptographically secured votes, but unclear implementation of changes and trust in third party)
+	\end{itemize}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{External Promises}
+	Things that \textbf{cannot} be enforced by the blockchain, e.g., the physical delivery of a good or service.\\
+	
+	\vspace{1.5em}
+	
+	\uncover<2->{This is a considerable centralization vector, e.g., off-chain collateralized stablecoins.}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}{Centralization Inheritance}
+	The settlement, asset and protocol layers within the DeFi ecosystem are often closely intertwined.\\
+	
+	\vspace{1.5em}
+	
+	\uncover<2->{
+	If one project is subject to centralized control, other assets or protocols may inherit the centralization risks.\cite{schulerDefi2023}
+	}
+				
+\end{frame}
+%%%
+
+%%%
+%\begin{frame}{Other Token Risks}
+%
+%	Other considerations regarding token-based governance:
+%	
+%	\begin{itemize}
+%		\item Token allocation: (vested) VC/developer tokens
+%		\item ``Decentralized" M\&A: protocols that take over other protocols
+%		\item Rug pulls
+%	\end{itemize}
+%
+%\end{frame}
+%%%
+
+%%%
+\begin{frame}{Example: Rug Pull Risk}
+	Apart from explicitly predefined functions, certain players may be able to expropriate holders of an asset in different ways.\\
+
+	\vspace{1.5em}
+	
+	\uncover<2->{
+		Recall the testnet CIF token, and its use in a CFMM.
+		\begin{itemize}
+			\item Do you also hold this token?
+			\item Did you also provide liquidity in the CFMM?
+			\item Did the smart contract specify any privileged roles?
+			\item Are there any other risks you are exposed to as a token holder?
+		\end{itemize}
+	}
+
+	\vspace{1.5em}
+	
+	\uncover<3->{$\rightarrow$ Rug pull risk due to high token concentration.}
+
+	\vspace{1em}
+
+	\uncover<4->{
+		\small{Don't worry: these are just testnet funds.}
+	}
+\end{frame}
+%%%
+
+%%%
+\begin{frame}%[allowframebreaks]
+\frametitle{References and Recommended Reading}
+	\bibliographystyle{amsplain}
+	\bibliography{../assets/bib/refs}
+\end{frame}
+%%%
+
 
 \end{document}
