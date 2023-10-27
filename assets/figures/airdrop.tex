@@ -1,0 +1,95 @@
+%Blockchain
+
+
+\uncover<2->{
+\node at (0.9,0) {\includegraphics[scale=0.11]{../assets/images/blockchain_snapshot.png}};
+\node at (1.5,1.5) {\includegraphics[scale=0.04]{../assets/images/snapshot_active.png}};
+}
+
+%dashed line + Snapshot + BlckNo
+
+\uncover<2->{
+
+\draw [dashed,thick] ( 1.5 , 1) rectangle  (1.5 ,0.65);
+\node at (-0.7,1.4 ) [rectangle split,rectangle split parts=2]{%
+  \tiny Block 15276378
+  \nodepart{second}
+  \tiny 14:19 04/08/2022};
+  
+}
+
+%hidden arrow + Airdrop + based on
+\uncover<2->{
+\draw [->, thick] (-6,1.3) -- (-2.5,1.3);
+}
+
+\uncover<1->{
+\node at (-7,2) {\includegraphics[scale=0.17]{../assets/images/decision-making.png}};
+\draw [draw=white,->, thick] (-6,1.3) -- (-2.5,1.3)  node [midway,above] [rectangle split,text width=3cm, rectangle split parts=4]{
+  {\includegraphics[scale=0.032]{../assets/images/airdrop.png}}{\small based on:}
+  \nodepart [align=left] {second}
+  \hspace{1em}\tiny $\bullet$ posession of assets
+  \nodepart [align=left] {third}
+  \hspace{1em}\tiny $\bullet$ protocol usage
+   \nodepart [align=left] {fourth}
+  \hspace{1em}\tiny $\bullet$ other actions \vspace{0.5em}
+  };
+}
+
+%%second non-hidden arrow
+\uncover<2->{
+\draw [->, thick] (-6,1.3) -- (-2.5,1.3);
+}
+
+% Arrow + Text + giving hand
+
+\uncover<3->{
+
+\draw [thick] (-7,0.5) -- (-7,-4);
+\draw [->,thick] (-7,-4) -- (-2.5,-4) node [midway,below, yshift=-5] [rectangle split,text width=4cm, rectangle split parts=6]{
+ \nodepart{one} {\small representation of value:}
+  \nodepart [align=left] {two}
+  \hspace{2.8em}\tiny $\bullet$ ownership
+  \nodepart [align=left] {three}
+  \hspace{2.8em}\tiny $\bullet$ governance
+   \nodepart [align=left] {four}
+  \hspace{2.8em}\tiny $\bullet$ utility token 
+    \nodepart [align=left] {five}
+  \hspace{2.8em}\tiny $\bullet$ future income stream 
+      \nodepart  {six}
+  \hspace{2.8em} ...
+
+  };
+
+\node at (-1,-4) {\includegraphics[scale=0.14]{../assets/images/giving.png}};
+
+%3 people
+
+\begin{scope}[scale=1.3,transform shape,yshift=-93, xshift=100]
+		\input{../assets/figures/3people.tex}
+\end{scope}
+
+%3 lines
+
+\draw [thick] (0.3,-3.8) -- (3.5,-3);
+\draw [thick] (0.3,-4.2) -- (2.8,-4.2);
+\draw [thick] (0.3,-4.6) -- (2.3,-5.4);
+
+
+% distributed coins
+%% upper
+
+\node at (2.7,-2.8) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+\node at (1.7,-3.05) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+\node at (0.7,-3.35) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+
+%% mid
+\node at (1.5,-3.9) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+
+%% bot
+\node at (0.95,-4.55) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+
+\node at (1.95,-4.95) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+
+
+}
