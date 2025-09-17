@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+	\scriptsize
+	
+	\node[label={[yshift=-2.6cm]EOA}] (eoa) at (0,0) {\includegraphics[height = 0.2\textheight]{../assets/images/EOA}};
+	\node[label={[yshift=-2.6cm]Uniswap V2 liquidity pool}] (contract) at (5,0) {\includegraphics[height = 0.2\textheight]{../assets/images/CA}};
+	
+	\draw[->, ultra thick] ($(eoa)+(1,0.4)$) -- ($(contract)+(-1.1,0.4)$) node[above, midway] {provide liquidity};
+	\draw[<-, ultra thick] ($(eoa)+(1,-0.4)$) -- ($(contract)+(-1.1,-0.4)$) node[below, midway] {receive LP token};
+	
+\end{tikzpicture}

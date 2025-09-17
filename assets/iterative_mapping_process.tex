@@ -1,0 +1,18 @@
+\begin{tcolorbox}[colback=mint, colframe=darkmint, coltitle=white,
+  fontupper = \scriptsize, fonttitle= \bfseries\scriptsize,
+  boxrule = 0mm, arc = 0mm,
+  boxsep = 1.3mm, left = 0mm, right = 0mm, top = 0.5mm, bottom = 0mm, middle=0mm,title={Iterative mapping process}]
+\begin{algorithmic}
+\State $H \gets$ initial token holder table
+\Repeat
+	\State sort $H$ by token value, descending
+	\ForAll{$h \in$ top 1,000 rows of $H$}
+		\State identify and categorize $h$
+		\If{$h$ is mappable}
+			\State map $h$ according to its category
+		\EndIf
+	\EndFor
+\Until no mappable rows found in last iteration
+\State \textbf{assert} every row with more than 0.1\% of the total relevant supply is properly identified and categorized.
+\end{algorithmic}
+\end{tcolorbox}
