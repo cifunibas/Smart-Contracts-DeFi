@@ -1,0 +1,72 @@
+%icons
+	\uncover<1->{
+		\node(alice) at (-4.75,0) {\includegraphics[scale=0.08]{../assets/images/avatar.png}};
+		\node at (-4.75,-1) {Alice};
+		\node at (0,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+		\node at (0,-1) {Token Basket};
+		\node(SC) at (4.75,0) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}}; 
+		\node at (4.75,-1) {DEX};
+	}
+%arrows
+	\uncover<4-4>{
+		\draw [<-, ultra thick] (-4,0.5) -- (-0.75,0.5) node [midway,above] {\scriptsize{red token}};
+	}
+	\uncover<3-3>{
+		\draw [<-, ultra thick] (0.75,0.5) -- (4,0.5) node [midway,above] {\scriptsize{red token}};
+		\draw [->, ultra thick] (0.75,-0.25) -- (4,-0.25) node [midway,above] {\scriptsize{cyan $\&$ mint token}};
+	}
+	\uncover<2-2>{
+		\draw [->, ultra thick] (-4,-0.25) -- (-0.75,-0.25) node [midway,above] {\scriptsize{gray basket token}};
+	}
+%circles
+	\uncover<4-4>{
+		\draw[fill=red, draw=black, thick] (-0.9,0.6) circle (6pt);
+		\draw[fill=red, draw=black, thick] (-1,0.4) circle (6pt);
+	}
+	\uncover<3-3>{
+		%\draw[fill=red, draw=black, thick] (0.9,0.5) circle (6pt);
+		
+					
+		\draw[fill=red, draw=black, thick] (3.9,0.6) circle (6pt);
+		\draw[fill=red, draw=black, thick] (3.8,0.4) circle (6pt);
+
+		
+		
+		%\draw[fill=mint, draw=black, thick] (3.8,-0.25) circle (6pt);
+		\draw[fill=cyan, draw=black, thick] (0.95,-0.15) circle (6pt);
+		\draw[fill=cyan, draw=black, thick] (0.85,-0.35) circle (6pt);
+		\draw[fill=mint, draw=black, thick] (1.05,-0.35) circle (6pt);		
+		
+		
+		
+	}
+	\uncover<1-2>{
+		\draw[fill=lightergray, draw=black, thick] (-3.9,-0.25) circle (6pt);
+	}
+%rectangle + ratio
+
+
+%rectangle + ratio
+
+
+		\draw [dashed,thick] ( -2 , 2) rectangle (2 ,3);
+		\node at (-1.3,2.5) {Ratio:};
+		
+\draw[fill=lightgray, draw=black, thick] (-0.5,2.5) circle (6pt);
+\node at (0,2.5) {=};
+
+\draw[fill=cyan, draw=black, thick] (0.63,2.6) circle (6pt);
+\draw[fill=cyan, draw=black, thick] (0.53,2.4) circle (6pt);
+\node at (1.05,2.5) {+};
+
+\draw[fill=mint, draw=black, thick] (1.5,2.5) circle (6pt);
+
+		
+	
+
+	\uncover<2-2>{
+	
+	
+\node at (0,-2.3) {\includegraphics[scale=0.09]{../assets/images/fire.png}}; 	
+
+}

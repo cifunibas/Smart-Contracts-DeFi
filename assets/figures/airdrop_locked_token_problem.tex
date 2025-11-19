@@ -1,0 +1,108 @@
+%Airdrops
+
+
+\uncover<3->{
+
+\node at (-0.5,2) {\includegraphics[scale=0.07]{../assets/images/airdrop.png}};
+
+\node at (0.5,2.6) {\includegraphics[scale=0.07]{../assets/images/airdrop.png}};
+}
+
+
+%Smart Contract
+\uncover<1->{
+\node at (0,0) {\includegraphics[scale=0.18]{../assets/images/smart_contract.png}}; 
+
+}
+
+
+% Dashed Lines + Smart Contract + Wrapped Asset
+\uncover<2->{
+\draw [dotted] (-1.6,-2) -- (-1,-1);
+\draw [dotted] (1.6,-2) -- (1,-1);
+\draw [dotted] (0,-3) -- (0,-1);
+
+\node at (0,-2) {\includegraphics[scale=0.08]{../assets/images/smart_contract.png}}; 
+\node at (-0.22,-2.15) {\includegraphics[scale=0.015]{../assets/images/sweet.png}};
+
+
+
+%Avatars with wrapped token
+
+%%right
+\node at (2,-3) {\includegraphics[scale=0.1]{../assets/images/smart_contract.png}};
+\node at (2.25,-4) {\includegraphics[scale=0.03]{../assets/images/sweet.png}};
+\node at (1.75,-4) {\includegraphics[scale=0.03]{../assets/images/sweet.png}};
+
+
+%%left
+\node at (-2,-3) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+\node at (-2,-4) {\includegraphics[scale=0.03]{../assets/images/sweet.png}};
+
+
+%%mid
+\node at (0,-4) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+\node at (0.35,-5) {\includegraphics[scale=0.02]{../assets/images/candy_complex.png}};
+\node at (-0.25,-5) {\includegraphics[scale=0.02]{../assets/images/candy_complex.png}};
+\node at (0,-5.5) {\includegraphics[scale=0.02]{../assets/images/candy_complex.png}};
+}
+
+%Coins + Rectangle + Lock
+\uncover<4->{
+\node at (2,-0.1) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+\node at (1.5,0.1) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+\node at (1.7,-0.5) {\includegraphics[scale=0.05]{../assets/images/CLC_4.png}};
+}
+
+\uncover<5->{
+\draw [dashed,thick] ( 1.2 , -0.8) rectangle (2.35 ,0.4);
+
+\node at (3.3,-0.1) {\includegraphics[scale=0.05]{../assets/images/locked-padlock.png}};
+
+%Text
+
+
+
+\node at (7.85,-0.2) {\parbox{\widthof{{\large Method to forward airdrop is necessary,}}}{
+    \begin{large}
+    Method to forward airdrop is necessary, \\
+    otherwise airdroped assets are lost
+    \end{large}}};
+
+}
+
+\uncover<4->{
+\path[every node/.style={font=\sffamily\small}]
+
+  (1.8,0.7) edge [out=90, in=180]  (3.5,2.2);
+  
+\node (a) at (6.7,2.2){\parbox{\widthof{{\large Airdrop receiver: contract owner}}}{\begin{large}
+
+    Airdrop receiver: contract owner \\
+    Method to claim Airdrop?
+\end{large}}};
+
+
+
+}
+
+
+\uncover<6->{
+\node at (7.5,-3.2){\parbox{\widthof{{\large Nested structures, economic beneficiaries?}}}{
+\begin{large}
+	Nested structures, economic beneficiaries?\\ 
+	$\rightarrow$ Wrapping complexity\\
+\end{large}
+
+  	}
+  	};
+
+
+\node at (4,-7.){\parbox{\widthof{{\large Decentralized Finance, Centralized Ownership? An Iterative Mapping Processwww}}}{
+\begin{large}
+\link \href{https://arxiv.org/pdf/2012.09306}{Decentralized Finance, Centralized Ownership? An Iterative Mapping Process to Measure Protocol Token Distribution (Nadler \& Sch{\"a}r, 2020)}
+\end{large}
+	}
+  	};
+
+  	}

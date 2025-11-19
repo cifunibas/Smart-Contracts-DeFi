@@ -1,0 +1,84 @@
+
+%Alice Name + Avatar
+	\uncover<1->{ 
+		\node(alice) at (0,4.5) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (0,3.5) {Alice};
+	}
+
+%Alice NFT
+
+	\uncover<1-2>{
+		
+		\node(Hasoshi) at (1,5) {\includegraphics[scale=0.055]{../assets/images/art_hasoshi.png}};				
+	}
+		
+% Alice Hasoshi Token	
+
+	\uncover<2-2>{
+
+		\draw[fill=lightergray, draw=black, thick] (-1.9,4.8) circle (6pt);		
+		\node(Hasoshi) at (-1.9,4.8) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+	
+		\draw[fill=lightergray, draw=black, thick] (-1.4,5.15) circle (6pt);	
+		\node(Hasoshi) at (-1.4,5.15) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+		
+		\draw[fill=lightergray, draw=black, thick] (-1.4,4.45) circle (6pt);	
+		\node(Hasoshi) at (-1.4,4.45) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+			
+	}
+		
+		
+%Bob & Charlie Avatar & Text		
+		
+	\uncover<1->{
+		
+		\node(bob) at (-3.5,0) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (-3.5,-1) {Bob};
+
+		
+		\node(charlie) at (3.5,0) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (3.5,-1) {Charlie};	
+	
+	}
+		
+		
+%arrows
+
+	\uncover<3->{
+
+		\draw [->, ultra thick] (-1,3.2) -- (-2.8,1.2) node [midway,left] {1 fHAS \hspace{0.5cm} };
+	
+		\draw [->, ultra thick] (1,3.2) -- (2.8,1.2) node [, midway,right] { \hspace{0.5cm}    2 fHAS };
+	
+	}
+
+% split NFTS of Charlie & Bob
+	\uncover<3->{
+
+		\node(bob_Hasoshi) at (-4.2,0.5) {\includegraphics[scale=0.055]{../assets/images/art_hasoshi_ONE_THIRD.png}
+	};	
+	
+		\node(charlie_Hasoshi) at (4.3,0.5) {\includegraphics[scale=0.055]{../assets/images/art_hasoshi_TWO_THIRDs.png}};		
+	
+	}
+	
+
+
+% Coins Bob & Charlie
+
+	\uncover<3->{
+
+%%%%% Coins Bob
+
+
+		\draw[fill=lightergray, draw=black, thick] (-3.47,-1.6) circle (6pt);		
+	\node(Hasoshi) at (-3.47,-1.6) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+	
+%%%% Coins Charlie
+
+		\draw[fill=lightergray, draw=black, thick] (3.83,-1.6) circle (6pt);	
+		\node(Hasoshi) at (3.83,-1.6) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+		
+			\draw[fill=lightergray, draw=black, thick] (3.23,-1.6) circle (6pt);	
+			\node(Hasoshi) at (3.23,-1.6) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+}

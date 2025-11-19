@@ -1,0 +1,36 @@
+%icons
+	\uncover<1->{
+		\node(alice) at (-4.5,0) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (-4.5,-1) {Alice};
+		}
+	\uncover<2->{	
+		\node(SC) at (4.7,0) {\includegraphics[scale=0.12]{../assets/images/smart_contract.png}}; 
+		\node at (4.7,-1) {Vault};
+		
+%arrows
+
+		\draw [->, ultra thick] (-2.6,0.5) -- (3,0.5) node [midway,above] {};
+	}
+	
+\node(Hasoshi) at (0,0.8)	{HAS ERC-721 };
+	
+	\uncover<3->{
+		\draw [<-, ultra thick] (-3,-0.5) -- (2.6,-0.5) node [midway,above] {fHAS ERC-20};
+	}
+%circles
+	\uncover<1->{
+
+
+	\node(Hasoshi) at (-3,0.5) {\includegraphics[scale=0.055]{../assets/images/art_hasoshi.png}};	
+	}
+	
+	\uncover<3->{
+		\draw[fill=lightergray, draw=black, thick] (3,-0.5) circle (6pt);		
+	\node(Hasoshi) at (3,-0.5) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+	
+		\draw[fill=lightergray, draw=black, thick] (3.3,-0.1) circle (6pt);	
+		\node(Hasoshi) at (3.3,-0.1) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+		
+			\draw[fill=lightergray, draw=black, thick] (3.5,-0.7) circle (6pt);	
+			\node(Hasoshi) at (3.5,-0.7) {\includegraphics[scale=0.055]{../assets/images/CLC_4.png}};	
+	}

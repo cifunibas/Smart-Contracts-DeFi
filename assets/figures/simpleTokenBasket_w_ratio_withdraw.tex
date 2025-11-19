@@ -1,0 +1,69 @@
+%icons
+	\uncover<1->{
+		\node(alice) at (-4.5,0) {\includegraphics[scale=0.1]{../assets/images/avatar.png}};
+		\node at (-4.5,-1) {Alice};
+		\node(SC) at (4.7,0) {\includegraphics[scale=0.12]{../assets/images/smart_contract.png}}; 
+		\node at (4.7,-1) {Token Basket};
+		
+}	
+
+\uncover<2-2>{	
+		
+%rectangle + ratio
+
+
+		\draw [dashed,thick] ( -2 , 2) rectangle (2 ,3);
+		\node at (-1.3,2.5) {Ratio:};
+		
+\draw[fill=lightgray, draw=black, thick] (-0.5,2.5) circle (6pt);
+\node at (0,2.5) {=};
+
+\draw[fill=red, draw=black, thick] (0.53,2.6) circle (6pt);
+\draw[fill=red, draw=black, thick] (0.63,2.4) circle (6pt);
+\node at (1.05,2.5) {+};
+
+\draw[fill=mint, draw=black, thick] (1.5,2.5) circle (6pt);
+
+	}		
+	
+		
+		
+		
+		
+	
+%arrows
+	\uncover<2-2>{
+
+
+	\draw [->, ultra thick] (-3,-0.75) -- (3,-0.75) node [midway,above] {gray basket token};
+}		
+	
+	
+	
+	\uncover<3->{
+	
+	\draw [<-, ultra thick] (-3,0) -- (3,0) node [midway,above] {mint token};
+		\draw [<-, ultra thick] (-3,0.75) -- (3,0.75) node [midway,above] {red token};
+		
+	}
+%circles
+
+
+	\uncover<3->{
+		\draw[fill=mint, draw=black, thick] (3,0) circle (6pt);
+		\draw[fill=red, draw=black, thick] (3,0.85) circle (6pt);
+		\draw[fill=red, draw=black, thick] (2.9,0.65) circle (6pt);
+	}
+	\uncover<1-2>{
+		\draw[fill=lightergray, draw=black, thick] (-3,-0.75) circle (6pt);
+	}
+	
+	
+	
+
+	\uncover<2-2>{
+	
+	
+\node at (0,-2.3) {\includegraphics[scale=0.09]{../assets/images/fire.png}}; 	
+
+}
